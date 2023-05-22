@@ -1,7 +1,80 @@
 <template>
   <main>
     <section
-      class="container mx-auto flex flex-wrap items-center justify-center px-5 py-24 text-gray-400"
+      class="container mx-auto flex flex-wrap items-center justify-center px-5 py-24"
+    >
+      <div class="flex w-full max-w-screen-sm flex-col items-center">
+        <ClientOnly>
+          <Vue3Lottie
+            animation-link="https://assets6.lottiefiles.com/packages/lf20_87uabjh2.json"
+            :height="150"
+            :width="150"
+          />
+        </ClientOnly>
+
+        <h1 class="mb-8 mt-16 text-center text-2xl font-bold sm:text-4xl">
+          Let's get you logged in!
+        </h1>
+
+        <div
+          class="mt-4 w-full max-w-sm space-y-6 rounded-lg border border-slate-200 bg-white px-4 py-6 shadow-md sm:px-8 sm:py-8"
+        >
+          <div class="flex flex-col">
+            <span class="mb-1 text-left text-sm text-slate-600">
+              Email Address
+            </span>
+
+            <n-input
+              v-model:value="emailAddress"
+              type="text"
+              size="large"
+              placeholder="ea@sjy.so"
+            />
+          </div>
+
+          <div class="flex flex-col">
+            <span class="mb-1 text-left text-sm text-slate-600">
+              Password
+            </span>
+
+            <n-input
+              v-model:value="password"
+              type="password"
+              show-password-on="mousedown"
+              size="large"
+              placeholder=""
+            />
+          </div>
+
+          <div class="flex justify-center">
+            <n-button
+              strong
+              secondary
+              type="primary"
+              size="large"
+              :loading="loading"
+              :disabled="invalidEmailAddress"
+              @click="userLogin"
+            >
+              Sign In
+            </n-button>
+          </div>
+
+          <div class="flex justify-center text-sm">
+            Don't have an account?
+            <nuxt-link
+              class="ml-1 w-fit text-blue-600 transition-all hover:text-blue-400"
+              to="/auth/register"
+            >
+              Sign Up
+            </nuxt-link>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="container mx-auto flex hidden flex-wrap items-center justify-center px-5 py-24 text-gray-400"
     >
       <form
         class="bg-opacity-50 mt-10 flex w-full flex-col rounded-lg bg-[#242424] p-8 md:mt-0 md:w-1/2 lg:w-2/6"
@@ -13,10 +86,10 @@
             >Email</label
           >
           <input
-            id="email"
-            v-model="email"
+            id="emailAddress"
+            v-model="emailAddress"
             type="email"
-            name="email"
+            name="emailAddress"
             class="bg-opacity-20 w-full rounded border border-gray-600 bg-transparent px-3 py-1 text-base leading-8 text-gray-100 outline-none transition-colors duration-200 ease-in-out focus:border-[#42b883] focus:bg-transparent focus:ring-2 focus:ring-transparent"
             required
           />
@@ -56,29 +129,44 @@
 </template>
 
 <script setup>
-const user = useSupabaseUser();
+import { Vue3Lottie } from "vue3-lottie";
+import { useMessage } from "naive-ui";
+import isEmail from "validator/es/lib/isEmail";
 
-const email = ref("");
+const user = useSupabaseUser();
+const { auth } = useSupabaseAuthClient();
+
+const message = useMessage();
+
+const emailAddress = ref("");
 const password = ref("");
 const errorMsg = ref("");
 
-const { auth } = useSupabaseAuthClient();
+const loading = ref(false);
+
+const invalidEmailAddress = computed(() => {
+  return emailAddress.value === "" || !isEmail(emailAddress.value);
+});
 
 const userLogin = async () => {
-  console.log(auth);
   try {
     const { error } = await auth.signInWithPassword({
-      email: email.value,
+      email: emailAddress.value,
       password: password.value,
     });
+
     email.value = "";
     password.value = "";
-    if (error) throw error;
+
+    if (error) {
+      message.error(error.message, {
+        keepAliveOnHover: true,
+      });
+
+      throw error;
+    }
   } catch (error) {
-    errorMsg.value = error.message;
-    setTimeout(() => {
-      errorMsg.value = "";
-    }, 3000);
+    console.error(error);
   }
 };
 
