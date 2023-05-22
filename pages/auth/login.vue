@@ -155,7 +155,7 @@ const userLogin = async () => {
       password: password.value,
     });
 
-    email.value = "";
+    emailAddress.value = "";
     password.value = "";
 
     if (error) {
