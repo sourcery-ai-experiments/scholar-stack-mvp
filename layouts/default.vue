@@ -4,6 +4,7 @@
       class="header fixed right-4 top-2 flex w-full justify-end space-x-4 text-slate-800"
     >
       <NuxtLink to="/"> Home </NuxtLink>
+      <NuxtLink to="/projects"> Projects </NuxtLink>
       <NuxtLink to="/auth/confirm-email"> Confirm Email </NuxtLink>
       <NuxtLink to="/auth/register"> Register </NuxtLink>
       <div v-if="loggedIn" @click="logout">Logout</div>
