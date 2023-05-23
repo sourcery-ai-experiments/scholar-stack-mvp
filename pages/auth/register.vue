@@ -20,10 +20,15 @@
         <div
           class="mt-4 w-full max-w-sm space-y-6 rounded-lg border border-slate-200 bg-white px-4 py-6 shadow-md sm:px-8 sm:py-8"
         >
-          <n-form ref="formRef" :model="formValue" :rules="rules" size="large">
+          <n-form
+            ref="registerFormRef"
+            :model="registerFormValue"
+            :rules="registerFormRules"
+            size="large"
+          >
             <n-form-item path="emailAddress" label="Email Address">
               <n-input
-                v-model:value="formValue.emailAddress"
+                v-model:value="registerFormValue.emailAddress"
                 placeholder="ea@sjy.so"
                 @keydown.enter.prevent
               />
@@ -31,7 +36,7 @@
 
             <n-form-item path="password" label="Password">
               <n-input
-                v-model:value="formValue.password"
+                v-model:value="registerFormValue.password"
                 placeholder=""
                 type="password"
                 show-password-on="mousedown"
@@ -76,14 +81,14 @@ const user = useSupabaseUser();
 const message = useMessage();
 const loading = ref(false);
 
-const formRef = ref<FormInst | null>(null);
+const registerFormRef = ref<FormInst | null>(null);
 
-const formValue = ref({
+const registerFormValue = ref({
   emailAddress: "",
   password: "",
 });
 
-const rules = {
+const registerFormRules = {
   emailAddress: {
     message: "Please input your email address",
     required: true,
@@ -99,9 +104,9 @@ const rules = {
 const registerForAccount = (e: MouseEvent) => {
   e.preventDefault();
 
-  formRef.value?.validate(async (errors) => {
+  registerFormRef.value?.validate(async (errors) => {
     if (!errors) {
-      if (!isEmail(formValue.value.emailAddress)) {
+      if (!isEmail(registerFormValue.value.emailAddress)) {
         message.error("Please enter a valid email address");
         return;
       }
@@ -115,8 +120,8 @@ const registerForAccount = (e: MouseEvent) => {
 
       try {
         const { error } = await auth.signUp({
-          email: formValue.value.emailAddress,
-          password: formValue.value.password,
+          email: registerFormValue.value.emailAddress,
+          password: registerFormValue.value.password,
         });
 
         if (error) {
@@ -129,8 +134,8 @@ const registerForAccount = (e: MouseEvent) => {
       loading.value = false;
 
       // reset form
-      formValue.value.emailAddress = "";
-      formValue.value.password = "";
+      registerFormValue.value.emailAddress = "";
+      registerFormValue.value.password = "";
 
       console.log("success");
 

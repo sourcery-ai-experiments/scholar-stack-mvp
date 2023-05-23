@@ -1,5 +1,8 @@
 <template>
-  <div class="relative flex h-screen w-full flex-col">
+  <div
+    class="relative flex h-screen w-full flex-col"
+    :class="{ 'debug-screens': devMode }"
+  >
     <div
       class="header fixed right-4 top-2 flex w-full justify-end space-x-4 text-slate-800"
     >
@@ -17,6 +20,8 @@
 <script setup>
 const { auth } = useSupabaseAuthClient();
 const user = useSupabaseUser();
+
+const devMode = process.env.NODE_ENV === "development";
 
 const loggedIn = computed(() => user.value);
 

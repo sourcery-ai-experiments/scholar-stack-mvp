@@ -10,6 +10,7 @@ module.exports = {
     "./pages/**/*.vue",
     "./plugins/**/*.{js,ts}",
   ],
+
   corePlugins: {
     backgroundOpacity: false,
     borderOpacity: false,
@@ -18,7 +19,9 @@ module.exports = {
     ringOpacity: false,
     textOpacity: false,
   },
-  plugins: [],
+
+  plugins: [require("tailwindcss-debug-screens")],
+
   theme: {
     extend: {
       animation: {
@@ -46,6 +49,7 @@ module.exports = {
           "0%": { opacity: 0 },
           "100%": { opacity: 1 },
         },
+
         flicker: {
           "0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100%": {
             filter:
@@ -57,6 +61,7 @@ module.exports = {
             opacity: 0.4,
           },
         },
+
         shimmer: {
           "0%": {
             backgroundPosition: "-700px 0",
@@ -65,6 +70,7 @@ module.exports = {
             backgroundPosition: "700px 0",
           },
         },
+
         zoomIn: {
           "0%": { opacity: 0, transform: "scale(.5)" },
           "100%": { opacity: 1, transform: "scale(1)" },
