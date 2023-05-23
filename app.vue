@@ -1,11 +1,11 @@
 <template>
-  <NuxtLayout>
-    <NaiveConfig>
-      <n-message-provider>
+  <NaiveConfig>
+    <n-message-provider>
+      <NuxtLayout>
         <NuxtPage />
-      </n-message-provider>
-    </NaiveConfig>
-  </NuxtLayout>
+      </NuxtLayout>
+    </n-message-provider>
+  </NaiveConfig>
 </template>
 
 <script setup lang="ts">

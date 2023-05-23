@@ -3,12 +3,20 @@
     <div class="flex justify-between">
       <h1>Your Projects</h1>
 
-      <n-button strong secondary type="info" icon-placement="left" size="large">
-        <template #icon>
-          <Icon name="fluent:form-new-20-filled" />
-        </template>
-        Create a new project
-      </n-button>
+      <nuxt-link to="/projects/new">
+        <n-button
+          strong
+          secondary
+          type="info"
+          icon-placement="left"
+          size="large"
+        >
+          <template #icon>
+            <Icon name="fluent:form-new-20-filled" />
+          </template>
+          Create a new project
+        </n-button>
+      </nuxt-link>
     </div>
 
     <div class="my-8">
@@ -46,6 +54,7 @@
 </template>
 
 <script setup>
+const user = useSupabaseUser();
 const projects = ref([]);
 
 const { pending, response } = await useLazyFetch("/api/projects", {
@@ -55,6 +64,8 @@ const { pending, response } = await useLazyFetch("/api/projects", {
 if (response) {
   projects.value = response.data;
 }
+
+console.log(user.value);
 
 const projectsLength = computed(() => projects.value.length);
 

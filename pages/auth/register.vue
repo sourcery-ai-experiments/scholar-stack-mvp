@@ -1,117 +1,145 @@
 <template>
   <main>
     <section
-      class="container mx-auto flex flex-wrap items-center justify-center px-5 py-24 text-gray-400"
+      class="container mx-auto flex flex-wrap items-center justify-center px-5 py-24"
     >
-      <form
-        class="bg-opacity-50 mt-10 flex w-full flex-col rounded-lg bg-[#242424] p-8 md:mt-0 md:w-1/2 lg:w-2/6"
-        @submit.prevent="userRegister"
-      >
-        <h2 class="mb-5 text-lg font-medium text-[#aac8e4]">Register</h2>
-        <div class="relative mb-4">
-          <label for="email" class="text-sm leading-7 text-gray-400">
-            Email
-          </label>
-          <input
-            id="email"
-            v-model="email"
-            type="email"
-            name="email"
-            class="bg-opacity-20 w-full rounded border border-gray-600 bg-transparent px-3 py-1 text-base leading-8 text-gray-100 outline-none transition-colors duration-200 ease-in-out focus:border-[#42d392] focus:bg-transparent focus:ring-2 focus:ring-transparent"
-            required
+      <div class="flex w-full max-w-screen-sm flex-col items-center">
+        <ClientOnly>
+          <Vue3Lottie
+            animation-link="https://assets4.lottiefiles.com/packages/lf20_rybr160z.json"
+            :height="150"
+            :width="150"
+            :loop="1"
           />
-        </div>
-        <div class="relative mb-4">
-          <label for="password" class="text-sm leading-7 text-gray-400">
-            Password
-          </label>
-          <input
-            id="password"
-            v-model="password"
-            type="password"
-            name="password"
-            class="bg-opacity-20 w-full rounded border border-gray-600 bg-transparent px-3 py-1 text-base leading-8 text-gray-100 outline-none transition-colors duration-200 ease-in-out focus:border-[#42d392] focus:bg-transparent focus:ring-2 focus:ring-transparent"
-            required
-          />
-        </div>
-        <div class="relative mb-4">
-          <label for="confirmPassword" class="text-sm leading-7 text-gray-400">
-            Confirm password
-          </label>
-          <input
-            id="confirmPassword"
-            v-model="confirmPassword"
-            type="password"
-            name="confirmPassword"
-            class="bg-opacity-20 w-full rounded border border-gray-600 bg-transparent px-3 py-1 text-base leading-8 text-gray-100 outline-none transition-colors duration-200 ease-in-out focus:border-[#42d392] focus:bg-transparent focus:ring-2 focus:ring-transparent"
-            required
-          />
-        </div>
-        <button
-          type="submit"
-          class="rounded border-0 bg-[#42b883] px-8 py-2 font-sans font-bold text-[#213547] transition-colors duration-500 hover:bg-[#42d392] focus:outline-none"
+        </ClientOnly>
+
+        <h1 class="mb-6 mt-12 text-center text-2xl font-bold sm:text-4xl">
+          Let's create a new account for you!
+        </h1>
+
+        <div
+          class="mt-4 w-full max-w-sm space-y-6 rounded-lg border border-slate-200 bg-white px-4 py-6 shadow-md sm:px-8 sm:py-8"
         >
-          Submit
-        </button>
-        <span
-          v-if="errorMsg"
-          class="bg-opacity-50 absolute right-8 top-8 rounded-lg bg-[#242424] p-8 px-4 py-2 text-red-500"
-        >
-          {{ errorMsg }}
-        </span>
-        <p class="mt-3 text-xs">Do you have an account yet?</p>
-        <nuxt-link
-          class="w-fit text-sm text-[#aac8e4] hover:text-[#42b883]"
-          to="/auth/login"
-        >
-          Login
-        </nuxt-link>
-      </form>
+          <n-form ref="formRef" :model="formValue" :rules="rules" size="large">
+            <n-form-item path="emailAddress" label="Email Address">
+              <n-input
+                v-model:value="formValue.emailAddress"
+                placeholder="ea@sjy.so"
+                @keydown.enter.prevent
+              />
+            </n-form-item>
+
+            <n-form-item path="password" label="Password">
+              <n-input
+                v-model:value="formValue.password"
+                placeholder=""
+                type="password"
+                show-password-on="mousedown"
+                @keydown.enter.prevent
+              />
+            </n-form-item>
+
+            <div class="flex justify-center">
+              <n-button
+                type="primary"
+                size="large"
+                :loading="loading"
+                @click="registerForAccount"
+              >
+                Register
+              </n-button>
+            </div>
+          </n-form>
+
+          <div class="flex justify-center text-sm">
+            Already have an account?
+            <nuxt-link
+              class="ml-1 w-fit text-blue-600 transition-all hover:text-blue-400"
+              to="/auth/login"
+            >
+              Login
+            </nuxt-link>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import type { FormInst } from "naive-ui";
+import isEmail from "validator/es/lib/isEmail";
+import { useMessage } from "naive-ui";
 const { auth } = useSupabaseAuthClient();
-
 const user = useSupabaseUser();
 
-const email = ref("");
-const password = ref("");
-const confirmPassword = ref("");
-const errorMsg = ref("");
+const message = useMessage();
+const loading = ref(false);
 
-const userRegister = async () => {
-  if (password.value !== confirmPassword.value) {
-    errorMsg.value = "Passwords do not match!";
-    password.value = "";
-    confirmPassword.value = "";
-    setTimeout(() => {
-      errorMsg.value = "";
-    }, 3000);
-    return;
-  }
+const formRef = ref<FormInst | null>(null);
 
-  try {
-    const { error } = await auth.signUp({
-      email: email.value,
-      password: password.value,
-    });
+const formValue = ref({
+  emailAddress: "",
+  password: "",
+});
 
-    if (error) {
-      throw error;
+const rules = {
+  emailAddress: {
+    message: "Please input your email address",
+    required: true,
+    trigger: ["input"],
+  },
+  password: {
+    message: "Please input your password",
+    required: true,
+    trigger: ["input"],
+  },
+};
+
+const registerForAccount = (e: MouseEvent) => {
+  e.preventDefault();
+
+  formRef.value?.validate(async (errors) => {
+    if (!errors) {
+      if (!isEmail(formValue.value.emailAddress)) {
+        message.error("Please enter a valid email address");
+        return;
+      }
+
+      /**
+       * TODO: Validate password strength
+       */
+
+      // register user
+      loading.value = true;
+
+      try {
+        const { error } = await auth.signUp({
+          email: formValue.value.emailAddress,
+          password: formValue.value.password,
+        });
+
+        if (error) {
+          throw error;
+        }
+      } catch (error) {
+        message.error("Something went wrong. Please try again later.");
+      }
+
+      loading.value = false;
+
+      // reset form
+      formValue.value.emailAddress = "";
+      formValue.value.password = "";
+
+      console.log("success");
+
+      // redirect to confirm email page
+      return navigateTo("/auth/confirm-email");
+    } else {
+      console.log(errors);
     }
-  } catch (error) {
-    errorMsg.value = error.message;
-
-    setTimeout(() => {
-      errorMsg.value = "";
-    }, 3000);
-  }
-
-  email.value = "";
-  password.value = "";
-  confirmPassword.value = "";
+  });
 };
 
 watchEffect(() => {
