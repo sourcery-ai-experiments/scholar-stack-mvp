@@ -43,7 +43,7 @@
                 filterable
                 multiple
                 tag
-                placeholder="Input, press enter to create tag"
+                placeholder="Type and press `Enter` to create tag"
                 :show-arrow="false"
                 :show="false"
               />
@@ -78,7 +78,12 @@
       </n-form>
 
       <div class="flex justify-center">
-        <n-button type="primary" size="large" :loading="loading">
+        <n-button
+          type="primary"
+          size="large"
+          :loading="loading"
+          @click="createProject"
+        >
           Create Project
         </n-button>
       </div>
@@ -87,8 +92,8 @@
 </template>
 
 <script setup lang="ts">
-import type { FormInst } from "naive-ui";
 import { useMessage } from "naive-ui";
+import type { FormInst, FormItemRule } from "naive-ui";
 const user = useSupabaseUser();
 
 const message = useMessage();
@@ -99,10 +104,10 @@ const timestamp = Date.now();
 const formRef = ref<FormInst | null>(null);
 
 const formValue = reactive({
-  title: "",
-  description: "",
+  title: "test",
+  description: "test",
   image: "",
-  tags: [],
+  tags: ["test"],
 });
 
 const rules = {
@@ -117,10 +122,73 @@ const rules = {
     trigger: ["input"],
   },
   tags: {
-    message: "Please enter at least one tag",
     required: true,
     trigger: ["input"],
+    validator: (rule: FormItemRule, value: any) => {
+      if (value.length < 1) {
+        return new Error("Please enter at least one tag");
+      }
+    },
   },
+};
+
+const createProject = (e: MouseEvent) => {
+  e.preventDefault();
+
+  formRef.value?.validate(async (errors) => {
+    if (!errors) {
+      /**
+       * TODO: Explore if length limits are needed
+       */
+
+      loading.value = true;
+
+      try {
+        const body = {
+          name: formValue.title,
+          description: formValue.description,
+          image:
+            formValue.image ||
+            `https://api.dicebear.com/6.x/shapes/svg?seed=${encodeURIComponent(
+              formValue.title
+            )}`,
+          tags: formValue.tags,
+        };
+
+        const { data, error } = await useFetch("/api/projects", {
+          body: JSON.stringify(body),
+          headers: useRequestHeaders(["cookie"]),
+          method: "POST",
+        });
+
+        if (error.value) {
+          const errorMessage = error.value.data.message;
+          throw new Error(errorMessage);
+        }
+
+        const response = data.value;
+
+        if (response && "body" in response) {
+          message.success("Project created successfully");
+
+          const responseBody: ResponseProject = JSON.parse(
+            response.body as string
+          );
+
+          if (responseBody && "identifier" in responseBody) {
+            navigateTo(`/projects/${responseBody.identifier}`);
+          }
+        }
+      } catch (error) {
+        console.error(error);
+        message.error("Something went wrong, please try again later");
+      }
+
+      loading.value = false;
+    } else {
+      console.log(errors);
+    }
+  });
 };
 
 definePageMeta({

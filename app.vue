@@ -17,6 +17,7 @@ useHead({
     class: "test",
   },
   link: [
+    { href: "/favicon.ico", rel: "icon", type: "image/x-icon" },
     {
       href: "/apple-touch-icon.png",
       rel: "apple-touch-icon",

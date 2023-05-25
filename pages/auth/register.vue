@@ -128,6 +128,7 @@ const registerForAccount = (e: MouseEvent) => {
           throw error;
         }
       } catch (error) {
+        console.error(error);
         message.error("Something went wrong. Please try again later.");
       }
 

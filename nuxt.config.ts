@@ -36,4 +36,6 @@ export default defineNuxtConfig({
     iconSize: 18,
     themeConfig: {},
   },
+
+  nitro: {},
 });

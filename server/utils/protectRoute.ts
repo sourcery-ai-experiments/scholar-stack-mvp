@@ -1,3 +1,4 @@
+// @ts-ignore
 import { serverSupabaseUser } from "#supabase/server";
 
 // If the user does not exist on the request, throw a 401 error
