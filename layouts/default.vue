@@ -4,7 +4,7 @@
     :class="{ 'debug-screens': devMode }"
   >
     <div
-      class="header fixed right-4 top-0 z-50 flex w-full justify-end space-x-4 bg-red-100 px-4 pb-4 pt-2 text-slate-800"
+      class="header fixed right-0 top-0 z-50 flex w-full justify-end space-x-4 bg-red-100 px-4 pb-4 pt-2 text-slate-800"
     >
       <NuxtLink to="/"> Home </NuxtLink>
       <NuxtLink to="/projects"> Projects </NuxtLink>

@@ -75,72 +75,105 @@
             <n-divider />
 
             <transition name="fade" mode="out-in">
-              <div v-if="viewType === 'grid'">grid</div>
+              <div
+                v-if="viewType === 'grid'"
+                class="flex flex-wrap justify-start"
+              >
+                <nuxt-link
+                  v-for="project in projects"
+                  :key="project.id"
+                  :to="`/projects/${project.identifier}`"
+                  class="mb-10 mr-6 flex flex-col rounded-xl border border-slate-200 px-8 pb-3 pt-8 transition-all hover:cursor-pointer hover:bg-slate-200"
+                >
+                  <n-image
+                    width="250"
+                    :src="project.image"
+                    fallback-src="https://via.placeholder.com/100"
+                    class="mx-auto rounded-lg"
+                  />
+                  <div class="flex flex-col px-2 pb-1 pt-3">
+                    <p class="text-center text-xl font-semibold">
+                      {{ project.name }}
+                    </p>
+
+                    <n-tooltip trigger="hover" placement="bottom">
+                      <template #trigger>
+                        <span class="mx-auto mt-1 w-fit text-center">
+                          Edited {{ dateDifference(project.updated) }} ago
+                        </span>
+                      </template>
+                      Last modified on {{ longDate(project.updated) }}
+                    </n-tooltip>
+                  </div>
+                </nuxt-link>
+              </div>
               <n-list v-else hoverable clickable>
                 <n-list-item v-for="project in projects" :key="project.id">
-                  <n-thing>
-                    <template #header>
-                      <p class="px-4 text-xl font-semibold">
-                        {{ project.name }}
-                      </p>
-                    </template>
-
-                    <template #avatar>
-                      <n-image
-                        width="130"
-                        :src="project.image"
-                        fallback-src="https://via.placeholder.com/100"
-                        class="rounded-lg"
-                      />
-                    </template>
-                    <template #description>
-                      <div class="flex flex-col px-4">
-                        <p class="mb-2 text-lg">
-                          {{ project.description }}
+                  <nuxt-link :to="`/projects/${project.identifier}`">
+                    <n-thing>
+                      <template #header>
+                        <p class="px-4 text-xl font-semibold">
+                          {{ project.name }}
                         </p>
+                      </template>
 
-                        <div class="flex flex-wrap items-center space-x-3">
-                          <n-tag
-                            v-for="tag in project.tags"
-                            :key="tag"
-                            :bordered="false"
-                            type="info"
-                            size="medium"
+                      <template #avatar>
+                        <n-image
+                          width="130"
+                          :src="project.image"
+                          fallback-src="https://via.placeholder.com/100"
+                          class="rounded-lg"
+                        />
+                      </template>
+                      <template #description>
+                        <div class="flex flex-col px-4">
+                          <p class="mb-2 text-lg">
+                            {{ project.description }}
+                          </p>
+
+                          <div class="flex flex-wrap items-center space-x-3">
+                            <n-tag
+                              v-for="tag in project.tags"
+                              :key="tag"
+                              :bordered="false"
+                              type="info"
+                              size="medium"
+                            >
+                              {{ tag }}
+                            </n-tag>
+                          </div>
+
+                          <div
+                            class="mt-3 flex flex-wrap items-end space-x-3 text-base text-slate-600"
                           >
-                            {{ tag }}
-                          </n-tag>
-                        </div>
+                            <n-tooltip trigger="hover" placement="bottom-start">
+                              <template #trigger>
+                                <div class="flex items-center">
+                                  <Icon name="clarity:date-outline-badged" />
+                                  <span class="pl-1 pr-2 text-sm">
+                                    {{ shortDate(project.updated) }} ago
+                                  </span>
+                                </div>
+                              </template>
+                              Created on {{ longDate(project.created) }}
+                            </n-tooltip>
 
-                        <div
-                          class="mt-3 flex flex-wrap items-end space-x-3 text-base text-slate-600"
-                        >
-                          <n-tooltip trigger="hover" placement="bottom-start">
-                            <template #trigger>
-                              <div class="flex items-center">
-                                <Icon name="clarity:date-outline-badged" />
-                                <span class="pl-1 pr-2 text-sm">
-                                  {{ shortDate(project.updated) }} ago
-                                </span>
-                              </div>
-                            </template>
-                            Created on {{ longDate(project.created) }}
-                          </n-tooltip>
-
-                          <n-tooltip trigger="hover" placement="bottom-end">
-                            <template #trigger>
-                              <div class="flex items-center">
-                                <Icon name="bx:time" />
-                                <span class="pl-1 pr-2 text-sm">
-                                  {{ dateDifference(project.updated) }} ago
-                                </span>
-                              </div>
-                            </template>
-                            Last modified on {{ longDate(project.updated) }}
-                          </n-tooltip>
+                            <n-tooltip trigger="hover" placement="bottom-end">
+                              <template #trigger>
+                                <div class="flex items-center">
+                                  <Icon name="bx:time" />
+                                  <span class="pl-1 pr-2 text-sm">
+                                    {{ dateDifference(project.updated) }} ago
+                                  </span>
+                                </div>
+                              </template>
+                              Last modified on {{ longDate(project.updated) }}
+                            </n-tooltip>
+                          </div>
                         </div>
-                      </div>
-                    </template>
-                  </n-thing>
+                      </template>
+                    </n-thing>
+                  </nuxt-link>
                 </n-list-item>
               </n-list>
             </transition>
