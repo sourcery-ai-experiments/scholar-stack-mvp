@@ -24,8 +24,7 @@ model Project {
 
   identifier String @unique // might use a link shortener for this (p1234)
 
-  subprojects Subproject[]
-  versions    Version[]
+  versions Version[]
 }
 
 model Subproject {
@@ -38,8 +37,8 @@ model Subproject {
   doi String?
   url String?
 
-  project   Project? @relation(fields: [projectId], references: [id])
-  projectId String?
+  version   Version? @relation(fields: [versionId], references: [id])
+  versionId String?
 }
 
 model Version {
@@ -55,4 +54,6 @@ model Version {
 
   Project   Project? @relation(fields: [projectId], references: [id])
   projectId String?
+
+  Subproject Subproject[]
 }

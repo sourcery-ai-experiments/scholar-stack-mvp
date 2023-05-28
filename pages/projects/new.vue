@@ -19,7 +19,7 @@
         :show-feedback="true"
       >
         <div class="flex flex-row items-end space-x-10">
-          <div class="flex w-full flex-col space-y-10 p-3">
+          <div class="flex w-full flex-col space-y-5 p-3">
             <n-form-item path="title" label="Title">
               <n-input
                 v-model:value="formValue.title"

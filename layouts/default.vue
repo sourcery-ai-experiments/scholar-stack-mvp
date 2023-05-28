@@ -1,9 +1,10 @@
 <template>
   <div
-    class="relative flex h-screen w-full flex-col"
+    class="relative mx-auto flex h-screen w-full flex-col px-8"
     :class="{ 'debug-screens': devMode }"
   >
     <UiHeader />
+    <n-back-top />
     <slot />
   </div>
 </template>

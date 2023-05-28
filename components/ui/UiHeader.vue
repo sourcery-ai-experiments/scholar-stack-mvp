@@ -1,10 +1,10 @@
 <template>
   <header
-    class="header left-0 top-0 z-50 w-full border-b border-slate-200 px-4 pb-3 pt-2 text-slate-800"
+    class="header left-0 top-0 z-50 mx-auto mb-8 w-full border-b border-slate-200 px-4 pb-3 pt-2 text-slate-800"
   >
     <div class="flex items-center justify-between">
       <div class="flex items-center justify-start">
-        <div class="px-8">
+        <div class="px-6">
           <NuxtLink
             to="/"
             class="flex flex-row items-center justify-start space-x-2"
@@ -16,9 +16,6 @@
         <div class="flex w-fit justify-start space-x-4">
           <NuxtLink to="/" class="navigation-item"> Home </NuxtLink>
           <NuxtLink to="/projects" class="navigation-item"> Projects </NuxtLink>
-          <NuxtLink to="/auth/confirm-email" class="navigation-item">
-            Confirm Email
-          </NuxtLink>
         </div>
       </div>
       <div class="flex flex-row space-x-8">
@@ -88,7 +85,7 @@ const logout = async () => {
 
 <style scoped>
 .navigation-item {
-  @apply font-semibold text-slate-500 transition-all hover:text-slate-800;
+  @apply font-semibold text-slate-600 transition-all hover:text-slate-800;
 }
 
 .dropdown-item {

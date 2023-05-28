@@ -1,25 +1,70 @@
 <template>
-  <main class="px-8 py-16">
-    <div class="flex justify-between">
-      <h1>Your Projects</h1>
+  <main class="px-4">
+    <div class="flex items-center justify-between">
+      <h1>
+        Your Projects
+        <span class="text-xl text-slate-500">({{ projects?.length }})</span>
+      </h1>
 
-      <nuxt-link to="/projects/new">
-        <n-button
-          strong
-          secondary
-          type="info"
-          icon-placement="left"
-          size="large"
+      <n-breadcrumb class="hidden">
+        <n-breadcrumb-item>
+          <div class="flex items-center space-x-2">
+            <Icon name="fluent:home-16-filled" />
+            <nuxt-link to="/">Home</nuxt-link>
+          </div>
+        </n-breadcrumb-item>
+        <n-breadcrumb-item>
+          <div class="flex items-center space-x-2">
+            <Icon name="ph:stack-bold" />
+            <nuxt-link to="/">Your Projects</nuxt-link>
+          </div>
+        </n-breadcrumb-item>
+      </n-breadcrumb>
+
+      <div class="flex items-center space-x-4 divide-x">
+        <nuxt-link to="/projects/new">
+          <n-button
+            strong
+            secondary
+            type="info"
+            icon-placement="left"
+            size="large"
+          >
+            <template #icon>
+              <Icon name="fluent:form-new-20-filled" />
+            </template>
+            Create a new project
+          </n-button>
+        </nuxt-link>
+
+        <div
+          class="flex w-full flex-row items-center justify-end space-x-4 px-4"
         >
-          <template #icon>
-            <Icon name="fluent:form-new-20-filled" />
-          </template>
-          Create a new project
-        </n-button>
-      </nuxt-link>
+          <Icon
+            name="ph:list-fill"
+            size="27"
+            class="cursor-pointer transition-all"
+            :class="{
+              'text-slate-800': viewType === 'list',
+              'text-slate-400 hover:text-slate-500': viewType === 'grid',
+            }"
+            @click="selectViewType('list')"
+          />
+          <Icon
+            name="mingcute:grid-fill"
+            size="27"
+            class="cursor-pointer transition-all"
+            :class="{
+              'text-slate-800': viewType === 'grid',
+              'text-slate-400 hover:text-slate-500': viewType === 'list',
+            }"
+            @click="selectViewType('grid')"
+          />
+        </div>
+      </div>
     </div>
 
-    <div class="my-8">
+    <div class="my-4">
       <transition name="fade" mode="out-in">
         <div v-if="pending">
           <client-only>
@@ -48,7 +93,7 @@
           </div>
           <div v-else>
             <div
-              class="flex w-full flex-row items-center justify-end space-x-4 px-4 pb-3"
+              class="flex hidden w-full flex-row items-center justify-end space-x-4 px-4 pb-3"
             >
               <Icon
                 name="ph:list-fill"
