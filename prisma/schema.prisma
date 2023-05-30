@@ -27,25 +27,26 @@ model Project {
   versions Version[]
 }
 
-model Subproject {
-  id          String  @id @default(cuid())
-  name        String
-  description String?
-  image       String?
-  type        String
+model Link {
+  id   String @id @default(cuid())
+  name String
 
-  doi String?
-  url String?
+  // optional
+  description String?
+  icon        String?
+
+  type   String // doi, url, etc
+  target String // the actual link (doi:10.1234/1234, https://example.com)
 
   version   Version? @relation(fields: [versionId], references: [id])
   versionId String?
 }
 
 model Version {
-  id      String   @id @default(cuid())
-  name    String
+  id   String @id @default(cuid())
+  name String // 23.5.30.1 (using calver for this)
+
   changes String?
-  tags    String[]
 
   created DateTime @default(now())
   updated DateTime @updatedAt
@@ -55,5 +56,5 @@ model Version {
   Project   Project? @relation(fields: [projectId], references: [id])
   projectId String?
 
-  Subproject Subproject[]
+  Link Link[]
 }
