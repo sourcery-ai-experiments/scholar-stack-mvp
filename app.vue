@@ -2,6 +2,7 @@
   <NaiveConfig>
     <n-message-provider>
       <NuxtLayout>
+        <NuxtLoadingIndicator />
         <NuxtPage />
       </NuxtLayout>
     </n-message-provider>

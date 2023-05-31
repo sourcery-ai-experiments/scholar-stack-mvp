@@ -11,15 +11,20 @@
 </template>
 
 <script setup lang="ts">
-const { data, error } = useFetch("/api/projects/:id", {
+const route = useRoute();
+
+const { data, error } = useFetch(`/api/projects/${route.params.id}`, {
   headers: useRequestHeaders(["cookie"]),
   method: "GET",
 });
 
-// const route = useRoute();
-// if (!route.params.id) {
-//   console.log("Warning! Make sure user is authenticated!");
-// }
+if (error.value) {
+  console.error(error.value);
+
+  // redirect to project not found page
+
+  // navigateTo("/projects/not-found");
+}
 
 definePageMeta({
   middleware: ["auth"],
