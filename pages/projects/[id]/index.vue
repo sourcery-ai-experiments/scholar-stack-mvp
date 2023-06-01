@@ -138,10 +138,30 @@
             </template>
           </n-modal>
         </div>
-        <div v-else>
+        <div v-else class="flex flex-col p-4">
           <pre>
             {{ allLinks }}
           </pre>
+
+          <n-card v-for="link in allLinks" :key="link.id" :title="link.name">
+            <template #header-extra>
+              <n-button>Delete item </n-button>
+              <n-button>Edit item </n-button>
+            </template>
+            <div>
+              <p>{{ link.description }}</p>
+              <p>{{ link.target }}</p>
+            </div>
+          </n-card>
+
+          <n-button
+            class="mt-4 w-max"
+            type="primary"
+            size="large"
+            @click="showAddEditLinkModalFunction"
+          >
+            Add a link
+          </n-button>
         </div>
       </div>
 
