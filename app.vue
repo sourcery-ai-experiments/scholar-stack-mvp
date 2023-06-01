@@ -2,7 +2,7 @@
   <NaiveConfig>
     <n-message-provider>
       <NuxtLayout>
-        <NuxtLoadingIndicator />
+        <NuxtLoadingIndicator color="#be185d" :height="5" />
         <NuxtPage />
       </NuxtLayout>
     </n-message-provider>

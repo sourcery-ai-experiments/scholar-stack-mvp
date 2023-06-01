@@ -25,8 +25,20 @@ export default defineEventHandler(async (event) => {
   });
 
   if (!latestVersion) {
-    return project;
+    return {
+      ...project,
+      allVersions: [],
+      latestVersion: {
+        links: [],
+      },
+    };
   }
+
+  // get links from the latest version
+  const links = await prisma.link.findMany({
+    orderBy: { name: "asc" },
+    where: { versionId: latestVersion.id },
+  });
 
   const listOfVersions = await prisma.version.findMany({
     orderBy: { created: "desc" },
@@ -43,6 +55,7 @@ export default defineEventHandler(async (event) => {
     allVersions: listOfVersions,
     latestVersion: {
       ...latestVersion,
+      links,
     },
   };
 

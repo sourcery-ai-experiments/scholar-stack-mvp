@@ -3,7 +3,9 @@
     <div class="flex items-center justify-between">
       <h1>
         Your Projects
-        <span class="text-xl text-slate-500">({{ projects?.length }})</span>
+        <span v-if="projects" class="text-xl text-slate-500"
+          >({{ projects?.length }})</span
+        >
       </h1>
 
       <n-breadcrumb class="hidden">
@@ -144,10 +146,11 @@
                     <n-tooltip trigger="hover" placement="bottom">
                       <template #trigger>
                         <span class="mx-auto mt-1 w-fit text-center">
-                          Edited {{ dateDifference(project.updated) }} ago
+                          Edited
+                          {{ displayDateDifference(project.updated) }} ago
                         </span>
                       </template>
-                      Last modified on {{ longDate(project.updated) }}
+                      Last modified on {{ displayLongDate(project.updated) }}
                     </n-tooltip>
                   </div>
                 </nuxt-link>
@@ -196,11 +199,11 @@
                                 <div class="flex items-center">
                                   <Icon name="clarity:date-outline-badged" />
                                   <span class="pl-1 pr-2 text-sm">
-                                    {{ shortDate(project.updated) }} ago
+                                    {{ displayShortDate(project.updated) }}
                                   </span>
                                 </div>
                               </template>
-                              Created on {{ longDate(project.created) }}
+                              Created on {{ displayLongDate(project.created) }}
                             </n-tooltip>
 
                             <n-tooltip trigger="hover" placement="bottom-end">
@@ -208,11 +211,13 @@
                                 <div class="flex items-center">
                                   <Icon name="bx:time" />
                                   <span class="pl-1 pr-2 text-sm">
-                                    {{ dateDifference(project.updated) }} ago
+                                    {{ displayDateDifference(project.updated) }}
+                                    ago
                                   </span>
                                 </div>
                               </template>
-                              Last modified on {{ longDate(project.updated) }}
+                              Last modified on
+                              {{ displayLongDate(project.updated) }}
                             </n-tooltip>
                           </div>
                         </div>
@@ -231,7 +236,11 @@
 
 <script setup lang="ts">
 import { useMessage } from "naive-ui";
-import dayjs from "dayjs";
+import {
+  displayShortDate,
+  displayLongDate,
+  displayDateDifference,
+} from "~/utils/displayDates";
 
 const message = useMessage();
 
@@ -261,75 +270,75 @@ const selectViewType = (type: "grid" | "list") => {
   viewType.value = type;
 };
 
-const shortDate = (date: string) => {
-  return dayjs(date).format("MMM DD");
-};
+// const shortDate = (date: string) => {
+//   return dayjs(date).format("MMM DD");
+// };
 
-const longDate = (date: string) => {
-  return dayjs(date).format("MMM DD, YYYY - hh:mm A");
-};
+// const longDate = (date: string) => {
+//   return dayjs(date).format("MMM DD, YYYY - hh:mm A");
+// };
 
-const dateDifference = (date: string) => {
-  const now = dayjs();
+// const dateDifference = (date: string) => {
+//   const now = dayjs();
 
-  let difference = 0;
+//   let difference = 0;
 
-  difference = now.diff(date, "second");
+//   difference = now.diff(date, "second");
 
-  if (difference < 60) {
-    return `a few seconds`;
-  }
+//   if (difference < 60) {
+//     return `a few seconds`;
+//   }
 
-  difference = now.diff(date, "minute");
+//   difference = now.diff(date, "minute");
 
-  if (difference < 60) {
-    if (difference === 1) {
-      return `a minute`;
-    } else if (difference < 10) {
-      return `a few minutes`;
-    } else {
-      return `${difference} minutes`;
-    }
-  }
+//   if (difference < 60) {
+//     if (difference === 1) {
+//       return `a minute`;
+//     } else if (difference < 10) {
+//       return `a few minutes`;
+//     } else {
+//       return `${difference} minutes`;
+//     }
+//   }
 
-  difference = now.diff(date, "hour");
+//   difference = now.diff(date, "hour");
 
-  if (difference < 24) {
-    if (difference === 1) {
-      return `an hour`;
-    } else {
-      return `${difference} hours`;
-    }
-  }
+//   if (difference < 24) {
+//     if (difference === 1) {
+//       return `an hour`;
+//     } else {
+//       return `${difference} hours`;
+//     }
+//   }
 
-  difference = now.diff(date, "day");
+//   difference = now.diff(date, "day");
 
-  if (difference < 30) {
-    if (difference === 1) {
-      return `a day`;
-    } else {
-      return `${difference} days`;
-    }
-  }
+//   if (difference < 30) {
+//     if (difference === 1) {
+//       return `a day`;
+//     } else {
+//       return `${difference} days`;
+//     }
+//   }
 
-  difference = now.diff(date, "month");
+//   difference = now.diff(date, "month");
 
-  if (difference < 12) {
-    if (difference === 1) {
-      return `a month`;
-    } else {
-      return `${difference} months`;
-    }
-  }
+//   if (difference < 12) {
+//     if (difference === 1) {
+//       return `a month`;
+//     } else {
+//       return `${difference} months`;
+//     }
+//   }
 
-  difference = now.diff(date, "year");
+//   difference = now.diff(date, "year");
 
-  if (difference === 1) {
-    return `a year`;
-  } else {
-    return `${difference} years`;
-  }
-};
+//   if (difference === 1) {
+//     return `a year`;
+//   } else {
+//     return `${difference} years`;
+//   }
+// };
 
 definePageMeta({
   middleware: ["auth"],

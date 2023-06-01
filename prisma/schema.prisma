@@ -56,5 +56,5 @@ model Version {
   Project   Project? @relation(fields: [projectId], references: [id])
   projectId String?
 
-  Link Link[]
+  links Link[]
 }
