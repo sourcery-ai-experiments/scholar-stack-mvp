@@ -23,7 +23,7 @@
 
     <div class="flex flex-row justify-between space-x-8">
       <div class="links-section flex-1">
-        <h2>All Links</h2>
+        <h2 v-if="allLinks.length > 0" class="px-4">All Links</h2>
 
         <div
           v-if="allLinks.length <= 0"
@@ -46,126 +46,77 @@
             class="mt-4"
             type="primary"
             size="large"
-            @click="showAddEditLinkModalFunction"
+            @click="showAddEditLinkModalFunction()"
           >
             Add a link
           </n-button>
-
-          <n-modal
-            v-model:show="showAddEditLinkModal"
-            transform-origin="center"
-            :mask-closable="false"
-            class="custom-card"
-            preset="card"
-            :style="{ width: '600px' }"
-            title="Add a link"
-            :bordered="false"
-            size="huge"
-            :segmented="{ footer: 'soft' }"
-          >
-            <n-form
-              ref="newLinkFormRef"
-              :model="newLinkFormValue"
-              :rules="newLinkFormRules"
-              size="large"
-            >
-              <n-form-item path="target" label="DOI or URL of the resource">
-                <n-input
-                  v-model:value="newLinkFormValue.target"
-                  placeholder="10.26275/yh5c5pjy or https://www.linktodataset.com/"
-                >
-                  <template #prefix>
-                    <Icon name="solar:link-broken" />
-                  </template>
-                </n-input>
-              </n-form-item>
-
-              <n-form-item path="type" label="Type of the link">
-                <n-select
-                  v-model:value="newLinkFormValue.type"
-                  :options="[
-                    {
-                      label: 'DOI',
-                      value: 'doi',
-                    },
-                    {
-                      label: 'URL',
-                      value: 'url',
-                    },
-                  ]"
-                />
-              </n-form-item>
-
-              <n-form-item path="name" label="Name of resource">
-                <n-input
-                  v-model:value="newLinkFormValue.name"
-                  placeholder="Primary Dataset"
-                  maxlength="50"
-                  show-count
-                  clearable
-                >
-                  <template #prefix>
-                    <Icon name="gridicons:nametag" />
-                  </template>
-                </n-input>
-              </n-form-item>
-
-              <n-form-item path="description" label="Description">
-                <n-input
-                  v-model:value="newLinkFormValue.description"
-                  placeholder="Primary Dataset"
-                  type="textarea"
-                  maxlength="500"
-                  show-count
-                  clearable
-                />
-              </n-form-item>
-            </n-form>
-
-            <template #footer>
-              <div class="flex justify-end space-x-4">
-                <n-button size="large" type="primary" @click="addLink">
-                  Save Link
-                </n-button>
-                <n-button
-                  size="large"
-                  type="error"
-                  @click="hideAddEditLinkModalFunction"
-                >
-                  Cancel
-                </n-button>
-              </div>
-            </template>
-          </n-modal>
         </div>
         <div v-else class="flex flex-col p-4">
-          <pre>
-            {{ allLinks }}
-          </pre>
-
-          <n-card v-for="link in allLinks" :key="link.id" :title="link.name">
+          <n-card
+            v-for="link in allLinks"
+            :key="link.id"
+            :title="link.name"
+            class="my-2"
+          >
             <template #header-extra>
-              <n-button>Delete item </n-button>
-              <n-button>Edit item </n-button>
+              <div class="flex flex-row space-x-4">
+                <n-popconfirm @positive-click="removeLink(link.id)">
+                  <template #trigger>
+                    <n-button type="warning">Delete item </n-button>
+                  </template>
+                  Do you want to delete this item?
+                </n-popconfirm>
+              </div>
             </template>
-            <div>
+            <div class="">
               <p>{{ link.description }}</p>
               <p>{{ link.target }}</p>
             </div>
+
+            <template #footer>
+              <div class="flex items-center justify-between">
+                <Icon
+                  v-if="link.action === 'create'"
+                  name="ic:baseline-fiber-new"
+                  size="25"
+                />
+                <Icon
+                  v-if="link.action === 'update'"
+                  name="bx:edit"
+                  size="25"
+                />
+
+                <n-button
+                  type="primary"
+                  size="large"
+                  @click="showAddEditLinkModalFunction(link.id)"
+                >
+                  Edit item
+                </n-button>
+              </div>
+            </template>
           </n-card>
 
           <n-button
             class="mt-4 w-max"
             type="primary"
             size="large"
-            @click="showAddEditLinkModalFunction"
+            @click="showAddEditLinkModalFunction()"
           >
             Add a link
           </n-button>
+
+          <n-divider />
+
+          <div class="flex items-center justify-end">
+            <n-button type="primary" size="large" @click="saveChangesToLinks">
+              Save changes
+            </n-button>
+          </div>
         </div>
       </div>
 
-      <div v-show="allVersions.length >= 0" class="versions-section mt-12">
+      <div v-show="allVersions.length >= 0" class="versions-section mt-14">
         <n-timeline item-placement="right">
           <n-timeline-item content="Current version" line-type="dashed" />
 
@@ -192,15 +143,104 @@
           </n-timeline-item>
         </n-timeline>
       </div>
+
+      <n-modal
+        v-model:show="showAddEditLinkModal"
+        transform-origin="center"
+        :mask-closable="false"
+        class="custom-card"
+        preset="card"
+        :style="{ width: '600px' }"
+        title="Add a link"
+        :bordered="false"
+        size="huge"
+        :segmented="{ footer: 'soft' }"
+      >
+        <n-form
+          ref="newLinkFormRef"
+          :model="newLinkFormValue"
+          :rules="newLinkFormRules"
+          size="large"
+        >
+          <n-form-item path="target" label="DOI or URL of the resource">
+            <n-input
+              v-model:value="newLinkFormValue.target"
+              placeholder="10.26275/yh5c5pjy or https://www.linktodataset.com/"
+            >
+              <template #prefix>
+                <Icon name="solar:link-broken" />
+              </template>
+            </n-input>
+          </n-form-item>
+
+          <n-form-item path="type" label="Type of the link">
+            <n-select
+              v-model:value="newLinkFormValue.type"
+              :options="[
+                {
+                  label: 'DOI',
+                  value: 'doi',
+                },
+                {
+                  label: 'URL',
+                  value: 'url',
+                },
+              ]"
+            />
+          </n-form-item>
+
+          <n-form-item path="name" label="Name of resource">
+            <n-input
+              v-model:value="newLinkFormValue.name"
+              placeholder="Primary Dataset"
+              maxlength="50"
+              show-count
+              clearable
+            >
+              <template #prefix>
+                <Icon name="gridicons:nametag" />
+              </template>
+            </n-input>
+          </n-form-item>
+
+          <n-form-item path="description" label="Description">
+            <n-input
+              v-model:value="newLinkFormValue.description"
+              placeholder="Primary Dataset"
+              type="textarea"
+              maxlength="500"
+              show-count
+              clearable
+            />
+          </n-form-item>
+        </n-form>
+
+        <template #footer>
+          <div class="flex justify-end space-x-4">
+            <n-button size="large" type="primary" @click="addLink">
+              Save Link
+            </n-button>
+            <n-button
+              size="large"
+              type="error"
+              @click="hideAddEditLinkModalFunction"
+            >
+              Cancel
+            </n-button>
+          </div>
+        </template>
+      </n-modal>
     </div>
   </main>
 </template>
 
 <script setup lang="ts">
 import type { FormInst } from "naive-ui";
+import { useMessage } from "naive-ui";
 import { nanoid } from "nanoid";
 
 const route = useRoute();
+const message = useMessage();
 
 const projectName = ref("");
 const projectDescription = ref("");
@@ -213,6 +253,7 @@ const allVersions: Ref<AllVersionsItem[]> = ref([]);
 
 const newLinkFormRef = ref<FormInst | null>(null);
 const newLinkFormValue = ref({
+  id: "",
   name: "",
   description: "",
   target: "",
@@ -242,15 +283,28 @@ const newLinkFormRules = {
 };
 
 const showAddEditLinkModal = ref(false);
-const showAddEditLinkModalFunction = () => {
+const showAddEditLinkModalFunction = (linkId = "") => {
   showAddEditLinkModal.value = true;
 
-  newLinkFormValue.value = {
-    name: "",
-    description: "",
-    target: "",
-    type: "doi",
-  };
+  if (linkId === "") {
+    newLinkFormValue.value = {
+      id: "",
+      name: "",
+      description: "",
+      target: "",
+      type: "doi",
+    };
+  } else {
+    const link = allLinks.value.find((link) => link.id === linkId);
+
+    newLinkFormValue.value = {
+      id: link?.id || "",
+      name: link?.name || "",
+      description: link?.description || "",
+      target: link?.target || "",
+      type: link?.type || "doi",
+    };
+  }
 };
 
 const hideAddEditLinkModalFunction = () => {
@@ -264,24 +318,87 @@ const addLink = (e: MouseEvent) => {
     if (!errors) {
       // save data
 
-      const newLink: LocalLinkType = {
-        id: nanoid(),
-        name: newLinkFormValue.value.name,
+      if (newLinkFormValue.value.id === "") {
+        const newLink: LocalLinkType = {
+          id: nanoid(),
+          name: newLinkFormValue.value.name,
 
-        action: "create",
+          action: "create",
 
-        description: newLinkFormValue.value.description,
-        target: newLinkFormValue.value.target,
-        type: newLinkFormValue.value.type as TargetType,
-      };
+          description: newLinkFormValue.value.description,
+          target: newLinkFormValue.value.target,
+          type: newLinkFormValue.value.type as TargetType,
+        };
 
-      allLinks.value.push(newLink);
+        allLinks.value.push(newLink);
+      } else {
+        const index = allLinks.value.findIndex(
+          (link) => link.id === newLinkFormValue.value.id
+        );
+
+        if (index !== -1) {
+          allLinks.value[index].name = newLinkFormValue.value.name;
+          allLinks.value[index].description =
+            newLinkFormValue.value.description;
+          allLinks.value[index].target = newLinkFormValue.value.target;
+          allLinks.value[index].type = newLinkFormValue.value
+            .type as TargetType;
+
+          if (allLinks.value[index].action !== "create") {
+            allLinks.value[index].action = "update";
+          }
+        }
+      }
+
+      showAddEditLinkModal.value = false;
 
       console.log(allLinks.value);
     } else {
       console.log(errors);
     }
   });
+};
+
+const removeLink = (id: string) => {
+  if (allLinks.value.length === 1) {
+    message.error("You must have at least one link.");
+
+    return;
+  }
+
+  const index = allLinks.value.findIndex((link) => link.id === id);
+
+  if (index !== -1) {
+    allLinks.value.splice(index, 1);
+  }
+
+  message.success("Link removed.");
+
+  if (allLinks.value.length === 1) {
+    message.warning(
+      "You must have at least one link for this version to be valid."
+    );
+  }
+};
+
+const saveChangesToLinks = () => {
+  // save changes to links
+  console.log(allLinks.value);
+
+  // check for changes and ask for release notes. (might skip this and auto generate this potentially)
+
+  const requestBody = {
+    links: allLinks.value.map((link) => {
+      return {
+        id: link.id,
+        name: link.name,
+        description: link.description,
+        target: link.target,
+        type: link.type,
+      };
+    }),
+    projectId: route.params.id,
+  };
 };
 
 const { data, error } = await useFetch(`/api/projects/${route.params.id}`, {
