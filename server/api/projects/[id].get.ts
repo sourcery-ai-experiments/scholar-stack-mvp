@@ -4,7 +4,7 @@ import prisma from "../../utils/prisma";
 // @ts-ignore
 
 export default defineEventHandler(async (event) => {
-  // await protectRoute(event);
+  // await protectRoute(event); // most likely not needed
 
   const { id } = event.context.params as { id: string };
 

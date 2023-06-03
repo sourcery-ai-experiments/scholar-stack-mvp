@@ -14,5 +14,7 @@ interface LinkType {
 interface LinksList extends Array<LinkType> {}
 
 interface LocalLinkType extends LinkType {
-  action?: "create" | "update" | "delete";
+  action?: "create" | "update" | "delete" | "target_update";
+
+  origin?: "local" | "remote";
 }

@@ -109,7 +109,11 @@
           <n-divider />
 
           <div class="flex items-center justify-end">
-            <n-button type="primary" size="large" @click="saveChangesToLinks">
+            <n-button
+              type="primary"
+              size="large"
+              @click="checkForChangesToLinks"
+            >
               Save changes
             </n-button>
           </div>
@@ -166,6 +170,7 @@
             <n-input
               v-model:value="newLinkFormValue.target"
               placeholder="10.26275/yh5c5pjy or https://www.linktodataset.com/"
+              :disabled="newLinkFormValue.origin === 'remote'"
             >
               <template #prefix>
                 <Icon name="solar:link-broken" />
@@ -256,6 +261,7 @@ const newLinkFormValue = ref({
   id: "",
   name: "",
   description: "",
+  origin: "local",
   target: "",
   type: "doi",
 });
@@ -289,9 +295,10 @@ const showAddEditLinkModalFunction = (linkId = "") => {
   if (linkId === "") {
     newLinkFormValue.value = {
       id: "",
-      name: "",
-      description: "",
-      target: "",
+      name: "sdfs",
+      description: "sdf",
+      origin: "local",
+      target: "sdfsdf",
       type: "doi",
     };
   } else {
@@ -301,6 +308,7 @@ const showAddEditLinkModalFunction = (linkId = "") => {
       id: link?.id || "",
       name: link?.name || "",
       description: link?.description || "",
+      origin: link?.origin || "local",
       target: link?.target || "",
       type: link?.type || "doi",
     };
@@ -337,16 +345,22 @@ const addLink = (e: MouseEvent) => {
         );
 
         if (index !== -1) {
+          if (allLinks.value[index].origin === "remote") {
+            if (
+              allLinks.value[index].target !== newLinkFormValue.value.target
+            ) {
+              allLinks.value[index].action = "target_update";
+            } else {
+              allLinks.value[index].action = "update";
+            }
+          }
+
           allLinks.value[index].name = newLinkFormValue.value.name;
           allLinks.value[index].description =
             newLinkFormValue.value.description;
           allLinks.value[index].target = newLinkFormValue.value.target;
           allLinks.value[index].type = newLinkFormValue.value
             .type as TargetType;
-
-          if (allLinks.value[index].action !== "create") {
-            allLinks.value[index].action = "update";
-          }
         }
       }
 
@@ -381,11 +395,26 @@ const removeLink = (id: string) => {
   }
 };
 
-const saveChangesToLinks = () => {
+const showNewVersionModal = ref(false);
+const checkForChangesToLinks = () => {
   // save changes to links
   console.log(allLinks.value);
 
-  // check for changes and ask for release notes. (might skip this and auto generate this potentially)
+  showNewVersionModal.value = allLinks.value.some((link) => {
+    if (link.action === "create") {
+      return true;
+    }
+    if (link.action === "target_update") {
+      return true;
+    }
+    return false;
+  });
+
+  if (showNewVersionModal.value) {
+    /**
+     * TODO: generate release notes
+     *   */
+  }
 
   const requestBody = {
     links: allLinks.value.map((link) => {
@@ -425,16 +454,20 @@ if (data.value) {
 
   if (data.value.latestVersion) {
     allLinks.value = data.value.latestVersion.links as LinksList;
+
+    // add origin key to links
+    allLinks.value = allLinks.value.map((link) => {
+      return {
+        ...link,
+        origin: "remote",
+      };
+    });
   }
 
   if (data.value.allVersions) {
     allVersions.value = data.value.allVersions as AllVersionsType;
   }
 }
-
-definePageMeta({
-  middleware: ["auth"],
-});
 
 useSeoMeta({
   title: "Projects",
