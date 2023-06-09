@@ -214,6 +214,7 @@
               placeholder="Primary Dataset"
               type="textarea"
               maxlength="500"
+              rows="5"
               show-count
               clearable
             />
@@ -235,6 +236,38 @@
           </div>
         </template>
       </n-modal>
+
+      <n-modal
+        v-model:show="showNewVersionModal"
+        transform-origin="center"
+        :mask-closable="false"
+        class="custom-card"
+        preset="card"
+        :style="{ width: '80%' }"
+        title="Accept/Edit release notes"
+        :bordered="false"
+        size="huge"
+        :segmented="{ footer: 'soft' }"
+      >
+        <MdEditor v-model="releaseNotes" language="en-US" />
+
+        <template #footer>
+          <div class="flex justify-end space-x-4">
+            <n-button size="large" type="primary" @click="addLink">
+              Create new version
+            </n-button>
+            <n-button
+              size="large"
+              type="error"
+              @click="hideNewVersionModalFunction"
+            >
+              Cancel
+            </n-button>
+          </div>
+        </template>
+      </n-modal>
+
+      <n-button @click="showNewVersionModal = true"> open modal </n-button>
     </div>
   </main>
 </template>
@@ -243,6 +276,8 @@
 import type { FormInst } from "naive-ui";
 import { useMessage } from "naive-ui";
 import { nanoid } from "nanoid";
+import { faker } from "@faker-js/faker";
+import { MdEditor } from "md-editor-v3";
 
 const route = useRoute();
 const message = useMessage();
@@ -295,10 +330,10 @@ const showAddEditLinkModalFunction = (linkId = "") => {
   if (linkId === "") {
     newLinkFormValue.value = {
       id: "",
-      name: "sdfs",
-      description: "sdf",
+      name: faker.git.commitMessage(),
+      description: faker.word.words({ count: { max: 100, min: 50 } }),
       origin: "local",
-      target: "sdfsdf",
+      target: faker.internet.url(),
       type: "doi",
     };
   } else {
@@ -396,6 +431,12 @@ const removeLink = (id: string) => {
 };
 
 const showNewVersionModal = ref(false);
+const releaseNotes = ref("");
+
+const hideNewVersionModalFunction = () => {
+  showNewVersionModal.value = false;
+};
+
 const checkForChangesToLinks = () => {
   // save changes to links
   console.log(allLinks.value);

@@ -11,6 +11,7 @@
 
 <script setup lang="ts">
 import "vue3-lottie/dist/style.css";
+import "md-editor-v3/lib/style.css";
 
 useHead({
   title: "Scholar Stack",
