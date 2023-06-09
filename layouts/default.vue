@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative mx-auto flex h-screen w-full flex-col px-8"
+    class="relative mx-auto flex h-screen w-full flex-col px-4"
     :class="{ 'debug-screens': devMode }"
   >
     <UiHeader />

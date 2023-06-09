@@ -1,5 +1,5 @@
 <template>
-  <main class="px-4">
+  <main class="px-12">
     <div class="flex flex-row justify-start space-x-3">
       <div>
         <n-image
@@ -266,8 +266,6 @@
           </div>
         </template>
       </n-modal>
-
-      <n-button @click="showNewVersionModal = true"> open modal </n-button>
     </div>
   </main>
 </template>
@@ -278,6 +276,7 @@ import { useMessage } from "naive-ui";
 import { nanoid } from "nanoid";
 import { faker } from "@faker-js/faker";
 import { MdEditor } from "md-editor-v3";
+import calver from "calver";
 
 const route = useRoute();
 const message = useMessage();
@@ -287,6 +286,11 @@ const projectDescription = ref("");
 const projectImage = ref("");
 const projectCreated = ref("");
 const projectUpdated = ref("");
+
+const showAddEditLinkModal = ref(false);
+const showNewVersionModal = ref(false);
+
+const releaseNotes = ref("");
 
 const allLinks: Ref<LocalLinkType[]> = ref([]);
 const allVersions: Ref<AllVersionsItem[]> = ref([]);
@@ -323,7 +327,6 @@ const newLinkFormRules = {
   },
 };
 
-const showAddEditLinkModal = ref(false);
 const showAddEditLinkModalFunction = (linkId = "") => {
   showAddEditLinkModal.value = true;
 
@@ -430,9 +433,6 @@ const removeLink = (id: string) => {
   }
 };
 
-const showNewVersionModal = ref(false);
-const releaseNotes = ref("");
-
 const hideNewVersionModalFunction = () => {
   showNewVersionModal.value = false;
 };
@@ -440,6 +440,7 @@ const hideNewVersionModalFunction = () => {
 const checkForChangesToLinks = () => {
   // save changes to links
   console.log(allLinks.value);
+  console.log(calver.inc("yy.mm.dd.minor", "", "calendar.minor"));
 
   showNewVersionModal.value = allLinks.value.some((link) => {
     if (link.action === "create") {
@@ -452,9 +453,33 @@ const checkForChangesToLinks = () => {
   });
 
   if (showNewVersionModal.value) {
+    const added = [];
+    const updated = [];
+    const removed = [];
+
+    allLinks.value.forEach((link) => {
+      if (link.action === "create") {
+        added.push(link);
+      }
+      if (link.action === "target_update") {
+        updated.push(link);
+      }
+      if (link.action === "delete") {
+        removed.push(link);
+      }
+    });
+
+    // generate release notes in markdown
     /**
-     * TODO: generate release notes
-     *   */
+     * TODO: generate release notes in markdown
+     */
+    let changelog = "";
+    const header = `# Version - Date \n \n`;
+    const addedHeader = `## Added`;
+
+    changelog = header + addedHeader;
+
+    releaseNotes.value = changelog;
   }
 
   const requestBody = {

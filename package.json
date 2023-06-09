@@ -44,6 +44,7 @@
   "dependencies": {
     "@pinia/nuxt": "^0.4.11",
     "@prisma/client": "^4.14.1",
+    "calver": "^22.9.1",
     "dayjs": "^1.11.7",
     "md-editor-v3": "^4.0.4",
     "nanoid": "^4.0.2",

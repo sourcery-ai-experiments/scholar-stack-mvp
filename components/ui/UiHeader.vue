@@ -39,6 +39,7 @@
               trigger="click"
               content-style="padding: 8px; border-radius: 5px"
               footer-style="padding: 8px; border-radius: 5px"
+              placement="bottom-end"
             >
               <template #trigger>
                 <n-avatar
