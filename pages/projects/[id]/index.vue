@@ -314,7 +314,7 @@ const projectCreated = ref("");
 const projectUpdated = ref("");
 
 const showAddEditLinkModal = ref(false);
-const showNewVersionModal = ref(true);
+const showNewVersionModal = ref(false);
 
 const releaseNotes = ref("");
 
@@ -532,7 +532,18 @@ const checkForChangesToLinks = () => {
         let updatedContent = "";
 
         updated.forEach((link) => {
-          updatedContent += `- Updated the link reference of \`${link.name}\` from \`${link.originalTarget}\` to \`${link.target}\`. \n`;
+          /**
+           * * Somehow adding backticks in a template literal breaks the page rendering
+           * ? Might need to look into this later
+           */
+          updatedContent +=
+            "- Updated the link reference of `" +
+            link.name +
+            "` from `" +
+            link.originalTarget +
+            "` to `" +
+            link.target +
+            "`. \n";
         });
 
         updatedContent += "\n";
