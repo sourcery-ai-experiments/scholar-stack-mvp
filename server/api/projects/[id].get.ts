@@ -2,13 +2,24 @@
 import prisma from "../../utils/prisma";
 
 // @ts-ignore
+import { serverSupabaseUser } from "#supabase/server";
 
 export default defineEventHandler(async (event) => {
-  // await protectRoute(event); // most likely not needed
+  const user = await serverSupabaseUser(event);
 
   const { id } = event.context.params as { id: string };
 
   const project = await prisma.project.findUnique({
+    include: {
+      versions: {
+        orderBy: { created: "desc" },
+        select: {
+          name: true,
+          created: true,
+          identifier: true,
+        },
+      },
+    },
     where: { identifier: id },
   });
 
@@ -19,44 +30,28 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const latestVersion = await prisma.version.findFirst({
-    orderBy: { created: "desc" },
-    where: { projectId: project.id },
-  });
+  const responseProject: ResponseProject = {
+    ...project,
+    isAuthor: false,
+    latestVersion: {},
+  };
 
-  if (!latestVersion) {
-    return {
-      ...project,
-      allVersions: [],
-      latestVersion: {
-        links: [],
-      },
-    };
+  if (user?.id === responseProject.authorId) {
+    responseProject.isAuthor = true;
   }
+  delete responseProject.authorId;
 
-  // get links from the latest version
-  const links = await prisma.link.findMany({
-    orderBy: { name: "asc" },
-    where: { versionId: latestVersion.id },
-  });
-
-  const listOfVersions = await prisma.version.findMany({
-    orderBy: { created: "desc" },
-    select: {
-      name: true,
-      created: true,
-      identifier: true,
+  const latestVersion = await prisma.version.findFirst({
+    include: {
+      links: true,
     },
+    orderBy: { created: "desc" },
     where: { projectId: project.id },
   });
 
   const response = {
-    ...project,
-    allVersions: listOfVersions,
-    latestVersion: {
-      ...latestVersion,
-      links,
-    },
+    ...responseProject,
+    latestVersion: latestVersion || {},
   };
 
   return response;

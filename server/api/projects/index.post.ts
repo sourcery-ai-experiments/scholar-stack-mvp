@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
     name: z.string().min(1),
     description: z.string(),
     image: z.string().url().optional(),
-    tags: z.string().array().min(1),
+    tags: z.array(z.string()).min(1),
   });
 
   const body = await readBody(event);

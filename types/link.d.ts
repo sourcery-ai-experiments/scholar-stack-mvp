@@ -18,3 +18,7 @@ interface LocalLinkType extends LinkType {
   origin?: "local" | "remote";
   originalTarget?: string;
 }
+
+interface QueryLinksListItem extends LinkType {
+  action: "create" | "update" | "delete" | "target_update";
+}

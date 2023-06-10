@@ -19,5 +19,5 @@ interface Version {
 }
 
 interface LatestVersion extends Version {
-  links: Link[];
+  links?: Link[];
 }

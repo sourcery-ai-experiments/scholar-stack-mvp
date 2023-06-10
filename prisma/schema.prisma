@@ -39,9 +39,9 @@ model Link {
   target String // the actual link (doi:10.1234/1234, https://example.com)
 
   created DateTime @default(now())
+  updated DateTime @updatedAt
 
-  version   Version? @relation(fields: [versionId], references: [id])
-  versionId String?
+  version Version[]
 }
 
 model Version {

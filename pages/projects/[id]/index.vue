@@ -274,7 +274,11 @@
 
         <template #footer>
           <div class="flex justify-end space-x-4">
-            <n-button size="large" type="primary" @click="addLink">
+            <n-button
+              size="large"
+              type="primary"
+              @click="publishChangesToProject"
+            >
               Create new version
             </n-button>
             <n-button
@@ -400,6 +404,8 @@ const addLink = (e: MouseEvent) => {
           action: "create",
 
           description: newLinkFormValue.value.description,
+          origin: "local",
+
           target: newLinkFormValue.value.target,
           type: newLinkFormValue.value.type as TargetType,
         };
@@ -439,6 +445,10 @@ const addLink = (e: MouseEvent) => {
   });
 };
 
+/**
+ * TODO: hide removed links
+ */
+
 const removeLink = (id: string) => {
   if (allLinks.value.length === 1) {
     message.error("You must have at least one link.");
@@ -449,7 +459,11 @@ const removeLink = (id: string) => {
   const index = allLinks.value.findIndex((link) => link.id === id);
 
   if (index !== -1) {
-    allLinks.value.splice(index, 1);
+    if (allLinks.value[index].origin === "local") {
+      allLinks.value.splice(index, 1);
+    } else {
+      allLinks.value[index].action = "delete";
+    }
   }
 
   message.success("Link removed.");
@@ -471,10 +485,11 @@ const checkForChangesToLinks = () => {
   console.log(calver.inc("yy.mm.minor", "", "calendar.minor"));
 
   showNewVersionModal.value = allLinks.value.some((link) => {
-    if (link.action === "create") {
-      return true;
-    }
-    if (link.action === "target_update") {
+    if (
+      link.action === "create" ||
+      link.action === "target_update" ||
+      link.action === "delete"
+    ) {
       return true;
     }
     return false;
@@ -488,11 +503,9 @@ const checkForChangesToLinks = () => {
     allLinks.value.forEach((link) => {
       if (link.action === "create") {
         added.push(link);
-      }
-      if (link.action === "target_update") {
+      } else if (link.action === "target_update") {
         updated.push(link);
-      }
-      if (link.action === "delete") {
+      } else if (link.action === "delete") {
         removed.push(link);
       }
     });
@@ -568,19 +581,31 @@ const checkForChangesToLinks = () => {
       releaseNotes.value = changelog;
     }
   }
+};
+
+const publishChangesToProject = () => {
+  if (releaseNotes.value.trim() === "") {
+    message.error("You must add release notes before publishing.");
+
+    return;
+  }
 
   const requestBody = {
     links: allLinks.value.map((link) => {
       return {
         id: link.id,
         name: link.name,
+        action: link.action,
         description: link.description,
         target: link.target,
         type: link.type,
       };
     }),
     projectId: route.params.id,
+    releaseNotes: releaseNotes.value,
   };
+
+  console.log(requestBody);
 };
 
 const { data, error } = await useFetch(`/api/projects/${route.params.id}`, {
@@ -606,7 +631,9 @@ if (data.value) {
   projectUpdated.value = data.value.updated;
 
   if (data.value.latestVersion) {
-    allLinks.value = data.value.latestVersion.links as LinksList;
+    if ("links" in data.value.latestVersion) {
+      allLinks.value = data.value.latestVersion.links as LocalLinkType[];
+    }
 
     // add origin key to links
     allLinks.value = allLinks.value.map((link) => {
@@ -618,8 +645,8 @@ if (data.value) {
     });
   }
 
-  if (data.value.allVersions) {
-    allVersions.value = data.value.allVersions as AllVersionsType;
+  if (data.value && "versions" in data.value) {
+    allVersions.value = data.value.versions as AllVersionsType;
   }
 }
 
