@@ -244,12 +244,33 @@
         class="custom-card"
         preset="card"
         :style="{ width: '80%' }"
-        title="Accept/Edit release notes"
         :bordered="false"
         size="huge"
         :segmented="{ footer: 'soft' }"
       >
-        <MdEditor v-model="releaseNotes" language="en-US" />
+        <template #header>
+          <div class="flex flex-col">
+            <span> Release Notes </span>
+
+            <span class="pt-2 text-sm font-normal text-slate-700">
+              The changes to your project will automatically release a new
+              version. You can add release notes to describe the changes below.
+            </span>
+            <span class="text-sm font-normal text-slate-700">
+              These notes cannot be edited after the version is released.
+            </span>
+            <span class="text-sm font-normal"> </span>
+          </div>
+        </template>
+
+        <MdEditor
+          v-model="releaseNotes"
+          class="mt-0"
+          language="en-US"
+          preview-theme="github"
+          :show-code-row-number="true"
+          :sanitize="sanitize"
+        />
 
         <template #footer>
           <div class="flex justify-end space-x-4">
@@ -277,6 +298,11 @@ import { nanoid } from "nanoid";
 import { faker } from "@faker-js/faker";
 import { MdEditor } from "md-editor-v3";
 import calver from "calver";
+import sanitizeHtml from "sanitize-html";
+
+/**
+ * TODO: add a custom toolbar to the editor
+ */
 
 const route = useRoute();
 const message = useMessage();
@@ -288,7 +314,7 @@ const projectCreated = ref("");
 const projectUpdated = ref("");
 
 const showAddEditLinkModal = ref(false);
-const showNewVersionModal = ref(false);
+const showNewVersionModal = ref(true);
 
 const releaseNotes = ref("");
 
@@ -326,6 +352,8 @@ const newLinkFormRules = {
     trigger: ["change", "blur"],
   },
 };
+
+const sanitize = (html: string) => sanitizeHtml(html);
 
 const showAddEditLinkModalFunction = (linkId = "") => {
   showAddEditLinkModal.value = true;
@@ -440,7 +468,7 @@ const hideNewVersionModalFunction = () => {
 const checkForChangesToLinks = () => {
   // save changes to links
   console.log(allLinks.value);
-  console.log(calver.inc("yy.mm.dd.minor", "", "calendar.minor"));
+  console.log(calver.inc("yy.mm.minor", "", "calendar.minor"));
 
   showNewVersionModal.value = allLinks.value.some((link) => {
     if (link.action === "create") {
@@ -453,9 +481,9 @@ const checkForChangesToLinks = () => {
   });
 
   if (showNewVersionModal.value) {
-    const added = [];
-    const updated = [];
-    const removed = [];
+    const added: LocalLinkType[] = [];
+    const updated: LocalLinkType[] = [];
+    const removed: LocalLinkType[] = [];
 
     allLinks.value.forEach((link) => {
       if (link.action === "create") {
@@ -469,17 +497,65 @@ const checkForChangesToLinks = () => {
       }
     });
 
-    // generate release notes in markdown
-    /**
-     * TODO: generate release notes in markdown
-     */
-    let changelog = "";
-    const header = `# Version - Date \n \n`;
-    const addedHeader = `## Added`;
+    // Only generate release notes if there are no release notes
+    if (releaseNotes.value === "") {
+      let changelog = "";
 
-    changelog = header + addedHeader;
+      const releaseVersion = calver.inc("yy.mm.minor", "", "calendar.minor");
 
-    releaseNotes.value = changelog;
+      let header = `# Changelog \n \n`;
+
+      header += `All notable changes to this project are documented here. `;
+      header += `This project uses [CalVer](https://calver.org/) for versioning. \n \n`;
+
+      header += `## Version ${releaseVersion} \n \n`;
+
+      changelog = header;
+
+      if (added.length > 0) {
+        const addedHeader = `### Added \n \n`;
+
+        let addedContent = "";
+
+        added.forEach((link) => {
+          addedContent += `- Added a reference to [${link.name}](${link.target}). \n`;
+        });
+
+        addedContent += "\n";
+
+        changelog += addedHeader + addedContent;
+      }
+
+      if (updated.length > 0) {
+        const updatedHeader = `### Updated \n \n`;
+
+        let updatedContent = "";
+
+        updated.forEach((link) => {
+          updatedContent += `- Updated the link reference of \`${link.name}\` from \`${link.originalTarget}\` to \`${link.target}\`. \n`;
+        });
+
+        updatedContent += "\n";
+
+        changelog += updatedHeader + updatedContent;
+      }
+
+      if (removed.length > 0) {
+        const removedHeader = `### Removed \n \n`;
+
+        let removedContent = "";
+
+        removed.forEach((link) => {
+          removedContent += `- Removed the link reference of [${link.name}](${link.target}). \n`;
+        });
+
+        removedContent += "\n";
+
+        changelog += removedHeader + removedContent;
+      }
+
+      releaseNotes.value = changelog;
+    }
   }
 
   const requestBody = {
@@ -526,6 +602,7 @@ if (data.value) {
       return {
         ...link,
         origin: "remote",
+        originalTarget: link.target,
       };
     });
   }

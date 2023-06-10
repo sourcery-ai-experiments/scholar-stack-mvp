@@ -38,6 +38,8 @@ model Link {
   type   String // doi, url, etc
   target String // the actual link (doi:10.1234/1234, https://example.com)
 
+  created DateTime @default(now())
+
   version   Version? @relation(fields: [versionId], references: [id])
   versionId String?
 }
@@ -55,6 +57,8 @@ model Version {
 
   Project   Project? @relation(fields: [projectId], references: [id])
   projectId String?
+
+  latest Boolean @default(false)
 
   links Link[]
 }
