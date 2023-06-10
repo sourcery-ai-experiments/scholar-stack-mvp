@@ -35,8 +35,8 @@ model Link {
   description String?
   icon        String?
 
-  type   String // doi, url, etc
   target String // the actual link (doi:10.1234/1234, https://example.com)
+  type   String // doi, url, etc
 
   created DateTime @default(now())
   updated DateTime @updatedAt

@@ -9,19 +9,18 @@ interface ResponseNewProject {
 interface ResponseProject {
   id: string;
 
-  authorId?: string;
   isAuthor: boolean;
 
   name: string;
   description: string;
   image: string;
   tags: string[];
-  created: Date;
-  updated: Date;
+  created: string;
+  updated: string;
 
   identifier: string;
 
-  versions: AllVersions;
+  versions: AllVersionsType;
 
   latestVersion: LatestVersion | {};
 }

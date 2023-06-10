@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { customAlphabet } from "nanoid";
+import calver from "calver";
 import protectRoute from "../../utils/protectRoute";
 import prisma from "../../utils/prisma";
 
@@ -101,30 +102,19 @@ export default defineEventHandler(async (event) => {
     return false;
   });
 
-  const linkIds = [];
-
-  if (createNewVersion) {
-    for (const link of linksToAdd) {
-      const newLink = await prisma.link.create({
-        data: {
-          name: link.name,
-          description: link.description,
-          icon: link.type === "doi" ? "academicons:doi" : "uil:link",
-          target: link.target,
-          type: link.type,
-        },
-      });
-
-      linkIds.push(newLink.id);
-    }
-  }
-
-  /**
-   * TODO: figure this mess out with the new many to many relationship
-   */
-
   for (const link of linksToUpdate) {
-    const updatedLink = await prisma.link.update({
+    const linkToUpdate = await prisma.link.findUnique({
+      where: { id: link.id },
+    });
+
+    if (!linkToUpdate) {
+      throw createError({
+        message: "The provided link does not exist",
+        statusCode: 400,
+      });
+    }
+
+    await prisma.link.update({
       data: {
         name: link.name,
         description: link.description,
@@ -133,24 +123,69 @@ export default defineEventHandler(async (event) => {
       },
       where: { id: link.id },
     });
-
-    linkIds.push(updatedLink.id);
   }
 
-  // get the latset version of the project
-  const latestVersion = await prisma.version.findFirst({
-    orderBy: { created: "desc" },
-    where: { projectId: project.id },
-  });
+  if (createNewVersion) {
+    // get the latset version of the project
+    const latestVersion = await prisma.version.findFirst({
+      orderBy: { created: "desc" },
+      where: { projectId: project.id },
+    });
 
-  const identifier = nanoid();
-  console.log(parsedBody.data.links);
+    const latestVersionName = latestVersion?.name || "";
 
-  return {
-    body: JSON.stringify({
-      status: "new-version",
-      version: "3.0.0",
-    }),
-    statusCode: 200,
-  };
+    /**
+     * Mark the old version as not latest
+     * TODO: figure if this key even needs to exist
+     */
+    if (latestVersion) {
+      await prisma.version.update({
+        data: { latest: false },
+        where: { id: latestVersion.id },
+      });
+    }
+
+    const newVersionName = calver.inc(
+      "yy.mm.minor",
+      latestVersionName,
+      "calendar.minor"
+    );
+
+    const newVersion = await prisma.version.create({
+      data: {
+        name: newVersionName,
+        changes: parsedBody.data.releaseNotes,
+        identifier: nanoid(),
+        latest: true,
+        links: {
+          create: linksToAdd.map((link) => {
+            return {
+              name: link.name,
+              description: link.description,
+              icon: link.type === "doi" ? "academicons:doi" : "uil:link",
+              target: link.target,
+              type: link.type,
+            };
+          }),
+        },
+        projectId: project.id,
+      },
+    });
+
+    return {
+      body: JSON.stringify({
+        identifier: newVersion.identifier,
+        status: "new-version",
+        version: newVersion.name,
+      }),
+      statusCode: 200,
+    };
+  } else {
+    return {
+      body: JSON.stringify({
+        status: "no-new-version",
+      }),
+      statusCode: 200,
+    };
+  }
 });

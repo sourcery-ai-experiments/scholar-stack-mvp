@@ -315,7 +315,7 @@ const projectName = ref("");
 const projectDescription = ref("");
 const projectImage = ref("");
 const projectCreated = ref("");
-const projectUpdated = ref("");
+const projectUpdated = ref("new Date()");
 
 const showAddEditLinkModal = ref(false);
 const showNewVersionModal = ref(false);
@@ -621,18 +621,19 @@ if (error.value) {
   // navigateTo("/projects/not-found");
 }
 
-if (data.value) {
-  console.log(data.value);
+if (data.value && "name" in data.value) {
+  const projectData = data.value;
+  console.log(projectData);
 
-  projectName.value = data.value.name;
-  projectDescription.value = data.value.description;
-  projectImage.value = data.value.image;
-  projectCreated.value = data.value.created;
-  projectUpdated.value = data.value.updated;
+  projectName.value = projectData.name;
+  projectDescription.value = projectData.description;
+  projectImage.value = projectData.image;
+  projectCreated.value = projectData.created;
+  projectUpdated.value = projectData.updated;
 
-  if (data.value.latestVersion) {
-    if ("links" in data.value.latestVersion) {
-      allLinks.value = data.value.latestVersion.links as LocalLinkType[];
+  if (projectData.latestVersion) {
+    if ("links" in projectData.latestVersion) {
+      allLinks.value = projectData.latestVersion.links as LocalLinkType[];
     }
 
     // add origin key to links
@@ -645,8 +646,8 @@ if (data.value) {
     });
   }
 
-  if (data.value && "versions" in data.value) {
-    allVersions.value = data.value.versions as AllVersionsType;
+  if (projectData && "versions" in projectData) {
+    allVersions.value = projectData.versions as AllVersionsType;
   }
 }
 

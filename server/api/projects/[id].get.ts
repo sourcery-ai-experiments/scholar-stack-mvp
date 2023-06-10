@@ -31,15 +31,28 @@ export default defineEventHandler(async (event) => {
   }
 
   const responseProject: ResponseProject = {
-    ...project,
+    id: project.id,
+    name: project.name,
+    created: project.created.toISOString(),
+    description: project.description,
+    identifier: project.identifier,
+    image: project.image,
     isAuthor: false,
     latestVersion: {},
+    tags: project.tags,
+    updated: project.updated.toISOString(),
+    versions: project.versions.map((version) => {
+      return {
+        name: version.name,
+        created: version.created.toISOString(),
+        identifier: version.identifier,
+      };
+    }),
   };
 
-  if (user?.id === responseProject.authorId) {
+  if (user?.id === project.authorId) {
     responseProject.isAuthor = true;
   }
-  delete responseProject.authorId;
 
   const latestVersion = await prisma.version.findFirst({
     include: {

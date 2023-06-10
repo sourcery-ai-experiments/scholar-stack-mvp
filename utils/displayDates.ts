@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 
+// eslint-disable-next-line import/no-named-as-default-member
 dayjs.extend(utc);
 
 const displayShortDate = (date: string) => {
