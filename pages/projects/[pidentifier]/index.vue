@@ -131,7 +131,9 @@
             type="success"
             :time="displayLongDate(version.created)"
           >
-            <nuxt-link :to="`/projects/${$route.params.id}`">
+            <nuxt-link
+              :to="`/projects/${$route.params.id}/version/${version.identifier}`"
+            >
               bit.ly/{{ version.identifier }}
             </nuxt-link>
           </n-timeline-item>
@@ -141,8 +143,8 @@
             type="success"
             :time="displayLongDate(projectCreated)"
           >
-            <nuxt-link :to="`/projects/${$route.params.identifier}`">
-              bit.ly/{{ $route.params.identifier }}
+            <nuxt-link :to="`/projects/${$route.params.pidentifier}`">
+              bit.ly/{{ $route.params.pidentifier }}
             </nuxt-link>
           </n-timeline-item>
         </n-timeline>
@@ -398,7 +400,7 @@ const addLink = (e: MouseEvent) => {
 
       if (newLinkFormValue.value.id === "") {
         const newLink: LocalLinkType = {
-          id: nanoid(),
+          id: `local${nanoid()}`,
           name: newLinkFormValue.value.name,
 
           action: "create",
@@ -608,7 +610,7 @@ const publishChangesToProject = async () => {
     console.log(body);
 
     const { data, error } = await useFetch(
-      `/api/projects/${route.params.identifier}`,
+      `/api/projects/${route.params.pidentifier}`,
       {
         body: JSON.stringify(body),
         headers: useRequestHeaders(["cookie"]),
@@ -634,7 +636,7 @@ const publishChangesToProject = async () => {
         if (responseBody.status === "new-version-created") {
           message.success("New version created successfully");
 
-          navigateTo(`/projects/${route.params.identifier}`);
+          navigateTo(`/projects/${route.params.pidentifier}`);
 
           // navigateTo(
           //   `/projects/${route.params.identifier}/version/${responseBody.identifier}`
@@ -648,7 +650,7 @@ const publishChangesToProject = async () => {
 
           setTimeout(() => {
             // reload the page
-            navigateTo(`/projects/${route.params.identifier}`);
+            navigateTo(`/projects/${route.params.pidentifier}`);
           }, 1000);
         }
       }
@@ -660,7 +662,7 @@ const publishChangesToProject = async () => {
 };
 
 const { data, error } = await useFetch(
-  `/api/projects/${route.params.identifier}`,
+  `/api/projects/${route.params.pidentifier}`,
   {
     headers: useRequestHeaders(["cookie"]),
     method: "GET",

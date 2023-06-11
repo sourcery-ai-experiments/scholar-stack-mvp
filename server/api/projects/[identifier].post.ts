@@ -162,7 +162,7 @@ export default defineEventHandler(async (event) => {
       data: {
         name: newVersionName,
         changes: parsedBody.data.releaseNotes,
-        identifier: nanoid(),
+        identifier: `ver${nanoid()}`,
         latest: true,
         links: {
           create: linksToAdd.map((link) => {
