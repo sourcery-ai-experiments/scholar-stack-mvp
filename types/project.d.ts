@@ -6,6 +6,12 @@ interface ResponseNewProject {
   tags: string[];
 }
 
+interface ResponseProjectVersionAddEdit {
+  status: string;
+  version?: string;
+  identifier?: string;
+}
+
 interface ResponseProject {
   id: string;
 

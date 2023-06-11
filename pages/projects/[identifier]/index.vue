@@ -132,7 +132,7 @@
             :time="displayLongDate(version.created)"
           >
             <nuxt-link :to="`/projects/${$route.params.id}`">
-              bit.ly/{{ $route.params.id }}
+              bit.ly/{{ version.identifier }}
             </nuxt-link>
           </n-timeline-item>
 
@@ -141,8 +141,8 @@
             type="success"
             :time="displayLongDate(projectCreated)"
           >
-            <nuxt-link :to="`/projects/${$route.params.id}`">
-              bit.ly/{{ $route.params.id }}
+            <nuxt-link :to="`/projects/${$route.params.identifier}`">
+              bit.ly/{{ $route.params.identifier }}
             </nuxt-link>
           </n-timeline-item>
         </n-timeline>
@@ -583,35 +583,89 @@ const checkForChangesToLinks = () => {
   }
 };
 
-const publishChangesToProject = () => {
+const publishChangesToProject = async () => {
   if (releaseNotes.value.trim() === "") {
     message.error("You must add release notes before publishing.");
 
     return;
   }
 
-  const requestBody = {
-    links: allLinks.value.map((link) => {
-      return {
-        id: link.id,
-        name: link.name,
-        action: link.action,
-        description: link.description,
-        target: link.target,
-        type: link.type,
-      };
-    }),
-    projectId: route.params.id,
-    releaseNotes: releaseNotes.value,
-  };
+  try {
+    const body = {
+      links: allLinks.value.map((link) => {
+        return {
+          id: link.id,
+          name: link.name,
+          action: link.action,
+          description: link.description,
+          target: link.target,
+          type: link.type,
+        };
+      }),
+      releaseNotes: releaseNotes.value,
+    };
 
-  console.log(requestBody);
+    console.log(body);
+
+    const { data, error } = await useFetch(
+      `/api/projects/${route.params.identifier}`,
+      {
+        body: JSON.stringify(body),
+        headers: useRequestHeaders(["cookie"]),
+        method: "POST",
+      }
+    );
+
+    console.log("data", data.value);
+
+    if (error.value) {
+      const errorMessage = error.value.data.message;
+      throw new Error(errorMessage);
+    }
+
+    const response = data.value;
+
+    if (response && "body" in response) {
+      const responseBody: ResponseProjectVersionAddEdit = JSON.parse(
+        response.body as string
+      );
+
+      if (responseBody) {
+        if (responseBody.status === "new-version-created") {
+          message.success("New version created successfully");
+
+          navigateTo(`/projects/${route.params.identifier}`);
+
+          // navigateTo(
+          //   `/projects/${route.params.identifier}/version/${responseBody.identifier}`
+          // );
+        }
+
+        if (responseBody.status === "no-new-version") {
+          message.success(
+            "Your changes were saved successfully. Please wait while we sync your data."
+          );
+
+          setTimeout(() => {
+            // reload the page
+            navigateTo(`/projects/${route.params.identifier}`);
+          }, 1000);
+        }
+      }
+    }
+  } catch (error) {
+    console.error(error);
+    message.error("Something went wrong, please try again later");
+  }
 };
 
-const { data, error } = await useFetch(`/api/projects/${route.params.id}`, {
-  headers: useRequestHeaders(["cookie"]),
-  method: "GET",
-});
+const { data, error } = await useFetch(
+  `/api/projects/${route.params.identifier}`,
+  {
+    headers: useRequestHeaders(["cookie"]),
+    method: "GET",
+  }
+);
 
 if (error.value) {
   console.error(error.value);

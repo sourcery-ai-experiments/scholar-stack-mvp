@@ -7,7 +7,14 @@ import { serverSupabaseUser } from "#supabase/server";
 export default defineEventHandler(async (event) => {
   const user = await serverSupabaseUser(event);
 
-  const { id } = event.context.params as { id: string };
+  const { identifier } = event.context.params as { identifier: string };
+
+  if (!identifier) {
+    throw createError({
+      message: "Missing identifier",
+      statusCode: 400,
+    });
+  }
 
   const project = await prisma.project.findUnique({
     include: {
@@ -20,7 +27,7 @@ export default defineEventHandler(async (event) => {
         },
       },
     },
-    where: { identifier: id },
+    where: { identifier },
   });
 
   if (!project) {

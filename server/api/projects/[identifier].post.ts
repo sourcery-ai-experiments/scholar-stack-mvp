@@ -14,19 +14,26 @@ const nanoid = customAlphabet(
 export default defineEventHandler(async (event) => {
   await protectRoute(event);
 
+  const { identifier } = event.context.params as { identifier: string };
+
   const bodySchema = z.object({
     links: z
       .array(
         z.object({
           id: z.string(),
           name: z.string(),
+          action: z.union([
+            z.literal("create"),
+            z.literal("update"),
+            z.literal("target_update"),
+            z.literal("delete"),
+          ]),
           description: z.string(),
           target: z.string(),
           type: z.string(),
         })
       )
       .min(1),
-    projectId: z.string().min(1),
     releaseNotes: z.string().min(1),
   });
 
@@ -57,7 +64,7 @@ export default defineEventHandler(async (event) => {
 
   // verify that the user is the author of the project
   const project = await prisma.project.findUnique({
-    where: { id: parsedBody.data.projectId },
+    where: { identifier },
   });
 
   if (!project) {
@@ -172,10 +179,12 @@ export default defineEventHandler(async (event) => {
       },
     });
 
+    console.log(newVersion);
+
     return {
       body: JSON.stringify({
         identifier: newVersion.identifier,
-        status: "new-version",
+        status: "new-version-created",
         version: newVersion.name,
       }),
       statusCode: 200,
