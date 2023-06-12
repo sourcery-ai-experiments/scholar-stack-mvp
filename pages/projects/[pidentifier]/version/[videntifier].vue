@@ -309,7 +309,7 @@
             <n-button
               size="large"
               type="primary"
-              @click="publishChangesToProject"
+              @click="publishChangesToProject(false)"
             >
               Create new version
             </n-button>
@@ -627,15 +627,17 @@ const checkForChangesToLinks = () => {
       releaseNotes.value = changelog;
     }
   } else {
-    publishChangesToProject();
+    publishChangesToProject(true);
   }
 };
 
-const publishChangesToProject = async () => {
-  if (releaseNotes.value.trim() === "") {
-    message.error("You must add release notes before publishing.");
+const publishChangesToProject = async (skipNotes = false) => {
+  if (!skipNotes) {
+    if (releaseNotes.value.trim() === "") {
+      message.error("You must add release notes before publishing.");
 
-    return;
+      return;
+    }
   }
 
   try {
@@ -650,7 +652,7 @@ const publishChangesToProject = async () => {
           type: link.type,
         };
       }),
-      releaseNotes: releaseNotes.value,
+      releaseNotes: releaseNotes.value || "No release notes provided",
     };
 
     console.log(body);
