@@ -152,7 +152,15 @@
             :title="version.name"
             type="success"
             :time="displayLongDate(version.created)"
+            :class="{
+              'rounded-xl bg-gray-50 pt-4':
+                version.identifier === $route.params.videntifier,
+            }"
           >
+            <template #header>
+              {{ version.name }}
+            </template>
+
             <nuxt-link
               :to="`/projects/${$route.params.pidentifier}/version/${version.identifier}`"
             >
@@ -327,9 +335,11 @@ import { faker } from "@faker-js/faker";
 import { MdEditor } from "md-editor-v3";
 import calver from "calver";
 import sanitizeHtml from "sanitize-html";
+import { isEmpty } from "lodash-es";
 
 /**
  * TODO: add a custom toolbar to the editor
+ * TODO: Change the links section into an accordian
  */
 
 const route = useRoute();
@@ -511,7 +521,6 @@ const hideNewVersionModalFunction = () => {
 const checkForChangesToLinks = () => {
   // save changes to links
   console.log(allLinks.value);
-  console.log(calver.inc("yy.mm.minor", "", "calendar.minor"));
 
   showNewVersionModal.value = allLinks.value.some((link) => {
     if (
@@ -543,7 +552,15 @@ const checkForChangesToLinks = () => {
     if (releaseNotes.value === "") {
       let changelog = "";
 
-      const releaseVersion = calver.inc("yy.mm.minor", "", "calendar.minor");
+      const latestVersionName = allVersions.value[0].name || "";
+
+      console.log(latestVersionName);
+
+      const releaseVersion = calver.inc(
+        "yy.mm.minor",
+        latestVersionName,
+        "calendar.minor"
+      );
 
       let header = `# Changelog \n \n`;
 
@@ -688,17 +705,7 @@ const publishChangesToProject = async () => {
   }
 };
 
-if (!projectIdentifier) {
-  // navigateTo("/404");
-}
-
-if (!versionIdentifier) {
-  /**
-   * TODO: Add a check to see is a version exists for the project.
-   * TODO: If no version exists, show new UI
-   * TODO: If a version exists, redirect to the latest version
-   */
-
+if (versionIdentifier === "new") {
   const { data, error } = await useFetch(`/api/projects/${projectIdentifier}`, {
     headers: useRequestHeaders(["cookie"]),
     method: "GET",
@@ -712,13 +719,20 @@ if (!versionIdentifier) {
 
   if (data.value && "latestVersion" in data.value) {
     const projectData = data.value;
-    console.log(projectData);
 
-    navigateTo(
-      `/projects/${projectIdentifier}/version/${projectData.latestVersion}`
-    );
-  } else {
-    // show new UI - the current UI
+    projectName.value = projectData.name;
+    projectDescription.value = projectData.description;
+    projectImage.value = projectData.image;
+    projectCreated.value = projectData.created;
+    projectUpdated.value = projectData.updated;
+
+    if (!isEmpty(projectData.latestVersion)) {
+      navigateTo(
+        `/projects/${projectIdentifier}/version/${projectData.latestVersion}`
+      );
+    } else {
+      // show new UI
+    }
   }
 } else {
   const { data, error } = await useFetch(
@@ -732,12 +746,11 @@ if (!versionIdentifier) {
   if (error.value) {
     console.error(error.value);
 
-    // navigateTo("/404");
+    navigateTo("/404");
   }
 
   if (data.value && "name" in data.value) {
     const projectData = data.value;
-    console.log(projectData);
 
     projectName.value = projectData.name;
     projectDescription.value = projectData.description;

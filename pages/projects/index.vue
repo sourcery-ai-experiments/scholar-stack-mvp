@@ -94,31 +94,6 @@
             </p>
           </div>
           <div v-else>
-            <div
-              class="flex hidden w-full flex-row items-center justify-end space-x-4 px-4 pb-3"
-            >
-              <Icon
-                name="ph:list-fill"
-                size="27"
-                class="cursor-pointer transition-all"
-                :class="{
-                  'text-slate-800': viewType === 'list',
-                  'text-slate-400 hover:text-slate-500': viewType === 'grid',
-                }"
-                @click="selectViewType('list')"
-              />
-              <Icon
-                name="mingcute:grid-fill"
-                size="27"
-                class="cursor-pointer transition-all"
-                :class="{
-                  'text-slate-800': viewType === 'grid',
-                  'text-slate-400 hover:text-slate-500': viewType === 'list',
-                }"
-                @click="selectViewType('grid')"
-              />
-            </div>
-
             <n-divider />
 
             <transition name="fade" mode="out-in">

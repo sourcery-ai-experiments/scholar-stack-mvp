@@ -171,6 +171,13 @@ export default defineEventHandler(async (event) => {
 
     const linksToConnect = [...linksToKeep, ...linksToAdd];
 
+    console.log(linksToConnect);
+
+    // const newVersion = {
+    //   name: newVersionName,
+    //   identifier: `ver${nanoid()}`,
+    // };
+
     const newVersion = await prisma.version.create({
       data: {
         name: newVersionName,

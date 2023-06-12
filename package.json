@@ -47,6 +47,8 @@
     "@prisma/client": "^4.14.1",
     "calver": "^22.9.1",
     "dayjs": "^1.11.7",
+    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "md-editor-v3": "^4.0.4",
     "nanoid": "^4.0.2",
     "pinia": "^2.1.3",

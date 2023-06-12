@@ -22,11 +22,6 @@ import { useMessage } from "naive-ui";
 const route = useRoute();
 const message = useMessage();
 
-// const { data: project, error } = await useAsyncData(
-//   "projectLatestVersionRedirect",
-//   () => $fetch(`/api/projects/${route.params.pidentifier}`)
-// );
-
 const { data: project, error } = await useFetch(
   `/api/projects/${route.params.pidentifier}`,
   {
@@ -34,15 +29,6 @@ const { data: project, error } = await useFetch(
     server: false,
   }
 );
-
-// const {
-//   data: project,
-//   error,
-//   pending,
-// } = useLazyFetch(`/api/projects/${route.params.pidentifier}`, {
-//   headers: useRequestHeaders(["cookie"]),
-//   method: "GET",
-// });
 
 watch(error, (err) => {
   if (!err) return;
@@ -68,6 +54,8 @@ watch(project, (project) => {
     navigateTo(
       `/projects/${projectData.identifier}/version/${latestVersionIdentifier}`
     );
+  } else {
+    navigateTo(`/projects/${projectData.identifier}/version/new`);
   }
 });
 
