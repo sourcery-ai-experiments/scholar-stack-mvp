@@ -28,5 +28,24 @@ interface ResponseProject {
 
   versions: AllVersionsType;
 
-  latestVersion: LatestVersion | {};
+  latestVersion: VersionWithLinks | {};
+}
+
+interface ResponseProjectVersion {
+  id: string;
+
+  isAuthor: boolean;
+
+  name: string;
+  description: string;
+  image: string;
+  tags: string[];
+  created: string;
+  updated: string;
+
+  identifier: string;
+
+  versions: AllVersionsType;
+
+  versionDetails: VersionWithLinks | {};
 }

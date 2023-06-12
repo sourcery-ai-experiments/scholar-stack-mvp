@@ -1,8 +1,8 @@
 import { z } from "zod";
 import { customAlphabet } from "nanoid";
 import calver from "calver";
-import protectRoute from "../../utils/protectRoute";
-import prisma from "../../utils/prisma";
+import protectRoute from "../../../utils/protectRoute";
+import prisma from "../../../utils/prisma";
 
 // @ts-ignore
 import { serverSupabaseUser } from "#supabase/server";
@@ -14,24 +14,28 @@ const nanoid = customAlphabet(
 export default defineEventHandler(async (event) => {
   await protectRoute(event);
 
-  const { identifier } = event.context.params as { identifier: string };
+  const { pidentifier } = event.context.params as { pidentifier: string };
 
   const bodySchema = z.object({
     links: z
       .array(
-        z.object({
-          id: z.string(),
-          name: z.string(),
-          action: z.union([
-            z.literal("create"),
-            z.literal("update"),
-            z.literal("target_update"),
-            z.literal("delete"),
-          ]),
-          description: z.string(),
-          target: z.string(),
-          type: z.string(),
-        })
+        z
+          .object({
+            id: z.string(),
+            name: z.string(),
+            action: z
+              .union([
+                z.literal("create"),
+                z.literal("update"),
+                z.literal("target_update"),
+                z.literal("delete"),
+              ])
+              .optional(),
+            description: z.string(),
+            target: z.string(),
+            type: z.string(),
+          })
+          .strict()
       )
       .min(1),
     releaseNotes: z.string().min(1),
@@ -64,7 +68,7 @@ export default defineEventHandler(async (event) => {
 
   // verify that the user is the author of the project
   const project = await prisma.project.findUnique({
-    where: { identifier },
+    where: { identifier: pidentifier },
   });
 
   if (!project) {
@@ -104,6 +108,13 @@ export default defineEventHandler(async (event) => {
 
   const linksToAdd = allLinks.filter((link) => {
     if ("action" in link && link.action === "create") {
+      return true;
+    }
+    return false;
+  });
+
+  const linksToKeep = allLinks.filter((link) => {
+    if (!("action" in link)) {
       return true;
     }
     return false;
@@ -158,6 +169,8 @@ export default defineEventHandler(async (event) => {
       "calendar.minor"
     );
 
+    const linksToConnect = [...linksToKeep, ...linksToAdd];
+
     const newVersion = await prisma.version.create({
       data: {
         name: newVersionName,
@@ -165,15 +178,28 @@ export default defineEventHandler(async (event) => {
         identifier: `ver${nanoid()}`,
         latest: true,
         links: {
-          create: linksToAdd.map((link) => {
+          connectOrCreate: linksToConnect.map((link) => {
             return {
-              name: link.name,
-              description: link.description,
-              icon: link.type === "doi" ? "academicons:doi" : "uil:link",
-              target: link.target,
-              type: link.type,
+              create: {
+                name: link.name,
+                description: link.description,
+                icon: link.type === "doi" ? "academicons:doi" : "uil:link",
+                target: link.target,
+                type: link.type,
+              },
+              where: { id: link.id },
             };
           }),
+
+          // create: linksToAdd.map((link) => {
+          //   return {
+          //     name: link.name,
+          //     description: link.description,
+          //     icon: link.type === "doi" ? "academicons:doi" : "uil:link",
+          //     target: link.target,
+          //     type: link.type,
+          //   };
+          // }),
         },
         projectId: project.id,
       },

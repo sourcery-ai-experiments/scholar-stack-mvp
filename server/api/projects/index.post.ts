@@ -14,12 +14,14 @@ const nanoid = customAlphabet(
 export default defineEventHandler(async (event) => {
   await protectRoute(event);
 
-  const bodySchema = z.object({
-    name: z.string().min(1),
-    description: z.string(),
-    image: z.string().url().optional(),
-    tags: z.array(z.string()).min(1),
-  });
+  const bodySchema = z
+    .object({
+      name: z.string().min(1),
+      description: z.string(),
+      image: z.string().url().optional(),
+      tags: z.array(z.string()).min(1),
+    })
+    .strict();
 
   const body = await readBody(event);
 

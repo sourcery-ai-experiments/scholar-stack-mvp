@@ -16,6 +16,7 @@
         <div class="flex w-fit justify-start space-x-4">
           <NuxtLink to="/" class="navigation-item"> Home </NuxtLink>
           <NuxtLink to="/projects" class="navigation-item"> Projects </NuxtLink>
+          <NuxtLink to="/404" class="navigation-item"> 404 </NuxtLink>
         </div>
       </div>
       <div class="flex flex-row space-x-8">

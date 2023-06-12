@@ -18,6 +18,6 @@ interface Version {
   identifier: string;
 }
 
-interface LatestVersion extends Version {
+interface VersionWithLinks extends Version {
   links?: Link[];
 }

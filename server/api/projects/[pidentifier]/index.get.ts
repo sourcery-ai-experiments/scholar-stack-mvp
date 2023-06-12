@@ -1,5 +1,5 @@
 // import protectRoute from "../../utils/protectRoute";
-import prisma from "../../utils/prisma";
+import prisma from "../../../utils/prisma";
 
 // @ts-ignore
 import { serverSupabaseUser } from "#supabase/server";
@@ -7,9 +7,9 @@ import { serverSupabaseUser } from "#supabase/server";
 export default defineEventHandler(async (event) => {
   const user = await serverSupabaseUser(event);
 
-  const { identifier } = event.context.params as { identifier: string };
+  const { pidentifier } = event.context.params as { pidentifier: string };
 
-  if (!identifier) {
+  if (!pidentifier) {
     throw createError({
       message: "Missing identifier",
       statusCode: 400,
@@ -27,7 +27,7 @@ export default defineEventHandler(async (event) => {
         },
       },
     },
-    where: { identifier },
+    where: { identifier: pidentifier },
   });
 
   if (!project) {

@@ -1,5 +1,5 @@
 <template>
-  <main class="px-8 py-16">
+  <main class="px-12">
     <h1>Lets create a new project</h1>
 
     <p class="mt-2 text-lg text-slate-600">

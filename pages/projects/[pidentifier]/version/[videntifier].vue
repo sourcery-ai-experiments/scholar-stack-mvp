@@ -60,7 +60,10 @@
           >
             <template #header-extra>
               <div class="flex flex-row space-x-4">
-                <n-popconfirm @positive-click="removeLink(link.id)">
+                <n-popconfirm
+                  v-if="latestVersion"
+                  @positive-click="removeLink(link.id)"
+                >
                   <template #trigger>
                     <n-button type="warning">Delete item </n-button>
                   </template>
@@ -75,18 +78,37 @@
 
             <template #footer>
               <div class="flex items-center justify-between">
-                <Icon
-                  v-if="link.action === 'create'"
-                  name="ic:baseline-fiber-new"
-                  size="25"
-                />
-                <Icon
-                  v-if="link.action === 'update'"
-                  name="bx:edit"
-                  size="25"
-                />
+                <div class="flex items-center justify-start space-x-4">
+                  <Icon
+                    v-if="link.origin === 'remote'"
+                    name="material-symbols:cloud"
+                    size="25"
+                  />
+
+                  <Icon
+                    :name="link.type === 'doi' ? 'academicons:doi' : 'uil:link'"
+                    size="25"
+                  />
+
+                  <Icon
+                    v-if="link.action === 'create'"
+                    name="ic:baseline-fiber-new"
+                    size="25"
+                  />
+                  <Icon
+                    v-if="link.action === 'update'"
+                    name="bx:edit"
+                    size="25"
+                  />
+                  <Icon
+                    v-if="link.action === 'target_update'"
+                    name="fluent:box-edit-24-regular"
+                    size="25"
+                  />
+                </div>
 
                 <n-button
+                  v-if="latestVersion"
                   type="primary"
                   size="large"
                   @click="showAddEditLinkModalFunction(link.id)"
@@ -132,7 +154,7 @@
             :time="displayLongDate(version.created)"
           >
             <nuxt-link
-              :to="`/projects/${$route.params.id}/version/${version.identifier}`"
+              :to="`/projects/${$route.params.pidentifier}/version/${version.identifier}`"
             >
               bit.ly/{{ version.identifier }}
             </nuxt-link>
@@ -320,7 +342,9 @@ const projectName = ref("");
 const projectDescription = ref("");
 const projectImage = ref("");
 const projectCreated = ref("");
-const projectUpdated = ref("new Date()");
+const projectUpdated = ref("");
+
+const latestVersion = ref(false);
 
 const showAddEditLinkModal = ref(false);
 const showNewVersionModal = ref(false);
@@ -585,6 +609,8 @@ const checkForChangesToLinks = () => {
 
       releaseNotes.value = changelog;
     }
+  } else {
+    publishChangesToProject();
   }
 };
 
@@ -639,11 +665,9 @@ const publishChangesToProject = async () => {
         if (responseBody.status === "new-version-created") {
           message.success("New version created successfully");
 
-          navigateTo(`/projects/${route.params.pidentifier}`);
-
-          // navigateTo(
-          //   `/projects/${route.params.identifier}/version/${responseBody.identifier}`
-          // );
+          navigateTo(
+            `/projects/${route.params.pidentifier}/version/${responseBody.identifier}`
+          );
         }
 
         if (responseBody.status === "no-new-version") {
@@ -665,63 +689,84 @@ const publishChangesToProject = async () => {
 };
 
 if (!projectIdentifier) {
-  // redirect to project not found page
-  // navigateTo("/projects/not-found");
+  // navigateTo("/404");
 }
 
 if (!versionIdentifier) {
-  // redirect to project not found page
-  // navigateTo("/projects/not-found");
   /**
    * TODO: Add a check to see is a version exists for the project.
    * TODO: If no version exists, show new UI
    * TODO: If a version exists, redirect to the latest version
    */
-}
 
-const { data, error } = await useFetch(
-  `/api/projects/${projectIdentifier}/versions/${versionIdentifier}`,
-  {
+  const { data, error } = await useFetch(`/api/projects/${projectIdentifier}`, {
     headers: useRequestHeaders(["cookie"]),
     method: "GET",
+  });
+
+  if (error.value) {
+    console.error(error.value);
+
+    // navigateTo("/404");
   }
-);
 
-if (error.value) {
-  console.error(error.value);
+  if (data.value && "latestVersion" in data.value) {
+    const projectData = data.value;
+    console.log(projectData);
 
-  // redirect to project not found page
+    navigateTo(
+      `/projects/${projectIdentifier}/version/${projectData.latestVersion}`
+    );
+  } else {
+    // show new UI - the current UI
+  }
+} else {
+  const { data, error } = await useFetch(
+    `/api/projects/${projectIdentifier}/version/${versionIdentifier}`,
+    {
+      headers: useRequestHeaders(["cookie"]),
+      method: "GET",
+    }
+  );
 
-  // navigateTo("/projects/not-found");
-}
+  if (error.value) {
+    console.error(error.value);
 
-if (data.value && "name" in data.value) {
-  const projectData = data.value;
-  console.log(projectData);
+    // navigateTo("/404");
+  }
 
-  projectName.value = projectData.name;
-  projectDescription.value = projectData.description;
-  projectImage.value = projectData.image;
-  projectCreated.value = projectData.created;
-  projectUpdated.value = projectData.updated;
+  if (data.value && "name" in data.value) {
+    const projectData = data.value;
+    console.log(projectData);
 
-  if (projectData.latestVersion) {
-    if ("links" in projectData.latestVersion) {
-      allLinks.value = projectData.latestVersion.links as LocalLinkType[];
+    projectName.value = projectData.name;
+    projectDescription.value = projectData.description;
+    projectImage.value = projectData.image;
+    projectCreated.value = projectData.created;
+    projectUpdated.value = projectData.updated;
+
+    if (projectData.versionDetails) {
+      if ("latest" in projectData.versionDetails) {
+        latestVersion.value = projectData.versionDetails.latest;
+      }
+
+      if ("links" in projectData.versionDetails) {
+        allLinks.value = projectData.versionDetails.links as LocalLinkType[];
+      }
+
+      // add origin key to links
+      allLinks.value = allLinks.value.map((link) => {
+        return {
+          ...link,
+          origin: "remote",
+          originalTarget: link.target,
+        };
+      });
     }
 
-    // add origin key to links
-    allLinks.value = allLinks.value.map((link) => {
-      return {
-        ...link,
-        origin: "remote",
-        originalTarget: link.target,
-      };
-    });
-  }
-
-  if (projectData && "versions" in projectData) {
-    allVersions.value = projectData.versions as AllVersionsType;
+    if (projectData && "versions" in projectData) {
+      allVersions.value = projectData.versions as AllVersionsType;
+    }
   }
 }
 
