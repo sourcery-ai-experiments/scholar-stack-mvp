@@ -23,7 +23,7 @@
 
     <div class="flex flex-row justify-between space-x-8">
       <div class="links-section flex-1">
-        <h2 v-if="allLinks.length > 0" class="px-4">All Links</h2>
+        <h2 v-if="allLinks.length > 0" class="px-4">Links</h2>
 
         <div
           v-if="allLinks.length <= 0"
@@ -57,18 +57,26 @@
             :key="link.id"
             :title="link.name"
             class="my-2"
+            :class="{ 'opacity-50': link.action === 'delete' }"
           >
             <template #header-extra>
               <div class="flex flex-row space-x-4">
                 <n-popconfirm
-                  v-if="latestVersion"
+                  v-if="latestVersion && link.action !== 'delete'"
                   @positive-click="removeLink(link.id)"
                 >
                   <template #trigger>
-                    <n-button type="warning">Delete item </n-button>
+                    <n-button type="warning"> Delete item </n-button>
                   </template>
                   Do you want to delete this item?
                 </n-popconfirm>
+                <n-button
+                  v-if="link.action === 'delete'"
+                  type="warning"
+                  @click="undoRemoveLink(link.id)"
+                >
+                  Undo delete
+                </n-button>
               </div>
             </template>
             <div class="">
@@ -111,6 +119,7 @@
                   v-if="latestVersion"
                   type="primary"
                   size="large"
+                  :disabled="link.action === 'delete'"
                   @click="showAddEditLinkModalFunction(link.id)"
                 >
                   Edit item
@@ -120,6 +129,7 @@
           </n-card>
 
           <n-button
+            v-if="latestVersion"
             class="mt-4 w-max"
             type="primary"
             size="large"
@@ -128,10 +138,11 @@
             Add a link
           </n-button>
 
-          <n-divider />
+          <n-divider v-if="latestVersion" />
 
           <div class="flex items-center justify-end">
             <n-button
+              v-if="latestVersion"
               type="primary"
               size="large"
               @click="checkForChangesToLinks"
@@ -501,6 +512,7 @@ const removeLink = (id: string) => {
     if (allLinks.value[index].origin === "local") {
       allLinks.value.splice(index, 1);
     } else {
+      allLinks.value[index].originalAction = allLinks.value[index].action;
       allLinks.value[index].action = "delete";
     }
   }
@@ -512,6 +524,27 @@ const removeLink = (id: string) => {
       "You must have at least one link for this version to be valid."
     );
   }
+};
+
+const undoRemoveLink = (id: string) => {
+  const index = allLinks.value.findIndex((link) => link.id === id);
+
+  if (index !== -1) {
+    if (allLinks.value[index].origin === "remote") {
+      const originalAction = allLinks.value[index].originalAction;
+
+      if (originalAction) {
+        allLinks.value[index].action = originalAction;
+      } else {
+        delete allLinks.value[index].action;
+      }
+    } else {
+      allLinks.value.splice(index, 1);
+    }
+  }
+
+  message.success("Link restored.");
+  console.log(allLinks.value);
 };
 
 const hideNewVersionModalFunction = () => {
