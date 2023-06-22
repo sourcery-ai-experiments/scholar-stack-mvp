@@ -585,7 +585,8 @@ const checkForChangesToLinks = () => {
     if (releaseNotes.value === "") {
       let changelog = "";
 
-      const latestVersionName = allVersions.value[0].name || "";
+      const latestVersionName =
+        (allVersions.value.length > 0 ? allVersions.value[0].name : "") || "";
 
       console.log(latestVersionName);
 
@@ -767,6 +768,7 @@ if (versionIdentifier === "new") {
       );
     } else {
       // show new UI
+      latestVersion.value = true;
     }
   }
 } else {
