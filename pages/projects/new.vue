@@ -94,6 +94,7 @@
 <script setup lang="ts">
 import { useMessage } from "naive-ui";
 import type { FormInst, FormItemRule } from "naive-ui";
+import { faker } from "@faker-js/faker";
 const user = useSupabaseUser();
 
 const message = useMessage();
@@ -104,10 +105,15 @@ const timestamp = Date.now();
 const formRef = ref<FormInst | null>(null);
 
 const formValue = reactive({
-  title: "test",
-  description: "test",
+  title: faker.commerce.productName(),
+  description: faker.commerce.productDescription(),
   image: "",
-  tags: ["test"],
+  tags: [
+    faker.word.noun(),
+    faker.word.noun(),
+    faker.word.noun(),
+    faker.word.noun(),
+  ],
 });
 
 const rules = {
