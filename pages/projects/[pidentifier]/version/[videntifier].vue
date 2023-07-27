@@ -14,20 +14,24 @@
 
         <p class="mt-3 text-lg">{{ projectDescription }}</p>
 
-        <p class="mt-3 text-sm">Created on {{ projectCreated }}</p>
-        <p class="mt-3 text-sm">Updated on {{ projectUpdated }}</p>
+        <p class="mt-3 text-sm">
+          Created on {{ displayLongDate(projectCreated) }}
+        </p>
+        <p class="mt-3 text-sm">
+          Updated on {{ displayLongDate(projectUpdated) }}
+        </p>
       </div>
     </div>
 
     <n-divider />
 
-    <div class="flex flex-row justify-between space-x-8">
-      <div class="links-section flex-1">
+    <div class="flex flex-row justify-between space-x-8 pb-24">
+      <div class="links-section h-max flex-1">
         <h2 v-if="allLinks.length > 0" class="px-4">Links</h2>
 
         <div
           v-if="allLinks.length <= 0"
-          class="flex flex-col items-center justify-center p-4"
+          class="flex flex-col items-center justify-center rounded-lg border border-slate-200 px-3 pb-8 shadow-sm"
         >
           <client-only>
             <Vue3Lottie
@@ -43,12 +47,16 @@
           </p>
 
           <n-button
-            class="mt-4"
             type="primary"
             size="large"
-            @click="showAddEditLinkModalFunction()"
+            class="mt-4"
+            :loading="showLoader"
+            @click="showAddEditLinkModalFunction"
           >
-            Add a link
+            <template #icon>
+              <Icon name="carbon:add-filled" />
+            </template>
+            Add an item to the stack
           </n-button>
         </div>
         <div v-else class="flex flex-col p-4">
@@ -66,10 +74,16 @@
                   @positive-click="removeLink(link.id)"
                 >
                   <template #trigger>
-                    <n-button type="warning"> Delete item </n-button>
+                    <n-button type="error" secondary strong>
+                      <template #icon>
+                        <Icon name="material-symbols:delete" />
+                      </template>
+                      Remove from project
+                    </n-button>
                   </template>
                   Do you want to delete this item?
                 </n-popconfirm>
+
                 <n-button
                   v-if="link.action === 'delete'"
                   type="warning"
@@ -118,11 +132,15 @@
                 <n-button
                   v-if="latestVersion"
                   type="primary"
-                  size="large"
+                  secondary
+                  strong
                   :disabled="link.action === 'delete'"
                   @click="showAddEditLinkModalFunction(link.id)"
                 >
-                  Edit item
+                  <template #icon>
+                    <Icon name="material-symbols:edit" />
+                  </template>
+                  Edit details
                 </n-button>
               </div>
             </template>
@@ -145,15 +163,29 @@
               v-if="latestVersion"
               type="primary"
               size="large"
+              :loading="showLoader"
               @click="checkForChangesToLinks"
             >
+              <template #icon>
+                <Icon name="material-symbols:save-as" />
+              </template>
               Save changes
             </n-button>
           </div>
         </div>
       </div>
 
-      <div v-show="allVersions.length >= 0" class="versions-section mt-14">
+      <div
+        v-show="allVersions.length >= 0"
+        class="versions-section rounded-lg border border-slate-200 px-3 py-2 shadow-md"
+        :class="{
+          'mt-14': allLinks.length < 0,
+        }"
+      >
+        <h3 class="text-right text-slate-700">Versions</h3>
+
+        <n-divider />
+
         <n-timeline item-placement="right">
           <n-timeline-item content="Current version" line-type="dashed" />
 
@@ -198,8 +230,7 @@
         class="custom-card"
         preset="card"
         :style="{ width: '600px' }"
-        title="Add a link"
-        :bordered="false"
+        title="Add a Resource"
         size="huge"
         :segmented="{ footer: 'soft' }"
       >
@@ -309,6 +340,10 @@
         <MdEditor
           v-model="releaseNotes"
           class="mt-0"
+          :class="{
+            'opacity-75': showLoader,
+            'cursor-not-allowed': showLoader,
+          }"
           language="en-US"
           preview-theme="github"
           :show-code-row-number="true"
@@ -320,15 +355,24 @@
             <n-button
               size="large"
               type="primary"
+              :loading="showLoader"
               @click="publishChangesToProject(false)"
             >
+              <template #icon>
+                <Icon name="fluent:form-new-48-filled" />
+              </template>
               Create new version
             </n-button>
+
             <n-button
               size="large"
               type="error"
+              :disabled="showLoader"
               @click="hideNewVersionModalFunction"
             >
+              <template #icon>
+                <Icon name="material-symbols:cancel" />
+              </template>
               Cancel
             </n-button>
           </div>
@@ -348,6 +392,7 @@ import calver from "calver";
 import sanitizeHtml from "sanitize-html";
 import { isEmpty } from "lodash-es";
 
+import { displayLongDate } from "@/utils/displayDates";
 /**
  * TODO: add a custom toolbar to the editor
  * TODO: Change the links section into an accordian
@@ -369,6 +414,8 @@ const latestVersion = ref(false);
 
 const showAddEditLinkModal = ref(false);
 const showNewVersionModal = ref(false);
+
+const showLoader = ref(false);
 
 const releaseNotes = ref("");
 
@@ -591,7 +638,7 @@ const checkForChangesToLinks = () => {
       console.log(latestVersionName);
 
       const releaseVersion = calver.inc(
-        "yy.mm.minor",
+        "yyyy.ww.minor",
         latestVersionName,
         "calendar.minor"
       );
@@ -674,6 +721,8 @@ const publishChangesToProject = async (skipNotes = false) => {
     }
   }
 
+  showLoader.value = true;
+
   try {
     const body = {
       links: allLinks.value.map((link) => {
@@ -715,6 +764,9 @@ const publishChangesToProject = async (skipNotes = false) => {
       );
 
       if (responseBody) {
+        showLoader.value = false;
+        showNewVersionModal.value = false;
+
         if (responseBody.status === "new-version-created") {
           message.success("New version created successfully");
 
@@ -736,6 +788,8 @@ const publishChangesToProject = async (skipNotes = false) => {
       }
     }
   } catch (error) {
+    showLoader.value = false;
+
     console.error(error);
     message.error("Something went wrong, please try again later");
   }
@@ -821,6 +875,7 @@ if (versionIdentifier === "new") {
 }
 
 useSeoMeta({
-  title: "Projects",
+  title: `${projectName.value} | Scholar Stack`,
+  description: projectDescription.value,
 });
 </script>

@@ -164,7 +164,7 @@ export default defineEventHandler(async (event) => {
     }
 
     const newVersionName = calver.inc(
-      "yy.mm.minor",
+      "yyyy.ww.minor",
       latestVersionName,
       "calendar.minor"
     );
@@ -182,7 +182,7 @@ export default defineEventHandler(async (event) => {
       data: {
         name: newVersionName,
         changes: parsedBody.data.releaseNotes,
-        identifier: `ver${nanoid()}`,
+        identifier: `ver${nanoid(6)}`,
         latest: true,
         links: {
           connectOrCreate: linksToConnect.map((link) => {
