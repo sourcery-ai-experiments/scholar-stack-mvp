@@ -27,7 +27,9 @@
 
     <div class="flex flex-row justify-between space-x-8 pb-24">
       <div class="links-section h-max flex-1">
-        <h2 v-if="allLinks.length > 0" class="px-4">Links</h2>
+        <h2 v-if="allLinks.length > 0" class="px-4">Linked Resources</h2>
+
+        <n-divider v-if="allLinks.length > 0" />
 
         <div
           v-if="allLinks.length <= 0"
@@ -182,7 +184,7 @@
           'mt-14': allLinks.length < 0,
         }"
       >
-        <h3 class="text-right text-slate-700">Versions</h3>
+        <h3 class="pt-3 text-right text-slate-700">Versions</h3>
 
         <n-divider />
 
