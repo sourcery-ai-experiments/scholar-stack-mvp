@@ -51,10 +51,15 @@
                 :loading="loading"
                 @click="registerForAccount"
               >
+                <template #icon>
+                  <Icon name="mdi:register" />
+                </template>
                 Register
               </n-button>
             </div>
           </n-form>
+
+          <n-divider />
 
           <div class="flex justify-center text-sm">
             Already have an account?
@@ -95,7 +100,7 @@ const registerFormRules = {
     trigger: ["input"],
   },
   password: {
-    message: "Please input your password",
+    message: "Please fill in your password",
     required: true,
     trigger: ["input"],
   },

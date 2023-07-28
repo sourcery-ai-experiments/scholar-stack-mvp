@@ -29,10 +29,21 @@
 
           <div class="flex items-center justify-center space-x-2">
             <nuxt-link v-if="!loggedIn" to="/auth/login">
-              <n-button type="primary" secondary> Login </n-button>
+              <n-button type="primary" secondary>
+                <template #icon>
+                  <Icon name="ion:log-in-outline" />
+                </template>
+
+                Login
+              </n-button>
             </nuxt-link>
             <nuxt-link v-if="!loggedIn" to="/auth/register">
-              <n-button type="info" secondary> Sign Up </n-button>
+              <n-button type="info" secondary>
+                <template #icon>
+                  <Icon name="ion:person-add-outline" />
+                </template>
+                Sign Up
+              </n-button>
             </nuxt-link>
 
             <n-popover

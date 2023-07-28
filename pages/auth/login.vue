@@ -56,9 +56,14 @@
               :disabled="invalidEmailAddress"
               @click="signIn"
             >
+              <template #icon>
+                <Icon name="ph:sign-in-bold" />
+              </template>
               Sign In
             </n-button>
           </div>
+
+          <n-divider />
 
           <div class="flex justify-center text-sm">
             Don't have an account?
