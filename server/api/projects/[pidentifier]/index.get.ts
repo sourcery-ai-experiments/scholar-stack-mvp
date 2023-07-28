@@ -24,6 +24,7 @@ export default defineEventHandler(async (event) => {
           name: true,
           created: true,
           identifier: true,
+          updated: true,
         },
       },
     },
@@ -53,6 +54,7 @@ export default defineEventHandler(async (event) => {
         name: version.name,
         created: version.created.toISOString(),
         identifier: version.identifier,
+        updated: version.updated.toISOString(),
       };
     }),
   };

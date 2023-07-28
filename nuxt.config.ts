@@ -19,6 +19,10 @@ export default defineNuxtConfig({
 
   css: ["@/assets/css/tailwind.css"],
 
+  devtools: {
+    enabled: true,
+  },
+
   imports: {
     dirs: ["stores"],
   },
@@ -27,6 +31,7 @@ export default defineNuxtConfig({
     "@nuxtjs/supabase",
     "@nuxtjs/tailwindcss",
     "@pinia/nuxt",
+    "@nuxt/devtools",
     "@bg-dev/nuxt-naiveui",
     "nuxt-icon", // icons are found here: https://icones.js.org/
   ],

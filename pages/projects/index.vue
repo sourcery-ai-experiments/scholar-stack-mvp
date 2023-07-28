@@ -1,3 +1,44 @@
+<script setup lang="ts">
+import { useMessage } from "naive-ui";
+import {
+  displayShortDate,
+  displayLongDate,
+  displayDateDifference,
+} from "~/utils/displayDates";
+
+const message = useMessage();
+
+const {
+  data: projects,
+  error,
+  pending,
+} = useLazyFetch("/api/projects", {
+  headers: useRequestHeaders(["cookie"]),
+});
+
+watch(
+  error,
+  (err) => {
+    if (!err) return;
+    console.log(err?.data.message);
+    message.error("Something went wrong. Please try again later.");
+  },
+  {
+    immediate: true,
+  }
+);
+
+const viewType = ref<"grid" | "list">("list");
+
+const selectViewType = (type: "grid" | "list") => {
+  viewType.value = type;
+};
+
+definePageMeta({
+  middleware: ["auth"],
+});
+</script>
+
 <template>
   <main class="px-4">
     <div class="flex items-center justify-between">
@@ -208,44 +249,3 @@
     </div>
   </main>
 </template>
-
-<script setup lang="ts">
-import { useMessage } from "naive-ui";
-import {
-  displayShortDate,
-  displayLongDate,
-  displayDateDifference,
-} from "~/utils/displayDates";
-
-const message = useMessage();
-
-const {
-  data: projects,
-  error,
-  pending,
-} = useLazyFetch("/api/projects", {
-  headers: useRequestHeaders(["cookie"]),
-});
-
-watch(
-  error,
-  (err) => {
-    if (!err) return;
-    console.log(err?.data.message);
-    message.error("Something went wrong. Please try again later.");
-  },
-  {
-    immediate: true,
-  }
-);
-
-const viewType = ref<"grid" | "list">("list");
-
-const selectViewType = (type: "grid" | "list") => {
-  viewType.value = type;
-};
-
-definePageMeta({
-  middleware: ["auth"],
-});
-</script>

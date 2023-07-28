@@ -1,5 +1,6 @@
 interface AllVersionsItem {
   name: string;
+  updated: string;
   created: string;
   identifier: string;
 }
@@ -13,7 +14,6 @@ interface Version {
   changes?: string;
 
   created: string;
-  updated: string;
 
   identifier: string;
 }

@@ -48,7 +48,7 @@ export default defineEventHandler(async (event) => {
   const user = await serverSupabaseUser(event);
   const authorId = user?.id;
 
-  let identifier = `prj${nanoid()}`;
+  let identifier = `prj${nanoid(6)}`;
 
   // Check if the identifier is already taken
   while (await prisma.project.findUnique({ where: { identifier } })) {
