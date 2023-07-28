@@ -52,7 +52,7 @@ export default defineEventHandler(async (event) => {
 
   // Check if the identifier is already taken
   while (await prisma.project.findUnique({ where: { identifier } })) {
-    identifier = `prj${nanoid()}`;
+    identifier = `prj${nanoid(6)}`;
   }
 
   const project = await prisma.project.create({
