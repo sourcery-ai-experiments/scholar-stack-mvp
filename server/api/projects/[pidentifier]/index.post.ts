@@ -64,7 +64,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const user = await serverSupabaseUser(event);
-  const authorId: string = user?.id;
+  const authorId: string = user?.id as string;
 
   // verify that the user is the author of the project
   const project = await prisma.project.findUnique({
@@ -78,7 +78,7 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  if (project.authorId !== authorId) {
+  if (project.author_id !== authorId) {
     throw createError({
       message: "You are not the author of this project",
       statusCode: 403,
@@ -147,7 +147,7 @@ export default defineEventHandler(async (event) => {
     // get the latset version of the project
     const latestVersion = await prisma.version.findFirst({
       orderBy: { created: "desc" },
-      where: { projectId: project.id },
+      where: { project_id: project.id },
     });
 
     const latestVersionName = latestVersion?.name || "";
@@ -208,7 +208,7 @@ export default defineEventHandler(async (event) => {
           //   };
           // }),
         },
-        projectId: project.id,
+        project_id: project.id,
       },
     });
 

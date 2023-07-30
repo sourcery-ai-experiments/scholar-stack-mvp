@@ -22,14 +22,14 @@ export default defineEventHandler(async (event) => {
       },
     },
     where: {
-      authorId: user?.id,
+      author_id: user?.id,
     },
   });
 
   for (const project of projects) {
     const versions = await prisma.version.findMany({
       where: {
-        projectId: project.id,
+        project_id: project.id,
       },
     });
 

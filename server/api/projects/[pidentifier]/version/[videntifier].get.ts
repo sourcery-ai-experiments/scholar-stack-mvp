@@ -74,7 +74,7 @@ export default defineEventHandler(async (event) => {
     }),
   };
 
-  if (user?.id === project.authorId) {
+  if (user?.id === project.author_id) {
     responseProject.isAuthor = true;
   }
 

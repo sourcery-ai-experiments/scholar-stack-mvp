@@ -49,8 +49,6 @@ watch(project, (project) => {
   ) {
     const latestVersionIdentifier = projectData.latestVersion.identifier;
 
-    console.log(latestVersionIdentifier);
-
     navigateTo(
       `/projects/${projectData.identifier}/version/${latestVersionIdentifier}`
     );

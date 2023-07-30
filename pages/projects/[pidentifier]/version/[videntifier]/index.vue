@@ -20,8 +20,8 @@ const message = useMessage();
 
 const linkStore = useLinkStore();
 
-const projectIdentifier = route.params.pidentifier;
-const versionIdentifier = route.params.videntifier;
+const projectIdentifier = route.params.pidentifier as string;
+const versionIdentifier = route.params.videntifier as string;
 
 const projectName = ref("");
 const projectDescription = ref("");
@@ -30,6 +30,9 @@ const projectCreated = ref("");
 const projectUpdated = ref("");
 
 const latestVersion = ref(false);
+
+const showAddEditLinkDrawer = ref(false);
+const drawerLinkID = ref("");
 
 const showAddEditLinkModal = ref(false);
 const showNewVersionModal = ref(false);
@@ -75,6 +78,20 @@ const newLinkFormRules = {
 };
 
 const sanitize = (html: string) => sanitizeHtml(html);
+
+const showAddEditLinkDrawerFunction = (linkID: string) => {
+  showAddEditLinkDrawer.value = true;
+
+  if (linkID === "new") {
+    drawerLinkID.value = "new";
+  } else {
+    drawerLinkID.value = linkID;
+  }
+};
+
+const hideAddEditLinkDrawerFunction = () => {
+  showAddEditLinkDrawer.value = false;
+};
 
 const showAddEditLinkModalFunction = (linkId = "") => {
   showAddEditLinkModal.value = true;
@@ -475,17 +492,8 @@ if (versionIdentifier === "new") {
       }
 
       if ("links" in projectData.versionDetails) {
-        allLinks.value = projectData.versionDetails.links as LocalLinkType[];
+        linkStore.setLinks(projectData.versionDetails.links as LocalLinkType[]);
       }
-
-      // add origin key to links
-      allLinks.value = allLinks.value.map((link) => {
-        return {
-          ...link,
-          origin: "remote",
-          originalTarget: link.target,
-        };
-      });
 
       linkStore.setLinks(allLinks.value);
     }
@@ -558,6 +566,16 @@ useSeoMeta({
           </p>
 
           <n-button
+            v-if="latestVersion"
+            class="mt-4 w-max"
+            type="primary"
+            size="large"
+            @click="showAddEditLinkDrawerFunction('new')"
+          >
+            Add a link (Drawer)
+          </n-button>
+
+          <n-button
             type="primary"
             size="large"
             class="mt-4"
@@ -604,7 +622,8 @@ useSeoMeta({
                 </n-button>
               </div>
             </template>
-            <div class="">
+
+            <div>
               <p>{{ link.description }}</p>
               <p>{{ link.target }}</p>
             </div>
@@ -640,19 +659,36 @@ useSeoMeta({
                   />
                 </div>
 
-                <n-button
-                  v-if="latestVersion"
-                  type="primary"
-                  secondary
-                  strong
-                  :disabled="link.action === 'delete'"
-                  @click="showAddEditLinkModalFunction(link.id)"
-                >
-                  <template #icon>
-                    <Icon name="material-symbols:edit" />
-                  </template>
-                  Edit details
-                </n-button>
+                <div>
+                  <n-button
+                    v-if="latestVersion"
+                    type="primary"
+                    secondary
+                    strong
+                    :disabled="link.action === 'delete'"
+                    @click="showAddEditLinkDrawerFunction(link.id)"
+                  >
+                    <template #icon>
+                      <Icon name="material-symbols:edit" />
+                    </template>
+                    Edit details (drawer)
+                  </n-button>
+
+                  <n-button
+                    v-if="latestVersion"
+                    type="primary"
+                    class="ml-2"
+                    secondary
+                    strong
+                    :disabled="link.action === 'delete'"
+                    @click="showAddEditLinkModalFunction(link.id)"
+                  >
+                    <template #icon>
+                      <Icon name="material-symbols:edit" />
+                    </template>
+                    Edit details
+                  </n-button>
+                </div>
               </div>
             </template>
           </n-card>
@@ -665,6 +701,16 @@ useSeoMeta({
             @click="showAddEditLinkModalFunction()"
           >
             Add a link
+          </n-button>
+
+          <n-button
+            v-if="latestVersion"
+            class="mt-4 w-max"
+            type="primary"
+            size="large"
+            @click="showAddEditLinkDrawerFunction('new')"
+          >
+            Add a link (Drawer)
           </n-button>
 
           <NuxtLink
@@ -834,6 +880,18 @@ useSeoMeta({
           </div>
         </template>
       </n-modal>
+
+      <n-drawer
+        v-model:show="showAddEditLinkDrawer"
+        width="40%"
+        placement="right"
+      >
+        <DrawerAddEditLink
+          :hide-add-edit-link-drawer-function="hideAddEditLinkDrawerFunction"
+          :project-identifier="projectIdentifier"
+          :link-identifier="drawerLinkID"
+        />
+      </n-drawer>
 
       <n-modal
         v-model:show="showNewVersionModal"

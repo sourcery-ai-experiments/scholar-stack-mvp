@@ -5,6 +5,15 @@ export const useLinkStore = defineStore("link", () => {
 
   const setLinks = (inputLinks: LocalLinkType[]) => {
     links.value = inputLinks;
+
+    // add origin key to links
+    links.value = links.value.map((link) => {
+      return {
+        ...link,
+        origin: "remote",
+        originalTarget: link.target,
+      };
+    });
   };
 
   const getLink = (id: string) => {

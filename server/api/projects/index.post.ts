@@ -46,7 +46,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const user = await serverSupabaseUser(event);
-  const authorId = user?.id;
+  const authorId = user?.id as string;
 
   let identifier = `prj${nanoid(6)}`;
 
@@ -58,7 +58,7 @@ export default defineEventHandler(async (event) => {
   const project = await prisma.project.create({
     data: {
       name: parsedBody.data.name,
-      authorId,
+      author_id: authorId,
       description: parsedBody.data.description,
       identifier,
       image:

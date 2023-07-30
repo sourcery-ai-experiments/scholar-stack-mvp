@@ -59,7 +59,7 @@ export default defineEventHandler(async (event) => {
     }),
   };
 
-  if (user?.id === project.authorId) {
+  if (user?.id === project.author_id) {
     responseProject.isAuthor = true;
   }
 
@@ -68,7 +68,7 @@ export default defineEventHandler(async (event) => {
       links: true,
     },
     orderBy: { created: "desc" },
-    where: { projectId: project.id },
+    where: { project_id: project.id },
   });
 
   const response = {
