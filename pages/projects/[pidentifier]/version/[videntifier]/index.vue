@@ -883,8 +883,12 @@ useSeoMeta({
 
       <n-drawer
         v-model:show="showAddEditLinkDrawer"
-        width="40%"
+        default-width="40%"
         placement="right"
+        :mask-closable="false"
+        :close-on-esc="false"
+        :resizable="true"
+        :auto-focus="true"
       >
         <DrawerAddEditLink
           :hide-add-edit-link-drawer-function="hideAddEditLinkDrawerFunction"

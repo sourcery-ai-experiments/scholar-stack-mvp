@@ -57,12 +57,6 @@ body {
   }
   /* #endregion  /**======== Typography =========== */
 
-  .layout {
-    /* 1100px */
-    max-width: 68.75rem;
-    @apply mx-auto w-11/12;
-  }
-
   /* #region  /**=========== Scrollbar =========== */
 
   *::-webkit-scrollbar {
@@ -79,16 +73,7 @@ body {
     border: 3px solid #ffffff;
   }
 
-  /* #endregion  /**======== Typography =========== */
-
-  .bg-dark a.custom-link {
-    @apply border-gray-200 hover:border-gray-200/0;
-  }
-
-  /* Class to adjust with sticky footer */
-  .min-h-main {
-    @apply min-h-[calc(100vh-56px)];
-  }
+  /* #endregion  /**======== Scrollbar =========== */
 }
 
 @layer utilities {
@@ -134,10 +119,6 @@ body {
 .link-underline:hover {
   background-size: 100% 3px;
   background-position: 0 100%;
-}
-
-.overlay {
-  background: linear-gradient(0deg, black, transparent);
 }
 
 /* Transitions between pages */

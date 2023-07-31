@@ -135,7 +135,7 @@ const addResource = (e: MouseEvent) => {
 </script>
 
 <template>
-  <n-drawer-content :title="drawerTitle">
+  <n-drawer-content :title="drawerTitle" :closable="false">
     <n-form
       ref="formRef"
       :model="formValue"
@@ -191,9 +191,20 @@ const addResource = (e: MouseEvent) => {
 
     <div class="flex items-center justify-center space-x-4">
       <n-button
+        type="error"
+        size="large"
+        secondary
+        @click="props.hideAddEditLinkDrawerFunction"
+      >
+        <template #icon>
+          <Icon name="material-symbols:cancel-outline" />
+        </template>
+        Cancel
+      </n-button>
+
+      <n-button
         type="primary"
         size="large"
-        strong
         :loading="loading"
         @click="addResource"
       >

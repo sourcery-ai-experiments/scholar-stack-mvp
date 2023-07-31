@@ -92,7 +92,10 @@ const loggedIn = computed(() => user.value);
 
 const logout = async () => {
   await auth.signOut();
-  window.location.href = "/";
+
+  console.log("Logged out");
+
+  navigateTo("/auth/login");
 };
 </script>
 

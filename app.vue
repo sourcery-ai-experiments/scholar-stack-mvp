@@ -10,8 +10,17 @@
 </template>
 
 <script setup lang="ts">
-import "vue3-lottie/dist/style.css";
 import "md-editor-v3/lib/style.css";
+
+import { ThemeConfig } from "@bg-dev/nuxt-naiveui";
+
+const themeConfig: ThemeConfig = {
+  dark: {}, // Theme options applied on dark mode
+  light: {}, // Theme options applied on light mode
+  mobile: {}, // Theme options applied on mobile only
+  mobileOrTablet: {}, // Theme options applied on mobile and tablet
+  shared: {}, // Common theme options
+};
 
 useHead({
   title: "Scholar Stack",
