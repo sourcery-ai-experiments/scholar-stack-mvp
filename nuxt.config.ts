@@ -31,6 +31,14 @@ export default defineNuxtConfig({
     "@nuxtjs/supabase",
     "@nuxtjs/tailwindcss",
     "@pinia/nuxt",
+    [
+      "@nuxtjs/google-fonts",
+      {
+        families: {
+          Inter: true,
+        },
+      },
+    ],
     "@nuxt/devtools",
     "@bg-dev/nuxt-naiveui",
     "nuxt-icon", // icons are found here: https://icones.js.org/

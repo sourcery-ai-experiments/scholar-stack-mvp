@@ -105,6 +105,62 @@ const buttonDetails = computed(() => {
   };
 });
 
+// const addLink = (e: MouseEvent) => {
+//   e.preventDefault();
+
+//   newLinkFormRef.value?.validate((errors) => {
+//     if (!errors) {
+//       // save data
+
+//       if (newLinkFormValue.value.id === "") {
+//         const newLink: LocalLinkType = {
+//           id: `local${nanoid()}`,
+//           name: newLinkFormValue.value.name,
+
+//           action: "create",
+
+//           description: newLinkFormValue.value.description,
+//           origin: "local",
+
+//           target: newLinkFormValue.value.target,
+//           type: newLinkFormValue.value.type as TargetType,
+//         };
+
+//         allLinks.value.push(newLink);
+//       } else {
+//         const index = allLinks.value.findIndex(
+//           (link) => link.id === newLinkFormValue.value.id
+//         );
+
+//         if (index !== -1) {
+//           if (allLinks.value[index].origin === "remote") {
+//             if (
+//               allLinks.value[index].target !== newLinkFormValue.value.target
+//             ) {
+//               allLinks.value[index].action = "target_update";
+//             } else {
+//               allLinks.value[index].action = "update";
+//             }
+//           }
+
+//           allLinks.value[index].name = newLinkFormValue.value.name;
+//           allLinks.value[index].description =
+//             newLinkFormValue.value.description;
+//           allLinks.value[index].target = newLinkFormValue.value.target;
+//           allLinks.value[index].type = newLinkFormValue.value
+//             .type as TargetType;
+//         }
+//       }
+
+//       showAddEditLinkModal.value = false;
+
+//       console.log(allLinks.value);
+//     } else {
+//       console.log(errors);
+//     }
+//   });
+// };
+
 const addResource = (e: MouseEvent) => {
   e.preventDefault();
 
@@ -115,7 +171,12 @@ const addResource = (e: MouseEvent) => {
       const link: LocalLinkType = {
         id: nanoid(),
         name: formValue.name,
+
+        action: "create",
+
         description: formValue.description,
+        origin: "local",
+
         target: formValue.target,
         type: formValue.type,
       };
