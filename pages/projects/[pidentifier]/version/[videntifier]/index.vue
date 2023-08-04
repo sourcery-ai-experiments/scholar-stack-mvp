@@ -422,221 +422,226 @@ useSeoMeta({
     <n-divider />
 
     <div class="flex flex-row justify-between space-x-8 pb-24">
-      <n-tabs type="segment" animated>
+      <n-tabs type="line" animated>
         <n-tab-pane name="resources" tab="Linked Resources">
-          <div class="links-section my-2 h-max flex-1 py-3">
-            <h2 v-if="allLinks.length > 0" class="hidden px-4">
-              Linked Resources
-            </h2>
+          <div class="flex space-x-8">
+            <div class="links-section my-2 h-max flex-1 py-3">
+              <h2 v-if="allLinks.length > 0" class="hidden px-4">
+                Linked Resources
+              </h2>
 
-            <n-divider v-if="allLinks.length > 0" class="hidden" />
+              <n-divider v-if="allLinks.length > 0" class="hidden" />
 
-            <div
-              v-if="allLinks.length <= 0"
-              class="flex flex-col items-center justify-center rounded-lg border border-slate-200 px-3 pb-8 shadow-sm"
-            >
-              <div class="h-[200px] w-[200px]">
-                <client-only>
-                  <Vue3Lottie
-                    animation-link="https://assets2.lottiefiles.com/packages/lf20_xu9spfum.json"
-                    :height="200"
-                    :width="200"
-                    class="mx-0"
-                  />
-                </client-only>
-              </div>
-
-              <p class="my-4 text-center text-slate-600">
-                No resources found for this project.
-              </p>
-
-              <n-button
-                type="primary"
-                size="large"
-                class="mt-4"
-                :loading="showLoader"
-                @click="showAddEditLinkDrawerFunction('new')"
+              <div
+                v-if="allLinks.length <= 0"
+                class="flex flex-col items-center justify-center rounded-lg border border-slate-200 px-3 pb-8 shadow-sm"
               >
-                <template #icon>
-                  <Icon name="carbon:add-filled" />
-                </template>
-                Add a resource
-              </n-button>
-            </div>
-            <div v-else class="flex flex-col px-2 py-4">
-              <n-card
-                v-for="link in allLinks"
-                :key="link.id"
-                :title="link.name"
-                class="my-2"
-                :class="{ 'opacity-50': link.action === 'delete' }"
-              >
-                <template #header-extra>
-                  <div class="flex flex-row space-x-4">
-                    <n-popconfirm
-                      v-if="latestVersion && link.action !== 'delete'"
-                      @positive-click="removeLink(link.id)"
-                    >
-                      <template #trigger>
-                        <n-button type="error" secondary strong>
-                          <template #icon>
-                            <Icon name="material-symbols:delete" />
-                          </template>
-                          Remove from project
-                        </n-button>
-                      </template>
-                      Do you want to delete this item?
-                    </n-popconfirm>
-
-                    <n-button
-                      v-if="link.action === 'delete'"
-                      type="warning"
-                      @click="undoRemoveLink(link.id)"
-                    >
-                      Undo delete
-                    </n-button>
-                  </div>
-                </template>
-
-                <div>
-                  <p>{{ link.description }}</p>
-                  <p>{{ link.target }}</p>
+                <div class="h-[200px] w-[200px]">
+                  <client-only>
+                    <Vue3Lottie
+                      animation-link="https://assets2.lottiefiles.com/packages/lf20_xu9spfum.json"
+                      :height="200"
+                      :width="200"
+                      class="mx-0"
+                    />
+                  </client-only>
                 </div>
 
-                <template #footer>
-                  <div class="flex items-center justify-between">
-                    <div class="flex items-center justify-start space-x-4">
-                      <Icon
-                        v-if="link.origin === 'remote'"
-                        name="material-symbols:cloud"
-                        size="25"
-                      />
+                <p class="my-4 text-center text-slate-600">
+                  No resources found for this project.
+                </p>
 
-                      <Icon
-                        :name="
-                          link.type === 'doi' ? 'academicons:doi' : 'uil:link'
-                        "
-                        size="25"
-                      />
-
-                      <Icon
-                        v-if="link.action === 'create'"
-                        name="ic:baseline-fiber-new"
-                        size="25"
-                      />
-                      <Icon
-                        v-if="link.action === 'update'"
-                        name="bx:edit"
-                        size="25"
-                      />
-                      <Icon
-                        v-if="link.action === 'target_update'"
-                        name="fluent:box-edit-24-regular"
-                        size="25"
-                      />
-                    </div>
-
-                    <div>
-                      <n-button
-                        v-if="latestVersion"
-                        type="primary"
-                        secondary
-                        strong
-                        :disabled="link.action === 'delete'"
-                        @click="showAddEditLinkDrawerFunction(link.id)"
-                      >
-                        <template #icon>
-                          <Icon name="material-symbols:edit" />
-                        </template>
-                        Edit details (drawer)
-                      </n-button>
-                    </div>
-                  </div>
-                </template>
-              </n-card>
-
-              <div class="mt-4 py-2">
                 <n-button
-                  v-if="latestVersion"
                   type="primary"
                   size="large"
+                  class="mt-4"
+                  :loading="showLoader"
                   @click="showAddEditLinkDrawerFunction('new')"
                 >
                   <template #icon>
                     <Icon name="carbon:add-filled" />
                   </template>
-                  Add another resource
+                  Add a resource
                 </n-button>
               </div>
-
-              <n-divider v-if="latestVersion" />
-
-              <div class="flex items-center justify-end">
-                <n-button
-                  v-if="latestVersion"
-                  type="primary"
-                  size="large"
-                  :loading="showLoader"
-                  @click="checkForChangesToLinks"
+              <div v-else class="flex flex-col px-2 py-4">
+                <n-card
+                  v-for="link in allLinks"
+                  :key="link.id"
+                  :title="link.name"
+                  class="my-2"
+                  :class="{ 'opacity-50': link.action === 'delete' }"
                 >
-                  <template #icon>
-                    <Icon name="material-symbols:save-as" />
+                  <template #header-extra>
+                    <div class="flex flex-row space-x-4">
+                      <n-popconfirm
+                        v-if="latestVersion && link.action !== 'delete'"
+                        @positive-click="removeLink(link.id)"
+                      >
+                        <template #trigger>
+                          <n-button type="error" secondary strong>
+                            <template #icon>
+                              <Icon name="material-symbols:delete" />
+                            </template>
+                            Remove from project
+                          </n-button>
+                        </template>
+                        Do you want to delete this item?
+                      </n-popconfirm>
+
+                      <n-button
+                        v-if="link.action === 'delete'"
+                        type="warning"
+                        @click="undoRemoveLink(link.id)"
+                      >
+                        Undo delete
+                      </n-button>
+                    </div>
                   </template>
-                  Save changes
-                </n-button>
+
+                  <div>
+                    <p>{{ link.description }}</p>
+                    <p>{{ link.target }}</p>
+                  </div>
+
+                  <template #footer>
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center justify-start space-x-4">
+                        <Icon
+                          v-if="link.origin === 'remote'"
+                          name="material-symbols:cloud"
+                          size="25"
+                        />
+
+                        <Icon
+                          :name="
+                            link.type === 'doi' ? 'academicons:doi' : 'uil:link'
+                          "
+                          size="25"
+                        />
+
+                        <Icon
+                          v-if="link.action === 'create'"
+                          name="ic:baseline-fiber-new"
+                          size="25"
+                        />
+                        <Icon
+                          v-if="link.action === 'update'"
+                          name="bx:edit"
+                          size="25"
+                        />
+                        <Icon
+                          v-if="link.action === 'target_update'"
+                          name="fluent:box-edit-24-regular"
+                          size="25"
+                        />
+                      </div>
+
+                      <div>
+                        <n-button
+                          v-if="latestVersion"
+                          type="primary"
+                          secondary
+                          strong
+                          :disabled="link.action === 'delete'"
+                          @click="showAddEditLinkDrawerFunction(link.id)"
+                        >
+                          <template #icon>
+                            <Icon name="material-symbols:edit" />
+                          </template>
+                          Edit details (drawer)
+                        </n-button>
+                      </div>
+                    </div>
+                  </template>
+                </n-card>
+
+                <div class="mt-4 py-2">
+                  <n-button
+                    v-if="latestVersion"
+                    type="primary"
+                    size="large"
+                    @click="showAddEditLinkDrawerFunction('new')"
+                  >
+                    <template #icon>
+                      <Icon name="carbon:add-filled" />
+                    </template>
+                    Add another resource
+                  </n-button>
+                </div>
+
+                <n-divider v-if="latestVersion" />
+
+                <div class="flex items-center justify-end">
+                  <n-button
+                    v-if="latestVersion"
+                    type="primary"
+                    size="large"
+                    :loading="showLoader"
+                    @click="checkForChangesToLinks"
+                  >
+                    <template #icon>
+                      <Icon name="material-symbols:save-as" />
+                    </template>
+                    Save changes
+                  </n-button>
+                </div>
               </div>
+            </div>
+
+            <div
+              v-show="allVersions.length >= 0"
+              class="versions-section mt-5 px-3 py-2"
+            >
+              <h3 class="text-right text-slate-700">Versions</h3>
+
+              <n-divider />
+
+              <n-timeline item-placement="right">
+                <n-timeline-item
+                  content="Current version"
+                  type="warning"
+                  line-type="dashed"
+                />
+
+                <n-timeline-item
+                  v-for="version in allVersions"
+                  :key="version.identifier"
+                  :title="version.name"
+                  type="success"
+                  :time="displayLongDate(version.created)"
+                  :class="{
+                    'rounded-xl bg-gray-50 pt-4':
+                      version.identifier === $route.params.videntifier,
+                  }"
+                >
+                  <template #header>
+                    {{ version.name }}
+                  </template>
+
+                  <nuxt-link
+                    :to="`/projects/${$route.params.pidentifier}/version/${version.identifier}`"
+                  >
+                    bit.ly/{{ version.identifier }}
+                  </nuxt-link>
+                </n-timeline-item>
+
+                <n-timeline-item
+                  title="Project Created"
+                  type="info"
+                  :time="displayLongDate(projectCreated)"
+                >
+                  <nuxt-link :to="`/projects/${$route.params.pidentifier}`">
+                    bit.ly/{{ $route.params.pidentifier }}
+                  </nuxt-link>
+                </n-timeline-item>
+              </n-timeline>
             </div>
           </div>
         </n-tab-pane>
 
         <n-tab-pane name="activity" tab="Activity"> Hey Jude </n-tab-pane>
       </n-tabs>
-
-      <div v-show="allVersions.length >= 0" class="versions-section px-3 py-2">
-        <h3 class="text-right text-slate-700">Versions</h3>
-
-        <n-divider />
-
-        <n-timeline item-placement="right">
-          <n-timeline-item
-            content="Current version"
-            type="warning"
-            line-type="dashed"
-          />
-
-          <n-timeline-item
-            v-for="version in allVersions"
-            :key="version.identifier"
-            :title="version.name"
-            type="success"
-            :time="displayLongDate(version.created)"
-            :class="{
-              'rounded-xl bg-gray-50 pt-4':
-                version.identifier === $route.params.videntifier,
-            }"
-          >
-            <template #header>
-              {{ version.name }}
-            </template>
-
-            <nuxt-link
-              :to="`/projects/${$route.params.pidentifier}/version/${version.identifier}`"
-            >
-              bit.ly/{{ version.identifier }}
-            </nuxt-link>
-          </n-timeline-item>
-
-          <n-timeline-item
-            title="Project Created"
-            type="info"
-            :time="displayLongDate(projectCreated)"
-          >
-            <nuxt-link :to="`/projects/${$route.params.pidentifier}`">
-              bit.ly/{{ $route.params.pidentifier }}
-            </nuxt-link>
-          </n-timeline-item>
-        </n-timeline>
-      </div>
 
       <n-drawer
         v-model:show="showAddEditLinkDrawer"

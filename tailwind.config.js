@@ -31,6 +31,26 @@ module.exports = {
         zoomIn: "appear 300ms ease-out 150ms both",
       },
 
+      colors: {
+        accent: "#995c99",
+        background: "#f5f6fa",
+        primary: {
+          50: "#eef0f6",
+          100: "#ccd1e5",
+          200: "#aab3d4",
+          300: "#8894c3",
+          400: "#6676b2",
+          500: "#4d5c99",
+          600: "#3c4877",
+          700: "#2b3355",
+          800: "#1a1f33",
+          900: "#090a11",
+          DEFAULT: "#3c4472",
+        },
+        secondary: "#ede9d9",
+        text: "#040407",
+      },
+
       container: {
         center: true,
         screens: {

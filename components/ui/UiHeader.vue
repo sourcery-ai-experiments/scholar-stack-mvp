@@ -1,6 +1,26 @@
+<script setup lang="ts">
+import { colors } from "@/utils/constants";
+
+const { auth } = useSupabaseAuthClient();
+const user = useSupabaseUser();
+const supabase = useSupabaseClient();
+
+const loggedIn = computed(() => user.value);
+
+const logout = async () => {
+  console.log("Logging out");
+  // await auth.signOut();
+  await supabase.auth.signOut();
+
+  console.log("Logged out");
+
+  navigateTo("/auth/login");
+};
+</script>
+
 <template>
   <header
-    class="header left-0 top-0 z-50 mx-auto mb-8 w-full border-b border-slate-200 px-4 pb-3 pt-2 text-slate-800"
+    class="header left-0 top-0 z-50 mx-auto mb-8 w-full bg-primary px-4 pb-3 pt-2 text-white"
   >
     <div class="flex items-center justify-between">
       <div class="flex items-center justify-start">
@@ -9,8 +29,8 @@
             to="/"
             class="flex flex-row items-center justify-start space-x-2"
           >
-            <img src="/logo/logo.svg" alt="Logo" class="w-10" />
-            <span class="text-xl font-bold text-cyan-600">Scholar Stack</span>
+            <img src="/logo/logo.svg" alt="Logo" class="mr-2 w-10" />
+            <span class="text-xl font-bold">Scholar Stack</span>
           </NuxtLink>
         </div>
         <div class="flex w-fit justify-start space-x-4">
@@ -29,16 +49,16 @@
 
           <div class="flex items-center justify-center space-x-2">
             <nuxt-link v-if="!loggedIn" to="/auth/login">
-              <n-button type="primary" secondary>
+              <n-button :color="colors.secondary" class="!text-black">
                 <template #icon>
                   <Icon name="ion:log-in-outline" />
                 </template>
 
-                Login
+                <span> Login </span>
               </n-button>
             </nuxt-link>
             <nuxt-link v-if="!loggedIn" to="/auth/register">
-              <n-button type="info" secondary>
+              <n-button :color="colors.accent">
                 <template #icon>
                   <Icon name="ion:person-add-outline" />
                 </template>
@@ -84,24 +104,9 @@
   </header>
 </template>
 
-<script setup lang="ts">
-const { auth } = useSupabaseAuthClient();
-const user = useSupabaseUser();
-
-const loggedIn = computed(() => user.value);
-
-const logout = async () => {
-  await auth.signOut();
-
-  console.log("Logged out");
-
-  navigateTo("/auth/login");
-};
-</script>
-
 <style scoped>
 .navigation-item {
-  @apply font-semibold text-slate-600 transition-all hover:text-slate-800;
+  @apply font-semibold text-white transition-all hover:text-primary-100;
 }
 
 .dropdown-item {
