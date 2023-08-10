@@ -109,7 +109,7 @@ definePageMeta({
 </script>
 
 <template>
-  <main class="px-12">
+  <main class="px-12 py-8">
     <h1>Lets create a new project</h1>
 
     <p class="mt-2 text-lg text-slate-600">

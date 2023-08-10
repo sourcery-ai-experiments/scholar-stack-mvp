@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { useMessage } from "naive-ui";
-import type { FormInst } from "naive-ui";
+import type { FormInst, SelectOption } from "naive-ui";
+import type { VNodeChild } from "vue";
 import { faker } from "@faker-js/faker";
 import { nanoid } from "nanoid";
+import { Icon } from "#components";
 
+import LINKS_JSON from "@/assets/json/links.json";
 import { useLinkStore } from "@/stores/link";
 
 const props = defineProps({
@@ -33,9 +36,12 @@ const formValue: LocalLinkType = reactive({
   id: nanoid(),
   name: faker.git.commitMessage(),
   description: faker.word.words({ count: { max: 100, min: 50 } }),
+  icon: "material-symbols:dataset",
   target: faker.internet.url(),
   type: "doi",
 });
+
+const iconOptions = LINKS_JSON.linkIcons;
 
 if (props.linkIdentifier !== "new") {
   const link = linkStore.getLink(props.linkIdentifier);
@@ -46,6 +52,7 @@ if (props.linkIdentifier !== "new") {
     formValue.description = link.description;
     formValue.target = link.target;
     formValue.type = link.type;
+    formValue.icon = link.icon;
   }
 }
 
@@ -82,6 +89,19 @@ const typeOptions = [
     value: "url",
   },
 ];
+
+const renderLabel = (option: SelectOption): VNodeChild => {
+  return [
+    h(
+      Icon,
+      { name: option.value, class: "mr-1", size: "20" },
+      {
+        default: () => null,
+      }
+    ),
+    option.label as string,
+  ];
+};
 
 const drawerTitle = computed(() => {
   if (props.linkIdentifier === "new") {
@@ -168,22 +188,47 @@ const addResource = (e: MouseEvent) => {
     if (!errors) {
       loading.value = true;
 
-      const link: LocalLinkType = {
-        id: nanoid(),
-        name: formValue.name,
+      if (props.linkIdentifier === "new") {
+        const link = {
+          id: nanoid(),
+          name: formValue.name,
 
-        action: "create",
+          action: "create" as LinkAction,
 
-        description: formValue.description,
-        origin: "local",
+          description: formValue.description,
+          icon: formValue.icon,
+          origin: "local" as LinkOrigin,
 
-        target: formValue.target,
-        type: formValue.type,
-      };
+          target: formValue.target,
+          type: formValue.type,
+        };
 
-      linkStore.addLink(link);
+        linkStore.addLink(link);
 
-      message.success("Resource added successfully");
+        message.success("Resource added successfully");
+      } else {
+        const link = linkStore.getLink(props.linkIdentifier);
+
+        if (link) {
+          if (link.origin === "remote") {
+            if (link.target !== formValue.target) {
+              link.action = "target_update";
+            } else {
+              link.action = "update";
+            }
+          }
+
+          link.name = formValue.name;
+          link.description = formValue.description;
+          link.target = formValue.target;
+          link.type = formValue.type;
+          link.icon = formValue.icon;
+
+          linkStore.updateLink(link);
+
+          message.success("Resource updated successfully");
+        }
+      }
 
       props.hideAddEditLinkDrawerFunction();
 
@@ -247,6 +292,15 @@ const addResource = (e: MouseEvent) => {
             </p>
           </div>
         </n-form-item>
+
+        <n-form-item path="icon" label="Icon">
+          <n-select
+            v-model:value="formValue.icon"
+            filterable
+            :options="iconOptions"
+            :render-label="renderLabel"
+          />
+        </n-form-item>
       </div>
     </n-form>
 
@@ -272,6 +326,7 @@ const addResource = (e: MouseEvent) => {
         <template #icon>
           <Icon :name="buttonDetails.icon" />
         </template>
+
         {{ buttonDetails.text }}
       </n-button>
     </div>

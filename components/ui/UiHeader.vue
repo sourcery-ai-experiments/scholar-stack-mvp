@@ -20,7 +20,7 @@ const logout = async () => {
 
 <template>
   <header
-    class="header left-0 top-0 z-50 mx-auto mb-8 w-full bg-primary px-4 pb-3 pt-2 text-white"
+    class="header left-0 top-0 z-50 mx-auto w-full bg-primary px-4 pb-3 pt-2 text-white"
   >
     <div class="flex items-center justify-between">
       <div class="flex items-center justify-start">
@@ -49,7 +49,7 @@ const logout = async () => {
 
           <div class="flex items-center justify-center space-x-2">
             <nuxt-link v-if="!loggedIn" to="/auth/login">
-              <n-button :color="colors.secondary" class="!text-black">
+              <n-button :color="colors.accent">
                 <template #icon>
                   <Icon name="ion:log-in-outline" />
                 </template>
@@ -58,7 +58,7 @@ const logout = async () => {
               </n-button>
             </nuxt-link>
             <nuxt-link v-if="!loggedIn" to="/auth/register">
-              <n-button :color="colors.accent">
+              <n-button :color="colors.secondary" class="text-black">
                 <template #icon>
                   <Icon name="ion:person-add-outline" />
                 </template>

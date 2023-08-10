@@ -32,6 +32,7 @@ export default defineEventHandler(async (event) => {
               ])
               .optional(),
             description: z.string(),
+            icon: z.string(),
             target: z.string(),
             type: z.string(),
           })
@@ -136,7 +137,7 @@ export default defineEventHandler(async (event) => {
       data: {
         name: link.name,
         description: link.description,
-        icon: link.type === "doi" ? "academicons:doi" : "uil:link",
+        icon: link.icon,
         type: link.type,
       },
       where: { id: link.id },
@@ -190,7 +191,7 @@ export default defineEventHandler(async (event) => {
               create: {
                 name: link.name,
                 description: link.description,
-                icon: link.type === "doi" ? "academicons:doi" : "uil:link",
+                icon: link.icon,
                 target: link.target,
                 type: link.type,
               },

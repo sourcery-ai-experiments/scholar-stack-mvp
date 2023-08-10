@@ -3,15 +3,16 @@ import { defineStore } from "pinia";
 export const useLinkStore = defineStore("link", () => {
   const links: Ref<LocalLinkType[]> = ref([]);
 
-  const setLinks = (inputLinks: LocalLinkType[]) => {
-    links.value = inputLinks;
+  const resetLinks = () => {
+    links.value = [];
+  };
 
+  const setLinks = (inputLinks: LocalLinkType[]) => {
     // add origin key to links
-    links.value = links.value.map((link) => {
+    links.value = inputLinks.map((link) => {
       return {
         ...link,
         origin: "remote",
-        originalTarget: link.target,
       };
     });
   };
@@ -34,5 +35,5 @@ export const useLinkStore = defineStore("link", () => {
     links.value[index] = link;
   };
 
-  return { addLink, getLink, links, setLinks, updateLink };
+  return { addLink, getLink, links, resetLinks, setLinks, updateLink };
 });

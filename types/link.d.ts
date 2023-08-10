@@ -1,25 +1,31 @@
-type TargetType = "doi" | "url";
+type LinkTargetType = "doi" | "url";
+
+type LinkAction = "create" | "update" | "delete" | "target_update";
+
+type LinkOrigin = "local" | "remote";
 
 interface LinkType {
   id: string;
   name: string;
 
-  description?: string;
-  icon?: string;
+  description: string;
+  icon: string;
 
-  type: TargetType;
+  type: LinkTargetType;
   target: string;
 }
 
 interface LinksList extends Array<LinkType> {}
 
 interface LocalLinkType extends LinkType {
-  action?: "create" | "update" | "delete" | "target_update";
-  origin?: "local" | "remote";
-  originalAction?: "create" | "update" | "delete" | "target_update";
-  originalTarget?: string;
-}
+  action?: LinkAction;
 
+  origin?: LinkOrigin;
+
+  original?: LinkType;
+  originalAction?: LinkAction;
+  preDeleteAction?: LinkAction;
+}
 interface QueryLinksListItem extends LinkType {
-  action: "create" | "update" | "delete" | "target_update";
+  action: LinkAction;
 }

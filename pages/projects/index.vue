@@ -40,7 +40,7 @@ definePageMeta({
 </script>
 
 <template>
-  <main class="px-4">
+  <main class="p-8">
     <div class="flex items-center justify-between">
       <h1>
         Your Projects
