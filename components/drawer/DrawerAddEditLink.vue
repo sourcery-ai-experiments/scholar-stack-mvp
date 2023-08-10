@@ -94,7 +94,7 @@ const renderLabel = (option: SelectOption): VNodeChild => {
   return [
     h(
       Icon,
-      { name: option.value, class: "mr-1", size: "20" },
+      { name: option.value as string, class: "mr-1", size: "20" },
       {
         default: () => null,
       }
