@@ -295,6 +295,22 @@ const showAddEditLinkDrawerFunction = (linkID: string) => {
 const hideAddEditLinkDrawerFunction = () => {
   showAddEditLinkDrawer.value = false;
 };
+
+const changesPresent = computed(() => {
+  return allLinks.value.some((link) => {
+    if (
+      link.name !== link.original?.name ||
+      link.description !== link.original?.description ||
+      link.icon !== link.original?.icon ||
+      link.target !== link.original?.target ||
+      link.type !== link.original?.type
+    ) {
+      console.log(link, link.original);
+      return true;
+    }
+    return false;
+  });
+});
 </script>
 
 <template>
@@ -369,15 +385,17 @@ const hideAddEditLinkDrawerFunction = () => {
                 >
                   New
                 </n-tag>
+
                 <n-tag
                   v-if="
                     link.action === 'update' || link.action === 'target_update'
                   "
                   :bordered="false"
-                  type="success"
+                  type="info"
                 >
                   Edited
                 </n-tag>
+
                 <n-tag
                   v-if="link.action === 'delete'"
                   :bordered="false"
@@ -403,17 +421,6 @@ const hideAddEditLinkDrawerFunction = () => {
                     'cursor-not-allowed opacity-70 transition-all':
                       link.action === 'delete',
                   }"
-                />
-
-                <Icon
-                  v-if="link.action === 'update'"
-                  name="bx:edit"
-                  size="25"
-                />
-                <Icon
-                  v-if="link.action === 'target_update'"
-                  name="fluent:box-edit-24-regular"
-                  size="25"
                 />
               </div>
             </template>
@@ -547,6 +554,7 @@ const hideAddEditLinkDrawerFunction = () => {
               type="primary"
               size="large"
               :loading="showLoader"
+              :disabled="!changesPresent"
               @click="checkForChangesToLinks"
             >
               <template #icon>

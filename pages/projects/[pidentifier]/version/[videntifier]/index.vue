@@ -178,45 +178,10 @@ useSeoMeta({
 
               <n-divider />
 
-              <n-timeline item-placement="right">
-                <n-timeline-item
-                  content="Current version"
-                  type="warning"
-                  line-type="dashed"
-                />
-
-                <n-timeline-item
-                  v-for="version in allVersions"
-                  :key="version.identifier"
-                  :title="version.name"
-                  type="success"
-                  :time="displayLongDate(version.created)"
-                  :class="{
-                    'rounded-xl bg-gray-50 pl-2 pt-4':
-                      version.identifier === $route.params.videntifier,
-                  }"
-                >
-                  <template #header>
-                    {{ version.name }}
-                  </template>
-
-                  <nuxt-link
-                    :to="`/projects/${$route.params.pidentifier}/version/${version.identifier}`"
-                  >
-                    bit.ly/{{ version.identifier }}
-                  </nuxt-link>
-                </n-timeline-item>
-
-                <n-timeline-item
-                  title="Project Created"
-                  type="info"
-                  :time="displayLongDate(projectCreated)"
-                >
-                  <nuxt-link :to="`/projects/${$route.params.pidentifier}`">
-                    bit.ly/{{ $route.params.pidentifier }}
-                  </nuxt-link>
-                </n-timeline-item>
-              </n-timeline>
+              <VersionTimeline
+                :all-versions="allVersions"
+                :project-created="projectCreated"
+              />
             </div>
           </div>
         </n-tab-pane>

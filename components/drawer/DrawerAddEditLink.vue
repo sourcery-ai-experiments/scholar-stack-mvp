@@ -218,6 +218,17 @@ const addResource = (e: MouseEvent) => {
             }
           }
 
+          // remove action if the new one is the same as the old one
+          if (
+            link.original?.name === formValue.name &&
+            link.original?.description === formValue.description &&
+            link.original?.target === formValue.target &&
+            link.original?.type === formValue.type &&
+            link.original?.icon === formValue.icon
+          ) {
+            delete link.action;
+          }
+
           link.name = formValue.name;
           link.description = formValue.description;
           link.target = formValue.target;
