@@ -1,3 +1,88 @@
+<script setup lang="ts">
+import type { FormInst } from "naive-ui";
+import isEmail from "validator/es/lib/isEmail";
+import { useMessage } from "naive-ui";
+
+const supabase = useSupabaseClient();
+const user = useSupabaseUser();
+
+const message = useMessage();
+const loading = ref(false);
+
+const registerFormRef = ref<FormInst | null>(null);
+
+const registerFormValue = ref({
+  emailAddress: "",
+  password: "",
+});
+
+const registerFormRules = {
+  emailAddress: {
+    message: "Please input your email address",
+    required: true,
+    trigger: ["input"],
+  },
+  password: {
+    message: "Please fill in your password",
+    required: true,
+    trigger: ["input"],
+  },
+};
+
+const registerForAccount = (e: MouseEvent) => {
+  e.preventDefault();
+
+  registerFormRef.value?.validate(async (errors) => {
+    if (!errors) {
+      if (!isEmail(registerFormValue.value.emailAddress)) {
+        message.error("Please enter a valid email address");
+        return;
+      }
+
+      /**
+       * TODO: Validate password strength
+       */
+
+      // register user
+      loading.value = true;
+
+      try {
+        const { error } = await supabase.auth.signUp({
+          email: registerFormValue.value.emailAddress,
+          password: registerFormValue.value.password,
+        });
+
+        if (error) {
+          throw error;
+        }
+      } catch (error) {
+        console.error(error);
+        message.error("Something went wrong. Please try again later.");
+      }
+
+      loading.value = false;
+
+      // reset form
+      registerFormValue.value.emailAddress = "";
+      registerFormValue.value.password = "";
+
+      console.log("success");
+
+      // redirect to confirm email page
+      return navigateTo("/auth/confirm-email");
+    } else {
+      console.log(errors);
+    }
+  });
+};
+
+watchEffect(() => {
+  if (user.value) {
+    return navigateTo("/");
+  }
+});
+</script>
+
 <template>
   <main>
     <section
@@ -75,87 +160,3 @@
     </section>
   </main>
 </template>
-
-<script setup lang="ts">
-import type { FormInst } from "naive-ui";
-import isEmail from "validator/es/lib/isEmail";
-import { useMessage } from "naive-ui";
-const { auth } = useSupabaseAuthClient();
-const user = useSupabaseUser();
-
-const message = useMessage();
-const loading = ref(false);
-
-const registerFormRef = ref<FormInst | null>(null);
-
-const registerFormValue = ref({
-  emailAddress: "",
-  password: "",
-});
-
-const registerFormRules = {
-  emailAddress: {
-    message: "Please input your email address",
-    required: true,
-    trigger: ["input"],
-  },
-  password: {
-    message: "Please fill in your password",
-    required: true,
-    trigger: ["input"],
-  },
-};
-
-const registerForAccount = (e: MouseEvent) => {
-  e.preventDefault();
-
-  registerFormRef.value?.validate(async (errors) => {
-    if (!errors) {
-      if (!isEmail(registerFormValue.value.emailAddress)) {
-        message.error("Please enter a valid email address");
-        return;
-      }
-
-      /**
-       * TODO: Validate password strength
-       */
-
-      // register user
-      loading.value = true;
-
-      try {
-        const { error } = await auth.signUp({
-          email: registerFormValue.value.emailAddress,
-          password: registerFormValue.value.password,
-        });
-
-        if (error) {
-          throw error;
-        }
-      } catch (error) {
-        console.error(error);
-        message.error("Something went wrong. Please try again later.");
-      }
-
-      loading.value = false;
-
-      // reset form
-      registerFormValue.value.emailAddress = "";
-      registerFormValue.value.password = "";
-
-      console.log("success");
-
-      // redirect to confirm email page
-      return navigateTo("/auth/confirm-email");
-    } else {
-      console.log(errors);
-    }
-  });
-};
-
-watchEffect(() => {
-  if (user.value) {
-    return navigateTo("/");
-  }
-});
-</script>

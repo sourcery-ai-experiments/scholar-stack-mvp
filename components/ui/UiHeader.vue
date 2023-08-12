@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { colors } from "@/utils/constants";
 
-const { auth } = useSupabaseAuthClient();
-const user = useSupabaseUser();
 const supabase = useSupabaseClient();
+const user = useSupabaseUser();
 
 const loggedIn = computed(() => user.value);
+console.log("User", user.value);
 
 const logout = async () => {
   console.log("Logging out");
@@ -30,15 +30,20 @@ const logout = async () => {
             class="flex flex-row items-center justify-start space-x-2"
           >
             <img src="/logo/logo.svg" alt="Logo" class="mr-2 w-10" />
+
             <span class="text-xl font-bold">Scholar Stack</span>
           </NuxtLink>
         </div>
+
         <div class="flex w-fit justify-start space-x-4">
           <NuxtLink to="/" class="navigation-item"> Home </NuxtLink>
+
           <NuxtLink to="/projects" class="navigation-item"> Projects </NuxtLink>
+
           <NuxtLink to="/404" class="navigation-item"> 404 </NuxtLink>
         </div>
       </div>
+
       <div class="flex flex-row space-x-8">
         <n-space justify="space-between" align="center">
           <n-input size="large" placeholder="Search">
@@ -48,23 +53,27 @@ const logout = async () => {
           </n-input>
 
           <div class="flex items-center justify-center space-x-2">
-            <nuxt-link v-if="!loggedIn" to="/auth/login">
-              <n-button :color="colors.accent">
-                <template #icon>
-                  <Icon name="ion:log-in-outline" />
-                </template>
+            <n-space v-if="!loggedIn">
+              <nuxt-link to="/auth/login">
+                <n-button :color="colors.accent">
+                  <template #icon>
+                    <Icon name="ion:log-in-outline" />
+                  </template>
 
-                <span> Login </span>
-              </n-button>
-            </nuxt-link>
-            <nuxt-link v-if="!loggedIn" to="/auth/register">
-              <n-button :color="colors.secondary" class="text-black">
-                <template #icon>
-                  <Icon name="ion:person-add-outline" />
-                </template>
-                Sign Up
-              </n-button>
-            </nuxt-link>
+                  <span> Login </span>
+                </n-button>
+              </nuxt-link>
+
+              <nuxt-link to="/auth/register">
+                <n-button :color="colors.secondary" class="text-black">
+                  <template #icon>
+                    <Icon name="ion:person-add-outline" />
+                  </template>
+
+                  Sign Up
+                </n-button>
+              </nuxt-link>
+            </n-space>
 
             <n-popover
               v-else
@@ -80,19 +89,25 @@ const logout = async () => {
                   class="hover:cursor-pointer hover:opacity-80"
                 />
               </template>
+
               <div class="flex flex-col">
                 <nuxt-link to="/profile" class="dropdown-item">
                   <Icon name="mingcute:user-4-fill" size="20" />
+
                   <span> Your profile </span>
                 </nuxt-link>
+
                 <nuxt-link to="/profile" class="dropdown-item">
                   <Icon name="ic:baseline-settings" size="20" />
+
                   <span> Settings </span>
                 </nuxt-link>
               </div>
+
               <template #footer>
                 <div class="dropdown-item" @click="logout">
                   <Icon name="majesticons:logout" size="20" />
+
                   <span> Logout </span>
                 </div>
               </template>

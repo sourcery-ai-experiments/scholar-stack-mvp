@@ -1,3 +1,51 @@
+<script setup lang="ts">
+import { Vue3Lottie } from "vue3-lottie";
+import { useMessage } from "naive-ui";
+import isEmail from "validator/es/lib/isEmail";
+
+const user = useSupabaseUser();
+const supabase = useSupabaseClient();
+
+const message = useMessage();
+
+const emailAddress = ref("");
+const password = ref("");
+
+const loading = ref(false);
+
+const invalidEmailAddress = computed(() => {
+  return emailAddress.value === "" || !isEmail(emailAddress.value);
+});
+
+const signIn = async () => {
+  try {
+    const { error } = await supabase.auth.signInWithPassword({
+      email: emailAddress.value,
+      password: password.value,
+    });
+
+    emailAddress.value = "";
+    password.value = "";
+
+    if (error) {
+      message.error(error.message, {
+        keepAliveOnHover: true,
+      });
+
+      throw error;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+watchEffect(() => {
+  if (user.value) {
+    return navigateTo("/projects");
+  }
+});
+</script>
+
 <template>
   <main>
     <section
@@ -79,51 +127,3 @@
     </section>
   </main>
 </template>
-
-<script setup lang="ts">
-import { Vue3Lottie } from "vue3-lottie";
-import { useMessage } from "naive-ui";
-import isEmail from "validator/es/lib/isEmail";
-
-const user = useSupabaseUser();
-const { auth } = useSupabaseAuthClient();
-
-const message = useMessage();
-
-const emailAddress = ref("");
-const password = ref("");
-
-const loading = ref(false);
-
-const invalidEmailAddress = computed(() => {
-  return emailAddress.value === "" || !isEmail(emailAddress.value);
-});
-
-const signIn = async () => {
-  try {
-    const { error } = await auth.signInWithPassword({
-      email: emailAddress.value,
-      password: password.value,
-    });
-
-    emailAddress.value = "";
-    password.value = "";
-
-    if (error) {
-      message.error(error.message, {
-        keepAliveOnHover: true,
-      });
-
-      throw error;
-    }
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-watchEffect(() => {
-  if (user.value) {
-    return navigateTo("/projects");
-  }
-});
-</script>
