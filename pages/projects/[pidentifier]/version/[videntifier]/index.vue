@@ -167,6 +167,7 @@ useSeoMeta({
               <LinksList
                 :latest-version="latestVersion"
                 :project-identifier="projectIdentifier"
+                :all-versions="allVersions"
               />
             </div>
 
