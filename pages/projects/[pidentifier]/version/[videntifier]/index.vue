@@ -119,6 +119,7 @@ if (versionIdentifier === "new") {
 
     if (projectData && "versions" in projectData) {
       allVersions.value = projectData.versions as AllVersionsType;
+      console.log("allversions", allVersions.value);
     }
   }
 }
@@ -187,6 +188,10 @@ useSeoMeta({
               />
             </div>
           </div>
+        </n-tab-pane>
+
+        <n-tab-pane name="release-notes" tab="Release Notes">
+          <VersionReleaseNotes />
         </n-tab-pane>
 
         <n-tab-pane name="activity" tab="Activity"> Hey Jude </n-tab-pane>

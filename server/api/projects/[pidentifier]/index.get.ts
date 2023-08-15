@@ -1,7 +1,6 @@
 // import protectRoute from "../../utils/protectRoute";
 import prisma from "../../../utils/prisma";
 
-// @ts-ignore
 import { serverSupabaseUser } from "#supabase/server";
 
 export default defineEventHandler(async (event) => {

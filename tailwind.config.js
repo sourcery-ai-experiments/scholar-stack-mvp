@@ -20,7 +20,10 @@ module.exports = {
     textOpacity: false,
   },
 
-  plugins: [require("tailwindcss-debug-screens")],
+  plugins: [
+    require("tailwindcss-debug-screens"),
+    require("@tailwindcss/typography"),
+  ],
 
   theme: {
     extend: {
