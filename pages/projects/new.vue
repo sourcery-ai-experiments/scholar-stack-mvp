@@ -83,7 +83,7 @@ const createProject = (e: MouseEvent) => {
         if (response && "body" in response) {
           message.success("Project created successfully");
 
-          const responseBody: ResponseNewProject = JSON.parse(
+          const responseBody: APIResponseNewProject = JSON.parse(
             response.body as string
           );
 

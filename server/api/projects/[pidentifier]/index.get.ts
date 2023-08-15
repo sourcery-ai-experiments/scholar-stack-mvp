@@ -38,7 +38,7 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const responseProject: ResponseProject = {
+  const responseProject: APIResponseProject = {
     id: project.id,
     name: project.name,
     created: project.created.toISOString(),

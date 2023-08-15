@@ -51,7 +51,7 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const responseProject: ResponseProjectVersion = {
+  const responseProject: APIResponseProjectVersion = {
     id: project.id,
     name: project.name,
     created: project.created.toISOString(),

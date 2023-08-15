@@ -1,6 +1,6 @@
 type LinkTargetType = "doi" | "url";
 
-type LinkAction = "create" | "update" | "delete" | "target_update";
+type LinkAction = "create" | "update" | "delete";
 
 type LinkOrigin = "local" | "remote";
 

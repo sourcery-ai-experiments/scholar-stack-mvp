@@ -1,4 +1,4 @@
-interface ResponseNewProject {
+interface APIResponseNewProject {
   name: string;
   description: string;
   identifier: string;
@@ -6,13 +6,13 @@ interface ResponseNewProject {
   tags: string[];
 }
 
-interface ResponseProjectVersionAddEdit {
+interface APIResponseProjectVersionAddEdit {
   status: string;
   version?: string;
   identifier?: string;
 }
 
-interface ResponseProject {
+interface APIResponseProject {
   id: string;
 
   isAuthor: boolean;
@@ -31,7 +31,7 @@ interface ResponseProject {
   latestVersion: VersionWithLinks | {};
 }
 
-interface ResponseProjectVersion {
+interface APIResponseProjectVersion {
   id: string;
 
   isAuthor: boolean;

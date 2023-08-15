@@ -7,6 +7,11 @@ export const useLinkStore = defineStore("link", () => {
     links.value = [];
   };
 
+  const lnks = computed(() => {
+    console.log(links.value);
+    return links.value;
+  });
+
   const setLinks = (inputLinks: LocalLinkType[]) => {
     // add origin key to links
     links.value = inputLinks.map((link) => {
@@ -35,5 +40,5 @@ export const useLinkStore = defineStore("link", () => {
     links.value[index] = link;
   };
 
-  return { addLink, getLink, links, resetLinks, setLinks, updateLink };
+  return { addLink, getLink, links, lnks, resetLinks, setLinks, updateLink };
 });

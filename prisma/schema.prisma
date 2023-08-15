@@ -10,6 +10,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// datasource db {
+//   provider     = "mysql"
+//   url          = env("DATABASE_URL")
+//   relationMode = "prisma"
+// }
+
 model Project {
   id String @id @default(cuid())
 
@@ -19,12 +25,36 @@ model Project {
   description String
   image       String
   tags        String[]
-  created     DateTime @default(now())
-  updated     DateTime @updatedAt
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
 
   identifier String @unique // might use a link shortener for this (p1234)
 
   versions Version[]
+
+  @@index([identifier])
+}
+
+model Version {
+  id   String @id @default(cuid())
+  name String // 23.5.30.1 (using calver for this)
+
+  changes String?
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  identifier String @unique // might use a link shortener for this (v1234)
+
+  Project    Project @relation(fields: [project_id], references: [id])
+  project_id String
+
+  latest Boolean @default(false)
+
+  links Link[]
+
+  @@index([identifier, project_id])
 }
 
 model Link {
@@ -41,23 +71,4 @@ model Link {
   updated DateTime @updatedAt
 
   version Version[]
-}
-
-model Version {
-  id   String @id @default(cuid())
-  name String // 23.5.30.1 (using calver for this)
-
-  changes String?
-
-  created DateTime @default(now())
-  updated DateTime @updatedAt
-
-  identifier String @unique // might use a link shortener for this (v1234)
-
-  Project    Project? @relation(fields: [project_id], references: [id])
-  project_id String?
-
-  latest Boolean @default(false)
-
-  links Link[]
 }

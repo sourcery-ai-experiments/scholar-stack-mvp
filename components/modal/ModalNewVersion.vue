@@ -1,7 +1,15 @@
 <script setup lang="ts">
-import { MdEditor } from "md-editor-v3";
+import { MdEditor, config } from "md-editor-v3";
 import sanitizeHtml from "sanitize-html";
 import calver from "calver";
+
+import TargetBlankExtension from "@/utils/TargetBlankExtension";
+
+config({
+  markdownItConfig(md) {
+    md.use(TargetBlankExtension);
+  },
+});
 
 const props = defineProps({
   allVersions: {
@@ -76,7 +84,7 @@ const publishChangesToProject = async (skipNotes = false) => {
     const response = data.value;
 
     if (response && "body" in response) {
-      const responseBody: ResponseProjectVersionAddEdit = JSON.parse(
+      const responseBody: APIResponseProjectVersionAddEdit = JSON.parse(
         response.body as string
       );
 
@@ -116,6 +124,127 @@ const hideNewVersionModalFunction = () => {
   showModal.value = false;
 };
 
+const generateAddedNotes = (added: LocalLinkType[]) => {
+  let content = `### Added \n \n`;
+
+  added.forEach((link) => {
+    content += `- Added a reference to [${link.name}](${link.target}). \n`;
+  });
+
+  content += "\n";
+
+  return content;
+};
+
+const generateRemovedNotes = (removed: LocalLinkType[]) => {
+  let content = `### Removed \n \n`;
+
+  removed.forEach((link) => {
+    content += `- Removed the link reference of [${link.name}](${link.target}). \n`;
+  });
+
+  content += "\n";
+
+  return content;
+};
+
+const generateUpdatedNotes = (updated: LocalLinkType[]) => {
+  const filteredLinks: LocalLinkType[] = [];
+
+  // Filter out links that still have the same target
+  updated.forEach((link) => {
+    if (link.target !== link.original?.target) {
+      filteredLinks.push(link);
+    }
+  });
+
+  let content = ``;
+
+  if (filteredLinks.length > 0) {
+    content += `### Updated \n \n`;
+
+    updated.forEach((link) => {
+      /**
+       * * Somehow adding escaped backticks in a template literal breaks the page rendering
+       * ? Might need to look into this later
+       */
+      content +=
+        "- Updated the link reference of `" +
+        link.name +
+        "` from `" +
+        link.original?.target +
+        "` to `" +
+        link.target +
+        "`. \n";
+    });
+
+    content += "\n";
+  }
+
+  return content;
+};
+
+const generateReleaseNotes = () => {
+  const added: LocalLinkType[] = [];
+  const updated: LocalLinkType[] = [];
+  const removed: LocalLinkType[] = [];
+
+  allLinks.value.forEach((link) => {
+    if (link.action === "create") {
+      added.push(link);
+    } else if (link.action === "update" && link.origin === "remote") {
+      updated.push(link);
+    } else if (link.action === "delete") {
+      removed.push(link);
+    }
+  });
+
+  // Only generate release notes if the user hasn't added any
+  if (releaseNotes.value === "") {
+    let changelog = "";
+
+    const latestVersionName =
+      (props.allVersions.length > 0 ? props.allVersions[0].name : "") || "";
+
+    console.log(latestVersionName);
+
+    const releaseVersion = calver.inc(
+      "yyyy.ww.minor",
+      latestVersionName,
+      "calendar.minor"
+    );
+
+    let header = `# Changelog \n \n`;
+
+    header += `All notable changes to this project are documented here. `;
+    header += `This project uses [CalVer](https://calver.org/) for versioning. \n \n`;
+
+    header += `## Version ${releaseVersion} \n \n`;
+
+    changelog = header;
+
+    if (added.length > 0) {
+      const addedContent = generateAddedNotes(added);
+
+      changelog += addedContent;
+    }
+
+    if (updated.length > 0) {
+      const updatedContent = generateUpdatedNotes(updated);
+
+      changelog += updatedContent;
+    }
+
+    if (removed.length > 0) {
+      const removedContent = generateRemovedNotes(removed);
+
+      changelog += removedContent;
+    }
+
+    releaseNotes.value = changelog;
+  }
+};
+
 const checkForChangesToLinks = () => {
   // save changes to links
   console.log(allLinks.value);
@@ -123,8 +252,11 @@ const checkForChangesToLinks = () => {
   showModal.value = allLinks.value.some((link) => {
     if (
       link.action === "create" ||
-      link.action === "target_update" ||
-      link.action === "delete"
+      link.action === "delete" ||
+      (link.action === "update" &&
+        link.origin === "remote" &&
+        link.original &&
+        link.target !== link.original?.target)
     ) {
       return true;
     }
@@ -132,99 +264,7 @@ const checkForChangesToLinks = () => {
   });
 
   if (showModal.value) {
-    const added: LocalLinkType[] = [];
-    const updated: LocalLinkType[] = [];
-    const removed: LocalLinkType[] = [];
-
-    allLinks.value.forEach((link) => {
-      if (link.action === "create") {
-        added.push(link);
-      } else if (link.action === "target_update") {
-        updated.push(link);
-      } else if (link.action === "delete") {
-        removed.push(link);
-      }
-    });
-
-    // Only generate release notes if there are no release notes
-    if (releaseNotes.value === "") {
-      let changelog = "";
-
-      const latestVersionName =
-        (props.allVersions.length > 0 ? props.allVersions[0].name : "") || "";
-
-      console.log(latestVersionName);
-
-      const releaseVersion = calver.inc(
-        "yyyy.ww.minor",
-        latestVersionName,
-        "calendar.minor"
-      );
-
-      let header = `# Changelog \n \n`;
-
-      header += `All notable changes to this project are documented here. `;
-      header += `This project uses [CalVer](https://calver.org/) for versioning. \n \n`;
-
-      header += `## Version ${releaseVersion} \n \n`;
-
-      changelog = header;
-
-      if (added.length > 0) {
-        const addedHeader = `### Added \n \n`;
-
-        let addedContent = "";
-
-        added.forEach((link) => {
-          addedContent += `- Added a reference to [${link.name}](${link.target}). \n`;
-        });
-
-        addedContent += "\n";
-
-        changelog += addedHeader + addedContent;
-      }
-
-      if (updated.length > 0) {
-        const updatedHeader = `### Updated \n \n`;
-
-        let updatedContent = "";
-
-        updated.forEach((link) => {
-          /**
-           * * Somehow adding backticks in a template literal breaks the page rendering
-           * ? Might need to look into this later
-           */
-          updatedContent +=
-            "- Updated the link reference of `" +
-            link.name +
-            "` from `" +
-            link.original?.target +
-            "` to `" +
-            link.target +
-            "`. \n";
-        });
-
-        updatedContent += "\n";
-
-        changelog += updatedHeader + updatedContent;
-      }
-
-      if (removed.length > 0) {
-        const removedHeader = `### Removed \n \n`;
-
-        let removedContent = "";
-
-        removed.forEach((link) => {
-          removedContent += `- Removed the link reference of [${link.name}](${link.target}). \n`;
-        });
-
-        removedContent += "\n";
-
-        changelog += removedHeader + removedContent;
-      }
-
-      releaseNotes.value = changelog;
-    }
+    generateReleaseNotes();
   } else {
     publishChangesToProject(true);
   }
@@ -239,9 +279,14 @@ const changesPresent = computed(() => {
       link.target !== link.original?.target ||
       link.type !== link.original?.type
     ) {
-      console.log(link, link.original);
+      console.log(link);
       return true;
     }
+
+    if (link.action === "create" || link.action === "delete") {
+      return true;
+    }
+
     return false;
   });
 });
@@ -302,30 +347,53 @@ const changesPresent = computed(() => {
     />
 
     <template #footer>
-      <div class="flex justify-end space-x-4">
-        <n-button
-          size="large"
-          type="primary"
-          :loading="showLoader"
-          @click="publishChangesToProject(false)"
-        >
-          <template #icon>
-            <Icon name="fluent:form-new-48-filled" />
-          </template>
-          Create new version
-        </n-button>
+      <div class="flex justify-between">
+        <n-popover trigger="hover" :disabled="releaseNotes.trim() === ''">
+          <template #trigger>
+            <n-button
+              size="medium"
+              type="info"
+              secondary
+              :disabled="releaseNotes.trim() !== ''"
+              tag="div"
+              @click="generateReleaseNotes"
+            >
+              <template #icon>
+                <Icon name="mdi:auto-fix" />
+              </template>
 
-        <n-button
-          size="large"
-          type="error"
-          :disabled="showLoader"
-          @click="hideNewVersionModalFunction"
-        >
-          <template #icon>
-            <Icon name="material-symbols:cancel" />
+              Auto-generate release notes
+            </n-button>
           </template>
-          Cancel
-        </n-button>
+
+          <span>Clear existing release notes to enable this feature</span>
+        </n-popover>
+
+        <div class="flex justify-end space-x-4">
+          <n-button
+            size="large"
+            type="primary"
+            :loading="showLoader"
+            @click="publishChangesToProject(false)"
+          >
+            <template #icon>
+              <Icon name="fluent:form-new-48-filled" />
+            </template>
+            Create new version
+          </n-button>
+
+          <n-button
+            size="large"
+            type="error"
+            :disabled="showLoader"
+            @click="hideNewVersionModalFunction"
+          >
+            <template #icon>
+              <Icon name="material-symbols:cancel" />
+            </template>
+            Cancel
+          </n-button>
+        </div>
       </div>
     </template>
   </n-modal>

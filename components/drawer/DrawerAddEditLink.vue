@@ -125,62 +125,6 @@ const buttonDetails = computed(() => {
   };
 });
 
-// const addLink = (e: MouseEvent) => {
-//   e.preventDefault();
-
-//   newLinkFormRef.value?.validate((errors) => {
-//     if (!errors) {
-//       // save data
-
-//       if (newLinkFormValue.value.id === "") {
-//         const newLink: LocalLinkType = {
-//           id: `local${nanoid()}`,
-//           name: newLinkFormValue.value.name,
-
-//           action: "create",
-
-//           description: newLinkFormValue.value.description,
-//           origin: "local",
-
-//           target: newLinkFormValue.value.target,
-//           type: newLinkFormValue.value.type as TargetType,
-//         };
-
-//         allLinks.value.push(newLink);
-//       } else {
-//         const index = allLinks.value.findIndex(
-//           (link) => link.id === newLinkFormValue.value.id
-//         );
-
-//         if (index !== -1) {
-//           if (allLinks.value[index].origin === "remote") {
-//             if (
-//               allLinks.value[index].target !== newLinkFormValue.value.target
-//             ) {
-//               allLinks.value[index].action = "target_update";
-//             } else {
-//               allLinks.value[index].action = "update";
-//             }
-//           }
-
-//           allLinks.value[index].name = newLinkFormValue.value.name;
-//           allLinks.value[index].description =
-//             newLinkFormValue.value.description;
-//           allLinks.value[index].target = newLinkFormValue.value.target;
-//           allLinks.value[index].type = newLinkFormValue.value
-//             .type as TargetType;
-//         }
-//       }
-
-//       showAddEditLinkModal.value = false;
-
-//       console.log(allLinks.value);
-//     } else {
-//       console.log(errors);
-//     }
-//   });
-// };
-
 const addResource = (e: MouseEvent) => {
   e.preventDefault();
 
@@ -189,17 +133,18 @@ const addResource = (e: MouseEvent) => {
       loading.value = true;
 
       if (props.linkIdentifier === "new") {
+        // For new resources
         const link = {
           id: nanoid(),
-          name: formValue.name,
+          name: formValue.name.trim(),
 
           action: "create" as LinkAction,
 
-          description: formValue.description,
+          description: formValue.description.trim(),
           icon: formValue.icon,
           origin: "local" as LinkOrigin,
 
-          target: formValue.target,
+          target: formValue.target.trim(),
           type: formValue.type,
         };
 
@@ -211,27 +156,27 @@ const addResource = (e: MouseEvent) => {
 
         if (link) {
           if (link.origin === "remote") {
-            if (link.target !== formValue.target) {
-              link.action = "target_update";
-            } else {
-              link.action = "update";
+            link.action = "update";
+
+            /**
+             * If the edited resource from the form is the same as
+             * the original remote resource,
+             * then we don't need to show the resource as updated
+             */
+            if (
+              link.original?.name === formValue.name.trim() &&
+              link.original?.description === formValue.description.trim() &&
+              link.original?.target === formValue.target.trim() &&
+              link.original?.type === formValue.type &&
+              link.original?.icon === formValue.icon
+            ) {
+              delete link.action;
             }
           }
 
-          // remove action if the new one is the same as the old one
-          if (
-            link.original?.name === formValue.name &&
-            link.original?.description === formValue.description &&
-            link.original?.target === formValue.target &&
-            link.original?.type === formValue.type &&
-            link.original?.icon === formValue.icon
-          ) {
-            delete link.action;
-          }
-
-          link.name = formValue.name;
-          link.description = formValue.description;
-          link.target = formValue.target;
+          link.name = formValue.name.trim();
+          link.description = formValue.description.trim();
+          link.target = formValue.target.trim();
           link.type = formValue.type;
           link.icon = formValue.icon;
 

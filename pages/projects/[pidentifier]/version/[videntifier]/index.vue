@@ -24,11 +24,10 @@ const projectUpdated = ref("");
 
 const latestVersion = ref(false);
 
-// const allLinks: Ref<LocalLinkType[]> = ref([]);
 const allLinks = computed(() => linkStore.links);
 const allVersions: Ref<AllVersionsItem[]> = ref([]);
 
-linkStore.resetLinks();
+// linkStore.resetLinks(); // causing issues with flashing on route change
 
 if (versionIdentifier === "new") {
   const { data, error } = await useFetch(`/api/projects/${projectIdentifier}`, {
@@ -109,7 +108,10 @@ if (versionIdentifier === "new") {
           });
         }
 
-        linkStore.setLinks(data);
+        // Adding a timeout to allow for the page transition to start
+        setTimeout(() => {
+          linkStore.setLinks(data);
+        }, 100);
       }
 
       // linkStore.setLinks(allLinks.value); // no idea why this is here

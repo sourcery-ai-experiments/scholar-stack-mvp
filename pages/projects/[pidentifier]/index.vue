@@ -75,7 +75,7 @@ watch(error, (err) => {
 watch(project, (project) => {
   if (!project) return;
 
-  const projectData = project as ResponseProject;
+  const projectData = project as APIResponseProject;
 
   if (
     "latestVersion" in projectData &&

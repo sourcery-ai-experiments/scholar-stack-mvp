@@ -42,7 +42,8 @@ const changesPresent = computed(() => {
       type="warning"
       line-type="dashed"
       :class="{
-        'rounded-xl bg-gray-50 pl-2 pt-4 transition-all ': changesPresent,
+        'my-2 rounded-xl bg-secondary/50 pl-2 pt-3 transition-all ':
+          changesPresent,
       }"
     />
 
@@ -54,7 +55,7 @@ const changesPresent = computed(() => {
       type="success"
       :time="displayLongDate(version.created)"
       :class="{
-        'rounded-xl bg-gray-50 pl-2 pt-4 transition-all ':
+        'my-2 rounded-xl bg-secondary/50 pl-2 pt-3 transition-all':
           version.identifier === route.params.videntifier && !changesPresent,
       }"
     >
@@ -63,6 +64,7 @@ const changesPresent = computed(() => {
       </template>
 
       <nuxt-link
+        class="font-mono transition-all hover:font-bold hover:text-primary"
         :to="`/projects/${route.params.pidentifier}/version/${version.identifier}`"
       >
         bit.ly/{{ version.identifier }}
@@ -74,7 +76,10 @@ const changesPresent = computed(() => {
       type="info"
       :time="displayLongDate(projectCreated)"
     >
-      <nuxt-link :to="`/projects/${route.params.pidentifier}`">
+      <nuxt-link
+        class="font-mono transition-all hover:font-bold hover:text-primary"
+        :to="`/projects/${route.params.pidentifier}`"
+      >
         bit.ly/{{ route.params.pidentifier }}
       </nuxt-link>
     </n-timeline-item>

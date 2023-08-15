@@ -160,9 +160,7 @@ const hideAddEditLinkDrawerFunction = () => {
                 </n-tag>
 
                 <n-tag
-                  v-if="
-                    link.action === 'update' || link.action === 'target_update'
-                  "
+                  v-if="link.action === 'update'"
                   :bordered="false"
                   type="info"
                 >

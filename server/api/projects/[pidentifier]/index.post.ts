@@ -11,36 +11,36 @@ const nanoid = customAlphabet(
   "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 );
 
+// Zod schema for the request body
+const bodySchema = z.object({
+  links: z
+    .array(
+      z
+        .object({
+          id: z.string(),
+          name: z.string(),
+          action: z
+            .union([
+              z.literal("create"),
+              z.literal("update"),
+              z.literal("delete"),
+            ])
+            .optional(),
+          description: z.string(),
+          icon: z.string(),
+          target: z.string(),
+          type: z.string(),
+        })
+        .strict()
+    )
+    .min(1),
+  releaseNotes: z.string().min(1),
+});
+
 export default defineEventHandler(async (event) => {
   await protectRoute(event);
 
   const { pidentifier } = event.context.params as { pidentifier: string };
-
-  const bodySchema = z.object({
-    links: z
-      .array(
-        z
-          .object({
-            id: z.string(),
-            name: z.string(),
-            action: z
-              .union([
-                z.literal("create"),
-                z.literal("update"),
-                z.literal("target_update"),
-                z.literal("delete"),
-              ])
-              .optional(),
-            description: z.string(),
-            icon: z.string(),
-            target: z.string(),
-            type: z.string(),
-          })
-          .strict()
-      )
-      .min(1),
-    releaseNotes: z.string().min(1),
-  });
 
   const body = await readBody(event);
 
@@ -55,6 +55,7 @@ export default defineEventHandler(async (event) => {
   // Check if the body is valid
   const parsedBody = bodySchema.safeParse(body);
 
+  // throw error if the body is invalid
   if (!parsedBody.success) {
     console.log(parsedBody.error);
 
@@ -64,6 +65,7 @@ export default defineEventHandler(async (event) => {
     });
   }
 
+  // authenticate the user
   const user = await serverSupabaseUser(event);
   const authorId: string = user?.id as string;
 
@@ -72,6 +74,7 @@ export default defineEventHandler(async (event) => {
     where: { identifier: pidentifier },
   });
 
+  // throw error if the project does not exist
   if (!project) {
     throw createError({
       message: "The provided project does not exist",
@@ -79,6 +82,7 @@ export default defineEventHandler(async (event) => {
     });
   }
 
+  // throw error if the user is not the author of the project
   if (project.author_id !== authorId) {
     throw createError({
       message: "You are not the author of this project",
@@ -86,34 +90,83 @@ export default defineEventHandler(async (event) => {
     });
   }
 
+  // get all the links
   const allLinks = parsedBody.data.links as QueryLinksListItem[];
 
-  const createNewVersion = allLinks.some((link) => {
-    if (
-      "action" in link &&
-      (link.action === "create" ||
-        link.action === "target_update" ||
-        link.action === "delete")
-    ) {
-      return true;
-    }
-    return false;
-  });
-
-  const linksToUpdate = allLinks.filter((link) => {
+  // filter links that have an `update` action
+  const linksWithUpdateAction = allLinks.filter((link) => {
     if ("action" in link && link.action === "update") {
       return true;
     }
+
     return false;
   });
 
-  const linksToAdd = allLinks.filter((link) => {
+  // Get the original links from the database
+  const originalLinks = await prisma.link.findMany({
+    where: { id: { in: linksWithUpdateAction.map((link) => link.id) } },
+  });
+
+  // throw error if the number of links in the database and the number of links in the request body do not match
+  if (originalLinks.length !== linksWithUpdateAction.length) {
+    throw createError({
+      message: "The provided links do not exist",
+      statusCode: 400,
+    });
+  }
+
+  // filter links that have an `update` action and the target HAS NOT changed
+  const linksToUpdateWithoutTargetChange = linksWithUpdateAction.filter(
+    (link) => {
+      const originalLink = originalLinks.find(
+        (originalLink) => originalLink.id === link.id
+      );
+
+      if (originalLink?.target === link.target) {
+        return true;
+      }
+
+      return false;
+    }
+  );
+
+  /**
+   * TODO: see if we can use set operations to make this more efficient
+   */
+
+  // filter links that have an `update` action and the target HAS changed
+  const linksToUpdateWithTargetChange = linksWithUpdateAction.filter((link) => {
+    const originalLink = originalLinks.find(
+      (originalLink) => originalLink.id === link.id
+    );
+
+    if (originalLink?.target !== link.target) {
+      return true;
+    }
+
+    return false;
+  });
+
+  // filter links that have a `create` action
+  const linksWithCreateAction = allLinks.filter((link) => {
     if ("action" in link && link.action === "create") {
       return true;
     }
     return false;
   });
 
+  // filter links that have a `delete` action
+  const linksWithDeleteAction = allLinks.filter((link) => {
+    if ("action" in link && link.action === "delete") {
+      return true;
+    }
+    return false;
+  });
+
+  /**
+   * filter links that do not have an `action` key
+   * These links will be carried forward if there is a new version
+   */
   const linksToKeep = allLinks.filter((link) => {
     if (!("action" in link)) {
       return true;
@@ -121,17 +174,26 @@ export default defineEventHandler(async (event) => {
     return false;
   });
 
-  for (const link of linksToUpdate) {
-    const linkToUpdate = await prisma.link.findUnique({
-      where: { id: link.id },
-    });
+  // Update the links that have an `update` action and the target HAS NOT changed
+  for (const link of linksToUpdateWithoutTargetChange) {
+    /**
+     * TODO: figure out if this is needed.
+     * We already have the original links from the database
+     */
+    // const linkToUpdate = await prisma.link.findUnique({
+    //   where: { id: link.id },
+    // });
 
-    if (!linkToUpdate) {
-      throw createError({
-        message: "The provided link does not exist",
-        statusCode: 400,
-      });
-    }
+    // if (!linkToUpdate) {
+    //   throw createError({
+    //     message: "The provided link does not exist",
+    //     statusCode: 400,
+    //   });
+    // }
+
+    /**
+     * TODO: store activity
+     */
 
     await prisma.link.update({
       data: {
@@ -144,6 +206,12 @@ export default defineEventHandler(async (event) => {
     });
   }
 
+  // check if a new version needs to be created
+  const createNewVersion =
+    linksToUpdateWithTargetChange.length > 0 ||
+    linksWithCreateAction.length > 0 ||
+    linksWithDeleteAction.length > 0;
+
   if (createNewVersion) {
     // get the latset version of the project
     const latestVersion = await prisma.version.findFirst({
@@ -151,7 +219,7 @@ export default defineEventHandler(async (event) => {
       where: { project_id: project.id },
     });
 
-    const latestVersionName = latestVersion?.name || "";
+    const latestVersionName = latestVersion?.name.trim() || "";
 
     /**
      * Mark the old version as not latest
@@ -164,26 +232,30 @@ export default defineEventHandler(async (event) => {
       });
     }
 
+    // increment the version name
     const newVersionName = calver.inc(
       "yyyy.ww.minor",
       latestVersionName,
       "calendar.minor"
     );
 
-    const linksToConnect = [...linksToKeep, ...linksToAdd];
+    // remove the id from the links that have a target change
+    for (const link of linksToUpdateWithTargetChange) {
+      link.id = nanoid();
+    }
 
-    console.log(linksToConnect);
-
-    // const newVersion = {
-    //   name: newVersionName,
-    //   identifier: `ver${nanoid()}`,
-    // };
+    // get the links that need to be connected to the new version
+    const linksToConnect = [
+      ...linksToKeep,
+      ...linksWithCreateAction,
+      ...linksToUpdateWithTargetChange,
+    ];
 
     const newVersion = await prisma.version.create({
       data: {
         name: newVersionName,
-        changes: parsedBody.data.releaseNotes,
-        identifier: `ver${nanoid(6)}`,
+        changes: parsedBody.data.releaseNotes.trim(),
+        identifier: `v${nanoid(7)}`,
         latest: true,
         links: {
           connectOrCreate: linksToConnect.map((link) => {
@@ -198,16 +270,6 @@ export default defineEventHandler(async (event) => {
               where: { id: link.id },
             };
           }),
-
-          // create: linksToAdd.map((link) => {
-          //   return {
-          //     name: link.name,
-          //     description: link.description,
-          //     icon: link.type === "doi" ? "academicons:doi" : "uil:link",
-          //     target: link.target,
-          //     type: link.type,
-          //   };
-          // }),
         },
         project_id: project.id,
       },
