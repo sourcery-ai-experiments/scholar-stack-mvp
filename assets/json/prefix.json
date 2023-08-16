@@ -1,27 +1,5714 @@
 [
   {
-    "value": "doi",
+    "icon": "ic:twotone-select-all",
+    "label": "3DMET",
+    "pattern": "^B\\d{5}$",
+    "placeholder": "B00162",
+    "value": "3dmet"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BioData Catalyst",
+    "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
+    "placeholder": "3dab719c-1fa0-461b-a543-5f0e564a9be4",
+    "value": "4503"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "4D Nucleome",
+    "pattern": "^4DN[A-Z]{2}[A-Z0-9]{7}$",
+    "placeholder": "4DNES265ETYQ",
+    "value": "4dn"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "JCOIN Portal",
+    "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
+    "placeholder": "005bf193-fa93-44c0-9b2b-9b039f94d692",
+    "value": "6vts"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ABS",
+    "pattern": "^A\\d+$",
+    "placeholder": "A0014",
+    "value": "abs"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Aceview Worm",
+    "pattern": "^[a-z0-9-]+$",
+    "placeholder": "aap-1",
+    "value": "aceview.worm"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Addgene Plasmid Repository",
+    "pattern": "^[0-9]{5}(-[a-zA-Z0-9-]{0,7})?$|^[0-9]{10}$",
+    "placeholder": "50943",
+    "value": "addgene"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Animal Diversity Web",
+    "pattern": "^[A-Z_a-z]+$",
+    "placeholder": "Lycalopex_vetulus",
+    "value": "adw"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Affymetrix Probeset",
+    "pattern": "\\d{4,}((_[asx])?_at)?",
+    "placeholder": "243002_at",
+    "value": "affy.probeset"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "AFTOL",
+    "pattern": "^\\d+$",
+    "placeholder": "959",
+    "value": "aftol.taxonomy"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "AGRICOLA",
+    "pattern": "^\\d+$",
+    "placeholder": "50018",
+    "value": "agricola"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Allergome",
+    "pattern": "^\\d+$",
+    "placeholder": "1948",
+    "value": "allergome"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "AmoebaDB",
+    "pattern": "^EDI_\\d+$",
+    "placeholder": "EDI_244000",
+    "value": "amoebadb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Antibody Registry",
+    "pattern": "^\\d{6}$",
+    "placeholder": "493771",
+    "value": "antibodyregistry"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "AntWeb",
+    "pattern": "^casent\\d+(\\-D\\d+)?$",
+    "placeholder": "casent0106247",
+    "value": "antweb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "AOPWiki",
+    "pattern": "^\\d+$",
+    "placeholder": "98",
+    "value": "aop"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "AOPWiki (Key Event)",
+    "pattern": "^\\d+$",
+    "placeholder": "3",
+    "value": "aop.events"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "AOPWiki (Key Event Relationship)",
+    "pattern": "^\\d+$",
+    "placeholder": "5",
+    "value": "aop.relationships"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "AOPWiki (Stressor)",
+    "pattern": "^\\d+$",
+    "placeholder": "9",
+    "value": "aop.stressor"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "APD",
+    "pattern": "^\\d{5}$",
+    "placeholder": "01001",
+    "value": "apd"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "AphidBase Transcript",
+    "pattern": "^ACYPI\\d{6}(-RA)?$",
+    "placeholder": "ACYPI000159",
+    "value": "aphidbase.transcript"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "APID Interactomes",
+    "pattern": "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\\.\\d+)?$",
+    "placeholder": "P01116",
+    "value": "apid.interactions"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ArachnoServer",
+    "pattern": "^AS\\d{6}$",
+    "placeholder": "AS000060",
+    "value": "arachnoserver"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Antibiotic Resistance Genes Database",
+    "pattern": "^[A-Z_]{3}[0-9]{4,}$",
+    "placeholder": "CAE46076",
+    "value": "ardb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Archival Resource Key (ARK)",
+    "pattern": "^(ark\\:)/*[0-9A-Za-z]+(?:/[\\w/.=*+@\\$-]*)?(?:\\?.*)?$",
+    "placeholder": "/53355/cl010066723",
+    "value": "ark"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ArrayExpress",
+    "pattern": "^[AEP]-\\w{4}-\\d+$",
+    "placeholder": "E-MEXP-1712",
+    "value": "arrayexpress"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ArrayExpress Platform",
+    "pattern": "^[AEP]-\\w{4}-\\d+$",
+    "placeholder": "A-GEOD-50",
+    "value": "arrayexpress.platform"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ArrayMap",
+    "pattern": "^[\\w\\-:,]{3,64}$",
+    "placeholder": "icdom:8500_3",
+    "value": "arraymap"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "arXiv",
+    "pattern": "^(\\w+(\\-\\w+)?(\\.\\w+)?)?\\d{4,7}(\\.\\d+(v\\d+)?)?$",
+    "placeholder": "0807.4956v1",
+    "value": "arxiv"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ASAP",
+    "pattern": "^[A-Za-z0-9-]+$",
+    "placeholder": "ABE-0009634",
+    "value": "asap"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Astrophysics Source Code Library",
+    "pattern": "^[0-9\\.]+$",
+    "placeholder": "1801.012",
+    "value": "ascl"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Amazon Standard Identification Number (ASIN)",
+    "pattern": "^[0-9]{10}$",
+    "placeholder": "0471491039",
+    "value": "asin"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "AspGD Locus",
+    "pattern": "^[A-Za-z_0-9]+$",
+    "placeholder": "ASPL0000349247",
+    "value": "aspgd.locus"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "AspGD Protein",
+    "pattern": "^[A-Za-z_0-9]+$",
+    "placeholder": "ASPL0000349247",
+    "value": "aspgd.protein"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Assembly",
+    "pattern": "^[a-zA-Z0-9_\\.]+$",
+    "placeholder": "GCF_000005845.2",
+    "value": "assembly"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Anatomical Therapeutic Chemical",
+    "pattern": "^[A-Z](\\d+([A-Z]{1,2}(\\d+)?)?)?$",
+    "placeholder": "A10BA02",
+    "value": "atc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ATCC",
+    "pattern": "^\\d+$",
+    "placeholder": "11303",
+    "value": "atcc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Anatomical Therapeutic Chemical Vetinary",
+    "pattern": "^Q[A-Z0-9]+$",
+    "placeholder": "QJ51RV02",
+    "value": "atcvet"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Animal TFDB Family",
+    "pattern": "^\\w+$",
+    "placeholder": "CUT",
+    "value": "atfdb.family"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "AutDB",
+    "pattern": "^[A-Z]+[A-Z-0-9]{2,}$",
+    "placeholder": "ADA",
+    "value": "autdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Bacterial Diversity Metadatabase",
+    "pattern": "^[0-9]+$",
+    "placeholder": "131392",
+    "value": "bacdive"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BacMap Biography",
+    "pattern": "^\\d+$",
+    "placeholder": "1050",
+    "value": "bacmap.biog"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BacMap Map",
+    "pattern": "^\\w+(\\_)?\\d+(\\.\\d+)?$",
+    "placeholder": "AP011135",
+    "value": "bacmap.map"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BioAssay Ontology",
+    "pattern": "^\\d{7}$",
+    "placeholder": "0002989",
+    "value": "bao"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Blue Brain Project Knowledge Graph",
+    "pattern": "^[-\\w]+(?:\\/[-\\w]+)(?:\\/\\b[0-9a-f]{8}\\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\\b[0-9a-f]{12}\\b)$",
+    "placeholder": "topological-sampling/studios/f0ba2f3e-aa6f-4264-8d18-8ee65cf6f61a",
+    "value": "bbkg"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Blue Brain Project Topological sampling Knowledge Graph",
+    "pattern": "\\b[0-9a-f]{8}\\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\\b[0-9a-f]{12}\\b",
+    "placeholder": "f0ba2f3e-aa6f-4264-8d18-8ee65cf6f61a",
+    "value": "bbtp"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BDGP EST",
+    "pattern": "^\\w+(\\.)?(\\d+)?$",
+    "placeholder": "EY223054.1",
+    "value": "bdgp.est"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BDGP insertion DB",
+    "pattern": "^\\w+$",
+    "placeholder": "KG09531",
+    "value": "bdgp.insertion"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Bloomington Drosophila Stock Center",
+    "pattern": "^\\d+$",
+    "placeholder": "33607",
+    "value": "bdsc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BeetleBase",
+    "pattern": "^TC\\d+$",
+    "placeholder": "TC010103",
+    "value": "beetlebase"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Benchmark Energy & Geometry Database",
+    "pattern": "^[0-9]+$",
+    "placeholder": "4214",
+    "value": "begdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Bgee gene",
+    "pattern": "^[A-Za-z0-9]+$",
+    "placeholder": "FBgn0000015",
+    "value": "bgee.gene"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BiGG Compartment",
+    "pattern": "^[a-z_A-Z]+$",
+    "placeholder": "c",
+    "value": "bigg.compartment"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BiGG Metabolite",
+    "pattern": "^[a-z_A-Z0-9]+$",
+    "placeholder": "12dgr161",
+    "value": "bigg.metabolite"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BiGG Model",
+    "pattern": "^[a-z_A-Z0-9]+$",
+    "placeholder": "iECABU_c1320",
+    "value": "bigg.model"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BiGG Reaction",
+    "pattern": "^[a-z_A-Z0-9]+$",
+    "placeholder": "13GS",
+    "value": "bigg.reaction"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BindingDB",
+    "pattern": "^\\w\\d+$",
+    "placeholder": "e999",
+    "value": "bindingdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BioCarta Pathway",
+    "pattern": "^([hm]\\_)?\\w+Pathway$",
+    "placeholder": "h_aktPathway",
+    "value": "biocarta.pathway"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BioCatalogue",
+    "pattern": "^\\d+$",
+    "placeholder": "614",
+    "value": "biocatalogue.service"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BioCyc",
+    "pattern": "^[A-Z-0-9]+(\\:)?[A-Za-z0-9+_.%-:]+$",
+    "placeholder": "ECOLI:CYT-D-UBIOX-CPLX",
+    "value": "biocyc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BioGRID",
+    "pattern": "^\\d+$",
+    "placeholder": "31623",
+    "value": "biogrid"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BioKC",
+    "pattern": "bkc[0-9]*",
+    "placeholder": "bkc640",
+    "value": "biokc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BioLink Model",
+    "pattern": "^\\S+$",
+    "placeholder": "Gene",
+    "value": "biolink"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Bio-MINDER Tissue Database",
+    "pattern": "^[a-z0-9\\-]+$",
+    "placeholder": "aef4c195-9cf9-46db-a12a-7cfd1ff3eec3",
+    "value": "biominder"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BioModels Database",
+    "pattern": "^((BIOMD|MODEL)\\d{10})|(BMID\\d{12})$",
+    "placeholder": "BIOMD0000000048",
+    "value": "biomodels.db"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "KiSAO",
+    "pattern": "^KISAO_\\d+$",
+    "placeholder": "KISAO_0000057",
+    "value": "biomodels.kisao"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "TEDDY",
+    "pattern": "^TEDDY_\\d{7}$",
+    "placeholder": "TEDDY_0000066",
+    "value": "biomodels.teddy"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SBML RDF Vocabulary",
+    "pattern": "^[A-Za-z]+$",
+    "placeholder": "rateRule",
+    "value": "biomodels.vocabulary"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BioNumbers",
+    "pattern": "^\\d+$",
+    "placeholder": "104674",
+    "value": "bionumbers"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BioPortal",
+    "pattern": "^\\d+$",
+    "placeholder": "1046",
+    "value": "bioportal"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BioProject",
+    "pattern": "^PRJ[DEN][A-Z]\\d+$",
+    "placeholder": "PRJDB3",
+    "value": "bioproject"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BioSample",
+    "pattern": "^SAM[NED](\\w)?\\d+$",
+    "placeholder": "SAMEA2397676",
+    "value": "biosample"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "biosimulations",
+    "pattern": "^[a-zA-Z0-9_-]{3,}$",
+    "placeholder": "Yeast-cell-cycle-Irons-J-Theor-Biol-2009",
+    "value": "biosimulations"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BioSimulators",
+    "pattern": "[a-zA-Z0-9-_]+",
+    "placeholder": "vcell",
+    "value": "biosimulators"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BioStudies database",
+    "pattern": "^S-[A-Z]{4}[\\-\\_A-Z\\d]+$",
+    "placeholder": "S-EPMC6266652",
+    "value": "biostudies"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BioSystems",
+    "pattern": "^\\d+$",
+    "placeholder": "001",
+    "value": "biosystems"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BioTools",
+    "pattern": "^[-A-Za-z0-9\\_]*$",
+    "placeholder": "uniprotkb",
+    "value": "biotools"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Bitbucket",
+    "pattern": "^[0-9A-Za-z-_\\.]+/[0-9A-Za-z-_\\.]+$",
+    "placeholder": "andreadega/systems-biology-compiler",
+    "value": "bitbucket"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BitterDB Compound",
+    "pattern": "^\\d+$",
+    "placeholder": "46",
+    "value": "bitterdb.cpd"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BitterDB Receptor",
+    "pattern": "^\\d+$",
+    "placeholder": "1",
+    "value": "bitterdb.rec"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Biological Magnetic Resonance Data Bank",
+    "pattern": "^(bmr|bmse|bmst)?[0-9]{1,6}$",
+    "placeholder": "15000",
+    "value": "bmrb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BOLD Taxonomy",
+    "pattern": "^\\d+$",
+    "placeholder": "27267",
+    "value": "bold.taxonomy"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BRENDA",
+    "pattern": "^((\\d+\\.-\\.-\\.-)|(\\d+\\.\\d+\\.-\\.-)|(\\d+\\.\\d+\\.\\d+\\.-)|(\\d+\\.\\d+\\.\\d+\\.\\d+))$",
+    "placeholder": "1.1.1.1",
+    "value": "brenda"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Broad Fungal Genome Initiative",
+    "pattern": "^S\\d+$",
+    "placeholder": "S7000002168151102",
+    "value": "broad"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Brenda Tissue Ontology",
+    "pattern": "^BTO:\\d{7}$",
+    "placeholder": "0000146",
+    "value": "bto"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BugBase Expt",
+    "pattern": "^\\d+$",
+    "placeholder": "288",
+    "value": "bugbase.expt"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BugBase Protocol",
+    "pattern": "^\\d+$",
+    "placeholder": "67",
+    "value": "bugbase.protocol"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BYKdb",
+    "pattern": "^[A-Z0-9]+$",
+    "placeholder": "A0A009E7X8",
+    "value": "bykdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CABRI",
+    "pattern": "^([A-Za-z]+)?(\\_)?([A-Za-z-]+)\\:([A-Za-z0-9 ]+)$",
+    "placeholder": "dsmz_mutz-id:ACC 291",
+    "value": "cabri"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Cancer Data Standards Registry and Repository",
+    "pattern": "^[0-9]*$",
+    "placeholder": "3771992",
+    "value": "cadsr"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CAMEO",
+    "pattern": "^[0-9\\-_]+$",
+    "placeholder": "2019-08-03_00000089_1",
+    "value": "cameo"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CAPS-DB",
+    "pattern": "^\\d+$",
+    "placeholder": "434",
+    "value": "caps"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CAS",
+    "pattern": "^\\d{1,7}\\-\\d{2}\\-\\d$",
+    "placeholder": "50-00-0",
+    "value": "cas"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CATH Protein Structural Domain Superfamily",
+    "pattern": "^[1-6]\\.[0-9]+\\.[0-9]+\\.[0-9]+$",
+    "placeholder": "1.10.8.10",
+    "value": "cath"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CATH domain",
+    "pattern": "^\\w+$",
+    "placeholder": "1cukA01",
+    "value": "cath.domain"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CATH superfamily",
+    "pattern": "^\\d+(\\.\\d+(\\.\\d+(\\.\\d+)?)?)?$",
+    "placeholder": "1.10.10.200",
+    "value": "cath.superfamily"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Animal Genome Cattle QTL",
+    "pattern": "^\\d+$",
+    "placeholder": "4685",
+    "value": "cattleqtldb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CAZy",
+    "pattern": "^(GT|GH|PL|CE|CBM)\\d+(\\_\\d+)?$",
+    "placeholder": "GT10",
+    "value": "cazy"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "The cBioPortal for Cancer Genomics",
+    "pattern": "^[a-z0-9\\_]+$",
+    "placeholder": "laml_tcga_pub",
+    "value": "cbioportal"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CCDC Number",
+    "pattern": "^\\d{6,7}$",
+    "placeholder": "1829126",
+    "value": "ccdc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Consensus CDS",
+    "pattern": "^CCDS\\d+\\.\\d+$",
+    "placeholder": "CCDS13573.1",
+    "value": "ccds"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Cell Cycle Ontology",
+    "pattern": "^CCO:\\w+$",
+    "placeholder": "0000003",
+    "value": "cco"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Conserved Domain Database",
+    "pattern": "^(cd)?\\d{5}$",
+    "placeholder": "cd00400",
+    "value": "cdd"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Canadian Drug Product Database",
+    "pattern": "^\\d+$",
+    "placeholder": "63250",
+    "value": "cdpd"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Cell Image Library",
+    "pattern": "^\\d+$",
+    "placeholder": "24801",
+    "value": "cellimage"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Cellosaurus",
+    "pattern": "^CVCL_[A-Z0-9]{4}(\\.txt)?$",
+    "placeholder": "CVCL_0030",
+    "value": "cellosaurus"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Cell Version Control Repository",
+    "pattern": "^[0-9]+$",
+    "placeholder": "82",
+    "value": "cellrepo"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Candida Genome Database",
+    "pattern": "^CAL\\d{7}$",
+    "placeholder": "CAL0003079",
+    "value": "cgd"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CGSC Strain",
+    "pattern": "^\\d+$",
+    "placeholder": "74",
+    "value": "cgsc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CharProt",
+    "pattern": "^CH_\\d+$",
+    "placeholder": "CH_001923",
+    "value": "charprot"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ChEBI",
+    "pattern": "^CHEBI:\\d+$",
+    "placeholder": "36927",
+    "value": "chebi"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ChEMBL",
+    "pattern": "^CHEMBL\\d+$",
+    "placeholder": "CHEMBL4303805",
+    "value": "chembl"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ChEMBL compound",
+    "pattern": "^CHEMBL\\d+$",
+    "placeholder": "CHEMBL308052",
+    "value": "chembl.compound"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ChEMBL target",
+    "pattern": "^CHEMBL\\d+$",
+    "placeholder": "CHEMBL3467",
+    "value": "chembl.target"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ChemDB",
+    "pattern": "^\\d+$",
+    "placeholder": "3966782",
+    "value": "chemdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ChemIDplus",
+    "pattern": "^\\d+\\-\\d+\\-\\d+$",
+    "placeholder": "57-27-2",
+    "value": "chemidplus"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ChemSpider",
+    "pattern": "^\\d+$",
+    "placeholder": "56586",
+    "value": "chemspider"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Animal Genome Chicken QTL",
+    "pattern": "^\\d+$",
+    "placeholder": "14362",
+    "value": "chickenqtldb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CIViC Assertion",
+    "pattern": "^[0-9]+$",
+    "placeholder": "3",
+    "value": "civic.aid"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CIViC Disease",
+    "pattern": "^[0-9]+$",
+    "placeholder": "46",
+    "value": "civic.did"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CIViC Evidence",
+    "pattern": "^[0-9]+$",
+    "placeholder": "1199",
+    "value": "civic.eid"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CIViC Gene",
+    "pattern": "^[0-9]+$",
+    "placeholder": "272",
+    "value": "civic.gid"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CIViC Molecular Profile",
+    "pattern": "^[0-9]+$",
+    "placeholder": "559",
+    "value": "civic.mpid"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CIViC Source",
+    "pattern": "^[0-9]+$",
+    "placeholder": "62",
+    "value": "civic.sid"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CIViC Therapy",
+    "pattern": "^[0-9]+$",
+    "placeholder": "14",
+    "value": "civic.tid"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CIViC Variant Group",
+    "pattern": "^[0-9]+$",
+    "placeholder": "16",
+    "value": "civic.vgid"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CIViC Variant",
+    "pattern": "^[0-9]+$",
+    "placeholder": "12",
+    "value": "civic.vid"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Cell Type Ontology",
+    "pattern": "^CL:\\d{7}$",
+    "placeholder": "0000232",
+    "value": "cl"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ClassyFire",
+    "pattern": "^C[0-9]{7}$",
+    "placeholder": "C0004828",
+    "value": "classyfire"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ChecklistBank",
+    "pattern": "^[0-9]+(LR)?$",
+    "placeholder": "1010",
+    "value": "clb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CLDB",
+    "pattern": "^(cl|tum)\\d+$",
+    "placeholder": "cl3603",
+    "value": "cldb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ClinicalTrials.gov",
+    "pattern": "^NCT\\d{8}$",
+    "placeholder": "NCT00222573",
+    "value": "clinicaltrials"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ClinVar Variant",
+    "pattern": "^\\d+$",
+    "placeholder": "12345",
+    "value": "clinvar"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ClinVar Record",
+    "pattern": "^RCV\\d+(\\.\\d+)?$",
+    "placeholder": "RCV000033555.3",
+    "value": "clinvar.record"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ClinVar Submission",
+    "pattern": "^SCV\\d+(\\.\\d+)?$",
+    "placeholder": "SCV000151292",
+    "value": "clinvar.submission"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ClinVar Submitter",
+    "pattern": "^\\d+$",
+    "placeholder": "26957",
+    "value": "clinvar.submitter"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Cell Line Ontology",
+    "pattern": "^\\d{7}$",
+    "placeholder": "0000091",
+    "value": "clo"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "COG",
+    "pattern": "^COG[0-9]+$",
+    "placeholder": "COG1806",
+    "value": "cog"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Catalogue of Life",
+    "pattern": "^[23456789BCDFGHJKLMNPQRSTVWXYZ]{1,6}$",
+    "placeholder": "4QHKG",
+    "value": "col"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "COMBINE specifications",
+    "pattern": "^\\w+(\\-|\\.|\\w)*$",
+    "placeholder": "sed-ml.level-1.version-1",
+    "value": "combine.specifications"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Complex Portal",
+    "pattern": "^CPX-[0-9]+$",
+    "placeholder": "CPX-2158",
+    "value": "complexportal"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CompTox Chemistry Dashboard",
+    "pattern": "^DTXSID\\d+$",
+    "placeholder": "DTXSID2021028",
+    "value": "comptox"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Compulyeast",
+    "pattern": "^([A-N,R-Z][0-9][A-Z][A-Z, 0-9][A-Z, 0-9][0-9])|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])$",
+    "placeholder": "O08709",
+    "value": "compulyeast"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Conoserver",
+    "pattern": "^\\d+$",
+    "placeholder": "2639",
+    "value": "conoserver"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Coriell Cell Repositories",
+    "pattern": "^[A-Z]{2}\\d+$",
+    "placeholder": "GM17027",
+    "value": "coriell"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CorrDB",
+    "pattern": "^[0-9]+$",
+    "placeholder": "37232",
+    "value": "corrdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CORUM",
+    "pattern": "^\\d+$",
+    "placeholder": "100",
+    "value": "corum"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "COSMIC Gene",
+    "pattern": "^[A-Z0-9]+$",
+    "placeholder": "BRAF",
+    "value": "cosmic"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SARS-CoV-2",
+    "pattern": "^\\w+_COVID19_[-\\w]+$",
+    "placeholder": "SFB_COVID19_MW286762",
+    "value": "covid19"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Cooperative Patent Classification",
+    "pattern": "^([A-H,Y]|[A-H, Y]\\d{2}|[A-H, Y]\\d{2}[A-Z]|[A-H, Y]\\d{2}[A-Z]\\d{1,3}|[A-H, Y]\\d{2}[A-Z]\\d{1,3}(\\/)?\\d{2,})$",
+    "placeholder": "A01M1/026",
+    "value": "cpc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CRISPRdb",
+    "pattern": "^[0-9]+$",
+    "placeholder": "551115",
+    "value": "crisprdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CropMRepository",
+    "pattern": "^[0-9]{9}$",
+    "placeholder": "000000001",
+    "value": "crop2ml"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CryptoDB",
+    "pattern": "^\\w+",
+    "placeholder": "cgd7_230",
+    "value": "cryptodb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CSA",
+    "pattern": "^[0-9][A-Za-z0-9]{3}$",
+    "placeholder": "1a05",
+    "value": "csa"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Cambridge Structural Database",
+    "pattern": "^[A-Z]{6}(\\d{2})?$",
+    "placeholder": "PELNAW",
+    "value": "csd"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Cell Signaling Technology Pathways",
+    "pattern": "^[A-Za-z0-9_-]+$",
+    "placeholder": "Akt_PKB",
+    "value": "cst"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Cell Signaling Technology Antibody",
+    "pattern": "^\\d+$",
+    "placeholder": "3305",
+    "value": "cst.ab"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CSTR",
+    "pattern": "^\\w{5}\\.\\d{2}\\..*$",
+    "placeholder": "31253.11.sciencedb.j00001.00123",
+    "value": "cstr"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CTD Chemical",
+    "pattern": "^[CD]\\d+$",
+    "placeholder": "D001151",
+    "value": "ctd.chemical"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CTD Disease",
+    "pattern": "^D\\d+$",
+    "placeholder": "D053716",
+    "value": "ctd.disease"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CTD Gene",
+    "pattern": "^\\d+$",
+    "placeholder": "101",
+    "value": "ctd.gene"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Cube db",
+    "pattern": "^[A-Za-z_0-9]+$",
+    "placeholder": "AKR",
+    "value": "cubedb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "DataONE",
+    "pattern": "\\S+",
+    "placeholder": "00030692-0FE1-4A1B-955E-A2E55D659267",
+    "value": "d1id"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "DailyMed",
+    "pattern": "^[A-Za-z0-9-]+",
+    "placeholder": "973a9333-fec7-46dd-8eb5-25738f06ee54",
+    "value": "dailymed"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "DANDI: Distributed Archives for Neurophysiology Data Integration",
+    "pattern": "^\\d{6}(\\/\\d+\\.\\d+\\.\\d+)?$",
+    "placeholder": "000017",
+    "value": "dandi"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "DARC",
+    "pattern": "^\\d+$",
+    "placeholder": "1250",
+    "value": "darc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "DASHR",
+    "pattern": "^(hsa-(let|mir)-\\w+(-\\w+)?)|(piR-\\d+)|(chr\\w+.tRNA\\d+-\\w+)|(chr\\w+.tRNA\\d+-\\w+-tRF\\d)|((SNORD|SNORA|ACA|HBII|HBI|U)(-)?\\w+)|(HY\\d\\+(-L\\d+)?)|((LSU|SSU|5S)(-rRNA_Hsa)?(-L\\d+)?)$",
+    "placeholder": "hsa-mir-200a",
+    "value": "dashr"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "DASHR expression",
+    "pattern": "^(hsa-(let|mir)-\\w+(-\\w+)?)|(piR-\\d+)|(chr\\w+.tRNA\\d+-\\w+)|(chr\\w+.tRNA\\d+-\\w+-tRF\\d)|((SNORD|SNORA|ACA|HBII|HBI|U)(-)?\\w+)|(HY\\d\\+(-L\\d+)?)|((LSU|SSU|5S)(-rRNA_Hsa)?(-L\\d+)?)$",
+    "placeholder": "hsa-mir-200a",
+    "value": "dashr.expression"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Datanator Gene",
+    "pattern": "^K[0-9]+$",
+    "placeholder": "K00973",
+    "value": "datanator.gene"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Datanator Metabolite",
+    "pattern": "^[A-Z\\-]+$",
+    "placeholder": "OUYCCCASQSFEME-MRVPVSSYSA-N",
+    "value": "datanator.metabolite"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Datanator Reaction",
+    "pattern": "^.*?--%3E.*?$",
+    "placeholder": "XLYOFNOQVPJJNP-UHFFFAOYSA-N,NBSCHQHZLSJFNQ-GASJEMHNSA-N--%3ENBIIXXVUZAFLBC-UHFFFAOYSA-N,WQZGKKKJIJFFOK-GASJEMHNSA-N",
+    "value": "datanator.reaction"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "DATF",
+    "pattern": "^AT[1-5]G\\d{5}(\\.\\d+)?$",
+    "placeholder": "AT1G01030.1",
+    "value": "datf"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "DBD",
+    "pattern": "^\\d+$",
+    "placeholder": "0045310",
+    "value": "dbd"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "dbEST",
+    "pattern": "^([A-Z]+)?\\d+(\\.\\d+)?$",
+    "placeholder": "BP100000",
+    "value": "dbest"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "DBG2 Introns",
+    "pattern": "^\\w{1,2}\\.(\\w{1,2}\\.)?[A-Za-z0-9]+$",
+    "placeholder": "Cu.me.I1",
+    "value": "dbg2introns"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "dbGaP",
+    "pattern": "^phs[0-9]{6}(.v\\d+.p\\d+)?$",
+    "placeholder": "phs000768.v2.p1",
+    "value": "dbgap"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "dbProbe",
+    "pattern": "^\\d+$",
+    "placeholder": "1000000",
+    "value": "dbprobe"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "dbSNP",
+    "pattern": "^rs\\d+$",
+    "placeholder": "rs121909098",
+    "value": "dbsnp"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Degradome Database",
+    "pattern": "^[AMCST][0-9x][0-9]$",
+    "placeholder": "Ax1",
+    "value": "degradome"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "DEPOD",
+    "pattern": "^[A-Z0-9]+$",
+    "placeholder": "PTPN1",
+    "value": "depod"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Development Data Object Service",
+    "pattern": "^[a-zA-Z0-9\\-:#\\.]+$",
+    "placeholder": "23fa7b4b-9d68-429b-aece-658b11124bb3#2017-03-24T18:43:16.886826-05:00",
+    "value": "dev.ga4ghdos"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "The AnVIL",
+    "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
+    "placeholder": "6f2f1d6c-c5b5-4171-8b5f-9b1ac8c8a8ca",
+    "value": "dg.373f"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BioData Catalyst",
+    "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
+    "placeholder": "0000ffeb-36e0-4a29-b21d-84423bda979d",
+    "value": "dg.4503"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ACCOuNT Data Commons",
+    "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
+    "placeholder": "003a12b5-1002-4791-bf7f-0d6f71ebd67b",
+    "value": "dg.4825"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NCI Data Commons Framework Services",
+    "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
+    "placeholder": "81944ba1-81d0-436e-8552-33d77a27834b",
+    "value": "dg.4dfc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "BloodPAC",
+    "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
+    "placeholder": "00000d53-99bc-4d3e-8ed7-6dc358baccb7",
+    "value": "dg.5b0d"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Chicago Pandemic Response Commons",
+    "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
+    "placeholder": "00002b0f-0adf-4015-b2b7-b38f9337044a",
+    "value": "dg.63d5"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "JCOIN",
+    "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
+    "placeholder": "2afacf00-9a1d-4d80-8c32-69d3923d3913",
+    "value": "dg.6vts"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NHLBI BioData Catalyst",
+    "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
+    "placeholder": "0129cb63-1cc7-4151-b119-5e3ba3a8eb07",
+    "value": "dg.712c"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Environmental Data Commons",
+    "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
+    "placeholder": "00000014-990c-48f2-b0a8-fbb533860512",
+    "value": "dg.7c5b"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GenoMEL Data Commons",
+    "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
+    "placeholder": "000e5d06-1326-4b6f-8d8a-95c63374c7c1",
+    "value": "dg.80b6"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Anvil",
+    "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}",
+    "placeholder": "00077f1c-c45a-47ba-8e6c-1bf6b6b43fce",
+    "value": "dg.anv0"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Canine Data Commons",
+    "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
+    "placeholder": "0002346e-5ee7-45fb-8c92-8333f8e13854",
+    "value": "dg.c78ne"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NIDDK IBD Genetics Consortium Portal",
+    "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
+    "placeholder": "00083977-d4d7-4593-a216-2b9c931b8b03",
+    "value": "dg.ea80"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Veterans Precision Oncology Data Commons",
+    "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
+    "placeholder": "000bf826-73ba-4685-aa6c-3e0971a2f260",
+    "value": "dg.f738"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Kids First",
+    "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
+    "placeholder": "00026f50-858a-446b-8ed9-b0e3ecd7b20e",
+    "value": "dg.f82a1a"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "The HEAL platform",
+    "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
+    "placeholder": "022911d6-af91-4b02-8f96-9107c77c98b8",
+    "value": "dg.h34l"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "HEAL Data Platform",
+    "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
+    "placeholder": "007e4996-c902-49a0-8fe8-b363f1d3fb23",
+    "value": "dg.h35l"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MIDRC Data Commons",
+    "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
+    "placeholder": "000007c3-356a-4d59-a6c0-0ee920b60305",
+    "value": "dg.md1r"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "https://accessclinicaldata.niaid.nih.gov/",
+    "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
+    "placeholder": "2096a0d6-1846-4b98-9ba3-e4065d82111d",
+    "value": "dg.nacd"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NCI Data Commons Framework Services",
+    "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
+    "placeholder": "81944ba1-81d0-436e-8552-33d77a27834b",
+    "value": "dg.nci35"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "UMCCR AGHA Data Commons",
+    "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
+    "placeholder": "0aa770b4-66b3-4009-9f02-852236b0544f",
+    "value": "dg.um33r90"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "VA Data Commons",
+    "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
+    "placeholder": "00990747-f66a-4b1e-a6d2-3f08c5c1461f",
+    "value": "dg.va03"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Dictybase EST",
+    "pattern": "^DDB\\d+$",
+    "placeholder": "DDB0016567",
+    "value": "dictybase.est"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Dictybase Gene",
+    "pattern": "^DDB_G\\d+$",
+    "placeholder": "DDB_G0267522",
+    "value": "dictybase.gene"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Decentralized Identifiers (DIDs)",
+    "pattern": "^did:[a-z0-9]+:[A-Za-z0-9.\\-:]+$",
+    "placeholder": "sov:WRfXPg8dantKVubE3HX8pw",
+    "value": "did"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Database of Interacting Proteins",
+    "pattern": "^DIP(\\:)?\\-\\d{1,}[ENXS]$",
+    "placeholder": "DIP-743N",
+    "value": "dip"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "DisProt",
+    "pattern": "^DP\\d{5}$",
+    "placeholder": "DP00003",
+    "value": "disprot"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "DisProt region",
+    "pattern": "^DP\\d{5}r\\d{3}$",
+    "placeholder": "DP00086r013",
+    "value": "disprot.region"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Linear double stranded DNA sequences",
+    "pattern": "^[A-Z0-9]{6,7}$",
+    "placeholder": "6VDC956",
+    "value": "dlxb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Circular double stranded DNA sequences composed",
+    "pattern": "^[A-Z0-9]{6,7}$",
+    "placeholder": "M77F7JM",
+    "value": "dlxc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
     "label": "DOI",
-    "placeholder": "10.1002/0470841559.ch1",
-    "icon": "ic:twotone-select-all"
+    "pattern": "^(doi\\:)?10\\.\\d+/.*$",
+    "placeholder": "10.1038/nbt1156",
+    "value": "doi"
   },
   {
-    "value": "url",
-    "label": "URL",
-    "placeholder": "http://www.example.com",
-    "icon": "ic:twotone-select-all"
+    "icon": "ic:twotone-select-all",
+    "label": "Human Disease Ontology",
+    "pattern": "^DOID:\\d+$",
+    "placeholder": "11337",
+    "value": "doid"
   },
   {
-    "value": "uniprot",
-    "label": "UniProt Knowledgebase",
+    "icon": "ic:twotone-select-all",
+    "label": "DOMMINO",
+    "pattern": "^[0-9][A-Za-z0-9]{3}$",
+    "placeholder": "2GC4",
+    "value": "dommino"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "DOOR",
+    "pattern": "^\\d+$",
+    "placeholder": "1398574",
+    "value": "door"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Database of Quantitative Cellular Signaling: Model",
+    "pattern": "^\\d+$",
+    "placeholder": "57",
+    "value": "doqcs.model"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Database of Quantitative Cellular Signaling: Pathway",
+    "pattern": "^\\d+$",
+    "placeholder": "131",
+    "value": "doqcs.pathway"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "DPV",
+    "pattern": "^\\d+$",
+    "placeholder": "100",
+    "value": "dpv"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "DragonDB Allele",
+    "pattern": "^\\w+$",
+    "placeholder": "cho",
+    "value": "dragondb.allele"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "DragonDB DNA",
+    "pattern": "^\\d\\w+$",
+    "placeholder": "3hB06",
+    "value": "dragondb.dna"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "DragonDB Locus",
+    "pattern": "^\\w+$",
+    "placeholder": "DEF",
+    "value": "dragondb.locus"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "DragonDB Protein",
+    "pattern": "^\\w+$",
+    "placeholder": "AMDEFA",
+    "value": "dragondb.protein"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "AnVIL DRS",
+    "pattern": "^v2_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+    "placeholder": "v2_1b0f158a-86e2-3887-b990-89e3cf2d9082",
+    "value": "drs.anv0"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "DRSC",
+    "pattern": "^DRSC\\d+$",
+    "placeholder": "DRSC05221",
+    "value": "drsc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "DrugBank",
+    "pattern": "^DB\\d{5}$",
+    "placeholder": "DB00001",
+    "value": "drugbank"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "DrugBank Target v4",
+    "pattern": "^BE\\d{7}$",
+    "placeholder": "BE0000048",
+    "value": "drugbankv4.target"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "DrugCentral",
+    "pattern": "^[0-9]+$",
+    "placeholder": "257",
+    "value": "drugcentral"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Enzyme Nomenclature",
+    "pattern": "^\\d+\\.-\\.-\\.-|\\d+\\.\\d+\\.-\\.-|\\d+\\.\\d+\\.\\d+\\.-|\\d+\\.\\d+\\.\\d+\\.(n)?\\d+$",
+    "placeholder": "1.1.1.1",
+    "value": "ec-code"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "EchoBASE",
+    "pattern": "^EB\\d+$",
+    "placeholder": "EB0170",
+    "value": "echobase"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Evidence Code Ontology",
+    "pattern": "ECO:\\d{7}$",
+    "placeholder": "0000006",
+    "value": "eco"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "EcoGene",
+    "pattern": "^EG\\d+$",
+    "placeholder": "EG10173",
+    "value": "ecogene"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "EcoliWiki",
+    "pattern": "^[A-Za-z0-9-]+$",
+    "placeholder": "aaeA",
+    "value": "ecoliwiki"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "E-cyanobacterium entity",
+    "pattern": "^\\d+$",
+    "placeholder": "23",
+    "value": "ecyano.entity"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "E-cyanobacterium Experimental Data",
+    "pattern": "^\\d+$",
+    "placeholder": "18",
+    "value": "ecyano.experiment"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "E-cyanobacterium model",
+    "pattern": "^\\d+$",
+    "placeholder": "26",
+    "value": "ecyano.model"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "E-cyanobacterium rule",
+    "pattern": "^\\d+$",
+    "placeholder": "56",
+    "value": "ecyano.rule"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "EDAM Ontology",
+    "pattern": "^(data|topic|operation|format)\\_\\d{4}$",
+    "placeholder": "data_1664",
+    "value": "edam"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Experimental Factor Ontology",
+    "pattern": "^\\d{7}$",
+    "placeholder": "0004859",
+    "value": "efo"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "European Genome-phenome Archive Dataset",
+    "pattern": "^EGAD\\d{11}$",
+    "placeholder": "EGAD00000000001",
+    "value": "ega.dataset"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "European Genome-phenome Archive Study",
+    "pattern": "^EGAS\\d{11}$",
+    "placeholder": "EGAS00000000001",
+    "value": "ega.study"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "eggNOG",
+    "pattern": "^\\w+$",
+    "placeholder": "veNOG12876",
+    "value": "eggnog"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ELM",
+    "pattern": "^[A-Za-z_0-9]+$",
+    "placeholder": "CLV_MEL_PAP_1",
+    "value": "elm"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Electron Microscopy Data Bank",
+    "pattern": "^EMD-\\d{4,5}$",
+    "placeholder": "EMD-1001",
+    "value": "emdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "EMPIAR",
+    "pattern": "EMPIAR-\\d{5,}",
+    "placeholder": "EMPIAR-10002",
+    "value": "empiar"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ENA",
+    "pattern": "^[A-Z]+[0-9]+(\\.\\d+)?$",
+    "placeholder": "BN000065",
+    "value": "ena.embl"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ENCODE: Encyclopedia of DNA Elements",
+    "pattern": "^ENC[A-Za-z]{2}[0-9]{3}[A-Za-z]{3}$",
+    "placeholder": "ENCSR163RYW",
+    "value": "encode"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Ensembl",
+    "pattern": "^((ENS[FPTG]\\d{11}(\\.\\d+)?)|(FB\\w{2}\\d{7})|(Y[A-Z]{2}\\d{3}[a-zA-Z](\\-[A-Z])?)|([A-Z_a-z0-9]+(\\.)?(t)?(\\d+)?([a-z])?))$",
+    "placeholder": "ENSG00000139618",
+    "value": "ensembl"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Ensembl Bacteria",
+    "pattern": "^((EB\\w+)|([A-Z0-9]+\\_[A-Z0-9]+))$",
+    "placeholder": "MU9_3181",
+    "value": "ensembl.bacteria"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Ensembl Fungi",
+    "pattern": "^[A-Z-a-z0-9]+$",
+    "placeholder": "CADAFLAT00006211",
+    "value": "ensembl.fungi"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Ensembl Metazoa",
+    "pattern": "^\\w+(\\.)?\\d+$",
+    "placeholder": "FBtr0084214",
+    "value": "ensembl.metazoa"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Ensembl Plants",
+    "pattern": "^\\w+(\\.\\d+)?(\\.\\d+)?$",
+    "placeholder": "AT1G73965",
+    "value": "ensembl.plant"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Ensembl Protists",
+    "pattern": "^\\w+$",
+    "placeholder": "PF3D7_1328700",
+    "value": "ensembl.protist"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "enviPath",
+    "pattern": "^[\\w^_]{8}-[\\w^_]{4}-[\\w^_]{4}-[\\w^_]{4}-[\\w^_]{12}\\/[\\w-]+\\/[\\w^_]{8}-[\\w^_]{4}-[\\w^_]{4}-[\\w^_]{4}-[\\w^_]{12}$",
+    "placeholder": "32de3cf4-e3e6-4168-956e-32fa5ddb0ce1/compound/b545cabc-8c9e-4b20-8848-efa015b481ea",
+    "value": "envipath"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Environment Ontology",
+    "pattern": "^ENVO:\\d{7,8}$",
+    "placeholder": "09200010",
+    "value": "envo"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Plant Environment Ontology",
+    "pattern": "^(P)?EO\\:\\d{7}$",
+    "placeholder": "0007404",
+    "value": "eo"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "EPD",
+    "pattern": "^[A-Z-_0-9]+$",
+    "placeholder": "TA_H3",
+    "value": "epd"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "European Registry of Materials",
+    "pattern": "^ERM[0-9]{8}$",
+    "placeholder": "ERM00000044",
+    "value": "erm"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Human Endogenous Retrovirus Database",
+    "pattern": "^[A-Za-z0-9\\-\\_]+$",
+    "placeholder": "THE1B",
+    "value": "erv"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "JRC Data Catalogue",
+    "pattern": "^[a-z0-9\\-_]+$",
+    "placeholder": "jrc-eurl-ecvam-chemagora",
+    "value": "eu89h"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "EU Clinical Trials",
+    "pattern": "^\\d{4}\\-\\d{6}\\-\\d{2}$",
+    "placeholder": "2008-005144-16",
+    "value": "euclinicaltrials"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ExAC Gene",
+    "pattern": "^ENSG\\d{11}$",
+    "placeholder": "ENSG00000169174",
+    "value": "exac.gene"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ExAC Transcript",
+    "pattern": "^ENST\\d{11}$",
+    "placeholder": "ENST00000407236",
+    "value": "exac.transcript"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ExAC Variant",
+    "pattern": "^\\d{1,2}\\-\\d+\\-[GATC]\\-[GATC]$",
+    "placeholder": "22-46615880-T-C",
+    "value": "exac.variant"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Kids First Data Catalog",
+    "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
+    "placeholder": "0000324e-e2d9-4ccd-b25b-2d16c8a87b28",
+    "value": "f82a1a"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "FaceBase Data Repository",
+    "pattern": "^FB\\d{8}$",
+    "placeholder": "FB00000917",
+    "value": "facebase"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "FAIRsharing",
+    "pattern": "^bsg-[dscp]?\\d{6}$",
+    "placeholder": "bsg-000052",
+    "value": "fairsharing"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "FlyBase",
+    "pattern": "^FB\\w{2}\\d{7}$",
+    "placeholder": "FBgn0011293",
+    "value": "fb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Fungal Barcode",
+    "pattern": "^\\d+$",
+    "placeholder": "2224",
+    "value": "fbol"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "the FAIR Cookbook",
+    "pattern": "^FCB\\d{3}",
+    "placeholder": "FCB005",
+    "value": "fcb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "FlowRepository",
+    "pattern": "^FR\\-FCM\\-\\w{4}$",
+    "placeholder": "FR-FCM-ZYGW",
+    "value": "flowrepository"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "FMA",
+    "pattern": "^FMA:\\d+$",
+    "placeholder": "67112",
+    "value": "fma"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "FooDB Compound",
+    "pattern": "^FDB\\d+$",
+    "placeholder": "FDB002100",
+    "value": "foodb.compound"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "FoodOn Food Ontology",
+    "pattern": "^FOODON:[0-9]{8}$",
+    "placeholder": "03307879",
+    "value": "foodon"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "FamPlex",
+    "pattern": "^[a-zA-Z0-9][A-Za-z0-9_]+$",
+    "placeholder": "RAS",
+    "value": "fplx"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "F-SNP",
+    "pattern": "^rs\\d+$",
+    "placeholder": "rs17852708",
+    "value": "fsnp"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "FuncBase Fly",
+    "pattern": "^\\d+$",
+    "placeholder": "10194",
+    "value": "funcbase.fly"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "FuncBase Human",
+    "pattern": "^\\d+$",
+    "placeholder": "119514",
+    "value": "funcbase.human"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "FuncBase Mouse",
+    "pattern": "^\\d+$",
+    "placeholder": "1351341",
+    "value": "funcbase.mouse"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "FuncBase Yeast",
+    "pattern": "^\\d+$",
+    "placeholder": "2701",
+    "value": "funcbase.yeast"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "FunderRegistry",
+    "pattern": "^\\d{9,9}$",
+    "placeholder": "100000001",
+    "value": "funderregistry"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "FungiDB",
+    "pattern": "^[A-Za-z_0-9]+$",
+    "placeholder": "CNBG_0001",
+    "value": "fungidb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Data Object Service",
+    "pattern": "^[a-zA-Z0-9\\-:#/\\.]+$",
+    "placeholder": "dg.4503/01b048d0-e128-4cb0-94e9-b2d2cab7563d",
+    "value": "ga4ghdos"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GABI",
+    "pattern": "^\\w+$",
+    "placeholder": "2679240",
+    "value": "gabi"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "gateway",
+    "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
+    "placeholder": "fd8d0743-344a-4758-bb97-f8ad84a37357",
+    "value": "gateway"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GWAS Catalog",
+    "pattern": "^GCST\\d{6}\\d*$",
+    "placeholder": "GCST000035",
+    "value": "gcst"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Genomic Data Commons Data Portal",
+    "pattern": "^[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}$",
+    "placeholder": "ae8c77fe-e6c8-44d5-8265-4a38c637bbef",
+    "value": "gdc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Genomics of Drug Sensitivity in Cancer",
+    "pattern": "^[0-9]+$",
+    "placeholder": "1242",
+    "value": "gdsc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Genatlas",
+    "pattern": "^\\w+$",
+    "placeholder": "HBB",
+    "value": "genatlas"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GeneCards",
+    "pattern": "^[A-Za-z-0-9_]+(\\@)?$",
+    "placeholder": "ABL1",
+    "value": "genecards"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GeneFarm",
+    "pattern": "^\\d+$",
+    "placeholder": "4892",
+    "value": "genefarm"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GeneTree",
+    "pattern": "^ENSGT\\d+$",
+    "placeholder": "ENSGT00550000074763",
+    "value": "genetree"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Gene Wiki",
+    "pattern": "^\\d+$",
+    "placeholder": "1017",
+    "value": "genewiki"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GenPept",
+    "pattern": "^\\w{3}\\d{5}(\\.\\d+)?$",
+    "placeholder": "CAA71118.1",
+    "value": "genpept"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Genome Properties",
+    "pattern": "^GenProp\\d+$",
+    "placeholder": "GenProp0699",
+    "value": "genprop"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GEO",
+    "pattern": "^G(PL|SM|SE|DS)\\d+$",
+    "placeholder": "GDS1234",
+    "value": "geo"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Geographical Entity Ontology",
+    "pattern": "^GEO_[0-9]{9}$",
+    "placeholder": "GEO_000000021",
+    "value": "geogeo"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GiardiaDB",
+    "pattern": "^\\w+$",
+    "placeholder": "GL50803_102438",
+    "value": "giardiadb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "github",
+    "pattern": "^[a-zA-Z0-9-_]+/[a-zA-Z0-9-_]+$",
+    "placeholder": "identifiers-org/registry",
+    "value": "github"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GitLab",
+    "pattern": "^[0-9A-Za-z_][0-9A-Za-z-_()\\. ]*/[0-9A-Za-z_][0-9A-Za-z-_\\. ]*$",
+    "placeholder": "morpheus.lab/morpheus",
+    "value": "gitlab"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GLIDA GPCR",
+    "pattern": "^[A-Z-_0-9]+$",
+    "placeholder": "ACM1_HUMAN",
+    "value": "glida.gpcr"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GLIDA Ligand",
+    "pattern": "^L\\d+$",
+    "placeholder": "L000001",
+    "value": "glida.ligand"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GlycoEpitope",
+    "pattern": "^EP\\d{4}$",
+    "placeholder": "EP0311",
+    "value": "glycoepitope"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GlycomeDB",
+    "pattern": "^\\w+$",
+    "placeholder": "G77500AY",
+    "value": "glycomedb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GlycoNAVI",
+    "pattern": "^GN_[A-Za-z]*[_]*[A-Za-z0-9-:_]+$",
+    "placeholder": "GN_GlyTouCan_G03681DA",
+    "value": "glyconavi"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GlycoPOST",
+    "pattern": "^GPST[0-9]{6}$",
+    "placeholder": "GPST000024",
+    "value": "glycopost"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GlyTouCan",
+    "pattern": "^G[0-9]{5}[A-Z]{2}$",
+    "placeholder": "G00054MO",
+    "value": "glytoucan"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Golm Metabolome Database",
+    "pattern": "^([0-9a-fA-F]){8}(-([0-9a-fA-F]){4}){3}-([0-9a-fA-F]){12}$",
+    "placeholder": "68513255-fc44-4041-bc4b-4fd2fae7541d",
+    "value": "gmd"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Golm Metabolome Database Analyte",
+    "pattern": "^([0-9a-fA-F]){8}(-([0-9a-fA-F]){4}){3}-([0-9a-fA-F]){12}$",
+    "placeholder": "4f0fa9b6-514f-4ff4-98cc-0009bc08eb80",
+    "value": "gmd.analyte"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Golm Metabolome Database GC-MS spectra",
+    "pattern": "^([0-9a-fA-F]){8}(-([0-9a-fA-F]){4}){3}-([0-9a-fA-F]){12}$",
+    "placeholder": "53d583d8-40c6-40e1-9296-23f821cd77a5",
+    "value": "gmd.gcms"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Golm Metabolome Database Profile",
+    "pattern": "^([0-9a-fA-F]){8}(-([0-9a-fA-F]){4}){3}-([0-9a-fA-F]){12}$",
+    "placeholder": "10b38aaf-b977-4950-85b8-f4775f66658d",
+    "value": "gmd.profile"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Golm Metabolome Database Reference Substance",
+    "pattern": "^([0-9a-fA-F]){8}(-([0-9a-fA-F]){4}){3}-([0-9a-fA-F]){12}$",
+    "placeholder": "8cf84adb-b4db-4807-ac98-0004247c35df",
+    "value": "gmd.ref"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Gemeinsame Normdatei",
+    "pattern": "[0-9X\\-]+",
+    "placeholder": "117145750",
+    "value": "gnd"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GnpIS",
+    "pattern": "^[A-Za-z0-9]+$",
+    "placeholder": "AY109603",
+    "value": "gnpis"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Gene Ontology",
+    "pattern": "^GO:\\d{7}$",
+    "placeholder": "0006915",
+    "value": "go"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Gene Ontology Reference",
+    "pattern": "^GO_REF:\\d{7}$",
+    "placeholder": "0000041",
+    "value": "go_ref"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GOA",
+    "pattern": "^(([A-N,R-Z][0-9][A-Z][A-Z, 0-9][A-Z, 0-9][0-9])|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9]))|(URS[0-9A-F]{10}(_[0-9]+){0,1})|(EBI-[0-9]+)$",
     "placeholder": "P12345",
-    "icon": "solar:dna-bold"
+    "value": "goa"
   },
   {
-    "value": "pubmed",
+    "icon": "ic:twotone-select-all",
+    "label": "Genomes OnLine Database (GOLD)",
+    "pattern": "^[A-Z][a-z][0-9]+$",
+    "placeholder": "Gs0000008",
+    "value": "gold"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GOLD genome",
+    "pattern": "^(Gi|Gc)\\d+$",
+    "placeholder": "Gi07796",
+    "value": "gold.genome"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GOLD metadata",
+    "pattern": "^Gm\\d+$",
+    "placeholder": "Gm00047",
+    "value": "gold.meta"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Google Patents",
+    "pattern": "^[A-Z]{2}\\d+([A-Z])?$",
+    "placeholder": "US4145692",
+    "value": "google.patent"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GPCRDB",
+    "pattern": "^\\w+$",
+    "placeholder": "RL3R1_HUMAN",
+    "value": "gpcrdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GPMDB",
+    "pattern": "^GPM\\d+$",
+    "placeholder": "GPM32310002988",
+    "value": "gpmdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Gramene genes",
+    "pattern": "^GR\\:\\d+$",
+    "placeholder": "GR:0080039",
+    "value": "gramene.gene"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Gramene protein",
+    "pattern": "^\\d+$",
+    "placeholder": "78073",
+    "value": "gramene.protein"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Gramene QTL",
+    "pattern": "^\\w+$",
+    "placeholder": "CQG5",
+    "value": "gramene.qtl"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Gramene Taxonomy",
+    "pattern": "^GR\\_tax\\:\\d+$",
+    "placeholder": "GR_tax:013681",
+    "value": "gramene.taxonomy"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GreenGenes",
+    "pattern": "^\\d+$",
+    "placeholder": "100000",
+    "value": "greengenes"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GRID",
+    "pattern": "^grid\\.[0-9]+\\.[a-f0-9]{1,2}$",
+    "placeholder": "grid.225360.0",
+    "value": "grid"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GRIN Plant Taxonomy",
+    "pattern": "^\\d+$",
+    "placeholder": "19333",
+    "value": "grin.taxonomy"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Gramene Growth Stage Ontology",
+    "pattern": "^GRO:\\d+$",
+    "placeholder": "0007133",
+    "value": "gro"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GRSDB",
+    "pattern": "^\\d+$",
+    "placeholder": "10142",
+    "value": "grsdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Gender, Sex, and Sexual Orientation (GSSO) Ontology",
+    "pattern": "^GSSO:\\d{6}$",
+    "placeholder": "002368",
+    "value": "gsso"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GTEx",
+    "pattern": "^\\w.+$",
+    "placeholder": "BRIP1",
+    "value": "gtex"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GUDMAP",
+    "pattern": "^[-0-9a-zA-Z]+(@[-0-9a-zA-Z]+)?$",
+    "placeholder": "Q-2958",
+    "value": "gudmap"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GWAS Central Marker",
+    "pattern": "^HGVM\\d+$",
+    "placeholder": "HGVM15354",
+    "value": "gwascentral.marker"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GWAS Central Phenotype",
+    "pattern": "^HGVPM\\d+$",
+    "placeholder": "HGVPM623",
+    "value": "gwascentral.phenotype"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GWAS Central Study",
+    "pattern": "^HGVST\\d+$",
+    "placeholder": "HGVST1828",
+    "value": "gwascentral.study"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GXA Expt",
+    "pattern": "^[AEP]-\\w{4}-\\d+$",
+    "placeholder": "E-MTAB-2037",
+    "value": "gxa.expt"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "GXA Gene",
+    "pattern": "^\\w+$",
+    "placeholder": "AT4G01080",
+    "value": "gxa.gene"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "HAMAP",
+    "pattern": "^MF_\\d+$",
+    "placeholder": "MF_01400",
+    "value": "hamap"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "HCVDB",
+    "pattern": "^M\\d{5}$",
+    "placeholder": "M58335",
+    "value": "hcvdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Homeodomain Research",
+    "pattern": "^\\d+$",
+    "placeholder": "63",
+    "value": "hdr"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "HGMD",
+    "pattern": "^[A-Z_0-9]+$",
+    "placeholder": "CALM1",
+    "value": "hgmd"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "HGNC",
+    "pattern": "^((HGNC|hgnc):)?\\d{1,5}$",
+    "placeholder": "2674",
+    "value": "hgnc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "HGNC gene family",
+    "pattern": "^\\d+$",
+    "placeholder": "141",
+    "value": "hgnc.genefamily"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "HGNC Gene Group",
+    "pattern": "^\\d+$",
+    "placeholder": "141",
+    "value": "hgnc.genegroup"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "HGNC Symbol",
+    "pattern": "^[A-Za-z-0-9_]+(\\@)?$",
+    "placeholder": "DAPK1",
+    "value": "hgnc.symbol"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "H-InvDb Locus",
+    "pattern": "^HIX\\d{7}(\\.\\d+)?$",
+    "placeholder": "HIX0004394",
+    "value": "hinv.locus"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "H-InvDb Protein",
+    "pattern": "^HIP\\d{9}(\\.\\d+)?$",
+    "placeholder": "HIP000030660",
+    "value": "hinv.protein"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "H-InvDb Transcript",
+    "pattern": "^HIT\\d{9}(\\.\\d+)?$",
+    "placeholder": "HIT000195363",
+    "value": "hinv.transcript"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "HMDB",
+    "pattern": "^HMDB\\d+$",
+    "placeholder": "HMDB00001",
+    "value": "hmdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "HOGENOM",
+    "pattern": "^\\w+$",
+    "placeholder": "HBG284870",
+    "value": "hogenom"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "HOMD Sequence Metainformation",
+    "pattern": "^SEQF\\d+$",
+    "placeholder": "SEQF1003",
+    "value": "homd.seq"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "HOMD Taxonomy",
+    "pattern": "^\\d+$",
+    "placeholder": "811",
+    "value": "homd.taxon"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "HomoloGene",
+    "pattern": "^\\d+$",
+    "placeholder": "1000",
+    "value": "homologene"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "HOVERGEN",
+    "pattern": "^HBG\\d+$",
+    "placeholder": "HBG004341",
+    "value": "hovergen"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Human Phenotype Ontology",
+    "pattern": "^HP:\\d{7}$",
+    "placeholder": "0000118",
+    "value": "hp"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "HPA",
+    "pattern": "^ENSG\\d{11}$",
+    "placeholder": "ENSG00000026508",
+    "value": "hpa"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Human Proteome Map Peptide",
+    "pattern": "^\\d+$",
+    "placeholder": "9606117",
+    "value": "hpm.peptide"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Human Proteome Map Protein",
+    "pattern": "^\\d+$",
+    "placeholder": "1968",
+    "value": "hpm.protein"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "HPRD",
+    "pattern": "^\\d+$",
+    "placeholder": "00001",
+    "value": "hprd"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Human Pluripotent Stem Cell Registry",
+    "pattern": "^[A-Z]{2,6}(e|i)[A-Za-z0-9]{3}-[A-Z]{1,2}(-[A-Za-z0-9]{1,2})?$",
+    "placeholder": "BCRTi001-A",
+    "value": "hpscreg"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "HSSP",
+    "pattern": "^\\w{4}$",
+    "placeholder": "102l",
+    "value": "hssp"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "HUGE",
+    "pattern": "^KIAA\\d{4}$",
+    "placeholder": "KIAA0001",
+    "value": "huge"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Information Artifact Ontology",
+    "pattern": "^\\d{7}$",
+    "placeholder": "0000030",
+    "value": "iao"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ICD",
+    "pattern": "^[A-Z]\\d+(\\.[-\\d+])?$",
+    "placeholder": "C34",
+    "value": "icd"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Integrated Canine Data Commons",
+    "pattern": "^\\d{6}$",
+    "placeholder": "000009",
+    "value": "icdc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ICEberg element",
+    "pattern": "^\\d+$",
+    "placeholder": "100",
+    "value": "iceberg.element"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ICEberg family",
+    "pattern": "^\\d+$",
+    "placeholder": "1",
+    "value": "iceberg.family"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "IDEAL",
+    "pattern": "^IID\\d+$",
+    "placeholder": "IID00001",
+    "value": "ideal"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Identifiers.org namespace",
+    "pattern": "^[a-z_\\.]+$",
+    "placeholder": "pubmed",
+    "value": "identifiers.namespace"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Infectious Disease Ontology",
+    "pattern": "^[0-9]+$",
+    "placeholder": "0000504",
+    "value": "ido"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Identifiers.org Ontology",
+    "pattern": "^[0-9a-zA-Z]+$",
+    "placeholder": "DataCollection",
+    "value": "idoo"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Identifiers.org Terms",
+    "pattern": "^[A-Za-z]+$",
+    "placeholder": "identifierPattern",
+    "value": "idot"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Image Data Resource",
+    "pattern": "^[0-9]{4}$",
+    "placeholder": "0001",
+    "value": "idr"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Immune Epitope Database (IEDB)",
+    "pattern": "^[0-9]+$",
+    "placeholder": "1038233",
+    "value": "iedb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "International Geo Sample Number",
+    "pattern": "^[A-Za-z]{2,4}[A-Za-z0-9.-]{1,71}$",
+    "placeholder": "AU124",
+    "value": "igsn"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "InterLex",
+    "pattern": "^[0-9]+$",
+    "placeholder": "0101963",
+    "value": "ilx"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "IMEx",
+    "pattern": "^IM-\\d+(-?)(\\d+?)$",
+    "placeholder": "IM-19210-3",
+    "value": "imex"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Integrated Microbial Genomes Gene",
+    "pattern": "^\\d+$",
+    "placeholder": "638309541",
+    "value": "img.gene"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Integrated Microbial Genomes Taxon",
+    "pattern": "^\\d+$",
+    "placeholder": "648028003",
+    "value": "img.taxon"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "IMGT HLA",
+    "pattern": "^[A-Z0-9*:]+$",
+    "placeholder": "A*01:01:01:01",
+    "value": "imgt.hla"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "IMGT LIGM",
+    "pattern": "^M\\d+$",
+    "placeholder": "M94112",
+    "value": "imgt.ligm"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "InChI",
+    "pattern": "^InChI\\=1S?\\/[A-Za-z0-9\\.]+(\\+[0-9]+)?(\\/[cnpqbtmsih][A-Za-z0-9\\-\\+\\(\\)\\,\\/\\?\\;\\.]+)*$",
+    "placeholder": "InChI=1S/C2H6O/c1-2-3/h3H,2H2,1H3",
+    "value": "inchi"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "InChIKey",
+    "pattern": "^[A-Z]{14}\\-[A-Z]{10}(\\-[A-Z])?",
+    "placeholder": "RYYVLZVUVIJVGH-UHFFFAOYSA-N",
+    "value": "inchikey"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Nucleotide Sequence Database",
+    "pattern": "^([A-Z]\\d{5}|[A-Z]{2}\\d{6}|[A-Z]{4,6}\\d{8,10}|[A-J][A-Z]{2}\\d{5})(\\.\\d+)?$",
+    "placeholder": "X58356",
+    "value": "insdc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "INSDC CDS",
+    "pattern": "^([A-Z]\\d{5}|[A-Z]{2}\\d{6}|[A-Z]{4}\\d{8}|[A-J][A-Z]{2}\\d{5})(\\.\\d+)?$",
+    "placeholder": "AAA35559",
+    "value": "insdc.cds"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Genome assembly database",
+    "pattern": "^GC[AF]_[0-9]{9}\\.[0-9]+$",
+    "placeholder": "GCA_000155495.1",
+    "value": "insdc.gca"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Sequence Read Archive",
+    "pattern": "^[SED]R[APRSXZ]\\d+$",
+    "placeholder": "SRX000007",
+    "value": "insdc.sra"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "IntAct",
+    "pattern": "^EBI\\-[0-9]+$",
+    "placeholder": "EBI-2307691",
+    "value": "intact"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "IntAct Molecule",
+    "pattern": "^EBI\\-[0-9]+$",
+    "placeholder": "EBI-366083",
+    "value": "intact.molecule"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "InterPro",
+    "pattern": "^IPR\\d{6}$",
+    "placeholder": "IPR000100",
+    "value": "interpro"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "IRD Segment Sequence",
+    "pattern": "^\\w+(\\_)?\\d+(\\.\\d+)?$",
+    "placeholder": "CY077097",
+    "value": "ird.segment"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "iRefWeb",
+    "pattern": "^\\d+$",
+    "placeholder": "617102",
+    "value": "irefweb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ISBN",
+    "pattern": "^(ISBN)?(-13|-10)?[:]?[ ]?(\\d{2,3}[ -]?)?\\d{1,5}[ -]?\\d{1,7}[ -]?\\d{1,6}[ -]?(\\d|X)$",
+    "placeholder": "9781584885658",
+    "value": "isbn"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ISFinder",
+    "pattern": "^IS\\w+(\\-\\d)?$",
+    "placeholder": "ISA1083-2",
+    "value": "isfinder"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "International Standard Name Identifier",
+    "pattern": "^[0-9]{15}[0-9X]{1}$",
+    "placeholder": "000000012281955X",
+    "value": "isni"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ISSN",
+    "pattern": "^\\d{4}-\\d{3}[\\dX]$",
+    "placeholder": "0745-4570",
+    "value": "issn"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Intelligence Task Ontology",
+    "pattern": "^.+$",
+    "placeholder": "ITO_01625",
+    "value": "ito"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "IUPHAR family",
+    "pattern": "^\\d+$",
+    "placeholder": "78",
+    "value": "iuphar.family"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "IUPHAR ligand",
+    "pattern": "^\\d+$",
+    "placeholder": "1755",
+    "value": "iuphar.ligand"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "IUPHAR receptor",
+    "pattern": "^\\d+$",
+    "placeholder": "101",
+    "value": "iuphar.receptor"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "JAX Mice",
+    "pattern": "^\\d+$",
+    "placeholder": "005012",
+    "value": "jaxmice"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "JCGGDB",
+    "pattern": "^JCGG-STR\\d{6}$",
+    "placeholder": "JCGG-STR008690",
+    "value": "jcggdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Japan Collection of Microorganisms",
+    "pattern": "^\\d+$",
+    "placeholder": "17254",
+    "value": "jcm"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Japan Chemical Substance Dictionary",
+    "pattern": "^J\\d{1,3}(\\.\\d{3})?(\\.\\d{1,3})?[A-Za-z]$",
+    "placeholder": "J55.713G",
+    "value": "jcsd"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "JSTOR",
+    "pattern": "^\\d+$",
+    "placeholder": "3075966",
+    "value": "jstor"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "JWS Online",
+    "pattern": "^\\w+$",
+    "placeholder": "curien",
+    "value": "jws"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Kaggle",
+    "pattern": "^[0-9a-zA-Z\\-]+\\/[0-9a-zA-Z\\-]+$",
+    "placeholder": "nasa/kepler-exoplanet-search-results",
+    "value": "kaggle"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Kyoto Encyclopedia of Genes and Genomes",
+    "pattern": "^([CHDEGTMKR]\\d+)|(\\w+:[\\w\\d\\.-]*)|([a-z]{3,5})|(\\w{2,4}\\d{5})$",
+    "placeholder": "hsa00190",
+    "value": "kegg"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "KEGG Compound",
+    "pattern": "^C\\d+$",
+    "placeholder": "C12345",
+    "value": "kegg.compound"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "KEGG Disease",
+    "pattern": "^H\\d+$",
+    "placeholder": "H00076",
+    "value": "kegg.disease"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "KEGG Drug",
+    "pattern": "^D\\d+$",
+    "placeholder": "D00123",
+    "value": "kegg.drug"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "KEGG Environ",
+    "pattern": "^(ev\\:)?E\\d+$",
+    "placeholder": "ev:E00032",
+    "value": "kegg.environ"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "KEGG Genes",
+    "pattern": "^\\w+:[\\w\\d\\.-]*$",
+    "placeholder": "syn:ssr3451",
+    "value": "kegg.genes"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "KEGG Genome",
+    "pattern": "^(T0\\d+|\\w{3,5})$",
+    "placeholder": "eco",
+    "value": "kegg.genome"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "KEGG Glycan",
+    "pattern": "^G\\d+$",
+    "placeholder": "G00123",
+    "value": "kegg.glycan"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "KEGG Metagenome",
+    "pattern": "^T3\\d+$",
+    "placeholder": "T30002",
+    "value": "kegg.metagenome"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "KEGG Module",
+    "pattern": "^([a-z]{3,5}_)?M\\d{5}$",
+    "placeholder": "M00002",
+    "value": "kegg.module"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "KEGG Orthology",
+    "pattern": "^K\\d+$",
+    "placeholder": "K00001",
+    "value": "kegg.orthology"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "KEGG Pathway",
+    "pattern": "^\\w{2,4}\\d{5}$",
+    "placeholder": "hsa00620",
+    "value": "kegg.pathway"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "KEGG Reaction",
+    "pattern": "^R\\d+$",
+    "placeholder": "R00100",
+    "value": "kegg.reaction"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "KNApSAcK",
+    "pattern": "^C\\d{8}",
+    "placeholder": "C00000001",
+    "value": "knapsack"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Global LEI Index",
+    "pattern": "^[0-9A-Z]{4}[0-9A-Z]{14}[0-9A-Z]{2}$",
+    "placeholder": "HWUPKR0MPOU8FGXBT394",
+    "value": "lei"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "LG Chemical Entity Detection Dataset (LGCEDe)",
+    "pattern": "^LGCEDe-S-\\d{9}$",
+    "placeholder": "LGCEDe-S-000002244",
+    "value": "lgai.cede"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Ligand-Gated Ion Channel database",
+    "pattern": "^\\w+$",
+    "placeholder": "5HT3Arano",
+    "value": "lgic"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "LiceBase",
+    "pattern": "^[A-Za-z0-9\\-\\/]+$",
+    "placeholder": "EMLSAT00000003403",
+    "value": "licebase"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "LigandBook",
+    "pattern": "^[0-9]+$",
+    "placeholder": "785",
+    "value": "ligandbook"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "LigandBox",
+    "pattern": "^(HTS|KSH)[0-9]{4}-[0-9]{8}|PDB_[0-9,A-Z]{2,3}|[CD][0-9]{5}$",
+    "placeholder": "D00001",
+    "value": "ligandbox"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Ligand Expo",
+    "pattern": "^(\\w){3}$",
+    "placeholder": "ABC",
+    "value": "ligandexpo"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "LINCS Cell",
+    "pattern": "(^LCL-\\d+$)|(^LDC-\\d+$)|(^ES-\\d+$)|(^LSC-\\d+$)|(^LPC-\\d+$)",
+    "placeholder": "LCL-2085",
+    "value": "lincs.cell"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "LINCS Data",
+    "pattern": "^[EL]D[SG]-\\d+$",
+    "placeholder": "LDS-1110",
+    "value": "lincs.data"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "LINCS Protein",
+    "pattern": "^\\d+$",
+    "placeholder": "200282",
+    "value": "lincs.protein"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "LINCS Small Molecule",
+    "pattern": "^LSM-\\d+$",
+    "placeholder": "LSM-6306",
+    "value": "lincs.smallmolecule"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Linguist",
+    "pattern": "^[a-zA-Z0-9 +#'*]+$",
+    "placeholder": "Python",
+    "value": "linguist"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "LipidBank",
+    "pattern": "^\\w+\\d+$",
+    "placeholder": "BBA0001",
+    "value": "lipidbank"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "LIPID MAPS",
+    "pattern": "^LM(FA|GL|GP|SP|ST|PR|SL|PK)[0-9]{4}([0-9a-zA-Z]{4,6})?$",
+    "placeholder": "LMPR0102010012",
+    "value": "lipidmaps"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Locus Reference Genomic",
+    "pattern": "^LRG_\\d+$",
+    "placeholder": "LRG_1",
+    "value": "lrg"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Mouse Adult Gross Anatomy",
+    "pattern": "^MA:\\d+$",
+    "placeholder": "0002502",
+    "value": "ma"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MACiE",
+    "pattern": "^M\\d{4}$",
+    "placeholder": "M0001",
+    "value": "macie"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MaizeGDB Locus",
+    "pattern": "^\\d+$",
+    "placeholder": "25011",
+    "value": "maizegdb.locus"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Mathematical Modelling Ontology",
+    "pattern": "^MAMO_\\d{7}$",
+    "placeholder": "MAMO_0000026",
+    "value": "mamo"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MassBank",
+    "pattern": "^MSBNK-[0-9a-zA-Z_]+-[A-Z0-9_]+$",
+    "placeholder": "MSBNK-IPB_Halle-PB000166",
+    "value": "massbank"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MassIVE",
+    "pattern": "^MSV\\d+$",
+    "placeholder": "MSV000082131",
+    "value": "massive"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MatrixDB",
+    "pattern": "^([A-N,R-Z][0-9][A-Z][A-Z, 0-9][A-Z, 0-9][0-9])_.*|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9]_.*)|(GAG_.*)|(MULT_.*)|(PFRAG_.*)|(LIP_.*)|(CAT_.*)$",
+    "placeholder": "P00747__P07355",
+    "value": "matrixdb.association"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MDM",
+    "pattern": "^\\d+$",
+    "placeholder": "4776",
+    "value": "mdm"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MedDRA",
+    "pattern": "^\\d+$",
+    "placeholder": "10015919",
+    "value": "meddra"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MedGen",
+    "pattern": "^[CN]*\\d{4,7}$",
+    "placeholder": "760050",
+    "value": "medgen"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MedlinePlus",
+    "pattern": "^\\d+$",
+    "placeholder": "002804",
+    "value": "medlineplus"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MEROPS",
+    "pattern": "^[SCTAGMNU]\\d{2}\\.([AB]\\d{2}|\\d{3})$",
+    "placeholder": "S01.001",
+    "value": "merops"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MEROPS Family",
+    "pattern": "^[SCTAGMNU]\\d+$",
+    "placeholder": "S1",
+    "value": "merops.family"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MEROPS Inhibitor",
+    "pattern": "^I\\d{2}\\.\\d{3}$",
+    "placeholder": "I31.952",
+    "value": "merops.inhibitor"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MeSH",
+    "pattern": "^(C|D)\\d{6,9}$",
+    "placeholder": "C000100",
+    "value": "mesh"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MeSH 2012",
+    "pattern": "^[A-Za-z0-9]+$",
+    "placeholder": "17186",
+    "value": "mesh.2012"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MeSH 2013",
+    "pattern": "^[A-Za-z0-9]+$",
+    "placeholder": "17165",
+    "value": "mesh.2013"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MetaboLights",
+    "pattern": "^MTBLS\\d+$",
+    "placeholder": "MTBLS1",
+    "value": "metabolights"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MetaCyc Compound",
+    "pattern": "^[A-Za-z0-9+_.%-:]+$",
+    "placeholder": "CPD-10330",
+    "value": "metacyc.compound"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MetaCyc Reaction",
+    "pattern": "^[A-Za-z0-9+_.%-:]+$",
+    "placeholder": "RXN-14904",
+    "value": "metacyc.reaction"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MetaNetX chemical",
+    "pattern": "^(MNXM\\d+|BIOMASS|WATER)$",
+    "placeholder": "MNXM1723",
+    "value": "metanetx.chemical"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MetaNetX compartment",
+    "pattern": "^(MNX[CD]\\d+|BOUNDARY|IN|OUT)$",
+    "placeholder": "MNXC15",
+    "value": "metanetx.compartment"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MetaNetX reaction",
+    "pattern": "^(MNXR\\d+|EMPTY)$",
+    "placeholder": "MNXR101574",
+    "value": "metanetx.reaction"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Metabolic Atlas",
+    "pattern": "^MA[MR]\\d{5}[a-z]?$",
+    "placeholder": "MAR01234",
+    "value": "metatlas"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "METLIN",
+    "pattern": "^\\d{4}$",
+    "placeholder": "1455",
+    "value": "metlin"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Metabolome Express",
+    "pattern": "^\\d+$",
+    "placeholder": "36",
+    "value": "mex"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Mouse Genome Database",
+    "pattern": "^MGI:\\d+$",
+    "placeholder": "2442292",
+    "value": "mgi"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MGnify Project",
+    "pattern": "^[A-Z]+[0-9]+$",
+    "placeholder": "ERP004492",
+    "value": "mgnify.proj"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MGnify Sample",
+    "pattern": "^[A-Z]+[0-9]+$",
+    "placeholder": "SRS086444",
+    "value": "mgnify.samp"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Molecular Interactions Ontology",
+    "pattern": "^MI:\\d{4}$",
+    "placeholder": "0308",
+    "value": "mi"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MicroScope",
+    "pattern": "^\\d+$",
+    "placeholder": "5601141",
+    "value": "microscope"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MicrosporidiaDB",
+    "pattern": "^\\w+$",
+    "placeholder": "ECU03_0820i",
+    "value": "microsporidia"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "OMIM",
+    "pattern": "^[*#+%^]?\\d{6}$",
+    "placeholder": "603903",
+    "value": "mim"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MimoDB",
+    "pattern": "^\\d+$",
+    "placeholder": "1",
+    "value": "mimodb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Minimal Viable Identifier",
+    "pattern": "^[A-Za-z0-9]+$",
+    "placeholder": "b97957",
+    "value": "minid"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MINID Test",
+    "pattern": "[A-Za-z0-9]+$",
+    "placeholder": "3SBPLMKKVEVR",
+    "value": "minid.test"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MINT",
+    "pattern": "^MINT\\-\\d{1,7}$",
+    "placeholder": "MINT-10000",
+    "value": "mint"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MIPModDB",
+    "pattern": "^\\w+$",
+    "placeholder": "HOSAPI0399",
+    "value": "mipmod"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Identifiers.org Registry",
+    "pattern": "^MIR:\\d{8}$",
+    "placeholder": "00100037",
+    "value": "mir"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "miRBase Sequence",
+    "pattern": "MI\\d{7}",
+    "placeholder": "MI0000001",
+    "value": "mirbase"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "miRBase mature sequence",
+    "pattern": "MIMAT\\d{7}",
+    "placeholder": "MIMAT0000001",
+    "value": "mirbase.mature"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "mirEX",
+    "pattern": "^\\d+(\\w+)?$",
+    "placeholder": "165a",
+    "value": "mirex"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MIRIAM Registry resource",
+    "pattern": "^MIR:001\\d{5}$",
+    "placeholder": "MIR:00100005",
+    "value": "miriam.resource"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "miRNEST",
+    "pattern": "^MNEST\\d+$",
+    "placeholder": "MNEST029358",
+    "value": "mirnest"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "miRTarBase",
+    "pattern": "^MIRT\\d{6}$",
+    "placeholder": "MIRT000002",
+    "value": "mirtarbase"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MLCommons Association",
+    "pattern": "^[0-9a-zA-Z\\.\\-\\_]+$",
+    "placeholder": "0.7-123",
+    "value": "mlc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Molecular Modeling Database",
+    "pattern": "^\\d{1,5}$",
+    "placeholder": "50885",
+    "value": "mmdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Melanoma Molecular Map Project Biomaps",
+    "pattern": "^\\d+$",
+    "placeholder": "37",
+    "value": "mmmp:biomaps"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MarCat",
+    "pattern": "^MMP\\d+.\\d+$",
+    "placeholder": "MMP743597.11",
+    "value": "mmp.cat"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MarDB",
+    "pattern": "^MMP\\d+.\\d+$",
+    "placeholder": "MMP02954345.1",
+    "value": "mmp.db"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MarFun",
+    "pattern": "^MMP\\d+.\\d+$",
+    "placeholder": "MMP3888430",
+    "value": "mmp.fun"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MarRef",
+    "pattern": "^MMP\\d+.\\d+$",
+    "placeholder": "MMP3312982.2",
+    "value": "mmp.ref"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MMRRC",
+    "pattern": "^\\d+$",
+    "placeholder": "70",
+    "value": "mmrrc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MGED Ontology",
+    "pattern": "^\\w+$",
+    "placeholder": "ArrayGroup",
+    "value": "mo"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MobiDB",
+    "pattern": "^[OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9]([A-Z][A-Z0-9]{2}[0-9]){1,2}$",
+    "placeholder": "P10636",
+    "value": "mobidb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Protein Modification Ontology",
+    "pattern": "^MOD:\\d{5}",
+    "placeholder": "00001",
+    "value": "mod"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ModelDB",
+    "pattern": "^\\d+$",
+    "placeholder": "45539",
+    "value": "modeldb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ModelDB concept",
+    "pattern": "\\d+",
+    "placeholder": "3639",
+    "value": "modeldb.concept"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Molbase",
+    "pattern": "^(\\d{1,7}\\-\\d{2}\\-\\d)|([A-Za-z0-9\\+\\-\\_]+)$",
+    "placeholder": "128796-39-4",
+    "value": "molbase"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MolMeDB",
+    "pattern": "^[m,M]{2}[0-9]{5}[0-9]*$",
+    "placeholder": "MM00040",
+    "value": "molmedb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Morpheus model repository",
+    "pattern": "^M[0-9]{4,}$",
+    "placeholder": "M0001",
+    "value": "morpheus"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Mammalian Phenotype Ontology",
+    "pattern": "^MP:\\d{7}$",
+    "placeholder": "0005452",
+    "value": "mp"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Microbial Protein Interaction Database",
+    "pattern": "^\\d+$",
+    "placeholder": "172",
+    "value": "mpid"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Mass Spectrometry Controlled Vocabulary",
+    "pattern": "^MS:\\d{7}$",
+    "placeholder": "1000001",
+    "value": "ms"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MultiCellDS Digital Cell Line",
+    "pattern": "^MCDS_L_[a-zA-Z0-9]{1,10}$",
+    "placeholder": "MCDS_L_0000000001",
+    "value": "multicellds.cell_line"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MultiCellDS collection",
+    "pattern": "^MCDS_C_[a-zA-Z0-9]{1,10}$",
+    "placeholder": "MCDS_C_0000000001",
+    "value": "multicellds.collection"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MultiCellDS Digital snapshot",
+    "pattern": "^MCDS_S_[a-zA-Z0-9]{1,10}$",
+    "placeholder": "MCDS_S_0000000001",
+    "value": "multicellds.snapshot"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Metabolomics Workbench Project",
+    "pattern": "^PR[0-9]{6}$",
+    "placeholder": "PR000001",
+    "value": "mw.project"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Metabolomics Workbench Study",
+    "pattern": "^ST[0-9]{6}$",
+    "placeholder": "ST000900",
+    "value": "mw.study"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MycoBrowser leprae",
+    "pattern": "^ML\\w+$",
+    "placeholder": "ML0224",
+    "value": "myco.lepra"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MycoBrowser marinum",
+    "pattern": "^MMAR\\_\\d+$",
+    "placeholder": "MMAR_2462",
+    "value": "myco.marinum"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MycoBrowser smegmatis",
+    "pattern": "^MSMEG\\w+$",
+    "placeholder": "MSMEG_3769",
+    "value": "myco.smeg"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MycoBrowser tuberculosis",
+    "pattern": "^Rv\\d{4}(A|B|c)?$",
+    "placeholder": "Rv1908c",
+    "value": "myco.tuber"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "MycoBank",
+    "pattern": "^\\d+$",
+    "placeholder": "349124",
+    "value": "mycobank"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Universal Spectrum Identifier",
+    "pattern": "^mzspec:.+$",
+    "placeholder": "PXD002255::ES_XP_Ubi_97H_HCD_349:scan:9617:LAEIYVNSSFYK/2",
+    "value": "mzspec"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Nanbyo Disease Ontology",
+    "pattern": "^NANDO:[0-9]+$",
+    "placeholder": "1200031",
+    "value": "nando"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Natural Product-Drug Interaction Research Data Repository",
+    "pattern": "^[0-9]+$",
+    "placeholder": "28",
+    "value": "napdi"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NAPP",
+    "pattern": "^\\d+$",
+    "placeholder": "351",
+    "value": "napp"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NARCIS",
+    "pattern": "^oai\\:cwi\\.nl\\:\\d+$",
+    "placeholder": "oai:cwi.nl:4725",
+    "value": "narcis"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NASC code",
+    "pattern": "^(\\w+)?\\d+$",
+    "placeholder": "N1899",
+    "value": "nasc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "National Bibliography Number",
+    "pattern": "^(urn|URN):(nbn|NBN)(:[A-Za-z_0-9]+)*.+$",
+    "placeholder": "urn:nbn:fi:tkk-004781",
+    "value": "nbn"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NITE Biological Research Center Catalogue",
+    "pattern": "^\\d+$",
+    "placeholder": "00001234",
+    "value": "nbrc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NCBI Gene",
+    "pattern": "^\\d+$",
+    "placeholder": "100010",
+    "value": "ncbigene"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NCBI Protein",
+    "pattern": "^(\\w+\\d+(\\.\\d+)?)|(NP_\\d+)$",
+    "placeholder": "CAA71118.1",
+    "value": "ncbiprotein"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NCIm",
+    "pattern": "^C\\d+$",
+    "placeholder": "C0026339",
+    "value": "ncim"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NCIt",
+    "pattern": "^C\\d+$",
+    "placeholder": "C80519",
+    "value": "ncit"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "National Drug Code",
+    "pattern": "^\\d+\\-\\d+\\-\\d+",
+    "placeholder": "0002-1975-61",
+    "value": "ndc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Neuroscience Multi-Omic BRAIN Initiative Data",
+    "pattern": "[a-z]{3}-[a-km-z0-9]{7}",
+    "placeholder": "smp-m3w9hbe",
+    "value": "nemo"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NeuroLex",
+    "pattern": "^([Bb]irnlex_|Sao|nlx_|GO_|CogPO|HDO|nifext_)\\d+$",
+    "placeholder": "Birnlex_721",
+    "value": "neurolex"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NeuroMorpho",
+    "pattern": "^\\w+$",
+    "placeholder": "Rosa2",
+    "value": "neuromorpho"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NeuronDB",
+    "pattern": "^\\d+$",
+    "placeholder": "265",
+    "value": "neurondb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NeuroVault Collection",
+    "pattern": "^[1-9][0-9]*$",
+    "placeholder": "3304",
+    "value": "neurovault.collection"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NeuroVault Image",
+    "pattern": "^[1-9][0-9]*$",
+    "placeholder": "58788",
+    "value": "neurovault.image"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NEXTDB",
+    "pattern": "^[A-Za-z0-9]+$",
+    "placeholder": "6b1",
+    "value": "nextdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "nextProt",
+    "pattern": "^NX_\\w+",
+    "placeholder": "NX_O00165",
+    "value": "nextprot"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NASA GeneLab",
+    "pattern": "^GLDS-\\d+$",
+    "placeholder": "GLDS-141",
+    "value": "ngl"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NIAEST",
+    "pattern": "^\\w\\d{4}\\w\\d{2}(\\-[35])?$",
+    "placeholder": "J0705A10",
+    "value": "niaest"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NLFFF Database",
+    "pattern": "^[0-9]+$",
+    "placeholder": "345201101230312003",
+    "value": "nlfff"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "National Microbiome Data Collaborative",
+    "pattern": "^[A-Za-z0-9._~\\-\\:]+$",
+    "placeholder": "6m4e-1vbv-03",
+    "value": "nmdc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Nuclear Magnetic Resonance Controlled Vocabulary",
+    "pattern": "^NMR:\\d+$",
+    "placeholder": "1000003",
+    "value": "nmr"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NMR Shift Database",
+    "pattern": "^[0-9]+$",
+    "placeholder": "234",
+    "value": "nmrshiftdb2"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NONCODE v3",
+    "pattern": "^\\d+$",
+    "placeholder": "377550",
+    "value": "noncodev3"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NONCODE v4 Gene",
+    "pattern": "^NONHSAG\\d{5}$",
+    "placeholder": "NONHSAG00001",
+    "value": "noncodev4.gene"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NONCODE v4 Transcript",
+    "pattern": "^NONHSAT\\d{6}$",
+    "placeholder": "NONHSAT000001",
+    "value": "noncodev4.rna"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NORINE",
+    "pattern": "^NOR\\d+$",
+    "placeholder": "NOR00681",
+    "value": "norine"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NucleaRDB",
+    "pattern": "^\\w+\\_\\w+$",
+    "placeholder": "prgr_human",
+    "value": "nuclearbd"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Nucleotide",
+    "pattern": "^[a-zA-Z0-9_\\.]+$",
+    "placeholder": "880798137",
+    "value": "nucleotide"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Ontology for Biomedical Investigations",
+    "pattern": "(^OBI:\\d{7}$)|(^OBI_\\d{7}$)",
+    "placeholder": "OBI_0000070",
+    "value": "obi"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Austrian Library Network",
+    "pattern": "AC[0-9]{8}",
+    "placeholder": "AC00963334",
+    "value": "obv"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "OpenCitations Corpus",
+    "pattern": "^[a-z][a-z]/[0-9]+$",
+    "placeholder": "br/1",
+    "value": "occ"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "OCI",
+    "pattern": "^0[1-9]+0[0-9]+-0[1-9]+0[0-9]+$",
+    "placeholder": "01027931310-01022252312",
+    "value": "oci"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Ontology Concept Identifiers",
+    "pattern": "ocid:[0-9]{12}",
+    "placeholder": "190000021540",
+    "value": "ocid"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Online Computer Library Center (OCLC) WorldCat",
+    "pattern": "^[0-9]+$",
+    "placeholder": "634515043",
+    "value": "oclc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Open Data for Access and Mining",
+    "pattern": "^[A-Za-z0-9]+$",
+    "placeholder": "frim1",
+    "value": "odam"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Open Data Commons for Spinal Cord Injury",
+    "pattern": "^[0-9]*$",
+    "placeholder": "602",
+    "value": "odc.sci"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Open Data Commons for Traumatic Brain Injury",
+    "pattern": "^[0-9]*$",
+    "placeholder": "408",
+    "value": "odc.tbi"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Odor Molecules DataBase",
+    "pattern": "^\\d+$",
+    "placeholder": "74",
+    "value": "odor"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "OID Repository",
+    "pattern": "^[\\d.]+$",
+    "placeholder": "2.16.840",
+    "value": "oid"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "OMA Group",
+    "pattern": "^[A-Z]+$",
+    "placeholder": "LCSCCPN",
+    "value": "oma.grp"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "OMA HOGs",
+    "pattern": "^HOG:[0-9]{7}(\\.[0-9a-z.]+)?(_[0-9]+)?$",
+    "placeholder": "0459895",
+    "value": "oma.hog"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "OMA Protein",
+    "pattern": "^[A-Z0-9]{5}\\d+$",
+    "placeholder": "HUMAN16963",
+    "value": "oma.protein"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "OMIA",
+    "pattern": "^\\d+$",
+    "placeholder": "1000",
+    "value": "omia"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "OpenCitations Meta Identifier",
+    "pattern": "^[a-z][a-z]/06[1-9]*0[1-9][0-9]*$",
+    "placeholder": "br/0601",
+    "value": "omid"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "OMIT",
+    "pattern": "^\\d{7}$",
+    "placeholder": "0005506",
+    "value": "omit"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Ontology of Physics for Biology",
+    "pattern": "^OPB_\\d+$",
+    "placeholder": "OPB_00573",
+    "value": "opb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "OPM",
+    "pattern": "^[0-9][A-Za-z0-9]{3}$",
+    "placeholder": "1h68",
+    "value": "opm"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ORCID",
+    "pattern": "^\\d{4}-\\d{4}-\\d{4}-\\d{3}(\\d|X)$",
+    "placeholder": "0000-0002-5355-2576",
+    "value": "orcid"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Olfactory Receptor Database",
+    "pattern": "^\\d+$",
+    "placeholder": "8497",
+    "value": "ordb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "OriDB Saccharomyces",
+    "pattern": "^\\d+$",
+    "placeholder": "1",
+    "value": "oridb.sacch"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "OriDB Schizosaccharomyces",
+    "pattern": "^\\d+$",
+    "placeholder": "1",
+    "value": "oridb.schizo"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Orphanet",
+    "pattern": "^\\d+$",
+    "placeholder": "85163",
+    "value": "orphanet"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Orphanet Rare Disease Ontology",
+    "pattern": "^Orphanet(_|:)C?\\d+$",
+    "placeholder": "Orphanet_C023",
+    "value": "orphanet.ordo"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "OrthoDB",
+    "pattern": "^\\w+$",
+    "placeholder": "Q9P0K8",
+    "value": "orthodb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Oryzabase Gene",
+    "pattern": "^\\d+$",
+    "placeholder": "117",
+    "value": "oryzabase.gene"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Oryzabase Mutant",
+    "pattern": "^\\d+$",
+    "placeholder": "21393",
+    "value": "oryzabase.mutant"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Oryzabase",
+    "pattern": "^\\d+$",
+    "placeholder": "42840",
+    "value": "oryzabase.reference"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Oryzabase Stage",
+    "pattern": "^\\d+$",
+    "placeholder": "34",
+    "value": "oryzabase.stage"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Oryzabase Strain",
+    "pattern": "^\\d+$",
+    "placeholder": "1",
+    "value": "oryzabase.strain"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Oryza Tag Line",
+    "pattern": "^A[A-Z]+\\d+$",
+    "placeholder": "AADB12",
+    "value": "otl"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "P3DB Protein",
+    "pattern": "^\\d+$",
+    "placeholder": "70",
+    "value": "p3db.protein"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "P3DB Site",
+    "pattern": "^\\d+$",
+    "placeholder": "65",
+    "value": "p3db.site"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PaleoDB",
+    "pattern": "^\\d+$",
+    "placeholder": "83088",
+    "value": "paleodb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PANTHER Family",
+    "pattern": "^PTHR\\d{5}(\\:SF\\d{1,3})?$",
+    "placeholder": "PTHR12345",
+    "value": "panther.family"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PANTHER Node",
+    "pattern": "^PTN\\d{9}$",
+    "placeholder": "PTN000000026",
+    "value": "panther.node"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PANTHER Pathway",
+    "pattern": "^P\\d{5}$",
+    "placeholder": "P00024",
+    "value": "panther.pathway"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PANTHER Pathway Component",
+    "pattern": "^[GPUCS]\\d{5}$",
+    "placeholder": "P00266",
+    "value": "panther.pthcmp"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PASS2",
+    "pattern": "^\\d+$",
+    "placeholder": "46977",
+    "value": "pass2"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Pathway Commons",
+    "pattern": "^\\d+$",
+    "placeholder": "485991",
+    "value": "pathwaycommons"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PATO",
+    "pattern": "^PATO:\\d{7}$",
+    "placeholder": "0001998",
+    "value": "pato"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PaxDb Organism",
+    "pattern": "^\\d+$",
+    "placeholder": "9606",
+    "value": "paxdb.organism"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PaxDb Protein",
+    "pattern": "^\\d+$",
+    "placeholder": "977869",
+    "value": "paxdb.protein"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Pazar Transcription Factor",
+    "pattern": "^TF\\w+$",
+    "placeholder": "TF0001053",
+    "value": "pazar"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Protein Data Bank",
+    "pattern": "^[0-9][A-Za-z0-9]{3}$",
+    "placeholder": "2gc4",
+    "value": "pdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Chemical Component Dictionary",
+    "pattern": "^\\w{1,3}$",
+    "placeholder": "AB0",
+    "value": "pdb-ccd"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Protein Data Bank Ligand",
+    "pattern": "^[A-Za-z0-9]+$",
+    "placeholder": "TRQ",
+    "value": "pdb.ligand"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Protein Ensemble Database",
+    "pattern": "^PED\\d{5}$",
+    "placeholder": "PED00037",
+    "value": "ped"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Protein Ensemble Database ensemble",
+    "pattern": "^PED\\d{5}e\\d{3}$",
+    "placeholder": "PED00017e001",
+    "value": "ped.ensemble"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PeptideAtlas",
+    "pattern": "^PAp[0-9]{8}$",
+    "placeholder": "PAp00000009",
+    "value": "peptideatlas"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PeptideAtlas Dataset",
+    "pattern": "^PASS\\d{5}$",
+    "placeholder": "PASS01237",
+    "value": "peptideatlas.dataset"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Peroxibase",
+    "pattern": "^\\d+$",
+    "placeholder": "5282",
+    "value": "peroxibase"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Pfam",
+    "pattern": "^PF\\d{5}$",
+    "placeholder": "PF01234",
+    "value": "pfam"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Polygenic Score Catalog",
+    "pattern": "^PGS[0-9]{6}$",
+    "placeholder": "PGS000018",
+    "value": "pgs"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Progenetix",
+    "pattern": "^\\w{3,15}[-_]\\w[\\w.-]{3,128}$",
+    "placeholder": "pgxbs-kftva5zv",
+    "value": "pgx"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PharmGKB Disease",
+    "pattern": "^PA\\d+$",
+    "placeholder": "PA447218",
+    "value": "pharmgkb.disease"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PharmGKB Drug",
+    "pattern": "^PA\\d+$",
+    "placeholder": "PA448710",
+    "value": "pharmgkb.drug"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PharmGKB Gene",
+    "pattern": "^PA\\w+$",
+    "placeholder": "PA131",
+    "value": "pharmgkb.gene"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PharmGKB Pathways",
+    "pattern": "^PA\\d+$",
+    "placeholder": "PA146123006",
+    "value": "pharmgkb.pathways"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Phenol-Explorer",
+    "pattern": "^\\d+$",
+    "placeholder": "75",
+    "value": "phenolexplorer"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PhosphoPoint Kinase",
+    "pattern": "^\\w+$",
+    "placeholder": "AURKA",
+    "value": "phosphopoint.kinase"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PhosphoPoint Phosphoprotein",
+    "pattern": "^\\w+$",
+    "placeholder": "AURKA",
+    "value": "phosphopoint.protein"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PhosphoSite Protein",
+    "pattern": "^\\d{5}$",
+    "placeholder": "12300",
+    "value": "phosphosite.protein"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PhosphoSite Residue",
+    "pattern": "^\\d+$",
+    "placeholder": "2842",
+    "value": "phosphosite.residue"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PhylomeDB",
+    "pattern": "^\\w+$",
+    "placeholder": "Phy000CLXM_RAT",
+    "value": "phylomedb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Phytozome Locus",
+    "pattern": "^[A-Za-z0-9]+$",
+    "placeholder": "Glyma0021s00410",
+    "value": "phytozome.locus"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NCI Pathway Interaction Database: Pathway",
+    "pattern": "^\\w+$",
+    "placeholder": "pi3kcipathway",
+    "value": "pid.pathway"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Animal Genome Pig QTL",
+    "pattern": "^\\d+$",
+    "placeholder": "14",
+    "value": "pigqtldb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PINA",
+    "pattern": "^([A-N,R-Z][0-9][A-Z][A-Z, 0-9][A-Z, 0-9][0-9])|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])$",
+    "placeholder": "Q13485",
+    "value": "pina"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PiroplasmaDB",
+    "pattern": "^TA\\d+$",
+    "placeholder": "TA14985",
+    "value": "piroplasma"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PIRSF",
+    "pattern": "^PIRSF\\d{6}$",
+    "placeholder": "PIRSF000100",
+    "value": "pirsf"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PK-DB",
+    "pattern": "^PKDB[0-9]{5}$",
+    "placeholder": "PKDB00198",
+    "value": "pkdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Plant Transcription Factor Database",
+    "pattern": "^[A-Z][a-z]{2}_([A-Za-z]{3}[0-9]{6})|([A-Za-z0-9\\._\\-#]*)$",
+    "placeholder": "Ath_AT1G01030.1",
+    "value": "planttfdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PlasmoDB",
+    "pattern": "^\\w+$",
+    "placeholder": "PF11_0344",
+    "value": "plasmodb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "CutDB",
+    "pattern": "^\\d+$",
+    "placeholder": "25782",
+    "value": "pmap.cutdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SubstrateDB",
+    "pattern": "^\\d+$",
+    "placeholder": "1915",
+    "value": "pmap.substratedb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PMC International",
+    "pattern": "PMC\\d+",
+    "placeholder": "PMC3084216",
+    "value": "pmc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Protein Model Database",
+    "pattern": "^PM\\d{7}",
+    "placeholder": "PM0012345",
+    "value": "pmdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PMP",
+    "pattern": "^([A-N,R-Z][0-9][A-Z][A-Z, 0-9][A-Z, 0-9][0-9])|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])$",
+    "placeholder": "Q0VCA6",
+    "value": "pmp"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Physiome Model Repository",
+    "pattern": "^[a-z0-9]{32,32}$",
+    "placeholder": "ebf69ca24298b28b2361e7d43eb52d6c",
+    "value": "pmr"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Physiome Model Repository workspace",
+    "pattern": "^[a-zA-Z0-9_\\-]+(/.*?)?$",
+    "placeholder": "modularmassactionprimer",
+    "value": "pmr.workspace"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Plant Ontology",
+    "pattern": "^PO:\\d+$",
+    "placeholder": "0009089",
+    "value": "po"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Pocketome",
+    "pattern": "^[A-Za-z_0-9]+",
+    "placeholder": "1433C_TOBAC_1_252",
+    "value": "pocketome"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PolBase",
+    "pattern": "^[A-Za-z-0-9]+$",
+    "placeholder": "19-T4",
+    "value": "polbase"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PomBase",
+    "pattern": "^S\\w+(\\.)?\\w+(\\.)?$",
+    "placeholder": "SPCC13B11.01",
+    "value": "pombase"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Protein Ontology",
+    "pattern": "^PR:P?\\d+$",
+    "placeholder": "000000024",
+    "value": "pr"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PRIDE",
+    "pattern": "^\\d+$",
+    "placeholder": "1",
+    "value": "pride"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PRIDE Project",
+    "pattern": "^P(X|R)D\\d{6}$",
+    "placeholder": "PXD000440",
+    "value": "pride.project"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PRINTS",
+    "pattern": "^PR\\d{5}$",
+    "placeholder": "PR00001",
+    "value": "prints"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ProbOnto",
+    "pattern": "^PROB_c\\d+$",
+    "placeholder": "PROB_c0000005",
+    "value": "probonto"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ProDom",
+    "pattern": "^PD\\d+$",
+    "placeholder": "PD10000",
+    "value": "prodom"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ProGlycProt",
+    "pattern": "^[A-Z]C\\d{1,3}$",
+    "placeholder": "AC119",
+    "value": "proglyc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PROSITE",
+    "pattern": "^PS\\d{5}$",
+    "placeholder": "PS00001",
+    "value": "prosite"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ProtClustDB",
+    "pattern": "^\\w+$",
+    "placeholder": "O80725",
+    "value": "protclustdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ProteomicsDB Peptide",
+    "pattern": "^\\d+$",
+    "placeholder": "53504",
+    "value": "proteomicsdb.peptide"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ProteomicsDB Protein",
+    "pattern": "^\\d+$",
+    "placeholder": "53504",
+    "value": "proteomicsdb.protein"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ProtoNet Cluster",
+    "pattern": "^\\d+$",
+    "placeholder": "4349895",
+    "value": "protonet.cluster"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ProtoNet ProteinCard",
+    "pattern": "^\\d+$",
+    "placeholder": "16941567",
+    "value": "protonet.proteincard"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Pennsieve",
+    "pattern": "N:package:[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}",
+    "placeholder": "N:package:e3243db3-7986-488e-9a10-c7a0bfdcfe8a",
+    "value": "ps"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PSCDB",
+    "pattern": "^\\d+$",
+    "placeholder": "051",
+    "value": "pscdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Pseudomonas Genome Database",
+    "pattern": "^P\\w+$",
+    "placeholder": "PSEEN0001",
+    "value": "pseudomonas"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Protein Affinity Reagents",
+    "pattern": "^PAR:\\d+$",
+    "placeholder": "PAR:0116",
+    "value": "psipar"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PubChem-bioassay",
+    "pattern": "^\\d+$",
+    "placeholder": "1018",
+    "value": "pubchem.bioassay"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PubChem-compound",
+    "pattern": "^\\d+$",
+    "placeholder": "100101",
+    "value": "pubchem.compound"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PubChem-substance",
+    "pattern": "^\\d+$",
+    "placeholder": "100101",
+    "value": "pubchem.substance"
+  },
+  {
+    "icon": "ic:twotone-select-all",
     "label": "PubMed",
+    "pattern": "^\\d+$",
     "placeholder": "16333295",
-    "pattern": "^d+$",
-    "icon": "ooui:journal-ltr"
+    "value": "pubmed"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Pathway Ontology",
+    "pattern": "^PW:\\d{7}$",
+    "placeholder": "0000208",
+    "value": "pw"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ProteomeXchange",
+    "pattern": "^(R)?PXD\\d{6}$",
+    "placeholder": "PXD000500",
+    "value": "px"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "PyPI",
+    "pattern": "^[a-zA-Z_][a-zA-Z0-9\\-_]+$",
+    "placeholder": "numpy",
+    "value": "pypi"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Animal Genome QTL",
+    "pattern": "^\\d+$",
+    "placeholder": "4685",
+    "value": "qtldb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "RAP-DB Locus",
+    "pattern": "^Os\\S+g\\d{7}$",
+    "placeholder": "Os01g0883800",
+    "value": "rapdb.locus"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "RAP-DB Transcript",
+    "pattern": "^Os\\S+t\\d{7}-\\d{2}$",
+    "placeholder": "Os01t0883800-02",
+    "value": "rapdb.transcript"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Rebuilding a Kidney",
+    "pattern": "^[-0-9a-zA-Z]+(@[-0-9a-zA-Z]+)?$",
+    "placeholder": "Q-2958",
+    "value": "rbk"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "re3data",
+    "pattern": "^r3d\\d{9,9}$",
+    "placeholder": "r3d100010772",
+    "value": "re3data"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Reactome",
+    "pattern": "(^R-[A-Z]{3}-\\d+(-\\d+)?(\\.\\d+)?$)|(^REACT_\\d+(\\.\\d+)?$)",
+    "placeholder": "R-HSA-201451",
+    "value": "reactome"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "REBASE",
+    "pattern": "^\\d+$",
+    "placeholder": "101",
+    "value": "rebase"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "RefSeq",
+    "pattern": "^(((WP|AC|AP|NC|NG|NM|NP|NR|NT|NW|XM|XP|XR|YP|ZP)_\\d+)|(NZ\\_[A-Z]{2,4}\\d+))(\\.\\d+)?$",
+    "placeholder": "NP_012345",
+    "value": "refseq"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "RepeatsDB Protein",
+    "pattern": "^[OPQopq][0-9][A-Za-z0-9]{3}[0-9]|[A-Na-nR-Zr-z][0-9]([A-Za-z][A-Za-z0-9]{2}[0-9]){1,2}$",
+    "placeholder": "P29894",
+    "value": "repeatsdb.protein"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "RepeatsDB Structure",
+    "pattern": "^[0-9][A-Za-z0-9]{3}[A-Za-z0-9][A-Za-z0-9]?[0-9]?[0-9]?$",
+    "placeholder": "2gc4E",
+    "value": "repeatsdb.structure"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "RESID",
+    "pattern": "^AA\\d{4}$",
+    "placeholder": "AA0001",
+    "value": "resid"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "RFAM",
+    "pattern": "^RF\\d{5}$",
+    "placeholder": "RF00230",
+    "value": "rfam"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Rat Genome Database",
+    "pattern": "^\\d{4,}$",
+    "placeholder": "2018",
+    "value": "rgd"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Rat Genome Database qTL",
+    "pattern": "^\\d+$",
+    "placeholder": "1354581",
+    "value": "rgd.qtl"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Rat Genome Database strain",
+    "pattern": "^\\d+$",
+    "placeholder": "5688061",
+    "value": "rgd.strain"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Rhea",
+    "pattern": "^\\d{5}$",
+    "placeholder": "12345",
+    "value": "rhea"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Rice Genome Annotation Project",
+    "pattern": "^LOC\\_Os\\d{1,2}g\\d{5}$",
+    "placeholder": "LOC_Os02g13300",
+    "value": "ricegap"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "RiceNetDB Compound",
+    "pattern": "^OSC\\d{4}$",
+    "placeholder": "OSC1416",
+    "value": "ricenetdb.compound"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "RiceNetDB Gene",
+    "pattern": "^LOC\\_Os\\d{1,2}g\\d{5}\\.\\d$",
+    "placeholder": "LOC_Os01g49190.1",
+    "value": "ricenetdb.gene"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "RiceNetDB miRNA",
+    "pattern": "^osa-miR\\d{3,5}[a-z]{0,1}$",
+    "placeholder": "osa-miR446",
+    "value": "ricenetdb.mirna"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "RiceNetDB Protein",
+    "pattern": "^LOC\\_Os\\d{1,2}g\\d{5}$",
+    "placeholder": "LOC_Os01g49190",
+    "value": "ricenetdb.protein"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "RiceNetDB Reaction",
+    "pattern": "^OSR\\d{4}$",
+    "placeholder": "OSR0818",
+    "value": "ricenetdb.reaction"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "RISM Online",
+    "pattern": "^[a-z]+/[0-9]+$",
+    "placeholder": "people/11035",
+    "value": "rism"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "RNAcentral",
+    "pattern": "^URS[0-9A-F]{10}(\\_\\d+)?$",
+    "placeholder": "URS0000759CF4",
+    "value": "rnacentral"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "RNA Modification Database",
+    "pattern": "^\\d{3}$",
+    "placeholder": "101",
+    "value": "rnamods"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Relation Ontology",
+    "pattern": "^RO_\\d{7}$",
+    "placeholder": "RO_0002533",
+    "value": "ro"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ROR",
+    "pattern": "^0[a-hj-km-np-tv-z|0-9]{6}[0-9]{2}$",
+    "placeholder": "03yrm5c26",
+    "value": "ror"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Rouge",
+    "pattern": "^m\\w+$",
+    "placeholder": "mKIAA4200",
+    "value": "rouge"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "RRID",
+    "pattern": "^RRID:[a-zA-Z]+.+$",
+    "placeholder": "AB_262044",
+    "value": "rrid"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "runBioSimulations",
+    "pattern": "[0-9a-z]{24,24}",
+    "placeholder": "5fde96bdc5f1aa9ff0cce18a",
+    "value": "runbiosimulations"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SABIO-RK Compound",
+    "pattern": "^\\d+$",
+    "placeholder": "75",
+    "value": "sabiork.compound"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SABIO-RK EC Record",
+    "pattern": "^((\\d+)|(\\d+\\.\\d+)|(\\d+\\.\\d+\\.\\d+)|(\\d+\\.\\d+\\.\\d+\\.\\d+))$",
+    "placeholder": "2.7.1.1",
+    "value": "sabiork.ec"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SABIO-RK Kinetic Record",
+    "pattern": "^\\d+$",
+    "placeholder": "5046",
+    "value": "sabiork.kineticrecord"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SABIO-RK Reaction",
+    "pattern": "^\\d+$",
+    "placeholder": "75",
+    "value": "sabiork.reaction"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SASBDB",
+    "pattern": "^[Ss][Aa][Ss][A-Za-z0-9]{3}[0-9]$",
+    "placeholder": "SASDAX8",
+    "value": "sasbdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Systems Biology Ontology",
+    "pattern": "^SBO:\\d{7}$",
+    "placeholder": "0000262",
+    "value": "sbo"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Sciflection",
+    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+    "placeholder": "5ede4273-b26c-4ea4-adb7-3ce294ab3397",
+    "value": "sciflection"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SCOP",
+    "pattern": "^\\d+$",
+    "placeholder": "47419",
+    "value": "scop"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ScerTF",
+    "pattern": "^\\w+$",
+    "placeholder": "RSC3",
+    "value": "scretf"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Spectral Database for Organic Compounds",
+    "pattern": "\\d+$",
+    "placeholder": "4544",
+    "value": "sdbs"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SED-ML data format",
+    "pattern": "^[a-z]+(\\..*?)?$",
+    "placeholder": "csv",
+    "value": "sedml.format"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SED-ML model format",
+    "pattern": "^[a-z]+(\\..*?)?$",
+    "placeholder": "sbml.level-3.version-2",
+    "value": "sedml.language"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SEED Subsystem",
+    "pattern": "^\\w+$",
+    "placeholder": "Biotin_biosynthesis",
+    "value": "seed"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SEED Compound",
+    "pattern": "^cpd\\d+$",
+    "placeholder": "cpd15380",
+    "value": "seed.compound"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SEED Reactions",
+    "pattern": "^rxn\\d+$",
+    "placeholder": "rxn00001",
+    "value": "seed.reaction"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SGD",
+    "pattern": "^((S\\d+$)|(Y[A-Z]{2}\\d{3}[a-zA-Z](\\-[A-Z])?))$",
+    "placeholder": "S000003909",
+    "value": "sgd"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Saccharomyces genome database pathways",
+    "pattern": "^PWY\\w{2}\\-\\d{3}$",
+    "placeholder": "PWY3O-214",
+    "value": "sgd.pathways"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Sol Genomics Network",
+    "pattern": "^\\d+$",
+    "placeholder": "0001",
+    "value": "sgn"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Animal Genome Sheep QTL",
+    "pattern": "^\\d+$",
+    "placeholder": "19803",
+    "value": "sheepqtldb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SIDER Drug",
+    "pattern": "^\\d+$",
+    "placeholder": "2244",
+    "value": "sider.drug"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SIDER Side Effect",
+    "pattern": "^C\\d+$",
+    "placeholder": "C0017565",
+    "value": "sider.effect"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Signaling Gateway",
+    "pattern": "A\\d{6}$",
+    "placeholder": "A001094",
+    "value": "signaling-gateway"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SIGNOR",
+    "pattern": "^SIGNOR\\-[A-Z]+\\d+$",
+    "placeholder": "SIGNOR-C2",
+    "value": "signor"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Semanticscience Integrated Ontology",
+    "pattern": "^SIO_\\d{6,6}$",
+    "placeholder": "SIO_000276",
+    "value": "sio"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SISu",
+    "pattern": "^[0-9]+:[0-9]+$",
+    "placeholder": "17:41223048",
+    "value": "sisu"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SitEx",
+    "pattern": "^\\d+$",
+    "placeholder": "1000",
+    "value": "sitex"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Stress Knowledge Map",
+    "pattern": "^rx[0-9]{5}$",
+    "placeholder": "rx00408",
+    "value": "skm"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SwissLipids",
+    "pattern": "^SLM:\\d+$",
+    "placeholder": "000048885",
+    "value": "slm"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SMART",
+    "pattern": "^SM\\d{5}$",
+    "placeholder": "SM00015",
+    "value": "smart"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Small Molecule Pathway Database",
+    "pattern": "^SMP\\d+$",
+    "placeholder": "SMP00001",
+    "value": "smpdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SNOMED CT",
+    "pattern": "^(\\w+)?\\d+$",
+    "placeholder": "284196006",
+    "value": "snomedct"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SNP2TFBS",
+    "pattern": "^rs[0-9]+$",
+    "placeholder": "rs11603840",
+    "value": "snp2tfbs"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Sequence Ontology",
+    "pattern": "^SO:\\d{7}$",
+    "placeholder": "0000704",
+    "value": "so"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SoyBase",
+    "pattern": "^\\w+(\\-)?\\w+(\\-)?\\w+$",
+    "placeholder": "BARC-013845-01256",
+    "value": "soybase"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SPDX License List",
+    "pattern": "^[0-9A-Za-z\\-.]+$",
+    "placeholder": "CC-BY-1.0",
+    "value": "spdx"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SPIKE Map",
+    "pattern": "^spike\\d{5}$",
+    "placeholder": "spike00001",
+    "value": "spike.map"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SPLASH",
+    "pattern": "^splash\\d[A-Z-a-z0-9]-[A-Za-z0-9]+-[A-Za-z0-9]+$",
+    "placeholder": "splash10-0zq2000000-77302b0326a418630a84",
+    "value": "splash"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Signaling Pathways Project",
+    "pattern": "^10.\\w{4}/\\w{10}$",
+    "placeholder": "10.1621/vwN2g2HaX3",
+    "value": "spp"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "STAP",
+    "pattern": "^[0-9][A-Za-z0-9]{3}$",
+    "placeholder": "1a24",
+    "value": "stap"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "STITCH",
+    "pattern": "^\\w{14}$",
+    "placeholder": "BQJCRHHNABKAKU",
+    "value": "stitch"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "STOREDB",
+    "pattern": "^STOREDB:(STUDY|FILE|DATASET)\\d+$",
+    "placeholder": "STOREDB:STUDY1040",
+    "value": "storedb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "STRING",
+    "pattern": "^([A-N,R-Z][0-9][A-Z][A-Z, 0-9][A-Z, 0-9][0-9])|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])|([0-9][A-Za-z0-9]{3})$",
+    "placeholder": "P53350",
+    "value": "string"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SubtiList",
+    "pattern": "^BG\\d+$",
+    "placeholder": "BG11523",
+    "value": "subtilist"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SubtiWiki",
+    "pattern": "^BSU\\d{5}$",
+    "placeholder": "BSU29180",
+    "value": "subtiwiki"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SugarBind",
+    "pattern": "^[A-Za-z]+\\/[0-9]+$",
+    "placeholder": "lectins/172",
+    "value": "sugarbind"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SUPFAM",
+    "pattern": "^\\w+$",
+    "placeholder": "SSF57615",
+    "value": "supfam"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Software Heritage",
+    "pattern": "^swh:[1-9]:(cnt|dir|rel|rev|snp):[0-9a-f]+(;(origin|visit|anchor|path|lines)=\\S+)*$",
+    "placeholder": "1:rev:309cf2674ee7a0749978cf8265ab91a60aea0f7d",
+    "value": "swh"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SWISS-MODEL Repository",
+    "pattern": "^\\w+$",
+    "placeholder": "P23298",
+    "value": "swiss-model"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "SwissRegulon",
+    "pattern": "^[A-Za-z0-9]+$",
+    "placeholder": "AHR",
+    "value": "swissregulon"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "T3DB",
+    "pattern": "^T3D\\d+$",
+    "placeholder": "T3D0001",
+    "value": "t3db"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "TAIR Gene",
+    "pattern": "^Gene:\\d{7}$",
+    "placeholder": "Gene:2200934",
+    "value": "tair.gene"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "TAIR Locus",
+    "pattern": "^\\d{7}$",
+    "placeholder": "2200950",
+    "value": "tair.locus"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "TAIR gene name",
+    "pattern": "^AT.G[0-9]{5}$",
+    "placeholder": "AT5G05330",
+    "value": "tair.name"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "TAIR Protein",
+    "pattern": "^AASequence:\\d{10}$",
+    "placeholder": "AASequence:1009107926",
+    "value": "tair.protein"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "TarBase",
+    "pattern": "^[a-z]{3}\\-(mir|let|lin)\\-\\w+(\\-\\w+\\-\\w+)?",
+    "placeholder": "hsa-let-7a-2-3p",
+    "value": "tarbase"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Taxonomy",
+    "pattern": "^\\d+$",
+    "placeholder": "9606",
+    "value": "taxonomy"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Transport Classification Database",
+    "pattern": "^\\d+(\\.[A-Z])?(\\.\\d+)?(\\.\\d+)?(\\.\\d+)?$",
+    "placeholder": "5.A.1.1.1",
+    "value": "tcdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Tetrahymena Genome Database",
+    "pattern": "^TTHERM\\_\\d+$",
+    "placeholder": "TTHERM_00648910",
+    "value": "tgd"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "TIGRFAMS",
+    "pattern": "^TIGR\\d+$",
+    "placeholder": "TIGR00010",
+    "value": "tigrfam"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Tissue List",
+    "pattern": "^TS-\\d{4}$",
+    "placeholder": "TS-0285",
+    "value": "tissuelist"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "TogoVar",
+    "pattern": "^tgv[0-9]+$",
+    "placeholder": "tgv139393198",
+    "value": "togovar"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Tree of Life",
+    "pattern": "^\\d+$",
+    "placeholder": "98034",
+    "value": "tol"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "TOPDB",
+    "pattern": "^[A-Z0-9]+$",
+    "placeholder": "AP00378",
+    "value": "topdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "TopFind",
+    "pattern": "^([A-N,R-Z][0-9][A-Z][A-Z, 0-9][A-Z, 0-9][0-9])|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])$",
+    "placeholder": "Q9UKQ2",
+    "value": "topfind"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ToxoDB",
+    "pattern": "^\\w+$",
+    "placeholder": "TGME49_053730",
+    "value": "toxoplasma"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "TranSyT",
+    "pattern": "T[A-Z]\\d{7}",
+    "placeholder": "TR0000001",
+    "value": "transyt"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "TreeBASE",
+    "pattern": "^TB[1,2]?:[A-Z][a-z]?\\d+$",
+    "placeholder": "TB2:S1000",
+    "value": "treebase"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "TreeFam",
+    "pattern": "^\\w{1,2}\\d+$",
+    "placeholder": "TF101014",
+    "value": "treefam"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "TrichDB",
+    "pattern": "^\\w+$",
+    "placeholder": "TVAG_386080",
+    "value": "trichdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "TriTrypDB",
+    "pattern": "^\\w+(\\.)?\\w+(\\.)?\\w+",
+    "placeholder": "Tb927.8.620",
+    "value": "tritrypdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "TTD Drug",
+    "pattern": "^DAP\\d+$",
+    "placeholder": "DAP000773",
+    "value": "ttd.drug"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "TTD Target",
+    "pattern": "^TTDS\\d+$",
+    "placeholder": "TTDS00056",
+    "value": "ttd.target"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "UBERON",
+    "pattern": "^UBERON:\\d+$",
+    "placeholder": "0008203",
+    "value": "uberon"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "uBio NameBank",
+    "pattern": "^\\d+$",
+    "placeholder": "2555646",
+    "value": "ubio.namebank"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "UM-BBD Compound",
+    "pattern": "^c\\d+$",
+    "placeholder": "c0001",
+    "value": "umbbd.compound"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "UM-BBD Enzyme",
+    "pattern": "^e\\d+$",
+    "placeholder": "e0333",
+    "value": "umbbd.enzyme"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "UM-BBD Pathway",
+    "pattern": "^\\w+$",
+    "placeholder": "ala",
+    "value": "umbbd.pathway"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "UM-BBD Reaction",
+    "pattern": "^r\\d+$",
+    "placeholder": "r0001",
+    "value": "umbbd.reaction"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "UM-BBD Biotransformation Rule",
+    "pattern": "^bt\\d+$",
+    "placeholder": "bt0001",
+    "value": "umbbd.rule"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "UMLS",
+    "pattern": "^C\\d+$",
+    "placeholder": "C0021390",
+    "value": "umls"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "UniGene",
+    "pattern": "^\\d+$",
+    "placeholder": "4900",
+    "value": "unigene"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "UNII",
+    "pattern": "^[A-Z0-9]+$",
+    "placeholder": "3G6A5W338E",
+    "value": "unii"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Unimod",
+    "pattern": "^\\d+$",
+    "placeholder": "1200",
+    "value": "unimod"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "UniParc",
+    "pattern": "^UPI[A-F0-9]{10}$",
+    "placeholder": "UPI000000000A",
+    "value": "uniparc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "UniPathway Compound",
+    "pattern": "^UPC\\d{5}$",
+    "placeholder": "UPC04349",
+    "value": "unipathway.compound"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "UniPathway Reaction",
+    "pattern": "^UCR\\d{5}$",
+    "placeholder": "UCR00226",
+    "value": "unipathway.reaction"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "UniProt Knowledgebase",
+    "pattern": "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\\.\\d+)?$",
+    "placeholder": "P0DP23",
+    "value": "uniprot"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "UniProt Chain",
+    "pattern": "^PRO_[0-9]{10}$",
+    "placeholder": "PRO_0000016681",
+    "value": "uniprot.chain"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "UniProt Isoform",
+    "pattern": "^([A-N,R-Z][0-9][A-Z][A-Z, 0-9][A-Z, 0-9][0-9])|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\\-\\d+)$",
+    "placeholder": "Q5BJF6-3",
+    "value": "uniprot.isoform"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "UniRef",
+    "pattern": "^UniRef(100|90|50)_([OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9]([A-Z][A-Z0-9]{2}[0-9]){1,2}|UPI[A-F0-9]{10})$",
+    "placeholder": "UniRef90_P00750",
+    "value": "uniref"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "UniSTS",
+    "pattern": "^\\d+$",
+    "placeholder": "456789",
+    "value": "unists"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Unite",
+    "pattern": "^UDB\\d{6}$",
+    "placeholder": "UDB000691",
+    "value": "unite"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Unit Ontology",
+    "pattern": "^UO:\\d{7}?",
+    "placeholder": "0000080",
+    "value": "uo"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "URL",
+    "pattern": "https://example.com/{id}",
+    "placeholder": "https://example.com/123",
+    "value": "url"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "USPTO",
+    "pattern": "^(D|PP|R|T|H|X|AI)?\\d+$",
+    "placeholder": "4145692",
+    "value": "uspto"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "UTRdb",
+    "pattern": "([3-5][A-Z])\\w+[^A-Z][0-9]",
+    "placeholder": "5UTR_107_ENST00000517291.2",
+    "value": "utrdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ValidatorDB",
+    "pattern": "^[A-Za-z0-9\\/]+$",
+    "placeholder": "ByStructure/2h6o",
+    "value": "validatordb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "VariO",
+    "pattern": "^VariO:\\d+$",
+    "placeholder": "0294",
+    "value": "vario"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Vbase2",
+    "pattern": "^\\w+$",
+    "placeholder": "humIGHV025",
+    "value": "vbase2"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "VBRC",
+    "pattern": "^\\d+$",
+    "placeholder": "35742",
+    "value": "vbrc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "VCell Published Models",
+    "pattern": "^\\d{5,}$",
+    "placeholder": "201022999",
+    "value": "vcell"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "VectorBase",
+    "pattern": "^\\D{4}\\d{6}(\\-\\D{2})?$",
+    "placeholder": "ISCW007415",
+    "value": "vectorbase"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "VegBank",
+    "pattern": "^VB\\.[A-Za-z][A-Za-z]\\..*$",
+    "placeholder": "VB.Ob.3736.GRSM125",
+    "value": "vegbank"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Virtual Fly Brain",
+    "pattern": "^[0-9a-zA-Z]{8}$",
+    "placeholder": "00000001",
+    "value": "vfb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "VFDB Gene",
+    "pattern": "^\\w+$",
+    "placeholder": "VFG2154",
+    "value": "vfdb.gene"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "VFDB Genus",
+    "pattern": "^\\w+$",
+    "placeholder": "Chlamydia",
+    "value": "vfdb.genus"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "VGNC",
+    "pattern": "^((VGNC|vgnc):)?\\d{1,9}$",
+    "placeholder": "VGNC:3792",
+    "value": "vgnc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Virtual International Authority File",
+    "pattern": "^\\d+$",
+    "placeholder": "75121530",
+    "value": "viaf"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ViPR Strain",
+    "pattern": "^[A-Za-z 0-9]+$",
+    "placeholder": "BeAn 70563",
+    "value": "vipr"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ViralZone",
+    "pattern": "^\\d+$",
+    "placeholder": "992",
+    "value": "viralzone"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "VIRsiRNA",
+    "pattern": "^virsi\\d+$",
+    "placeholder": "virsi1909",
+    "value": "virsirna"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "VMH Gene",
+    "pattern": "^[0-9]+\\.[0-9]+",
+    "placeholder": "8639.1",
+    "value": "vmhgene"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "VMH metabolite",
+    "pattern": "[a-zA-Z0-9_\\(\\_\\)\\[\\]]+",
+    "placeholder": "h2o",
+    "value": "vmhmetabolite"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "VMH reaction",
+    "pattern": "[a-zA-Z0-9_\\(\\_\\)\\[\\]]+",
+    "placeholder": "HEX1",
+    "value": "vmhreaction"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "WormBase",
+    "pattern": "^WB[A-Z][a-z]+\\d+$",
+    "placeholder": "WBGene00000001",
+    "value": "wb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "WormBase RNAi",
+    "pattern": "^WBRNAi\\d{8}$",
+    "placeholder": "WBRNAi00086878",
+    "value": "wb.rnai"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Wikidata",
+    "pattern": "^(Q|P)\\d+$",
+    "placeholder": "Q2207226",
+    "value": "wikidata"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "WikiGenes",
+    "pattern": "^\\d+$",
+    "placeholder": "3771877",
+    "value": "wikigenes"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "WikiPathways",
+    "pattern": "WP\\d{1,5}(\\_r\\d+)?$",
+    "placeholder": "WP100",
+    "value": "wikipathways"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Wikipedia (En)",
+    "pattern": "^[A-Za-z-0-9_]+$",
+    "placeholder": "SM_UB-81",
+    "value": "wikipedia.en"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Worfdb",
+    "pattern": "^\\w+(\\.\\d+)?",
+    "placeholder": "T01B6.1",
+    "value": "worfdb"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Wormpep",
+    "pattern": "^CE\\d{5}$",
+    "placeholder": "CE28239",
+    "value": "wormpep"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "World Register of Marine Species",
+    "pattern": "^\\d+$",
+    "placeholder": "146421",
+    "value": "worms"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Xenbase",
+    "pattern": "^XB\\-\\w+\\-\\d+$",
+    "placeholder": "XB-GENE-922462",
+    "value": "xenbase"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "YDPM",
+    "pattern": "^Y[A-Z]{2}\\d+[CW]$",
+    "placeholder": "YAL001C",
+    "value": "ydpm"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Yeast Intron Database v4.3",
+    "pattern": "^[A-Z0-9]+$",
+    "placeholder": "SNR17A",
+    "value": "yeastintron"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "YeTFasCo",
+    "pattern": "^\\w+\\_\\d+(\\.\\d+)?$",
+    "placeholder": "YOR172W_571.0",
+    "value": "yetfasco"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Yeast Intron Database v3",
+    "pattern": "^[A-Z0-9]+$",
+    "placeholder": "SNR17A",
+    "value": "yid"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "YRC PDR",
+    "pattern": "^\\d+$",
+    "placeholder": "2673500",
+    "value": "yrcpdr"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ZFIN Bioentity",
+    "pattern": "^ZDB\\-\\w+\\-\\d+\\-\\d+$",
+    "placeholder": "ZDB-GENE-041118-11",
+    "value": "zfin"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "ZINC",
+    "pattern": "^(ZINC)?\\d+$",
+    "placeholder": "ZINC1084",
+    "value": "zinc"
   }
 ]
