@@ -6,7 +6,9 @@ import { faker } from "@faker-js/faker";
 import { nanoid } from "nanoid";
 import { Icon } from "#components";
 
-import LINKS_JSON from "@/assets/json/links.json";
+import FALLBACK_JSON from "@/assets/json/url-doi-icons.json";
+import PREFIX_JSON from "@/assets/json/prefix.json";
+
 import { useLinkStore } from "@/stores/link";
 
 const props = defineProps({
@@ -37,11 +39,13 @@ const formValue: LocalLinkType = reactive({
   name: faker.git.commitMessage(),
   description: faker.word.words({ count: { max: 100, min: 50 } }),
   icon: "material-symbols:dataset",
-  target: faker.internet.url(),
-  type: "doi",
+  target: "",
+  // target: faker.internet.url(),
+  type: "",
 });
 
-const iconOptions = LINKS_JSON.linkIcons;
+const iconOptions = FALLBACK_JSON;
+const typeOptions = PREFIX_JSON;
 
 if (props.linkIdentifier !== "new") {
   const link = linkStore.getLink(props.linkIdentifier);
@@ -68,7 +72,7 @@ const rules = {
     trigger: ["input"],
   },
   target: {
-    message: "Please enter a valid URL or DOI",
+    message: "Please enter a valid identifier",
     required: true,
     trigger: ["input"],
   },
@@ -78,17 +82,6 @@ const rules = {
     trigger: ["change"],
   },
 };
-
-const typeOptions = [
-  {
-    label: "DOI",
-    value: "doi",
-  },
-  {
-    label: "URL",
-    value: "url",
-  },
-];
 
 const renderLabel = (option: SelectOption): VNodeChild => {
   return [
@@ -124,6 +117,14 @@ const buttonDetails = computed(() => {
     text: "Save Changes",
   };
 });
+
+const selectIcon = (value: string) => {
+  const curi = typeOptions.find((prefix) => prefix.value === value);
+
+  if (curi) {
+    formValue.icon = curi.icon;
+  }
+};
 
 const addResource = (e: MouseEvent) => {
   e.preventDefault();
@@ -207,7 +208,7 @@ const addResource = (e: MouseEvent) => {
       :show-feedback="true"
     >
       <div class="flex w-full flex-col space-y-2 p-3">
-        <n-form-item path="name" label="Name of resource">
+        <n-form-item path="name" label="Name of Resource">
           <n-input
             v-model:value="formValue.name"
             placeholder="Primary data for the paper: MicroCT imaging of the human cervical vagus nerve"
@@ -219,32 +220,41 @@ const addResource = (e: MouseEvent) => {
           <n-input
             v-model:value="formValue.description"
             placeholder="MicroCT imaging of the human cervical vagus nerve: slices at 0.5 cm spacing are provided across a 5 cm window representing the surgical window typical of vagus nerve stimulation. Derived data include fascicle morphometry, splitting and merging events."
+            rows="5"
             type="textarea"
             @keydown.enter.prevent
           />
         </n-form-item>
 
-        <n-form-item path="type" label="Type of resource">
-          <n-select
-            v-model:value="formValue.type"
-            filterable
-            placeholder="DOI"
-            :options="typeOptions"
-          />
+        <n-form-item path="type" label="Identifier Type">
+          <div class="flex w-full flex-col">
+            <n-select
+              v-model:value="formValue.type"
+              filterable
+              placeholder="DOI"
+              :options="typeOptions"
+              @update:value="selectIcon"
+            />
+
+            <p class="mt-2 text-sm text-slate-500">
+              Select the type of identifier you are linking to.
+            </p>
+          </div>
         </n-form-item>
 
-        <n-form-item path="target" label="Resource URL/DOI">
+        <n-form-item path="target" label="Resource Identifier">
           <div class="flex w-full flex-col">
             <n-input
               v-model:value="formValue.target"
               :placeholder="`https://doi.org/10.1101/2021.05.07.443555`"
               type="text"
+              :disabled="!formValue.type"
               @keydown.enter.prevent
             />
 
-            <p class="mt-1 text-sm text-slate-500">
-              DOI's should be in the format of a URL, e.g.
-              https://doi.org/10.1101/2021.05.07.443555
+            <p class="mt-2 text-sm text-slate-500">
+              Click here to see if your linked resource is available and
+              resolves correctly.
             </p>
           </div>
         </n-form-item>

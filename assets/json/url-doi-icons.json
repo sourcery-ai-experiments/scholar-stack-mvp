@@ -1,0 +1,38 @@
+[
+  {
+    "label": "GitHub",
+    "value": "mdi:github"
+  },
+  {
+    "label": "Repository",
+    "value": "mdi:git"
+  },
+  {
+    "label": "GitLab",
+    "value": "ri:gitlab-fill"
+  },
+  {
+    "label": "Dataset",
+    "value": "material-symbols:dataset"
+  },
+  {
+    "label": "Journal Article",
+    "value": "ooui:journal-ltr"
+  },
+  {
+    "label": "Presentation",
+    "value": "tabler:presentation"
+  },
+  {
+    "label": "Poster",
+    "value": "ep:data-board"
+  },
+  {
+    "label": "Genomic Data",
+    "value": "solar:dna-bold"
+  },
+  {
+    "label": "Other",
+    "value": "ic:twotone-select-all"
+  }
+]

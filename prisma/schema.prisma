@@ -64,8 +64,8 @@ model Link {
   description String @default("")
   icon        String @default("mdi:resource-description-framework")
 
-  target String // the actual link (doi:10.1234/1234, https://example.com)
-  type   String // doi, url, etc
+  target String // the actual identifier (10.1234/abc)
+  type   String // doi, url, ror, orcid, etc (from identifiers.org)
 
   created DateTime @default(now())
   updated DateTime @updatedAt

@@ -1,5 +1,3 @@
-type LinkTargetType = "doi" | "url";
-
 type LinkAction = "create" | "update" | "delete";
 
 type LinkOrigin = "local" | "remote";
@@ -11,7 +9,7 @@ interface LinkType {
   description: string;
   icon: string;
 
-  type: LinkTargetType;
+  type: string;
   target: string;
 }
 

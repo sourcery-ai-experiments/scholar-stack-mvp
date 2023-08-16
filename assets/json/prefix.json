@@ -1,0 +1,27 @@
+[
+  {
+    "value": "doi",
+    "label": "DOI",
+    "placeholder": "10.1002/0470841559.ch1",
+    "icon": "ic:twotone-select-all"
+  },
+  {
+    "value": "url",
+    "label": "URL",
+    "placeholder": "http://www.example.com",
+    "icon": "ic:twotone-select-all"
+  },
+  {
+    "value": "uniprot",
+    "label": "UniProt Knowledgebase",
+    "placeholder": "P12345",
+    "icon": "solar:dna-bold"
+  },
+  {
+    "value": "pubmed",
+    "label": "PubMed",
+    "placeholder": "16333295",
+    "pattern": "^d+$",
+    "icon": "ooui:journal-ltr"
+  }
+]

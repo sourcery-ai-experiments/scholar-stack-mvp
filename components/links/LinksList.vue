@@ -186,7 +186,18 @@ const hideAddEditLinkDrawerFunction = () => {
                 />
 
                 <Icon
-                  :name="link.type === 'doi' ? 'academicons:doi' : 'uil:link'"
+                  v-if="link.type === 'doi'"
+                  name="academicons:doi"
+                  size="25"
+                  :class="{
+                    'cursor-not-allowed opacity-70 transition-all':
+                      link.action === 'delete',
+                  }"
+                />
+
+                <Icon
+                  v-if="link.type === 'url'"
+                  name="uil:link"
                   size="25"
                   :class="{
                     'cursor-not-allowed opacity-70 transition-all':
