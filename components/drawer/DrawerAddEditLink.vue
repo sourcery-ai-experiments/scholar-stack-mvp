@@ -47,6 +47,23 @@ const formValue: LocalLinkType = reactive({
 const iconOptions = FALLBACK_JSON;
 const typeOptions = PREFIX_JSON;
 
+const placeholder = computed(() => {
+  if (formValue.type) {
+    // find the prefix
+    const prefix = typeOptions.find(
+      (prefix) => prefix.value === formValue.type
+    );
+
+    if (prefix) {
+      return prefix.placeholder;
+    }
+
+    return "https://doi.org/10.1101/2021.05.07.443555";
+  }
+
+  return "https://doi.org/10.1101/2021.05.07.443555";
+});
+
 if (props.linkIdentifier !== "new") {
   const link = linkStore.getLink(props.linkIdentifier);
 
@@ -246,7 +263,7 @@ const addResource = (e: MouseEvent) => {
           <div class="flex w-full flex-col">
             <n-input
               v-model:value="formValue.target"
-              :placeholder="`https://doi.org/10.1101/2021.05.07.443555`"
+              :placeholder="placeholder"
               type="text"
               :disabled="!formValue.type"
               @keydown.enter.prevent
