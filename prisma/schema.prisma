@@ -20,6 +20,7 @@ model User {
   id String @id @default(cuid())
 
   email_address String @unique
+  username      String @unique
 
   name                  String
   affiliation           String
@@ -33,7 +34,7 @@ model User {
   Access       Access[]
   Notification Notification[]
 
-  @@index([email_address])
+  @@index([email_address, username])
 }
 
 model Notification {
