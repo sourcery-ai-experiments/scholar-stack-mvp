@@ -47,14 +47,14 @@
     "nuxt-icon": "^0.4.1",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0",
-    "prisma": "^5.0.0",
+    "prisma": "latest",
     "tailwindcss-debug-screens": "^2.2.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.4.11",
-    "@prisma/client": "^5.0.0",
+    "@prisma/client": "latest",
     "calver": "^22.9.1",
     "dayjs": "^1.11.7",
     "lodash": "^4.17.21",

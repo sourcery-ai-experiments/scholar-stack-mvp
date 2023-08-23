@@ -16,59 +16,157 @@ datasource db {
 //   relationMode = "prisma"
 // }
 
-model Project {
+model User {
   id String @id @default(cuid())
 
-  author_id String
+  email_address String @unique
 
-  name        String
-  description String
-  image       String
-  tags        String[]
+  name                  String
+  affiliation           String
+  contact_email_address String
+  website               String
+
+  type String // organization | personal
+
+  created DateTime @default(now())
+
+  Access       Access[]
+  Notification Notification[]
+
+  @@index([email_address])
+}
+
+model Notification {
+  id String @id @default(cuid())
+
+  user    User   @relation(fields: [user_id], references: [id])
+  user_id String
+
+  title   String @default("")
+  content String @default("")
+
+  read Boolean @default(false)
 
   created DateTime @default(now())
   updated DateTime @updatedAt
 
+  @@index([user_id])
+}
+
+model Access {
+  id String @id @default(cuid())
+
+  user    User   @relation(fields: [user_id], references: [id])
+  user_id String
+
+  project    Project @relation(fields: [project_id], references: [id])
+  project_id String
+
+  permission String @default("read") // read | write | admin
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  @@index([user_id, project_id])
+}
+
+model Invite {
+  id String @id @default(cuid())
+
+  email_address String
+
+  project    Project @relation(fields: [project_id], references: [id])
+  project_id String
+
+  permission String @default("read") // read | write | admin
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  @@index([email_address, project_id])
+}
+
+model Project {
+  id String @id @default(cuid())
+
+  title       String @default("")
+  description String @default("")
+  image       String @default("https://api.dicebear.com/6.x/shapes/svg")
+
+  created DateTime @default(now())
+
   identifier String @unique // might use a link shortener for this (p1234)
 
-  versions Version[]
+  Versions Version[]
+  Access   Access[]
+  Invite   Invite[]
 
   @@index([identifier])
 }
 
 model Version {
-  id   String @id @default(cuid())
-  name String // 23.5.30.1 (using calver for this)
-
-  changes String?
-
-  created DateTime @default(now())
-  updated DateTime @updatedAt
-
-  identifier String @unique // might use a link shortener for this (v1234)
+  id String @id @default(cuid())
 
   Project    Project @relation(fields: [project_id], references: [id])
   project_id String
 
-  latest Boolean @default(false)
+  name String @default("") // 23.5.30.1 (using calver for this)
 
-  links Link[]
+  changelog String @default("")
+
+  identifier String @unique // might use a link shortener for this (v1234)
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  published    Boolean  @default(false)
+  published_on DateTime
+
+  Links Link[]
 
   @@index([identifier, project_id])
 }
 
 model Link {
-  id   String @id @default(cuid())
-  name String
+  id String @id @default(cuid())
 
-  description String @default("")
-  icon        String @default("mdi:resource-description-framework")
-
+  type   String // doi, url, ror, orcid, etc (prefix from identifiers.org)
   target String // the actual identifier (10.1234/abc)
-  type   String // doi, url, ror, orcid, etc (from identifiers.org)
+
+  title       String @default("")
+  description String @default("")
+
+  icon String @default("mdi:resource-description-framework")
+
+  back_link String @default("") // the link to the resource that links to this one
 
   created DateTime @default(now())
   updated DateTime @updatedAt
 
-  version Version[]
+  Version  Version[]
+  Relation Relation[]
+}
+
+model Relation {
+  id String @id @default(cuid())
+
+  link   Link   @relation(fields: [source], references: [id])
+  source String
+
+  type String // citation, isCitedBy, etc (prefix from identifiers.org)
+
+  target      String // can be a internal link or external link
+  target_type String // book, article, etc
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+}
+
+model Analytics {
+  id String @id @default(cuid())
+
+  identifier String
+  type       String // project, version, link, etc
+
+  created DateTime @default(now())
 }
