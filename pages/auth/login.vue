@@ -1,46 +1,90 @@
 <script setup lang="ts">
-import { Vue3Lottie } from "vue3-lottie";
-import { useMessage } from "naive-ui";
+import type { FormInst } from "naive-ui";
+
 import isEmail from "validator/es/lib/isEmail";
 
-definePageMeta({
-  layout: "no-header",
-});
+const push = usePush();
 
 const user = useSupabaseUser();
 const supabase = useSupabaseClient();
 
-const message = useMessage();
-
-const emailAddress = ref("");
-const password = ref("");
-
 const loading = ref(false);
 
-const invalidEmailAddress = computed(() => {
-  return emailAddress.value === "" || !isEmail(emailAddress.value);
+const loginFormRef = ref<FormInst | null>(null);
+
+const loginForm = reactive({
+  emailAddress: "",
+  password: "",
 });
 
-const signIn = async () => {
-  try {
-    const { error } = await supabase.auth.signInWithPassword({
-      email: emailAddress.value,
-      password: password.value,
-    });
+const loginFormRules = {
+  emailAddress: {
+    message: "Please input your email address",
+    required: true,
+    trigger: ["input"],
+  },
+  password: {
+    message: "Please fill in your password",
+    required: true,
+    trigger: ["input"],
+  },
+};
 
-    emailAddress.value = "";
-    password.value = "";
+const invalidEmailAddress = computed(() => {
+  return loginForm.emailAddress === "" || !isEmail(loginForm.emailAddress);
+});
 
-    if (error) {
-      message.error(error.message, {
-        keepAliveOnHover: true,
-      });
+const signIn = (e: MouseEvent) => {
+  e.preventDefault();
 
-      throw error;
+  loginFormRef.value?.validate(async (errors) => {
+    if (!errors) {
+      if (!isEmail(loginForm.emailAddress)) {
+        push.error({
+          title: "Error",
+          message: "Please enter a valid email address",
+        });
+
+        return;
+      }
+
+      loading.value = true;
+
+      try {
+        const { error } = await supabase.auth.signInWithPassword({
+          email: loginForm.emailAddress,
+          password: loginForm.password,
+        });
+
+        if (error) {
+          push.error({
+            title: "Error",
+            message: error.message,
+          });
+
+          throw error;
+        }
+      } catch (error) {
+        loading.value = false;
+
+        console.error(error);
+        return;
+      }
+
+      loading.value = false;
+
+      // reset form
+      loginForm.emailAddress = "";
+      loginForm.password = "";
+
+      console.log("success");
+
+      // redirect to projects page
+      return navigateTo("/projects");
+    } else {
+      console.log(errors);
     }
-  } catch (error) {
-    console.error(error);
-  }
+  });
 };
 
 watchEffect(() => {
@@ -57,6 +101,8 @@ watchEffect(() => {
         class="mt-4 w-full max-w-lg space-y-6 rounded-lg bg-white px-4 py-6 sm:px-8 sm:py-8"
       >
         <div class="pb-4">
+          <img src="/logo/logo.svg" alt="logo" class="mb-3 h-[80px]" />
+
           <h1 class="mb-3 text-left text-2xl font-bold sm:text-4xl">
             Welcome back!
           </h1>
@@ -64,48 +110,50 @@ watchEffect(() => {
           <p>Sign in to your account to continue using our services.</p>
         </div>
 
-        <div class="flex w-full flex-col">
-          <span class="mb-1 text-left text-sm text-slate-600">
-            Email Address
-          </span>
-
-          <n-input
-            v-model:value="emailAddress"
-            type="text"
-            size="large"
-            placeholder="ea@sjy.so"
-          />
-        </div>
-
-        <div class="flex flex-col">
-          <span class="mb-1 text-left text-sm text-slate-600"> Password </span>
-
-          <n-input
-            v-model:value="password"
-            type="password"
-            show-password-on="mousedown"
-            size="large"
-            placeholder=""
-          />
-        </div>
-
-        <n-button
-          strong
-          secondary
-          type="primary"
+        <n-form
+          ref="loginFormRef"
+          :model="loginForm"
+          :rules="loginFormRules"
           size="large"
-          :loading="loading"
-          :disabled="invalidEmailAddress"
-          @click="signIn"
-          class="w-full"
+          :show-require-mark="false"
         >
-          <template #icon>
-            <Icon name="ph:sign-in-bold" />
-          </template>
-          Sign In
-        </n-button>
+          <n-form-item path="emailAddress" label="Email Address">
+            <n-input
+              v-model:value="loginForm.emailAddress"
+              placeholder="hello@sciconnect.io"
+              clearable
+              @keydown.enter.prevent
+            />
+          </n-form-item>
 
-        <n-divider class="text-slate-400"> or </n-divider>
+          <n-form-item path="password" label="Password">
+            <n-input
+              v-model:value="loginForm.password"
+              placeholder=""
+              type="password"
+              show-password-on="mousedown"
+              @keydown.enter.prevent
+            />
+          </n-form-item>
+
+          <n-form-item>
+            <n-button
+              strong
+              secondary
+              type="primary"
+              size="large"
+              :loading="loading"
+              :disabled="invalidEmailAddress"
+              class="w-full"
+              @click="signIn"
+            >
+              <template #icon>
+                <Icon name="ph:sign-in-bold" />
+              </template>
+              Sign In
+            </n-button>
+          </n-form-item>
+        </n-form>
 
         <div class="flex justify-center text-sm">
           Don't have an account?
@@ -117,14 +165,10 @@ watchEffect(() => {
           </nuxt-link>
         </div>
 
+        <n-divider class="text-slate-400"> or </n-divider>
+
         <div class="flex flex-col space-y-4">
-          <n-button
-            strong
-            size="large"
-            class="w-full"
-            :loading="loading"
-            @click="signIn"
-          >
+          <n-button strong size="large" class="w-full">
             <template #icon>
               <Icon name="devicon:google" />
             </template>
@@ -132,14 +176,7 @@ watchEffect(() => {
             Sign In with Google
           </n-button>
 
-          <n-button
-            strong
-            color="black"
-            size="large"
-            class="w-full"
-            :loading="loading"
-            @click="signIn"
-          >
+          <n-button strong color="black" size="large" class="w-full">
             <template #icon>
               <Icon name="ph:github-logo-fill" />
             </template>
@@ -147,13 +184,7 @@ watchEffect(() => {
             Sign In with GitHub
           </n-button>
 
-          <n-button
-            strong
-            size="large"
-            class="w-full"
-            :loading="loading"
-            @click="signIn"
-          >
+          <n-button strong size="large" class="w-full">
             <template #icon>
               <Icon name="ic:baseline-apple" />
             </template>

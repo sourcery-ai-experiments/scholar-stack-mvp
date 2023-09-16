@@ -17,7 +17,11 @@ export default defineNuxtConfig({
     pageTransition: { name: "page", mode: "out-in" },
   },
 
-  css: ["@/assets/css/tailwind.css"],
+  css: [
+    "@/assets/css/tailwind.css",
+    "notivue/notifications.css",
+    "notivue/animations.css",
+  ],
 
   devtools: {
     enabled: true,
@@ -31,6 +35,7 @@ export default defineNuxtConfig({
     "@nuxtjs/supabase",
     "@nuxtjs/tailwindcss",
     "@pinia/nuxt",
+    "notivue/nuxt",
     [
       "@nuxtjs/google-fonts",
       {
@@ -51,4 +56,8 @@ export default defineNuxtConfig({
   },
 
   nitro: {},
+
+  notivue: {
+    // Options
+  },
 });

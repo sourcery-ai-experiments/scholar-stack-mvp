@@ -19,9 +19,7 @@ const logout = async () => {
 </script>
 
 <template>
-  <header
-    class="header left-0 top-0 z-50 mx-auto w-full bg-primary px-4 pb-3 pt-2 text-white"
-  >
+  <header class="header left-0 top-0 z-50 mx-auto w-full px-4 pb-3 pt-2">
     <div class="flex items-center justify-between">
       <div class="flex items-center justify-start">
         <div class="px-6">
@@ -121,7 +119,7 @@ const logout = async () => {
 
 <style scoped>
 .navigation-item {
-  @apply font-semibold text-white transition-all hover:text-primary-100;
+  @apply font-semibold;
 }
 
 .dropdown-item {

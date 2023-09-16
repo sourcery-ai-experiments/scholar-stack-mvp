@@ -1,17 +1,18 @@
 <script setup lang="ts">
 import type { FormInst } from "naive-ui";
+
 import isEmail from "validator/es/lib/isEmail";
-import { useMessage } from "naive-ui";
 
-const supabase = useSupabaseClient();
+const push = usePush();
+
 const user = useSupabaseUser();
+const supabase = useSupabaseClient();
 
-const message = useMessage();
 const loading = ref(false);
 
 const registerFormRef = ref<FormInst | null>(null);
 
-const registerFormValue = ref({
+const registerForm = reactive({
   emailAddress: "",
   password: "",
 });
@@ -29,13 +30,23 @@ const registerFormRules = {
   },
 };
 
-const registerForAccount = (e: MouseEvent) => {
+const invalidEmailAddress = computed(() => {
+  return (
+    registerForm.emailAddress === "" || !isEmail(registerForm.emailAddress)
+  );
+});
+
+const signIn = (e: MouseEvent) => {
   e.preventDefault();
 
   registerFormRef.value?.validate(async (errors) => {
     if (!errors) {
-      if (!isEmail(registerFormValue.value.emailAddress)) {
-        message.error("Please enter a valid email address");
+      if (!isEmail(registerForm.emailAddress)) {
+        push.error({
+          title: "Error",
+          message: "Please enter a valid email address",
+        });
+
         return;
       }
 
@@ -48,28 +59,35 @@ const registerForAccount = (e: MouseEvent) => {
 
       try {
         const { error } = await supabase.auth.signUp({
-          email: registerFormValue.value.emailAddress,
-          password: registerFormValue.value.password,
+          email: registerForm.emailAddress,
+          password: registerForm.password,
         });
 
         if (error) {
+          push.error({
+            title: "Error",
+            message: error.message,
+          });
+
           throw error;
         }
       } catch (error) {
+        loading.value = false;
+
         console.error(error);
-        message.error("Something went wrong. Please try again later.");
+        return;
       }
 
       loading.value = false;
 
       // reset form
-      registerFormValue.value.emailAddress = "";
-      registerFormValue.value.password = "";
+      registerForm.emailAddress = "";
+      registerForm.password = "";
 
       console.log("success");
 
-      // redirect to confirm email page
-      return navigateTo("/auth/confirm-email");
+      // redirect to projects page
+      return navigateTo("/projects");
     } else {
       console.log(errors);
     }
@@ -78,85 +96,129 @@ const registerForAccount = (e: MouseEvent) => {
 
 watchEffect(() => {
   if (user.value) {
-    return navigateTo("/");
+    return navigateTo("/projects");
   }
 });
 </script>
 
 <template>
-  <main>
-    <section
-      class="container mx-auto flex flex-wrap items-center justify-center px-5 py-24"
-    >
-      <div class="flex w-full max-w-screen-sm flex-col items-center">
-        <ClientOnly>
-          <Vue3Lottie
-            animation-link="https://assets4.lottiefiles.com/packages/lf20_rybr160z.json"
-            :height="150"
-            :width="150"
-            :loop="1"
-          />
-        </ClientOnly>
+  <main class="flex h-full flex-row flex-wrap items-center justify-center">
+    <div class="flex w-1/2 flex-col items-center">
+      <div
+        class="mt-4 w-full max-w-lg space-y-6 rounded-lg bg-white px-4 py-6 sm:px-8 sm:py-8"
+      >
+        <div class="pb-4">
+          <img src="/logo/logo.svg" alt="logo" class="mb-3 h-[80px]" />
 
-        <h1 class="mb-6 mt-12 text-center text-2xl font-bold sm:text-4xl">
-          Let's create a new account for you!
-        </h1>
+          <h1 class="mb-3 text-left text-2xl font-bold sm:text-4xl">
+            Create your account!
+          </h1>
 
-        <div
-          class="mt-4 w-full max-w-sm space-y-6 rounded-lg border border-slate-200 bg-white px-4 py-6 shadow-md sm:px-8 sm:py-8"
-        >
-          <n-form
-            ref="registerFormRef"
-            :model="registerFormValue"
-            :rules="registerFormRules"
-            size="large"
-          >
-            <n-form-item path="emailAddress" label="Email Address">
-              <n-input
-                v-model:value="registerFormValue.emailAddress"
-                placeholder="ea@sjy.so"
-                @keydown.enter.prevent
-              />
-            </n-form-item>
-
-            <n-form-item path="password" label="Password">
-              <n-input
-                v-model:value="registerFormValue.password"
-                placeholder=""
-                type="password"
-                show-password-on="mousedown"
-                @keydown.enter.prevent
-              />
-            </n-form-item>
-
-            <div class="flex justify-center">
-              <n-button
-                type="primary"
-                size="large"
-                :loading="loading"
-                @click="registerForAccount"
-              >
-                <template #icon>
-                  <Icon name="mdi:register" />
-                </template>
-                Register
-              </n-button>
-            </div>
-          </n-form>
-
-          <n-divider />
-
-          <div class="flex justify-center text-sm">
-            Already have an account?
-            <nuxt-link
-              class="ml-1 w-fit text-blue-600 transition-all hover:text-blue-400"
-              to="/auth/login"
-            >
-              Login
-            </nuxt-link>
-          </div>
+          <p></p>
         </div>
+
+        <n-form
+          ref="registerFormRef"
+          :model="registerForm"
+          :rules="registerFormRules"
+          size="large"
+          :show-require-mark="false"
+        >
+          <n-form-item path="emailAddress" label="Email Address">
+            <n-input
+              v-model:value="registerForm.emailAddress"
+              placeholder="hello@sciconnect.io"
+              clearable
+              @keydown.enter.prevent
+            />
+          </n-form-item>
+
+          <n-form-item path="password" label="Password">
+            <n-input
+              v-model:value="registerForm.password"
+              placeholder=""
+              type="password"
+              show-password-on="mousedown"
+              @keydown.enter.prevent
+            />
+          </n-form-item>
+
+          <n-form-item>
+            <n-button
+              strong
+              secondary
+              type="primary"
+              size="large"
+              :loading="loading"
+              :disabled="invalidEmailAddress"
+              class="w-full"
+              @click="signIn"
+            >
+              <template #icon>
+                <Icon name="ph:sign-in-bold" />
+              </template>
+              Sign Up
+            </n-button>
+          </n-form-item>
+        </n-form>
+
+        <div class="flex justify-center text-sm">
+          Already have an account?
+          <nuxt-link
+            class="ml-1 w-fit text-blue-600 transition-all hover:text-blue-400"
+            to="/auth/login"
+          >
+            Sign In
+          </nuxt-link>
+        </div>
+
+        <n-divider class="text-slate-400"> or </n-divider>
+
+        <div class="flex flex-col space-y-4">
+          <n-button strong size="large" class="w-full">
+            <template #icon>
+              <Icon name="devicon:google" />
+            </template>
+
+            Sign up with Google
+          </n-button>
+
+          <n-button strong color="black" size="large" class="w-full">
+            <template #icon>
+              <Icon name="ph:github-logo-fill" />
+            </template>
+
+            Sign up with GitHub
+          </n-button>
+
+          <n-button strong size="large" class="w-full">
+            <template #icon>
+              <Icon name="ic:baseline-apple" />
+            </template>
+
+            Sign up with Apple ID
+          </n-button>
+        </div>
+
+        <p class="mx-auto w-9/12 text-center text-sm">
+          By signing up, you agree to our
+          <nuxt-link
+            class="text-blue-600 transition-all hover:text-blue-400"
+            to="/terms"
+          >
+            Terms of Service
+          </nuxt-link>
+          and
+          <nuxt-link
+            class="text-blue-600 transition-all hover:text-blue-400"
+            to="/privacy"
+          >
+            Privacy Policy</nuxt-link
+          >.
+        </p>
       </div>
-    </section>
+    </div>
+
+    <div class="h-full w-1/2 bg-slate-900"></div>
   </main>
 </template>

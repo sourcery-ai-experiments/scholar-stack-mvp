@@ -1,17 +1,23 @@
 <template>
   <NaiveConfig>
-    <n-message-provider>
-      <NuxtLoadingIndicator color="#be185d" :height="5" />
-      <NuxtLayout>
-        <NuxtPage />
-      </NuxtLayout>
-    </n-message-provider>
+    <Notivue v-slot="item">
+      <NotivueSwipe :item="item">
+        <Notifications :item="item" :theme="pastelTheme" />
+      </NotivueSwipe>
+    </Notivue>
+
+    <NuxtLoadingIndicator color="#be185d" :height="5" />
+
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
   </NaiveConfig>
 </template>
 
 <script setup lang="ts">
 import "md-editor-v3/lib/style.css";
 
+import { pastelTheme } from "notivue";
 import { ThemeConfig } from "@bg-dev/nuxt-naiveui";
 
 // https://realtimecolors.com/?colors=040407-f5f6fa-3c4472-c5d0fc-e7bc0d
@@ -28,7 +34,7 @@ const themeConfig: ThemeConfig = {
 };
 
 useHead({
-  title: "Scholar Stack",
+  title: "SciConnect",
   bodyAttrs: {
     class: "test",
   },
