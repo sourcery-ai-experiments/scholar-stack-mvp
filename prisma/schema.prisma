@@ -60,15 +60,15 @@ model Access {
   user    User   @relation(fields: [user_id], references: [id])
   user_id String
 
-  project    Project @relation(fields: [project_id], references: [id])
-  project_id String
+  collection    Collection @relation(fields: [collection_id], references: [id])
+  collection_id String
 
   permission String @default("read") // read | write | admin
 
   created DateTime @default(now())
   updated DateTime @updatedAt
 
-  @@index([user_id, project_id])
+  @@index([user_id, collection_id])
 }
 
 model Invite {
@@ -76,18 +76,18 @@ model Invite {
 
   email_address String
 
-  project    Project @relation(fields: [project_id], references: [id])
-  project_id String
+  collection    Collection @relation(fields: [collection_id], references: [id])
+  collection_id String
 
   permission String @default("read") // read | write | admin
 
   created DateTime @default(now())
   updated DateTime @updatedAt
 
-  @@index([email_address, project_id])
+  @@index([email_address, collection_id])
 }
 
-model Project {
+model Collection {
   id String @id @default(cuid())
 
   title       String @default("")
@@ -96,7 +96,7 @@ model Project {
 
   created DateTime @default(now())
 
-  identifier String @unique // might use a link shortener for this (p1234)
+  identifier String @unique // might use a link shortener for this (c1234)
 
   Versions Version[]
   Access   Access[]
@@ -108,8 +108,8 @@ model Project {
 model Version {
   id String @id @default(cuid())
 
-  Project    Project @relation(fields: [project_id], references: [id])
-  project_id String
+  collection    Collection @relation(fields: [collection_id], references: [id])
+  collection_id String
 
   name String @default("") // 23.5.30.1 (using calver for this)
 
@@ -125,7 +125,7 @@ model Version {
 
   Links Link[]
 
-  @@index([identifier, project_id])
+  @@index([identifier, collection_id])
 }
 
 model Link {
@@ -167,7 +167,7 @@ model Analytics {
   id String @id @default(cuid())
 
   identifier String
-  type       String // project, version, link, etc
+  type       String // collection, version, link, etc
 
   created DateTime @default(now())
 }

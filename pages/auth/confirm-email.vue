@@ -1,3 +1,19 @@
+<script setup lang="ts">
+definePageMeta({
+  layout: "no-header",
+});
+
+const user = useSupabaseUser();
+
+watchEffect(() => {
+  if (user.value) {
+    if (user.value.email_confirmed_at) {
+      return navigateTo("/collections");
+    }
+  }
+});
+</script>
+
 <template>
   <main class="flex h-full w-full items-center justify-center">
     <section
@@ -30,15 +46,3 @@
     </section>
   </main>
 </template>
-
-<script setup lang="ts">
-const user = useSupabaseUser();
-
-watchEffect(() => {
-  if (user.value) {
-    if (user.value.email_confirmed_at) {
-      return navigateTo("/projects");
-    }
-  }
-});
-</script>

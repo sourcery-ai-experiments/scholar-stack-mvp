@@ -3,6 +3,10 @@ import type { FormInst } from "naive-ui";
 
 import isEmail from "validator/es/lib/isEmail";
 
+definePageMeta({
+  layout: "no-header",
+});
+
 const push = usePush();
 
 const user = useSupabaseUser();
@@ -102,13 +106,17 @@ watchEffect(() => {
 </script>
 
 <template>
-  <main class="flex h-full flex-row flex-wrap items-center justify-center">
-    <div class="flex w-1/2 flex-col items-center">
+  <main class="flex h-full flex-row flex-wrap items-start justify-center">
+    <div class="flex w-1/2 flex-col items-center pt-[5%]">
       <div
         class="mt-4 w-full max-w-lg space-y-6 rounded-lg bg-white px-4 py-6 sm:px-8 sm:py-8"
       >
-        <div class="pb-4">
-          <img src="/logo/logo.svg" alt="logo" class="mb-3 h-[80px]" />
+        <div class="w-full pb-4">
+          <div class="w-max">
+            <NuxtLink to="/">
+              <img src="/logo/logo.svg" alt="logo" class="mb-[60px] h-[80px]" />
+            </NuxtLink>
+          </div>
 
           <h1 class="mb-3 text-left text-2xl font-bold sm:text-4xl">
             Create your account!

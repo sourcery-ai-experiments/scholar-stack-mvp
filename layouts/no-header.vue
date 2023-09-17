@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const devMode = process.env.NODE_ENV === "development";
+</script>
+
 <template>
   <div
     class="relative mx-auto flex h-screen w-full flex-col"
@@ -7,7 +11,3 @@
     <slot />
   </div>
 </template>
-
-<script setup>
-const devMode = process.env.NODE_ENV === "development";
-</script>

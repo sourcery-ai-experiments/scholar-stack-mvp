@@ -1,13 +1,5 @@
 <script setup lang="ts">
-const route = useRoute();
-
 const devMode = process.env.NODE_ENV === "development";
-
-const navbarHiddenRoutes = ["/auth/login", "/auth/register"];
-
-const showNavbar = computed(() => {
-  return !navbarHiddenRoutes.includes(route.path);
-});
 </script>
 
 <template>
@@ -15,7 +7,7 @@ const showNavbar = computed(() => {
     class="relative mx-auto flex h-screen w-full flex-col"
     :class="{ 'debug-screens': devMode }"
   >
-    <UiHeader v-if="showNavbar" />
+    <UiHeader />
     <n-back-top />
     <slot />
   </div>
