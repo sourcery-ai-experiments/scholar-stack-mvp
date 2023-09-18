@@ -55,15 +55,30 @@ const signIn = (e: MouseEvent) => {
       loading.value = true;
 
       try {
-        const { error } = await supabase.auth.signInWithPassword({
+        const { error: loginError } = await supabase.auth.signInWithPassword({
           email: loginForm.emailAddress,
           password: loginForm.password,
+        });
+
+        if (loginError) {
+          push.error({
+            title: "Error",
+            message: loginError.message,
+          });
+
+          throw loginError;
+        }
+
+        // create the user profile if it doesn't exist
+        const { error } = await useFetch("/api/user", {
+          headers: useRequestHeaders(["cookie"]),
+          method: "POST",
         });
 
         if (error) {
           push.error({
             title: "Error",
-            message: error.message,
+            message: "Something went wrong. Please try again later.",
           });
 
           throw error;
@@ -84,7 +99,7 @@ const signIn = (e: MouseEvent) => {
       console.log("success");
 
       // redirect to projects page
-      return navigateTo("/collections");
+      return navigateTo("/dashboard");
     } else {
       console.log(errors);
     }
@@ -93,7 +108,7 @@ const signIn = (e: MouseEvent) => {
 
 watchEffect(() => {
   if (user.value) {
-    return navigateTo("/collections");
+    return navigateTo("/dashboard");
   }
 });
 </script>

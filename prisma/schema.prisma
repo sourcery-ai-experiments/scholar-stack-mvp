@@ -27,8 +27,6 @@ model User {
   contact_email_address String
   website               String
 
-  type String // organization | personal
-
   created DateTime @default(now())
 
   Access       Access[]
@@ -46,6 +44,8 @@ model Notification {
   title   String @default("")
   content String @default("")
 
+  target String @default("https://sciconnect.io")
+
   read Boolean @default(false)
 
   created DateTime @default(now())
@@ -55,20 +55,18 @@ model Notification {
 }
 
 model Access {
-  id String @id @default(cuid())
-
   user    User   @relation(fields: [user_id], references: [id])
   user_id String
 
-  collection    Collection @relation(fields: [collection_id], references: [id])
-  collection_id String
+  workspace    Workspace @relation(fields: [workspace_id], references: [id])
+  workspace_id String
 
-  permission String @default("read") // read | write | admin
+  role String @default("owner") // owner | admin | editor | viewer
 
   created DateTime @default(now())
   updated DateTime @updatedAt
 
-  @@index([user_id, collection_id])
+  @@id([user_id, workspace_id])
 }
 
 model Invite {
@@ -76,15 +74,29 @@ model Invite {
 
   email_address String
 
-  collection    Collection @relation(fields: [collection_id], references: [id])
-  collection_id String
+  workspace    Workspace @relation(fields: [workspace_id], references: [id])
+  workspace_id String
 
-  permission String @default("read") // read | write | admin
+  role String @default("owner") // owner | admin | editor | viewer
 
   created DateTime @default(now())
   updated DateTime @updatedAt
 
-  @@index([email_address, collection_id])
+  @@index([email_address, workspace_id])
+}
+
+model Workspace {
+  id String @id // will use nanoID/custom id for this
+
+  title       String @default("")
+  description String @default("")
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  Collections Collection[]
+  Invites     Invite[]
+  Access      Access[]
 }
 
 model Collection {
@@ -99,8 +111,9 @@ model Collection {
   identifier String @unique // might use a link shortener for this (c1234)
 
   Versions Version[]
-  Access   Access[]
-  Invite   Invite[]
+
+  Workspace   Workspace? @relation(fields: [workspaceId], references: [id])
+  workspaceId String?
 
   @@index([identifier])
 }

@@ -23,7 +23,7 @@ definePageMeta({
       </svg>
       <span class="sr-only">Info</span>
       <div>
-        <span class="font-medium">Warning alert!</span> This website is still in
+        <span class="font-medium">Warning!</span> This website is still in
         development. Please do not use it for anything important.
       </div>
     </div>

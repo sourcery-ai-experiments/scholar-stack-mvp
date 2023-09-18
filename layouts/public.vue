@@ -1,10 +1,20 @@
 <script setup lang="ts">
+const supabase = useSupabaseClient();
+
 const devMode = process.env.NODE_ENV === "development";
 
 const user = useSupabaseUser();
 
 const loggedIn = computed(() => user.value);
+
 console.log("User", user.value);
+
+const logout = async () => {
+  const { error } = await supabase.auth.signOut();
+  if (error) console.log(error);
+
+  navigateTo("/");
+};
 </script>
 
 <template>
@@ -37,9 +47,11 @@ console.log("User", user.value);
               <n-button color="black" size="large"> Get started </n-button>
             </nuxt-link>
 
-            <nuxt-link v-if="loggedIn" to="/dashboard/collections">
+            <nuxt-link v-if="loggedIn" to="/dashboard">
               <n-button color="black" size="large"> Dashboard </n-button>
             </nuxt-link>
+
+            <n-button @click="logout"> Logout </n-button>
 
             <button
               data-collapse-toggle="mobile-menu-2"

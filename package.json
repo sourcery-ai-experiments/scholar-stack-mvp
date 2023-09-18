@@ -53,6 +53,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
+    "@headlessui/vue": "^1.7.16",
     "@pinia/nuxt": "^0.4.11",
     "@prisma/client": "latest",
     "calver": "^22.9.1",
