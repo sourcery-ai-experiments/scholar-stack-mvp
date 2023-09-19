@@ -30,7 +30,7 @@ definePageMeta({
 
     <section class="bg-white">
       <div
-        class="mx-auto max-w-screen-xl px-4 py-8 text-center lg:px-12 lg:py-16"
+        class="mx-auto max-w-screen-xl px-4 pt-8 text-center lg:px-12 lg:pt-16"
       >
         <h1
           class="mb-4 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text py-2 text-4xl font-extrabold text-transparent md:text-5xl lg:text-6xl"
@@ -91,44 +91,92 @@ definePageMeta({
           <span class="font-medium uppercase text-gray-400">
             Trusted by research teams around the world
           </span>
-
-          <div
-            class="flex flex-wrap items-center justify-center text-gray-500 sm:justify-between"
-          >
-            <NuxtLink to="/#">
-              <img
-                class="w-[130px] grayscale transition-all hover:scale-[1.1] hover:grayscale-0"
-                src="https://cdn.worldvectorlogo.com/logos/broad-institute.svg"
-                alt=""
-              />
-            </NuxtLink>
-
-            <NuxtLink to="/#">
-              <img
-                class="w-[130px] grayscale transition-all hover:scale-[1.1] hover:grayscale-0"
-                src="https://cdn.worldvectorlogo.com/logos/emory-university.svg"
-                alt=""
-              />
-            </NuxtLink>
-
-            <NuxtLink to="/#">
-              <img
-                class="w-[130px] grayscale transition-all hover:scale-[1.1] hover:grayscale-0"
-                src="https://cdn.worldvectorlogo.com/logos/university-of-surrey.svg"
-                alt=""
-              />
-            </NuxtLink>
-
-            <NuxtLink to="/#">
-              <img
-                class="w-[130px] grayscale transition-all hover:scale-[1.1] hover:grayscale-0"
-                src="https://cdn.worldvectorlogo.com/logos/mcgill-university-2.svg"
-                alt=""
-              />
-            </NuxtLink>
-          </div>
         </div>
       </div>
     </section>
+
+    <div>
+      <Vue3Marquee clone>
+        <NuxtLink to="/#">
+          <img
+            class="mx-6 h-auto w-[130px] grayscale transition-all hover:grayscale-0"
+            src="https://cdn.worldvectorlogo.com/logos/broad-institute.svg"
+            alt=""
+          />
+        </NuxtLink>
+
+        <NuxtLink to="/#">
+          <img
+            class="mx-6 h-auto w-[130px] grayscale transition-all hover:grayscale-0"
+            src="https://cdn.worldvectorlogo.com/logos/emory-university.svg"
+            alt=""
+          />
+        </NuxtLink>
+
+        <NuxtLink to="/#">
+          <img
+            class="mx-6 h-auto w-[130px] grayscale transition-all hover:grayscale-0"
+            src="https://cdn.worldvectorlogo.com/logos/university-of-surrey.svg"
+            alt=""
+          />
+        </NuxtLink>
+
+        <NuxtLink to="/#">
+          <img
+            class="mx-6 h-auto w-[130px] grayscale transition-all hover:grayscale-0"
+            src="https://cdn.worldvectorlogo.com/logos/mcgill-university-2.svg"
+            alt=""
+          />
+        </NuxtLink>
+
+        <NuxtLink to="/#">
+          <img
+            class="mx-6 h-auto w-[130px] grayscale transition-all hover:grayscale-0"
+            src="https://cdn.worldvectorlogo.com/logos/university-of-bristol-1.svg"
+            alt=""
+          />
+        </NuxtLink>
+
+        <NuxtLink to="/#">
+          <img
+            class="mx-6 h-auto w-[130px] grayscale transition-all hover:grayscale-0"
+            src="https://cdn.worldvectorlogo.com/logos/the-university-of-sydney-3.svg"
+            alt=""
+          />
+        </NuxtLink>
+
+        <NuxtLink to="/#">
+          <img
+            class="mx-6 h-auto w-[130px] grayscale transition-all hover:grayscale-0"
+            src="https://cdn.worldvectorlogo.com/logos/the-university-of-chicago.svg"
+            alt=""
+          />
+        </NuxtLink>
+
+        <NuxtLink to="/#">
+          <img
+            class="mx-6 h-auto w-[130px] grayscale transition-all hover:grayscale-0"
+            src="https://cdn.worldvectorlogo.com/logos/the-university-of-arizona.svg"
+            alt=""
+          />
+        </NuxtLink>
+
+        <NuxtLink to="/#">
+          <img
+            class="mx-6 h-auto w-[130px] grayscale transition-all hover:grayscale-0"
+            src="https://cdn.worldvectorlogo.com/logos/the-university-of-liverpool.svg"
+            alt=""
+          />
+        </NuxtLink>
+
+        <NuxtLink to="/#">
+          <img
+            class="mx-6 h-auto w-[130px] grayscale transition-all hover:grayscale-0"
+            src="https://cdn.worldvectorlogo.com/logos/the-university-of-nottingham-1.svg"
+            alt=""
+          />
+        </NuxtLink>
+      </Vue3Marquee>
+    </div>
   </main>
 </template>
