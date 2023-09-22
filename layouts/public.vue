@@ -1,20 +1,9 @@
 <script setup lang="ts">
-const supabase = useSupabaseClient();
+const user = useSupabaseUser();
 
 const devMode = process.env.NODE_ENV === "development";
 
-const user = useSupabaseUser();
-
 const loggedIn = computed(() => user.value);
-
-console.log("User", user.value);
-
-const logout = async () => {
-  const { error } = await supabase.auth.signOut();
-  if (error) console.log(error);
-
-  navigateTo("/");
-};
 </script>
 
 <template>
@@ -51,7 +40,7 @@ const logout = async () => {
               <n-button color="black" size="large"> Dashboard </n-button>
             </nuxt-link>
 
-            <n-button @click="logout"> Logout </n-button>
+            <UiProfileDropdown />
 
             <button
               data-collapse-toggle="mobile-menu-2"
@@ -147,7 +136,6 @@ const logout = async () => {
       </nav>
     </header>
 
-    <n-back-top />
     <slot />
   </div>
 </template>

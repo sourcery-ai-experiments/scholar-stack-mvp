@@ -36,6 +36,7 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@pinia/nuxt",
     "notivue/nuxt",
+    "nuxt-headlessui",
     [
       "@nuxtjs/google-fonts",
       {

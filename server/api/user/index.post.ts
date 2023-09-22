@@ -18,6 +18,8 @@ export default defineEventHandler(async (event) => {
   });
 
   if (!userExists) {
+    console.log("Creating user", userId, userEmail);
+
     const user = await prisma.user.create({
       data: {
         id: userId,

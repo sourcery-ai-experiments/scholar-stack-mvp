@@ -49,7 +49,7 @@ definePageMeta({
           class="mb-8 flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-x-4 sm:space-y-0 lg:mb-16"
         >
           <NuxtLink
-            to="/dashboard/collections"
+            to="/dashboard"
             class="inline-flex items-center justify-center rounded-lg bg-primary-700 px-5 py-3 text-center text-base font-medium text-white hover:bg-primary-800 focus:ring-4 focus:ring-primary-300"
           >
             Create a collection

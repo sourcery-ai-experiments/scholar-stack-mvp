@@ -60,9 +60,11 @@ const signIn = (e: MouseEvent) => {
           password: loginForm.password,
         });
 
+        console.log(loginError);
+
         if (loginError) {
           push.error({
-            title: "Error",
+            title: "Login Error",
             message: loginError.message,
           });
 
@@ -70,36 +72,29 @@ const signIn = (e: MouseEvent) => {
         }
 
         // create the user profile if it doesn't exist
-        const { error } = await useFetch("/api/user", {
+        await $fetch("/api/user", {
           headers: useRequestHeaders(["cookie"]),
           method: "POST",
-        });
+        }).catch((error) => {
+          console.error(error);
 
-        if (error) {
           push.error({
-            title: "Error",
-            message: "Something went wrong. Please try again later.",
+            title: "Profile Error",
+            message: "Could not initialize profile.",
           });
 
           throw error;
-        }
+        });
+
+        console.log("success");
+
+        // redirect to projects page
+        return navigateTo("/dashboard");
       } catch (error) {
         loading.value = false;
 
         console.error(error);
-        return;
       }
-
-      loading.value = false;
-
-      // reset form
-      loginForm.emailAddress = "";
-      loginForm.password = "";
-
-      console.log("success");
-
-      // redirect to projects page
-      return navigateTo("/dashboard");
     } else {
       console.log(errors);
     }

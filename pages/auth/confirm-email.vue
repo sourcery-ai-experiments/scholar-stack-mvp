@@ -8,7 +8,7 @@ const user = useSupabaseUser();
 watchEffect(() => {
   if (user.value) {
     if (user.value.email_confirmed_at) {
-      return navigateTo("/collections");
+      return navigateTo("/dashboard");
     }
   }
 });
