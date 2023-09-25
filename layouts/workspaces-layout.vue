@@ -3,6 +3,24 @@ const devMode = process.env.NODE_ENV === "development";
 
 const items = ["Overview", "Activity", "Settings"];
 
+const navbarItems = [
+  {
+    name: "Overview",
+    href: "",
+    icon: "material-symbols:home-outline",
+  },
+  {
+    name: "Activity",
+    href: "activity",
+    icon: "mdi:timeline-clock-outline",
+  },
+  {
+    name: "Settings",
+    href: "settings",
+    icon: "material-symbols:settings-outline",
+  },
+];
+
 function navigate() {
   // the callback is fired once the animation is completed
   // to allow smooth transition
@@ -38,21 +56,24 @@ function navigate() {
 
             <NavList as="ul" class="relative flex items-stretch gap-3">
               <NavItem
-                v-for="(item, index) in items"
+                v-for="(item, index) in navbarItems"
                 :key="index"
                 v-slot="{ setActive, isActive }"
                 as="li"
                 @activated="navigate"
               >
                 <NuxtLink
-                  to="#"
+                  :to="item.href"
                   :class="[
                     isActive ? 'text-black' : 'text-slate-500 hover:text-black',
                   ]"
-                  class="inline-block p-1 text-sm transition-all"
+                  class="mr-2 flex items-center space-x-1 p-1 text-sm transition-all"
                   @click.prevent="setActive"
                 >
-                  {{ item }}
+                  <Icon :name="item.icon" />
+                  <span>
+                    {{ item.name }}
+                  </span>
                 </NuxtLink>
               </NavItem>
             </NavList>
