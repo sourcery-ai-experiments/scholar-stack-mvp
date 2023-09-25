@@ -1,22 +1,27 @@
 <script setup lang="ts">
+const route = useRoute();
+
 const devMode = process.env.NODE_ENV === "development";
 
-const items = ["Overview", "Activity", "Settings"];
+const workspaceid = computed(() => {
+  console.log(route.params.workspaceid);
+  return route.params.workspaceid;
+});
 
 const navbarItems = [
   {
     name: "Overview",
-    href: "",
+    href: `/dashboard/workspaces/${workspaceid.value}`,
     icon: "material-symbols:home-outline",
   },
   {
     name: "Activity",
-    href: "activity",
+    href: `/dashboard/workspaces/${workspaceid.value}/activity`,
     icon: "mdi:timeline-clock-outline",
   },
   {
     name: "Settings",
-    href: "settings",
+    href: `/dashboard/workspaces/${workspaceid.value}/settings`,
     icon: "material-symbols:settings-outline",
   },
 ];
@@ -36,54 +41,12 @@ function navigate() {
       <nav
         class="flex w-full flex-col-reverse border-b border-gray-200 bg-white px-4 pt-2.5 lg:px-6"
       >
-        <NavGroup
-          v-slot="{ ready, size, position, duration }"
-          fluid
-          :duration="350"
-          as="div"
-          class="relative pt-2"
-        >
-          <div class="relative py-1">
-            <div
-              v-if="ready"
-              :style="{
-                '--size': size,
-                '--position': position,
-                '--duration': duration,
-              }"
-              class="absolute -bottom-[2px] left-0 h-1 w-[--size] translate-x-[--position] rounded-full bg-slate-500 transition-[width,transform] duration-[--duration]"
-            />
-
-            <NavList as="ul" class="relative flex items-stretch gap-3">
-              <NavItem
-                v-for="(item, index) in navbarItems"
-                :key="index"
-                v-slot="{ setActive, isActive }"
-                as="li"
-                @activated="navigate"
-              >
-                <NuxtLink
-                  :to="item.href"
-                  :class="[
-                    isActive ? 'text-black' : 'text-slate-500 hover:text-black',
-                  ]"
-                  class="mr-2 flex items-center space-x-1 p-1 text-sm transition-all"
-                  @click.prevent="setActive"
-                >
-                  <Icon :name="item.icon" />
-                  <span>
-                    {{ item.name }}
-                  </span>
-                </NuxtLink>
-              </NavItem>
-            </NavList>
-          </div>
-        </NavGroup>
+        <HeaderWorkspacesSubMenu :key="$route.fullPath" />
 
         <div class="flex w-full flex-wrap items-center justify-between">
-          <HeaderRightBar />
-
           <HeaderLeftBar />
+
+          <HeaderRightBar />
         </div>
       </nav>
     </header>

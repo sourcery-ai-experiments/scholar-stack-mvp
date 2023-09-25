@@ -19,7 +19,7 @@ const devMode = process.env.NODE_ENV === "development";
             <span class="text-xl font-bold"> SciConnect </span>
           </NuxtLink>
 
-          <HeaderLeftBar />
+          <HeaderRightBar />
         </div>
       </nav>
     </header>
