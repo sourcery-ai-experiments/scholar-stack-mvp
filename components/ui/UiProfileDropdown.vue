@@ -50,11 +50,8 @@ const logout = async () => {
                 'group flex w-full items-center rounded-md px-2 py-2 text-sm',
               ]"
             >
-              <EditIcon
-                :active="active"
-                class="mr-2 h-5 w-5 text-violet-400"
-                aria-hidden="true"
-              />
+              <Icon name="uil:edit" class="mr-2 h-5 w-5" aria-hidden="true" />
+
               Edit
             </button>
           </HeadlessMenuItem>
@@ -66,11 +63,7 @@ const logout = async () => {
                 'group flex w-full items-center rounded-md px-2 py-2 text-sm',
               ]"
             >
-              <DuplicateIcon
-                :active="active"
-                class="mr-2 h-5 w-5 text-violet-400"
-                aria-hidden="true"
-              />
+              <Icon name="uil:copy" class="mr-2 h-5 w-5" aria-hidden="true" />
               Duplicate
             </button>
           </HeadlessMenuItem>
@@ -84,12 +77,11 @@ const logout = async () => {
                 'group flex w-full items-center rounded-md px-2 py-2 text-sm',
               ]"
             >
-              <ArchiveIcon
-                :active="active"
-                class="mr-2 h-5 w-5 text-violet-400"
+              <Icon
+                name="uil:archive"
+                class="mr-2 h-5 w-5"
                 aria-hidden="true"
               />
-
               Archive
             </button>
           </HeadlessMenuItem>
@@ -101,9 +93,9 @@ const logout = async () => {
                 'group flex w-full items-center rounded-md px-2 py-2 text-sm',
               ]"
             >
-              <MoveIcon
-                :active="active"
-                class="mr-2 h-5 w-5 text-violet-400"
+              <Icon
+                name="uil:folder-plus"
+                class="mr-2 h-5 w-5"
                 aria-hidden="true"
               />
 
@@ -121,9 +113,9 @@ const logout = async () => {
               ]"
               @click="logout"
             >
-              <DeleteIcon
-                :active="active"
-                class="mr-2 h-5 w-5 text-violet-400"
+              <Icon
+                name="line-md:chevron-right-circle"
+                class="mr-2 h-5 w-5"
                 aria-hidden="true"
               />
 

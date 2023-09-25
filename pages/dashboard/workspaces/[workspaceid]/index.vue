@@ -1,10 +1,11 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: "dashboard-root",
+  layout: "workspaces-layout",
   middleware: ["auth"],
 });
 
 const push = usePush();
+const route = useRoute();
 
 const gridView = ref(true);
 const modalIsOpen = ref(false);
@@ -17,58 +18,24 @@ const openModal = () => {
   modalIsOpen.value = true;
 };
 
-const { data: workspaces, error } = await useFetch("/api/workspaces", {
-  headers: useRequestHeaders(["cookie"]),
-});
+const { workspaceid } = route.params as { workspaceid: string };
+
+const { data: workspace, error } = await useFetch(
+  `/api/workspaces/${workspaceid}`,
+  {
+    headers: useRequestHeaders(["cookie"]),
+  }
+);
 
 if (error.value) {
   console.log(error.value);
 
   push.error({
     title: "Something went wrong",
-    message: "We couldn't load your workspaces",
+    message: "We couldn't load your workspace",
   });
 
-  navigateTo("/");
-}
-
-if (workspaces.value?.length === 0) {
-  console.log("No workspaces found");
-
-  // Create a new personal workspace
-  const { data: workspace, error } = await useFetch("/api/workspaces", {
-    body: JSON.stringify({
-      title: "My workspace",
-      description: "This is my personal workspace",
-    }),
-    headers: useRequestHeaders(["cookie"]),
-    method: "POST",
-  });
-
-  if (error.value) {
-    console.log(error.value);
-
-    push.error({
-      title: "Something went wrong",
-      message: "Please contact support",
-    });
-
-    navigateTo("/");
-  }
-
-  if (workspace.value) {
-    console.log("Workspace created", workspace.value);
-
-    push.success({
-      title: "Workspace created",
-      message: "You can now start adding your collections",
-    });
-
-    navigateTo(`dashboard/workspaces/${workspace.value.workspaceId}`);
-  }
-} else {
-  console.log("Workspaces found", workspaces.value);
-  // navigateTo(`dashboard/workspaces`);
+  navigateTo("/dashboard");
 }
 </script>
 
@@ -101,38 +68,38 @@ if (workspaces.value?.length === 0) {
           <template #icon>
             <Icon name="mdi:plus" />
           </template>
-          Create a new workspace
+          Create a new collection
         </n-button>
       </div>
 
       <div class="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-3">
         <NuxtLink
-          v-for="workspace in workspaces"
-          :key="workspace.id"
-          :to="`/dashboard/workspaces/${workspace.id}`"
+          v-for="collection in workspace?.collections"
+          :key="collection.id"
+          :to="`/dashboard/workspaces/${workspaceid}/collections/${collection.id}`"
           class="flex flex-col space-y-5 rounded-md border bg-white p-6 shadow-sm transition-all hover:shadow-md"
         >
           <div class="flex items-center justify-start space-x-2">
             <n-avatar
               :size="40"
-              :src="`https://api.dicebear.com/6.x/shapes/svg?seed=${workspace.id}`"
+              :src="`https://api.dicebear.com/6.x/shapes/svg?seed=${collection.id}`"
               class="hover:cursor-pointer hover:opacity-80"
             />
 
             <div class="flex flex-col space-y-1">
               <span class="text-lg font-medium">
-                {{ workspace.title }}
+                {{ collection.title }}
               </span>
 
               <span class="text-sm text-slate-500">
-                {{ workspace.created }}
+                {{ collection.created }}
               </span>
             </div>
           </div>
 
           <div>
             <span>
-              {{ workspace.description }}
+              {{ collection.description }}
             </span>
           </div>
         </NuxtLink>
