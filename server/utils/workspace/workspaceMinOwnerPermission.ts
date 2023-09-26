@@ -1,25 +1,11 @@
-import prisma from "~/server/utils/prisma";
 import { serverSupabaseUser } from "#supabase/server";
 
 export default defineEventHandler(async (event) => {
   const user = await serverSupabaseUser(event);
   const userid = user?.id as string;
 
-  const { workspaceid } = event.context.params as { workspaceid: string };
-
   // Check if the workspace exists
-  const workspace = await prisma.workspace.findUnique({
-    where: {
-      id: workspaceid,
-    },
-  });
-
-  if (!workspace) {
-    throw createError({
-      message: "Workspace not found",
-      statusCode: 404,
-    });
-  }
+  const workspaceid = await workspaceExists(event);
 
   // Check access table for the workspace
   const access = await prisma.access.findFirst({
@@ -43,6 +29,4 @@ export default defineEventHandler(async (event) => {
       statusCode: 401,
     });
   }
-
-  return true;
 });

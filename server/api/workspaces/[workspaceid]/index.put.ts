@@ -32,7 +32,7 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  await workspaceOwner(event);
+  await workspaceMinOwnerPermission(event);
 
   const { workspaceid } = event.context.params as { workspaceid: string };
 
