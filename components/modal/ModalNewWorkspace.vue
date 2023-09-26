@@ -72,6 +72,11 @@ const createWorkspace = () => {
       workspaceStore.hideNewWorkspaceModal();
 
       navigateTo(`/dashboard/workspaces/${workspace.value.workspaceId}`);
+
+      /**
+       * reload the window to refresh the list component?
+       * or just add the new workspace to the list
+       */
     } else {
       console.log(errors);
       push.error({
