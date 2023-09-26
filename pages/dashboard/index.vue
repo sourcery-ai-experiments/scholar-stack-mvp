@@ -1,21 +1,15 @@
 <script setup lang="ts">
+import { useWorkspaceStore } from "@/stores/workspace";
+
 definePageMeta({
   layout: "dashboard-root",
   middleware: ["auth"],
 });
 
 const push = usePush();
+const workspaceStore = useWorkspaceStore();
 
 const gridView = ref(true);
-const modalIsOpen = ref(false);
-
-const closeModal = () => {
-  modalIsOpen.value = false;
-};
-
-const openModal = () => {
-  modalIsOpen.value = true;
-};
 
 const { data: workspaces, error } = await useFetch("/api/workspaces", {
   headers: useRequestHeaders(["cookie"]),
@@ -105,7 +99,11 @@ if (workspaces.value?.length === 0) {
           </n-radio-button>
         </n-radio-group>
 
-        <n-button size="large" color="black" @click="openModal">
+        <n-button
+          size="large"
+          color="black"
+          @click="workspaceStore.showNewWorkspaceModal"
+        >
           <template #icon>
             <Icon name="mdi:plus" />
           </template>
@@ -147,63 +145,6 @@ if (workspaces.value?.length === 0) {
       </div>
     </div>
 
-    <HeadlessTransitionRoot appear :show="modalIsOpen" as="template">
-      <HeadlessDialog as="div" class="relative z-10" @close="closeModal">
-        <HeadlessTransitionChild
-          as="template"
-          enter="duration-300 ease-out"
-          enter-from="opacity-0"
-          enter-to="opacity-100"
-          leave="duration-200 ease-in"
-          leave-from="opacity-100"
-          leave-to="opacity-0"
-        >
-          <div class="bg-opacity-25 fixed inset-0 bg-white/80" />
-        </HeadlessTransitionChild>
-
-        <div class="fixed inset-0 overflow-y-auto">
-          <div
-            class="flex min-h-full items-center justify-center p-4 text-center"
-          >
-            <HeadlessTransitionChild
-              as="template"
-              enter="duration-300 ease-out"
-              enter-from="opacity-0 scale-95"
-              enter-to="opacity-100 scale-100"
-              leave="duration-200 ease-in"
-              leave-from="opacity-100 scale-100"
-              leave-to="opacity-0 scale-95"
-            >
-              <HeadlessDialogPanel
-                class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
-              >
-                <HeadlessDialogTitle
-                  as="h3"
-                  class="text-lg font-medium leading-6 text-slate-900"
-                >
-                  Payment successful
-                </HeadlessDialogTitle>
-                <div class="mt-2">
-                  <p class="text-sm text-slate-500">
-                    Your payment has been successfully submitted. We’ve sent you
-                    an email with all of the details of your order.
-                  </p>
-                </div>
-
-                <div class="mt-4">
-                  <button
-                    type="button"
-                    class="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                    @click="closeModal"
-                  >
-                    Got it, thanks!
-                  </button>
-                </div>
-              </HeadlessDialogPanel>
-            </HeadlessTransitionChild>
-          </div>
-        </div>
-      </HeadlessDialog>
-    </HeadlessTransitionRoot>
+    <ModalNewWorkspace />
   </main>
 </template>
