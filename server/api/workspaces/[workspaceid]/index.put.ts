@@ -1,6 +1,4 @@
 import { z } from "zod";
-import protectRoute from "~/server/utils/protectRoute";
-import prisma from "~/server/utils/prisma";
 
 export default defineEventHandler(async (event) => {
   await protectRoute(event);
@@ -34,12 +32,7 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  /**
-   * TODO Add middleware file to see if user is a member of the workspace
-   */
-
-  // const user = await serverSupabaseUser(event);
-  // const userid = user?.id as string;
+  await workspaceOwner(event);
 
   const { workspaceid } = event.context.params as { workspaceid: string };
 

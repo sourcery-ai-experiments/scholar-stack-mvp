@@ -1,15 +1,6 @@
-import protectRoute from "~/server/utils/protectRoute";
-import prisma from "~/server/utils/prisma";
-
-// import { serverSupabaseUser } from "#supabase/server";
-
 export default defineEventHandler(async (event) => {
   await protectRoute(event);
-
-  /**
-   * TODO Add middleware file to see if user is a member of the workspace
-   */
-  // const user = await serverSupabaseUser(event);
+  await workspaceViewer(event);
 
   const { workspaceid } = event.context.params as { workspaceid: string };
 
