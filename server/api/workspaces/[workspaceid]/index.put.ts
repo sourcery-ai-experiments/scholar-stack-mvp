@@ -1,6 +1,6 @@
 import { z } from "zod";
-import protectRoute from "../../../utils/protectRoute";
-import prisma from "../../../utils/prisma";
+import protectRoute from "~/server/utils/protectRoute";
+import prisma from "~/server/utils/prisma";
 
 export default defineEventHandler(async (event) => {
   await protectRoute(event);

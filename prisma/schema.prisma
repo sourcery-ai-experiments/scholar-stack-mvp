@@ -77,7 +77,7 @@ model Invite {
   workspace    Workspace @relation(fields: [workspace_id], references: [id])
   workspace_id String
 
-  role String @default("owner") // owner | admin | editor | viewer
+  role String @default("viewer") // admin | editor | viewer
 
   created DateTime @default(now())
   updated DateTime @updatedAt

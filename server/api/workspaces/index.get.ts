@@ -1,5 +1,5 @@
-import prisma from "../../utils/prisma";
-import protectRoute from "../../utils/protectRoute";
+import protectRoute from "~/server/utils/protectRoute";
+import prisma from "~/server/utils/prisma";
 
 import { serverSupabaseUser } from "#supabase/server";
 

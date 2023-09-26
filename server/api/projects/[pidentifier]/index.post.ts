@@ -1,10 +1,9 @@
 import { z } from "zod";
 import { customAlphabet } from "nanoid";
 import calver from "calver";
-import protectRoute from "../../../utils/protectRoute";
-import prisma from "../../../utils/prisma";
+import protectRoute from "~/server/utils/protectRoute";
+import prisma from "~/server/utils/prisma";
 
-// @ts-ignore
 import { serverSupabaseUser } from "#supabase/server";
 
 const nanoid = customAlphabet(

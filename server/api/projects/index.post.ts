@@ -1,10 +1,9 @@
 import { z } from "zod";
 import { customAlphabet } from "nanoid";
-import protectRoute from "../../utils/protectRoute";
-import prisma from "../../utils/prisma";
-import { projectTransformer } from "../../transformers/project";
+import protectRoute from "~/server/utils/protectRoute";
+import prisma from "~/server/utils/prisma";
+import { projectTransformer } from "~/server/transformers/project";
 
-// @ts-ignore
 import { serverSupabaseUser } from "#supabase/server";
 
 const nanoid = customAlphabet(
