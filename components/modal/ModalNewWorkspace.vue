@@ -71,7 +71,7 @@ const createWorkspace = () => {
 
       workspaceStore.hideNewWorkspaceModal();
 
-      navigateTo(`dashboard/workspaces/${workspace.value.workspaceId}`);
+      navigateTo(`/dashboard/workspaces/${workspace.value.workspaceId}`);
     } else {
       console.log(errors);
       push.error({

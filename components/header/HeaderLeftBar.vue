@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import { useWorkspaceStore } from "@/stores/workspace";
+
 const push = usePush();
 const route = useRoute();
+const workspaceStore = useWorkspaceStore();
 
 const selectedWorkspace = ref("");
 
@@ -31,8 +34,8 @@ const navigateToWorkspace = (workspaceid: string) => {
   navigateTo(`/dashboard/workspaces/${workspaceid}`);
 };
 
-const navigateToDashboard = () => {
-  navigateTo("/dashboard");
+const createNewWorkspace = () => {
+  workspaceStore.showNewWorkspaceModal();
 };
 </script>
 
@@ -138,16 +141,9 @@ const navigateToDashboard = () => {
 
               <div class="mx-auto my-1 h-[1px] w-[90%] bg-slate-200"></div>
 
-              <HeadlessListboxOption
-                v-slot="{ active }"
-                as="template"
-                @click="navigateToDashboard"
-              >
+              <div @click="createNewWorkspace">
                 <li
-                  :class="[
-                    active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
-                    'flex w-full cursor-pointer items-center justify-between px-4 py-2',
-                  ]"
+                  class="flex w-full cursor-pointer items-center justify-between px-4 py-2 text-gray-900"
                 >
                   <div class="flex items-center justify-start space-x-2 pr-4">
                     <Icon name="ph:plus-circle-bold" />
@@ -157,11 +153,13 @@ const navigateToDashboard = () => {
                     </span>
                   </div>
                 </li>
-              </HeadlessListboxOption>
+              </div>
             </HeadlessListboxOptions>
           </transition>
         </div>
       </HeadlessListbox>
     </div>
+
+    <ModalNewWorkspace />
   </div>
 </template>
