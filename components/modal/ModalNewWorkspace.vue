@@ -3,11 +3,6 @@ import type { FormInst } from "naive-ui";
 
 import { useWorkspaceStore } from "@/stores/workspace";
 
-definePageMeta({
-  layout: "dashboard-root",
-  middleware: ["auth"],
-});
-
 const push = usePush();
 const workspaceStore = useWorkspaceStore();
 
