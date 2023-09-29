@@ -4,14 +4,14 @@ definePageMeta({
   middleware: ["auth"],
 });
 
-const push = usePush();
+// const push = usePush();
 const route = useRoute();
 
-const { workspaceid } = route.params as { workspaceid: string };
+// const { workspaceid } = route.params as { workspaceid: string };
 </script>
 
 <template>
-  <main class="h-full bg-white">
+  <main class="h-full bg-zinc-50">
     <div class="flex h-36 items-center border-b border-gray-200 bg-white">
       <div
         class="mx-auto flex w-full max-w-screen-xl items-center justify-between px-2.5 lg:px-20"
@@ -25,7 +25,7 @@ const { workspaceid } = route.params as { workspaceid: string };
         <aside class="flex w-40 flex-col">
           <NuxtLink
             :to="`/dashboard/workspaces/${route.params.workspaceid}/settings`"
-            class="w-full justify-start rounded-md px-2 py-2 text-left text-slate-500 transition-all hover:bg-zinc-100"
+            class="w-full justify-start rounded-md px-2 py-2 text-left text-slate-500 transition-all hover:bg-slate-100"
             exact-active-class="text-slate-800 font-medium"
           >
             General
@@ -33,7 +33,7 @@ const { workspaceid } = route.params as { workspaceid: string };
 
           <NuxtLink
             :to="`/dashboard/workspaces/${route.params.workspaceid}/settings/team`"
-            class="w-full justify-start rounded-md px-2 py-2 text-left text-slate-500 transition-all hover:bg-zinc-100"
+            class="w-full justify-start rounded-md px-2 py-2 text-left text-slate-500 transition-all hover:bg-slate-100"
             exact-active-class="text-slate-800 font-medium"
           >
             Team
