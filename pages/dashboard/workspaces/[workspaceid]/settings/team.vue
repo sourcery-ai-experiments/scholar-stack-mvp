@@ -35,8 +35,8 @@ const options = [
       Invite your team members to collaborate on your workspace and projects.
     </p>
 
-    <n-space vertical class="rounded-md border border-zinc-300">
-      <div class="rounded-md bg-white p-6">
+    <n-space vertical class="rounded-lg border border-zinc-300">
+      <div class="rounded-lg bg-white p-6">
         <div class="flex items-center justify-between">
           <h3 class="text-base font-medium">
             Invite new members to your workspace
