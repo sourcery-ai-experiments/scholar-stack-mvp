@@ -25,6 +25,10 @@ if (workspacesError.value) {
   });
 }
 
+/**
+ * TODO: Replace with a skeleton loader
+ * TODO: Call this client side
+ */
 const { data, error: collectionsError } = await useFetch(
   `/api/workspaces/${route.params.workspaceid}`,
   {
