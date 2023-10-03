@@ -70,8 +70,6 @@ model Access {
 }
 
 model Invite {
-  id String @id @default(cuid())
-
   email_address String
 
   workspace    Workspace @relation(fields: [workspace_id], references: [id])
@@ -82,7 +80,7 @@ model Invite {
   created DateTime @default(now())
   updated DateTime @updatedAt
 
-  @@index([email_address, workspace_id])
+  @@id([email_address, workspace_id])
 }
 
 model Workspace {

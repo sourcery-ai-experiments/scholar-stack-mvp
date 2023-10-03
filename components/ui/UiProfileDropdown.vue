@@ -24,7 +24,7 @@ const logout = async () => {
       >
         <n-avatar
           :size="35"
-          :src="`https://api.dicebear.com/6.x/thumbs/svg?seed=${user?.email}`"
+          :src="`https://api.dicebear.com/6.x/thumbs/svg?seed=${user?.id}`"
           class="hover:cursor-pointer hover:opacity-80"
           round
         />

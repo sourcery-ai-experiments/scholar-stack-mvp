@@ -25,12 +25,8 @@ const navItems = [
     <NuxtLink
       v-for="item in navItems"
       :key="item.name"
-      class="flex items-center space-x-1"
-      :class="{
-        'border-b-2 border-slate-800 text-slate-900':
-          item.href === route.fullPath,
-        'text-slate-500': item.href !== route.fullPath,
-      }"
+      class="flex items-center space-x-1 text-slate-500"
+      active-class="border-b-2 border-slate-800 text-slate-900"
       :to="item.href"
     >
       <div

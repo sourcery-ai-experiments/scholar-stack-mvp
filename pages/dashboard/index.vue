@@ -125,13 +125,13 @@ if (workspaces.value?.length === 0) {
               class="hover:cursor-pointer hover:opacity-80"
             />
 
-            <div class="flex flex-col space-y-1">
+            <div class="flex flex-col space-y-0">
               <span class="text-lg font-medium">
                 {{ workspace.title }}
               </span>
 
               <span class="text-sm text-slate-500">
-                {{ workspace.created }}
+                {{ $dayjs(workspace.created).format("MMMM DD, YYYY") }}
               </span>
             </div>
           </div>

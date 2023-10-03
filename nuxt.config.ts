@@ -37,6 +37,8 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "notivue/nuxt",
     "nuxt-headlessui",
+    "dayjs-nuxt",
+    "nuxt-lodash",
     [
       "@nuxtjs/google-fonts",
       {
