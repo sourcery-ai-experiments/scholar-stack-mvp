@@ -7,6 +7,11 @@ const devMode = process.env.NODE_ENV === "development";
 //   console.log(route.params.workspaceid);
 //   return route.params.workspaceid;
 // });
+
+// const collectionid = computed(() => {
+//   console.log(route.params.collectionid);
+//   return route.params.collectionid;
+// });
 </script>
 
 <template>
@@ -18,7 +23,7 @@ const devMode = process.env.NODE_ENV === "development";
       <nav
         class="flex w-full flex-col-reverse border-b border-gray-200 bg-white px-4 pt-2.5 lg:px-6"
       >
-        <HeaderWorkspacesSubMenu :key="$route.fullPath" />
+        <HeaderCollectionsSubMenu :key="$route.fullPath" />
 
         <div class="flex w-full flex-wrap items-center justify-between">
           <HeaderLeftBar />

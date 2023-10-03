@@ -2,7 +2,7 @@
 import { useCollectionStore } from "@/stores/collection";
 
 definePageMeta({
-  layout: "workspaces-layout",
+  layout: "collections-layout",
   middleware: ["auth"],
 });
 
@@ -12,10 +12,13 @@ const collectionStore = useCollectionStore();
 
 const gridView = ref(true);
 
-const { workspaceid } = route.params as { workspaceid: string };
+const { collectionid, workspaceid } = route.params as {
+  collectionid: string;
+  workspaceid: string;
+};
 
-const { data: workspace, error } = await useFetch(
-  `/api/workspaces/${workspaceid}`,
+const { data: collection, error } = await useFetch(
+  `/api/workspaces/${workspaceid}/collections/${collectionid}`,
   {
     headers: useRequestHeaders(["cookie"]),
   }
@@ -40,7 +43,7 @@ if (error.value) {
         class="mx-auto flex w-full max-w-screen-xl items-center justify-between px-2.5 lg:px-20"
       >
         <h1>
-          {{ workspace?.title }}
+          {{ collection?.title }}
         </h1>
 
         <div class="flex items-center space-x-2">
@@ -48,7 +51,7 @@ if (error.value) {
             <template #icon>
               <Icon name="iconoir:brain-electricity" />
             </template>
-            Edit Workspace
+            Edit Collection
           </n-button>
 
           <n-button size="large" color="black">
