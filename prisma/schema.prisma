@@ -133,15 +133,15 @@ model Version {
   created DateTime @default(now())
   updated DateTime @updatedAt
 
-  published    Boolean  @default(false)
-  published_on DateTime
+  published    Boolean   @default(false)
+  published_on DateTime?
 
-  Links Link[]
+  Resources Resource[]
 
   @@index([identifier, collection_id])
 }
 
-model Link {
+model Resource {
   id String @id @default(cuid())
 
   type   String // doi, url, ror, orcid, etc (prefix from identifiers.org)
@@ -164,8 +164,8 @@ model Link {
 model Relation {
   id String @id @default(cuid())
 
-  link   Link   @relation(fields: [source], references: [id])
-  source String
+  resource Resource @relation(fields: [source], references: [id])
+  source   String
 
   type String // citation, isCitedBy, etc (prefix from identifiers.org)
 

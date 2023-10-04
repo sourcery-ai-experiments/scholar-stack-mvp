@@ -7,7 +7,17 @@ export default defineEventHandler(async (event) => {
     workspaceid: string;
   };
 
+  /**
+   * TODO: split this into three queries
+   */
   const collection = await prisma.collection.findUnique({
+    include: {
+      Versions: {
+        include: {
+          Resources: true,
+        },
+      },
+    },
     where: { id: collectionid },
   });
 
@@ -17,6 +27,11 @@ export default defineEventHandler(async (event) => {
       statusCode: 404,
     });
   }
+
+  // keep only the latest version
+  collection.Versions = collection.Versions.sort(
+    (a, b) => b.created.getTime() - a.created.getTime()
+  ).slice(0, 1);
 
   return collection;
 });

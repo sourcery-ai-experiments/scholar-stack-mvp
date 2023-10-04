@@ -32,7 +32,7 @@ if (error.value) {
     message: "We couldn't load your collections",
   });
 
-  navigateTo("/dashboard");
+  navigateTo(`/dashboard/workspaces/${workspaceid}`);
 }
 </script>
 
@@ -95,13 +95,13 @@ if (error.value) {
           <template #icon>
             <Icon name="mdi:plus" />
           </template>
-          Create a new collection
+          Add a new resource
         </n-button>
       </div>
 
-      <div class="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-3">
+      <!-- <div class="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-3">
         <NuxtLink
-          v-for="collection in workspace?.collections"
+          v-for="collection in collection?.collections"
           :key="collection.id"
           :to="`/dashboard/workspaces/${workspaceid}/collections/${collection.id}`"
           class="flex flex-col space-y-5 rounded-md border bg-white p-6 shadow-sm transition-all hover:shadow-md"
@@ -130,7 +130,9 @@ if (error.value) {
             </span>
           </div>
         </NuxtLink>
-      </div>
+      </div> -->
+
+      <pre>{{ collection }}</pre>
     </div>
 
     <ModalNewCollection />

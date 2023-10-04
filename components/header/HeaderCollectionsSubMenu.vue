@@ -4,17 +4,17 @@ const route = useRoute();
 const navItems = [
   {
     name: "Overview",
-    href: `/dashboard/workspaces/${route.params.workspaceid}`,
+    href: `/dashboard/workspaces/${route.params.workspaceid}/collections/${route.params.collectionid}`,
     icon: "material-symbols:home-outline",
   },
   {
     name: "Activity",
-    href: `/dashboard/workspaces/${route.params.workspaceid}/activity`,
+    href: `/dashboard/workspaces/${route.params.workspaceid}/collections/${route.params.collectionid}/activity`,
     icon: "mdi:timeline-clock-outline",
   },
   {
     name: "Settings",
-    href: `/dashboard/workspaces/${route.params.workspaceid}/settings`,
+    href: `/dashboard/workspaces/${route.params.workspaceid}/collections/${route.params.collectionid}/settings`,
     icon: "material-symbols:settings-outline",
   },
 ];
