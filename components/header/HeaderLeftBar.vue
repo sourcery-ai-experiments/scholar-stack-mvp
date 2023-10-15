@@ -9,6 +9,24 @@ const collectionStore = useCollectionStore();
 const selectedWorkspace = ref("");
 const selectedCollection = ref("");
 
+// Temp data ref - TODO: Remove later
+const tempDataRef = ref({
+  id: "sdfds",
+  title: "sdfdsf",
+  collections: [
+    {
+      id: "clnbeyl820002aujgejzz8iir",
+      title: "test",
+      created: "2023-10-04T07:14:56.112Z",
+      description: "test",
+      identifier: "J87dJcZT3GxOCjSdsIOEn",
+      image:
+        "https://api.dicebear.com/6.x/shapes/svg?seed=QbFa8J0jvqtRmqaaRKMtw",
+    },
+  ],
+  description: "as",
+});
+
 const { data: workspaces, error: workspacesError } = await useFetch(
   "/api/workspaces",
   {
@@ -28,26 +46,36 @@ if (workspacesError.value) {
 /**
  * TODO: Replace with a skeleton loader
  * TODO: Call this client side
+ * TODO: Remove if condition later as well
  */
-const { data, error: collectionsError } = await useFetch(
-  `/api/workspaces/${route.params.workspaceid}`,
-  {
-    headers: useRequestHeaders(["cookie"]),
+if (route.params.workspaceid) {
+  const { data, error: collectionsError } = await useFetch(
+    `/api/workspaces/${route.params.workspaceid}`,
+    {
+      headers: useRequestHeaders(["cookie"]),
+    }
+  );
+
+  tempDataRef.value = data.value as any;
+
+  console.log(data.value);
+
+  if (collectionsError.value) {
+    console.log(collectionsError.value);
+
+    push.error({
+      title: "Something went wrong",
+      message: "We couldn't load your collectioons",
+    });
   }
-);
-
-if (collectionsError.value) {
-  console.log(collectionsError.value);
-
-  push.error({
-    title: "Something went wrong",
-    message: "We couldn't load your collections",
-  });
 }
 
 const collections = computed(() => {
-  console.log(data.value?.collections);
-  return data.value?.collections;
+  if (tempDataRef) {
+    return tempDataRef.value?.collections;
+  }
+
+  return [];
 });
 
 // watch for route changes and update selected workspace

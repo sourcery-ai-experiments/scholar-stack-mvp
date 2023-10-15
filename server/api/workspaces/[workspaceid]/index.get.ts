@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const collections = await prisma.collection.findMany({
-    where: { workspaceId: workspaceid },
+    where: { workspace_id: workspaceid },
   });
 
   const responseWorkspace: APIResponseWorkspace = {

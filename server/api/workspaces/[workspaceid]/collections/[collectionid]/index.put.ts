@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { nanoid } from "nanoid";
 
 export default defineEventHandler(async (event) => {
   await protectRoute(event);
@@ -33,40 +32,36 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  await workspaceMinAdminPermission(event);
+  await workspaceMinOwnerPermission(event);
 
-  const { workspaceid } = event.context.params as { workspaceid: string };
+  const { collectionid, workspaceid } = event.context.params as {
+    collectionid: string;
+    workspaceid: string;
+  };
+
+  const collection = await prisma.collection.findUnique({
+    where: { id: collectionid, workspace_id: workspaceid },
+  });
 
   const { title, description } = parsedBody.data;
 
-  const collection = await prisma.collection.create({
+  const updatedWorkspace = await prisma.workspace.update({
     data: {
       title,
       description,
-      identifier: nanoid(),
-      image: `https://api.dicebear.com/6.x/shapes/svg?seed=${nanoid()}`,
-      Versions: {
-        create: [
-          {
-            name: "Initial version",
-            changelog: "",
-            identifier: nanoid(),
-          },
-        ],
-      },
-      workspace_id: workspaceid,
     },
+    where: { id: workspaceid },
   });
 
-  if (!collection) {
+  if (!updatedWorkspace) {
     throw createError({
-      message: "Failed to create collection",
-      statusCode: 500,
+      message: "Workspace not found",
+      statusCode: 404,
     });
   }
 
   return {
-    collectionId: collection.id,
-    statusCode: 201,
+    message: "Workspace updated",
+    statusCode: 200,
   };
 });

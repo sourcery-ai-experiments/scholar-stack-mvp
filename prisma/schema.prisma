@@ -112,8 +112,8 @@ model Collection {
 
   Versions Version[]
 
-  Workspace   Workspace? @relation(fields: [workspaceId], references: [id])
-  workspaceId String?
+  Workspace    Workspace? @relation(fields: [workspace_id], references: [id])
+  workspace_id String?
 
   @@index([identifier])
 }

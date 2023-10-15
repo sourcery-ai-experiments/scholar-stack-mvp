@@ -29,7 +29,7 @@ if (error.value) {
 
   push.error({
     title: "Something went wrong",
-    message: "We couldn't load your collections",
+    message: "We couldn't load your collectionss",
   });
 
   navigateTo(`/dashboard/workspaces/${workspaceid}`);

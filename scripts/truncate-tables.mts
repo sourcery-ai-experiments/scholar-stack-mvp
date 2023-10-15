@@ -20,11 +20,11 @@ const truncateTables = async () => {
   console.log("Truncating table Version...");
   await prisma.$executeRaw`TRUNCATE TABLE "Version" RESTART IDENTITY CASCADE`;
 
-  console.log("Truncating table Link...");
-  await prisma.$executeRaw`TRUNCATE TABLE "Link" RESTART IDENTITY CASCADE`;
+  console.log("Truncating table Resource...");
+  await prisma.$executeRaw`TRUNCATE TABLE "Resource" RESTART IDENTITY CASCADE`;
 
-  console.log("Truncating table _LinkToVersion...");
-  await prisma.$executeRaw`TRUNCATE TABLE "_LinkToVersion" RESTART IDENTITY CASCADE`;
+  console.log("Truncating table _ResourceToVersion...");
+  await prisma.$executeRaw`TRUNCATE TABLE "_ResourceToVersion" RESTART IDENTITY CASCADE`;
 
   console.log("Truncating table Relation...");
   await prisma.$executeRaw`TRUNCATE TABLE "Relation" RESTART IDENTITY CASCADE`;
