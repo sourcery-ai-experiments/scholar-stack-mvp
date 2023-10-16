@@ -11,7 +11,7 @@ const { collectionid, workspaceid } = useRoute().params as {
   workspaceid: string;
 };
 
-const { data: response, error } = await useFetch(
+const { data: collection, error } = await useFetch(
   `/api/workspaces/${workspaceid}/collections/${collectionid}`,
   {
     headers: useRequestHeaders(["cookie"]),
@@ -29,9 +29,9 @@ if (error.value) {
   navigateTo("/dashboard");
 }
 
-if (response.value) {
-  collectionName.value = response.value.collection.title;
-  collectionDescription.value = response.value.collection.description;
+if (collection.value) {
+  collectionName.value = collection.value.title;
+  collectionDescription.value = collection.value.description;
 }
 
 const closeModal = () => {
@@ -42,7 +42,35 @@ const openModal = () => {
   modalIsOpen.value = true;
 };
 
-const updateWorkspaceDetails = async () => {
+const deleteCollection = async () => {
+  const { data, error } = await useFetch(
+    `/api/workspaces/${workspaceid}/collections/${collectionid}`,
+    {
+      headers: useRequestHeaders(["cookie"]),
+      method: "DELETE",
+    }
+  );
+
+  if (error.value) {
+    console.log(error.value);
+
+    push.error({
+      title: "Something went wrong",
+      message: "We couldn't delete your collection",
+    });
+  }
+
+  if (data.value) {
+    push.success({
+      title: "Success",
+      message: "Your collection has been deleted",
+    });
+
+    navigateTo(`/dashboard/workspaces/${workspaceid}`);
+  }
+};
+
+const updateCollectionDetails = async () => {
   const { data, error } = await useFetch(
     `/api/workspaces/${workspaceid}/collections/${collectionid}`,
     {
@@ -97,7 +125,7 @@ const updateWorkspaceDetails = async () => {
             type="primary"
             color="black"
             :disabled="collectionName.trim() === ''"
-            @click="updateWorkspaceDetails"
+            @click="updateCollectionDetails"
           >
             Save
           </n-button>
@@ -125,7 +153,7 @@ const updateWorkspaceDetails = async () => {
             type="primary"
             color="black"
             :disabled="collectionDescription.trim() === ''"
-            @click="updateWorkspaceDetails"
+            @click="updateCollectionDetails"
           >
             Save
           </n-button>
@@ -142,7 +170,7 @@ const updateWorkspaceDetails = async () => {
 
       <template #action>
         <div class="flex items-center justify-end">
-          <n-button type="error" @click="openModal"> Delete </n-button>
+          <n-button type="error" @click="deleteCollection"> Delete </n-button>
         </div>
       </template>
     </CardWithAction>

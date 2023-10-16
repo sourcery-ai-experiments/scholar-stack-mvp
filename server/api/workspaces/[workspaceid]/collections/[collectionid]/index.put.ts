@@ -43,25 +43,32 @@ export default defineEventHandler(async (event) => {
     where: { id: collectionid, workspace_id: workspaceid },
   });
 
+  if (!collection) {
+    throw createError({
+      message: "Collection not found",
+      statusCode: 404,
+    });
+  }
+
   const { title, description } = parsedBody.data;
 
-  const updatedWorkspace = await prisma.workspace.update({
+  const updatedCollection = await prisma.collection.update({
     data: {
       title,
       description,
     },
-    where: { id: workspaceid },
+    where: { id: collectionid },
   });
 
-  if (!updatedWorkspace) {
+  if (!updatedCollection) {
     throw createError({
-      message: "Workspace not found",
+      message: "Something went wrong",
       statusCode: 404,
     });
   }
 
   return {
-    message: "Workspace updated",
+    message: "Collection updated",
     statusCode: 200,
   };
 });

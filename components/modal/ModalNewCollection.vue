@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { FormInst } from "naive-ui";
+import { faker } from "@faker-js/faker";
 
 import { useCollectionStore } from "@/stores/collection";
 
@@ -13,8 +14,8 @@ const formRef = ref<FormInst | null>(null);
 const loading = ref(false);
 
 const formValue = reactive({
-  name: "",
-  description: "",
+  name: faker.commerce.product(),
+  description: faker.lorem.paragraph(),
 });
 
 const rules = {

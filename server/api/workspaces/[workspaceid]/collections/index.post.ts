@@ -45,15 +45,6 @@ export default defineEventHandler(async (event) => {
       description,
       identifier: nanoid(),
       image: `https://api.dicebear.com/6.x/shapes/svg?seed=${nanoid()}`,
-      Versions: {
-        create: [
-          {
-            name: "Initial version",
-            changelog: "",
-            identifier: nanoid(),
-          },
-        ],
-      },
       workspace_id: workspaceid,
     },
   });

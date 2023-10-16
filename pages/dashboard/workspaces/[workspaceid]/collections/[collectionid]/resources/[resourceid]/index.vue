@@ -105,9 +105,7 @@ const addResource = async () => {
       <div
         class="mx-auto flex w-full max-w-screen-xl items-center justify-between px-2.5 lg:px-20"
       >
-        <h1>
-          {{ collection?.title }}
-        </h1>
+        <h1>Edit this resource</h1>
 
         <div class="flex items-center space-x-2">
           <n-button size="large" secondary>
@@ -176,14 +174,23 @@ const addResource = async () => {
         >
       </div>
 
-      <div
-        v-if="collection?.version && collection?.resources"
-        class="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-3"
-      >
-        <NuxtLink
+      <div v-if="collection?.version && collection?.resources">
+        <div
           v-for="resource in collection?.resources"
           :key="resource.id"
-          :to="`/dashboard/workspaces/${workspaceid}/collections/${collection?.id}/resources/${resource.id}`"
+          class="debug"
+        >
+          <pre>{{ resource }}</pre>
+        </div>
+
+        <pre>{{ collection.resources }}</pre>
+      </div>
+
+      <!-- <div class="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-3">
+        <NuxtLink
+          v-for="collection in collection?.collections"
+          :key="collection.id"
+          :to="`/dashboard/workspaces/${workspaceid}/collections/${collection.id}`"
           class="flex flex-col space-y-5 rounded-md border bg-white p-6 shadow-sm transition-all hover:shadow-md"
         >
           <div class="flex items-center justify-start space-x-2">
@@ -195,22 +202,24 @@ const addResource = async () => {
 
             <div class="flex flex-col space-y-1">
               <span class="text-lg font-medium">
-                {{ resource.title || resource.id || "Untitled" }}
+                {{ collection.title }}
               </span>
 
               <span class="text-sm text-slate-500">
-                {{ resource.created }}
+                {{ collection.created }}
               </span>
             </div>
           </div>
 
           <div>
             <span>
-              {{ resource.description }}
+              {{ collection.description }}
             </span>
           </div>
         </NuxtLink>
-      </div>
+      </div> -->
+
+      <pre>{{ collection }}</pre>
     </div>
 
     <ModalNewCollection />
