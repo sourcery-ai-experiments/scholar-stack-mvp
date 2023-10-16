@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { FormInst } from "naive-ui";
 import { useCollectionStore } from "@/stores/collection";
 
 definePageMeta({
@@ -10,15 +11,46 @@ const push = usePush();
 const route = useRoute();
 const collectionStore = useCollectionStore();
 
-const gridView = ref(true);
+const formRef = ref<FormInst | null>(null);
 
-const { collectionid, workspaceid } = route.params as {
+const formData = reactive({
+  title: "",
+  description: "",
+  type: "",
+  url: "",
+});
+
+const rules = {
+  title: {
+    message: "Please enter a title",
+    required: true,
+    trigger: "blur, input",
+  },
+  description: {
+    message: "Please enter a description",
+    required: true,
+    trigger: "blur, input",
+  },
+  type: {
+    message: "Please enter a type",
+    required: true,
+    trigger: "blur, input",
+  },
+  url: {
+    message: "Please enter a url",
+    required: true,
+    trigger: "blur, input",
+  },
+};
+
+const { collectionid, resourceid, workspaceid } = route.params as {
   collectionid: string;
+  resourceid: string;
   workspaceid: string;
 };
 
-const { data: collection, error } = await useFetch(
-  `/api/workspaces/${workspaceid}/collections/${collectionid}`,
+const { data: resource, error } = await useFetch(
+  `/api/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}`,
   {
     headers: useRequestHeaders(["cookie"]),
   }
@@ -29,74 +61,15 @@ if (error.value) {
 
   push.error({
     title: "Something went wrong",
-    message: "We couldn't load your collectionss",
+    message: "We couldn't load your resource",
   });
 
-  navigateTo(`/dashboard/workspaces/${workspaceid}`);
+  navigateTo(
+    `/dashboard/workspaces/${workspaceid}/collections/${collectionid}`
+  );
 }
 
-const createNewDraftVersion = async () => {
-  const { data, error } = await useFetch(
-    `/api/workspaces/${workspaceid}/collections/${collectionid}/draft-version`,
-    {
-      headers: useRequestHeaders(["cookie"]),
-      method: "POST",
-    }
-  );
-
-  if (error.value) {
-    console.log(error.value);
-
-    push.error({
-      title: "Something went wrong",
-      message: "We couldn't create a new draft version",
-    });
-  }
-
-  if (data.value) {
-    push.success({
-      title: "Success",
-      message: "We created a new draft version",
-    });
-
-    // refresh the page
-    window.location.reload();
-  }
-};
-
-const addResource = async () => {
-  const { data, error } = await useFetch(
-    `/api/workspaces/${workspaceid}/collections/${collectionid}/resources`,
-    {
-      headers: useRequestHeaders(["cookie"]),
-      method: "POST",
-    }
-  );
-
-  if (error.value) {
-    console.log(error.value);
-
-    push.error({
-      title: "Something went wrong",
-      message: "We couldn't create a new resource",
-    });
-  }
-
-  if (data.value) {
-    push.success({
-      title: "Success",
-      message: "We created a new resource",
-    });
-
-    // get the new resource id
-    const resourceId = data.value.resourceId;
-
-    // navigate to the new resource
-    navigateTo(
-      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceId}`
-    );
-  }
-};
+const saveResourceData = () => {};
 </script>
 
 <template>
@@ -108,118 +81,43 @@ const addResource = async () => {
         <h1>Edit this resource</h1>
 
         <div class="flex items-center space-x-2">
-          <n-button size="large" secondary>
-            <template #icon>
-              <Icon name="iconoir:brain-electricity" />
-            </template>
-            Edit Collection
-          </n-button>
-
-          <n-button
-            v-if="collection?.version?.published || !collection?.version"
-            size="large"
-            color="black"
-            @click="createNewDraftVersion"
-          >
+          <n-button size="large" color="black" @click="saveResourceData">
             <template #icon>
               <Icon name="iconoir:axes" />
             </template>
-            Create a new {{ !collection?.version ? "draft" : "" }} version
+
+            Save Resource
           </n-button>
         </div>
       </div>
     </div>
 
     <div class="mx-auto w-full max-w-screen-xl px-2.5 lg:px-20">
-      <div class="flex items-center justify-between space-x-4 py-10">
-        <n-input placeholder="Search..." size="large">
-          <template #prefix>
-            <Icon name="iconamoon:search-duotone" size="20" class="mr-2" />
-          </template>
-        </n-input>
+      <div class="flex items-center justify-between space-x-4 py-10"></div>
+      <n-form
+        ref="formRef"
+        :label-width="80"
+        :model="formData"
+        :rules="rules"
+        size="large"
+      >
+        <n-form-item label="Title" path="title">
+          <n-input
+            v-model:value="formData.title"
+            placeholder="My random resource"
+            clearable
+          />
+        </n-form-item>
 
-        <n-radio-group
-          v-model:value="gridView"
-          name="radiobuttongroup1"
-          size="large"
-          class="bg-white"
-        >
-          <n-radio-button :value="true">
-            <Icon name="mingcute:grid-line" />
-          </n-radio-button>
-
-          <n-radio-button :value="false">
-            <Icon name="cil:list" />
-          </n-radio-button>
-        </n-radio-group>
-
-        <n-button
-          size="large"
-          color="black"
-          :disabled="!collection?.version"
-          @click="addResource"
-        >
-          <template #icon>
-            <Icon name="mdi:plus" />
-          </template>
-          Add a new resource
-        </n-button>
-      </div>
-
-      <div v-if="collection?.version === null" class="debug">
-        <p>No Version</p>
-
-        <n-button @click="createNewDraftVersion">
-          Create a new draft version</n-button
-        >
-      </div>
-
-      <div v-if="collection?.version && collection?.resources">
-        <div
-          v-for="resource in collection?.resources"
-          :key="resource.id"
-          class="debug"
-        >
-          <pre>{{ resource }}</pre>
-        </div>
-
-        <pre>{{ collection.resources }}</pre>
-      </div>
-
-      <!-- <div class="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-3">
-        <NuxtLink
-          v-for="collection in collection?.collections"
-          :key="collection.id"
-          :to="`/dashboard/workspaces/${workspaceid}/collections/${collection.id}`"
-          class="flex flex-col space-y-5 rounded-md border bg-white p-6 shadow-sm transition-all hover:shadow-md"
-        >
-          <div class="flex items-center justify-start space-x-2">
-            <n-avatar
-              :size="40"
-              :src="`https://api.dicebear.com/6.x/shapes/svg?seed=${collection.id}`"
-              class="hover:cursor-pointer hover:opacity-80"
-            />
-
-            <div class="flex flex-col space-y-1">
-              <span class="text-lg font-medium">
-                {{ collection.title }}
-              </span>
-
-              <span class="text-sm text-slate-500">
-                {{ collection.created }}
-              </span>
-            </div>
-          </div>
-
-          <div>
-            <span>
-              {{ collection.description }}
-            </span>
-          </div>
-        </NuxtLink>
-      </div> -->
-
-      <pre>{{ collection }}</pre>
+        <n-form-item label="Description" path="description">
+          <n-input
+            v-model:value="formData.description"
+            placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae nisi eget nunc ultricies aliquet. Sed vitae nisi eget nunc ultricies aliquet."
+            type="textarea"
+            clearable
+          />
+        </n-form-item>
+      </n-form>
     </div>
 
     <ModalNewCollection />
