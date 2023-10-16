@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { FormInst } from "naive-ui";
+import type { SelectOption } from "naive-ui";
+import type { VNodeChild } from "vue";
 import { useCollectionStore } from "@/stores/collection";
+import { Icon } from "#components";
+
+import FALLBACK_JSON from "@/assets/json/url-doi-icons.json";
+import PREFIX_JSON from "@/assets/json/prefix.json";
 
 definePageMeta({
   layout: "collections-layout",
@@ -15,9 +21,11 @@ const formRef = ref<FormInst | null>(null);
 
 const formData = reactive({
   title: "",
+  backlink: "",
   description: "",
+  icon: "",
+  target: "",
   type: "",
-  url: "",
 });
 
 const rules = {
@@ -31,17 +39,20 @@ const rules = {
     required: true,
     trigger: "blur, input",
   },
+  target: {
+    message: "Please enter your identifier",
+    required: true,
+    trigger: "blur, input",
+  },
   type: {
     message: "Please enter a type",
     required: true,
     trigger: "blur, input",
   },
-  url: {
-    message: "Please enter a url",
-    required: true,
-    trigger: "blur, input",
-  },
 };
+
+const iconOptions = FALLBACK_JSON;
+const typeOptions = PREFIX_JSON;
 
 const { collectionid, resourceid, workspaceid } = route.params as {
   collectionid: string;
@@ -68,6 +79,35 @@ if (error.value) {
     `/dashboard/workspaces/${workspaceid}/collections/${collectionid}`
   );
 }
+
+if (resource.value) {
+  formData.title = resource.value.title;
+  formData.description = resource.value.description;
+  formData.target = resource.value.target;
+  formData.type = resource.value.type;
+  formData.icon = resource.value.icon;
+}
+
+const renderLabel = (option: SelectOption): VNodeChild => {
+  return [
+    h(
+      Icon,
+      { name: option.value as string, class: "mr-1", size: "20" },
+      {
+        default: () => null,
+      }
+    ),
+    option.label as string,
+  ];
+};
+
+const selectIcon = (value: string) => {
+  const curi = typeOptions.find((prefix) => prefix.value === value);
+
+  if (curi) {
+    formData.icon = curi.icon;
+  }
+};
 
 const saveResourceData = () => {};
 </script>
@@ -117,7 +157,51 @@ const saveResourceData = () => {};
             clearable
           />
         </n-form-item>
+
+        <n-form-item path="type" label="Identifier Type">
+          <div class="flex w-full flex-col">
+            <n-select
+              v-model:value="formData.type"
+              filterable
+              placeholder="DOI"
+              :options="typeOptions"
+              @update:value="selectIcon"
+            />
+
+            <p class="mt-2 text-sm text-slate-500">
+              Select the type of identifier you are linking to.
+            </p>
+          </div>
+        </n-form-item>
+
+        <n-form-item path="target" label="Resource Identifier">
+          <div class="flex w-full flex-col">
+            <n-input
+              v-model:value="formData.target"
+              placeholder="placeholder"
+              type="text"
+              :disabled="!formData.type"
+              @keydown.enter.prevent
+            />
+
+            <p class="mt-2 text-sm text-slate-500">
+              Click here to see if your linked resource is available and
+              resolves correctly.
+            </p>
+          </div>
+        </n-form-item>
+
+        <n-form-item path="icon" label="Icon">
+          <n-select
+            v-model:value="formData.icon"
+            filterable
+            :options="iconOptions"
+            :render-label="renderLabel"
+          />
+        </n-form-item>
       </n-form>
+
+      <pre>{{ resource }}</pre>
     </div>
 
     <ModalNewCollection />

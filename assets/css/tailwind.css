@@ -55,6 +55,11 @@ body {
   p {
     @apply font-primary text-sm md:text-base;
   }
+
+  pre {
+    @apply text-xs;
+  }
+
   /* #endregion  /**======== Typography =========== */
 
   /* #region  /**=========== Scrollbar =========== */

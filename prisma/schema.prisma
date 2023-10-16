@@ -152,13 +152,16 @@ model Resource {
 
   icon String @default("mdi:resource-description-framework")
 
-  back_link String @default("") // the link to the resource that links to this one
+  back_link    Resource? @relation("NewVersionRelation", fields: [back_link_id], references: [id])
+  back_link_id String?
 
   created DateTime @default(now())
   updated DateTime @updatedAt
 
   Version  Version[]
   Relation Relation[]
+
+  Resource Resource[] @relation("NewVersionRelation")
 }
 
 model Relation {

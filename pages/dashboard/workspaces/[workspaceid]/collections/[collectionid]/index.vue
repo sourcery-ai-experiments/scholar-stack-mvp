@@ -110,13 +110,6 @@ const addResource = async () => {
         </h1>
 
         <div class="flex items-center space-x-2">
-          <n-button size="large" secondary>
-            <template #icon>
-              <Icon name="iconoir:brain-electricity" />
-            </template>
-            Edit Collection
-          </n-button>
-
           <n-button
             v-if="collection?.version?.published || !collection?.version"
             size="large"
