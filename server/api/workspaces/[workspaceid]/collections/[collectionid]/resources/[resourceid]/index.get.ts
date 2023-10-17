@@ -30,5 +30,8 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  return resource;
+  return {
+    ...resource,
+    type: resource.type || null,
+  };
 });
