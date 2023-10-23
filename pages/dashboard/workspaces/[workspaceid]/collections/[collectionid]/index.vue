@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useCollectionStore } from "@/stores/collection";
-
 definePageMeta({
   layout: "collections-layout",
   middleware: ["auth"],
@@ -8,9 +6,9 @@ definePageMeta({
 
 const push = usePush();
 const route = useRoute();
-const collectionStore = useCollectionStore();
 
 const gridView = ref(true);
+const newResourceLoading = ref(false);
 
 const { collectionid, workspaceid } = route.params as {
   collectionid: string;
@@ -65,6 +63,8 @@ const createNewDraftVersion = async () => {
 };
 
 const addResource = async () => {
+  newResourceLoading.value = true;
+
   const { data, error } = await useFetch(
     `/api/workspaces/${workspaceid}/collections/${collectionid}/resources`,
     {
@@ -72,6 +72,8 @@ const addResource = async () => {
       method: "POST",
     }
   );
+
+  newResourceLoading.value = false;
 
   if (error.value) {
     console.log(error.value);
@@ -152,6 +154,7 @@ const addResource = async () => {
           size="large"
           color="black"
           :disabled="!collection?.version"
+          :loading="newResourceLoading"
           @click="addResource"
         >
           <template #icon>

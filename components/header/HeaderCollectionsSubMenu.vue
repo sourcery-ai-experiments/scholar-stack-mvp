@@ -3,9 +3,9 @@ const route = useRoute();
 
 const navItems = [
   {
-    name: "Overview",
+    name: "Resources",
     href: `/dashboard/workspaces/${route.params.workspaceid}/collections/${route.params.collectionid}`,
-    icon: "material-symbols:home-outline",
+    icon: "cil:list",
   },
   {
     name: "Activity",

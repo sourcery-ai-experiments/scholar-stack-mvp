@@ -2,7 +2,7 @@
 import { FormInst } from "naive-ui";
 import type { SelectOption } from "naive-ui";
 import type { VNodeChild } from "vue";
-import { useCollectionStore } from "@/stores/collection";
+import { faker } from "@faker-js/faker";
 import { Icon } from "#components";
 
 import FALLBACK_JSON from "@/assets/json/url-doi-icons.json";
@@ -15,17 +15,17 @@ definePageMeta({
 
 const push = usePush();
 const route = useRoute();
-const collectionStore = useCollectionStore();
 
 const formRef = ref<FormInst | null>(null);
 
-const formData = reactive({
+const formData = reactive<ResourceType>({
+  id: route.params.resourceid as string,
   title: "",
   backlink: "",
-  description: "",
+  description: faker.commerce.productDescription(),
   icon: "",
   target: "",
-  type: "",
+  type: null,
 });
 
 const rules = {
@@ -54,6 +54,8 @@ const rules = {
 const iconOptions = FALLBACK_JSON;
 const typeOptions = PREFIX_JSON;
 
+const removeResourceLoadingIndicator = ref(false);
+
 const { collectionid, resourceid, workspaceid } = route.params as {
   collectionid: string;
   resourceid: string;
@@ -81,10 +83,10 @@ if (error.value) {
 }
 
 if (resource.value) {
-  formData.title = resource.value.title;
-  formData.description = resource.value.description;
-  formData.target = resource.value.target;
-  formData.type = resource.value.type;
+  formData.title = resource.value.title || faker.commerce.productName();
+  formData.description = resource.value.description || faker.lorem.paragraph();
+  formData.target = resource.value.target || faker.internet.url();
+  formData.type = resource.value.type || "doi";
   formData.icon = resource.value.icon;
 }
 
@@ -109,7 +111,51 @@ const selectIcon = (value: string) => {
   }
 };
 
-const saveResourceData = () => {};
+const removeResource = async () => {
+  removeResourceLoadingIndicator.value = true;
+
+  const { data, error } = await useFetch(
+    `/api/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}`,
+    {
+      headers: useRequestHeaders(["cookie"]),
+      method: "DELETE",
+    }
+  );
+
+  removeResourceLoadingIndicator.value = false;
+
+  if (error.value) {
+    console.log(error.value);
+
+    push.error({
+      title: "Something went wrong",
+      message: "We couldn't delete your resource",
+    });
+  }
+
+  if (data.value) {
+    push.success({
+      title: "Resource deleted",
+      message: "Your resource has been deleted",
+    });
+
+    navigateTo(
+      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}`
+    );
+  }
+};
+
+const saveResourceData = () => {
+  formRef.value?.validate((errors) => {
+    if (!errors) {
+      console.log(formData);
+      console.log("Valid");
+    } else {
+      console.log(errors);
+      console.log("Invalid");
+    }
+  });
+};
 </script>
 
 <template>
@@ -121,6 +167,20 @@ const saveResourceData = () => {};
         <h1>Edit this resource</h1>
 
         <div class="flex items-center space-x-2">
+          <n-button
+            size="large"
+            type="error"
+            secondary
+            :loading="removeResourceLoadingIndicator"
+            @click="removeResource"
+          >
+            <template #icon>
+              <Icon name="iconoir:trash" />
+            </template>
+
+            Delete Resource
+          </n-button>
+
           <n-button size="large" color="black" @click="saveResourceData">
             <template #icon>
               <Icon name="iconoir:axes" />
@@ -201,7 +261,7 @@ const saveResourceData = () => {};
         </n-form-item>
       </n-form>
 
-      <pre>{{ resource }}</pre>
+      <pre>{{ formData }}</pre>
     </div>
 
     <ModalNewCollection />
