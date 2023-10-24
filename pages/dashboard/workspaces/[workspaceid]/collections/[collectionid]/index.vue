@@ -185,7 +185,7 @@ const addResource = async () => {
           <div class="flex items-center justify-start space-x-2">
             <n-avatar
               :size="40"
-              :src="`https://api.dicebear.com/6.x/shapes/svg?seed=${collection.id}`"
+              :src="`https://api.dicebear.com/6.x/notionists-neutral/svg?seed=${resource.id}`"
               class="hover:cursor-pointer hover:opacity-80"
             />
 

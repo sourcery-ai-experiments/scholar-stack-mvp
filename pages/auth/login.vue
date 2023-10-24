@@ -54,47 +54,44 @@ const signIn = (e: MouseEvent) => {
 
       loading.value = true;
 
-      try {
-        const { error: loginError } = await supabase.auth.signInWithPassword({
-          email: loginForm.emailAddress,
-          password: loginForm.password,
+      const { error: loginError } = await supabase.auth.signInWithPassword({
+        email: loginForm.emailAddress,
+        password: loginForm.password,
+      });
+
+      loading.value = false;
+
+      if (loginError) {
+        push.error({
+          title: "Login Error",
+          message: loginError.message,
         });
 
-        console.log(loginError);
-
-        if (loginError) {
-          push.error({
-            title: "Login Error",
-            message: loginError.message,
-          });
-
-          throw loginError;
-        }
-
-        // create the user profile if it doesn't exist
-        await $fetch("/api/user", {
-          headers: useRequestHeaders(["cookie"]),
-          method: "POST",
-        }).catch((error) => {
-          console.error(error);
-
-          push.error({
-            title: "Profile Error",
-            message: "Could not initialize profile.",
-          });
-
-          throw error;
-        });
-
-        console.log("success");
-
-        // redirect to projects page
-        return navigateTo("/dashboard");
-      } catch (error) {
-        loading.value = false;
-
-        console.error(error);
+        return;
       }
+
+      /**
+       * TODO: This is ugly and needs to be changed.
+       */
+      // create the user profile if it doesn't exist
+      await $fetch("/api/user", {
+        headers: useRequestHeaders(["cookie"]),
+        method: "POST",
+      }).catch((error) => {
+        console.error(error);
+
+        push.error({
+          title: "Profile Error",
+          message: "Could not initialize profile.",
+        });
+
+        throw error;
+      });
+
+      console.log("success");
+
+      // redirect to projects page
+      return navigateTo("/dashboard");
     } else {
       console.log(errors);
     }

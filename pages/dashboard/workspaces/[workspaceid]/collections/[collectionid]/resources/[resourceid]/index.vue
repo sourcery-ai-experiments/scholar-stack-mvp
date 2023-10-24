@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { FormInst } from "naive-ui";
-import type { SelectOption } from "naive-ui";
+import type { FormInst, FormItemRule, SelectOption } from "naive-ui";
+
 import type { VNodeChild } from "vue";
 import { faker } from "@faker-js/faker";
 import { Icon } from "#components";
@@ -20,9 +20,9 @@ const formRef = ref<FormInst | null>(null);
 
 const formData = reactive<ResourceType>({
   id: route.params.resourceid as string,
-  title: "",
+  title: faker.commerce.productName(),
   backlink: "",
-  description: faker.commerce.productDescription(),
+  description: "",
   icon: "",
   target: "",
   type: null,
@@ -32,29 +32,51 @@ const rules = {
   title: {
     message: "Please enter a title",
     required: true,
-    trigger: "blur, input",
+    trigger: ["blur", "input"],
   },
   description: {
     message: "Please enter a description",
     required: true,
-    trigger: "blur, input",
+    trigger: ["blur", "input"],
   },
   target: {
-    message: "Please enter your identifier",
+    // message: "Please enter your identifier",
     required: true,
-    trigger: "blur, input",
+    trigger: ["blur", "input"],
+    validator(rule: FormItemRule, value: string) {
+      if (!value) {
+        return new Error("Please enter your identifier");
+      }
+
+      if (selectedIdentifier.value && selectedIdentifier.value.pattern) {
+        const pattern = new RegExp(selectedIdentifier.value.pattern);
+
+        if (!pattern.test(value)) {
+          return new Error(
+            `Please enter a valid ${selectedIdentifier.value.label}`
+          );
+        }
+      }
+
+      return true;
+    },
   },
   type: {
     message: "Please enter a type",
     required: true,
-    trigger: "blur, input",
+    trigger: ["blur", "input"],
   },
 };
 
 const iconOptions = FALLBACK_JSON;
 const typeOptions = PREFIX_JSON;
 
+const selectedIdentifier = computed(() => {
+  return typeOptions.find((prefix) => prefix.value === formData.type);
+});
+
 const removeResourceLoadingIndicator = ref(false);
+const saveResourceLoadingIndicator = ref(false);
 
 const { collectionid, resourceid, workspaceid } = route.params as {
   collectionid: string;
@@ -146,10 +168,52 @@ const removeResource = async () => {
 };
 
 const saveResourceData = () => {
-  formRef.value?.validate((errors) => {
+  formRef.value?.validate(async (errors) => {
     if (!errors) {
-      console.log(formData);
-      console.log("Valid");
+      const body = {
+        title: formData.title,
+        description: formData.description,
+        icon: formData.icon,
+        target: formData.target,
+        type: formData.type,
+      };
+
+      console.log(body);
+
+      saveResourceLoadingIndicator.value = true;
+
+      const { data, error } = await useFetch(
+        `/api/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}`,
+        {
+          body: JSON.stringify(body),
+          headers: useRequestHeaders(["cookie"]),
+          method: "PUT",
+        }
+      );
+
+      saveResourceLoadingIndicator.value = false;
+
+      if (error.value) {
+        console.log(error.value);
+
+        push.error({
+          title: "Something went wrong",
+          message: "We couldn't save your resource",
+        });
+
+        throw new Error("Something went wrong");
+      }
+
+      if (data.value) {
+        push.success({
+          title: "Resource saved",
+          message: "Your resource has been saved",
+        });
+
+        navigateTo(
+          `/dashboard/workspaces/${workspaceid}/collections/${collectionid}`
+        );
+      }
     } else {
       console.log(errors);
       console.log("Invalid");
@@ -181,12 +245,17 @@ const saveResourceData = () => {
             Delete Resource
           </n-button>
 
-          <n-button size="large" color="black" @click="saveResourceData">
+          <n-button
+            size="large"
+            color="black"
+            :loading="saveResourceLoadingIndicator"
+            @click="saveResourceData"
+          >
             <template #icon>
               <Icon name="iconoir:axes" />
             </template>
 
-            Save Resource
+            Save changes
           </n-button>
         </div>
       </div>
@@ -238,16 +307,19 @@ const saveResourceData = () => {
           <div class="flex w-full flex-col">
             <n-input
               v-model:value="formData.target"
-              placeholder="placeholder"
+              :placeholder="selectedIdentifier?.placeholder"
               type="text"
               :disabled="!formData.type"
+              clearable
               @keydown.enter.prevent
             />
 
-            <p class="mt-2 text-sm text-slate-500">
-              Click here to see if your linked resource is available and
-              resolves correctly.
-            </p>
+            <n-collapse-transition :show="!!formData.target">
+              <p class="mt-2 text-sm text-slate-500">
+                Click here to see if your linked resource is available and
+                resolves correctly.
+              </p>
+            </n-collapse-transition>
           </div>
         </n-form-item>
 
@@ -262,6 +334,7 @@ const saveResourceData = () => {
       </n-form>
 
       <pre>{{ formData }}</pre>
+      <pre>{{ selectedIdentifier }}</pre>
     </div>
 
     <ModalNewCollection />

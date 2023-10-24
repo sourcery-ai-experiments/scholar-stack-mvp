@@ -2,12 +2,14 @@ import { z } from "zod";
 
 export default defineEventHandler(async (event) => {
   await protectRoute(event);
-  await workspaceMinAdminPermission(event);
 
   const bodySchema = z
     .object({
       title: z.string().min(1),
       description: z.string(),
+      icon: z.string().min(1).optional(),
+      target: z.string().min(1),
+      type: z.string().min(1),
     })
     .strict();
 
@@ -33,10 +35,11 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  await workspaceMinOwnerPermission(event);
+  await workspaceMinEditorPermission(event);
 
-  const { collectionid, workspaceid } = event.context.params as {
+  const { collectionid, resourceid, workspaceid } = event.context.params as {
     collectionid: string;
+    resourceid: string;
     workspaceid: string;
   };
 
@@ -51,17 +54,22 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const { title, description } = parsedBody.data;
+  const { title, description, icon, target, type } = parsedBody.data;
 
-  const updatedCollection = await prisma.collection.update({
+  const updatedResource = await prisma.resource.update({
     data: {
       title,
       description,
+      icon,
+      target,
+      type,
     },
-    where: { id: collectionid },
+    where: {
+      id: resourceid,
+    },
   });
 
-  if (!updatedCollection) {
+  if (!updatedResource) {
     throw createError({
       message: "Something went wrong",
       statusCode: 404,
@@ -69,7 +77,7 @@ export default defineEventHandler(async (event) => {
   }
 
   return {
-    message: "Collection updated",
+    message: "Resource updated",
     statusCode: 200,
   };
 });
