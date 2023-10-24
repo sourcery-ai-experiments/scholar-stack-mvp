@@ -1,82 +1,22 @@
 <script setup lang="ts">
-import type { FormInst, FormItemRule, SelectOption } from "naive-ui";
-
-import type { VNodeChild } from "vue";
-import { faker } from "@faker-js/faker";
 import { Icon } from "#components";
-
-import FALLBACK_JSON from "@/assets/json/url-doi-icons.json";
-import PREFIX_JSON from "@/assets/json/prefix.json";
 
 definePageMeta({
   layout: "collections-layout",
   middleware: ["auth"],
 });
 
+/**
+ * TODO: split this into three pages
+ * 1. overview with the root url
+ * 2. edit page with the form
+ * 3. relation page with the relations (too complex for one page alone)
+ */
+
 const push = usePush();
 const route = useRoute();
 
-const formRef = ref<FormInst | null>(null);
-
-const formData = reactive<ResourceType>({
-  id: route.params.resourceid as string,
-  title: faker.commerce.productName(),
-  backlink: "",
-  description: "",
-  icon: "",
-  target: "",
-  type: null,
-});
-
-const rules = {
-  title: {
-    message: "Please enter a title",
-    required: true,
-    trigger: ["blur", "input"],
-  },
-  description: {
-    message: "Please enter a description",
-    required: true,
-    trigger: ["blur", "input"],
-  },
-  target: {
-    // message: "Please enter your identifier",
-    required: true,
-    trigger: ["blur", "input"],
-    validator(rule: FormItemRule, value: string) {
-      if (!value) {
-        return new Error("Please enter your identifier");
-      }
-
-      if (selectedIdentifier.value && selectedIdentifier.value.pattern) {
-        const pattern = new RegExp(selectedIdentifier.value.pattern);
-
-        if (!pattern.test(value)) {
-          return new Error(
-            `Please enter a valid ${selectedIdentifier.value.label}`
-          );
-        }
-      }
-
-      return true;
-    },
-  },
-  type: {
-    message: "Please enter a type",
-    required: true,
-    trigger: ["blur", "input"],
-  },
-};
-
-const iconOptions = FALLBACK_JSON;
-const typeOptions = PREFIX_JSON;
-
-const selectedIdentifier = computed(() => {
-  return typeOptions.find((prefix) => prefix.value === formData.type);
-});
-
 const removeResourceLoadingIndicator = ref(false);
-const saveResourceLoadingIndicator = ref(false);
 
 const { collectionid, resourceid, workspaceid } = route.params as {
   collectionid: string;
@@ -103,35 +43,6 @@ if (error.value) {
     `/dashboard/workspaces/${workspaceid}/collections/${collectionid}`
   );
 }
-
-if (resource.value) {
-  formData.title = resource.value.title || faker.commerce.productName();
-  formData.description = resource.value.description || faker.lorem.paragraph();
-  formData.target = resource.value.target || faker.internet.url();
-  formData.type = resource.value.type || "doi";
-  formData.icon = resource.value.icon;
-}
-
-const renderLabel = (option: SelectOption): VNodeChild => {
-  return [
-    h(
-      Icon,
-      { name: option.value as string, class: "mr-1", size: "20" },
-      {
-        default: () => null,
-      }
-    ),
-    option.label as string,
-  ];
-};
-
-const selectIcon = (value: string) => {
-  const curi = typeOptions.find((prefix) => prefix.value === value);
-
-  if (curi) {
-    formData.icon = curi.icon;
-  }
-};
 
 const removeResource = async () => {
   removeResourceLoadingIndicator.value = true;
@@ -166,69 +77,15 @@ const removeResource = async () => {
     );
   }
 };
-
-const saveResourceData = () => {
-  formRef.value?.validate(async (errors) => {
-    if (!errors) {
-      const body = {
-        title: formData.title,
-        description: formData.description,
-        icon: formData.icon,
-        target: formData.target,
-        type: formData.type,
-      };
-
-      console.log(body);
-
-      saveResourceLoadingIndicator.value = true;
-
-      const { data, error } = await useFetch(
-        `/api/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}`,
-        {
-          body: JSON.stringify(body),
-          headers: useRequestHeaders(["cookie"]),
-          method: "PUT",
-        }
-      );
-
-      saveResourceLoadingIndicator.value = false;
-
-      if (error.value) {
-        console.log(error.value);
-
-        push.error({
-          title: "Something went wrong",
-          message: "We couldn't save your resource",
-        });
-
-        throw new Error("Something went wrong");
-      }
-
-      if (data.value) {
-        push.success({
-          title: "Resource saved",
-          message: "Your resource has been saved",
-        });
-
-        navigateTo(
-          `/dashboard/workspaces/${workspaceid}/collections/${collectionid}`
-        );
-      }
-    } else {
-      console.log(errors);
-      console.log("Invalid");
-    }
-  });
-};
 </script>
 
 <template>
-  <main class="h-full bg-zinc-50">
+  <main class="h-full bg-white">
     <div class="flex h-36 items-center border-b border-gray-200 bg-white">
       <div
         class="mx-auto flex w-full max-w-screen-xl items-center justify-between px-2.5 lg:px-20"
       >
-        <h1>Edit this resource</h1>
+        <h1>{{ resource?.title || resource?.id }}</h1>
 
         <div class="flex items-center space-x-2">
           <n-button
@@ -242,99 +99,54 @@ const saveResourceData = () => {
               <Icon name="iconoir:trash" />
             </template>
 
-            Delete Resource
+            Remove
           </n-button>
 
-          <n-button
-            size="large"
-            color="black"
-            :loading="saveResourceLoadingIndicator"
-            @click="saveResourceData"
-          >
+          <n-button color="black" size="large">
             <template #icon>
               <Icon name="iconoir:axes" />
             </template>
 
-            Save changes
+            Create new version
           </n-button>
         </div>
       </div>
     </div>
 
     <div class="mx-auto w-full max-w-screen-xl px-2.5 lg:px-20">
-      <div class="flex items-center justify-between space-x-4 py-10"></div>
-      <n-form
-        ref="formRef"
-        :label-width="80"
-        :model="formData"
-        :rules="rules"
-        size="large"
-      >
-        <n-form-item label="Title" path="title">
-          <n-input
-            v-model:value="formData.title"
-            placeholder="My random resource"
-            clearable
-          />
-        </n-form-item>
+      <div class="flex items-center justify-between space-x-4 pb-5 pt-10">
+        <h3>About</h3>
 
-        <n-form-item label="Description" path="description">
-          <n-input
-            v-model:value="formData.description"
-            placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae nisi eget nunc ultricies aliquet. Sed vitae nisi eget nunc ultricies aliquet."
-            type="textarea"
-            clearable
-          />
-        </n-form-item>
+        <n-space>
+          <NuxtLink
+            :to="`/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/edit`"
+          >
+            <n-button>
+              <template #icon>
+                <Icon name="iconoir:axes" />
+              </template>
 
-        <n-form-item path="type" label="Identifier Type">
-          <div class="flex w-full flex-col">
-            <n-select
-              v-model:value="formData.type"
-              filterable
-              placeholder="DOI"
-              :options="typeOptions"
-              @update:value="selectIcon"
-            />
+              Edit resource
+            </n-button>
+          </NuxtLink>
 
-            <p class="mt-2 text-sm text-slate-500">
-              Select the type of identifier you are linking to.
-            </p>
-          </div>
-        </n-form-item>
+          <n-button>
+            <template #icon>
+              <Icon name="iconoir:axes" />
+            </template>
 
-        <n-form-item path="target" label="Resource Identifier">
-          <div class="flex w-full flex-col">
-            <n-input
-              v-model:value="formData.target"
-              :placeholder="selectedIdentifier?.placeholder"
-              type="text"
-              :disabled="!formData.type"
-              clearable
-              @keydown.enter.prevent
-            />
+            Update relations
+          </n-button>
+        </n-space>
+      </div>
 
-            <n-collapse-transition :show="!!formData.target">
-              <p class="mt-2 text-sm text-slate-500">
-                Click here to see if your linked resource is available and
-                resolves correctly.
-              </p>
-            </n-collapse-transition>
-          </div>
-        </n-form-item>
+      <p>
+        {{ resource?.description || "No description available" }}
+      </p>
 
-        <n-form-item path="icon" label="Icon">
-          <n-select
-            v-model:value="formData.icon"
-            filterable
-            :options="iconOptions"
-            :render-label="renderLabel"
-          />
-        </n-form-item>
-      </n-form>
+      <pre>{{ resource }}</pre>
 
-      <pre>{{ formData }}</pre>
-      <pre>{{ selectedIdentifier }}</pre>
+      <h3>Relations</h3>
     </div>
 
     <ModalNewCollection />

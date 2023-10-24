@@ -91,7 +91,7 @@ const signIn = (e: MouseEvent) => {
       console.log("success");
 
       // redirect to projects page
-      return navigateTo("/dashboard");
+      window.location.href = "/dashboard";
     } else {
       console.log(errors);
     }

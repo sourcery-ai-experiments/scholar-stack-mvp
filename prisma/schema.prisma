@@ -170,8 +170,9 @@ model Relation {
   resource Resource @relation(fields: [source], references: [id])
   source   String
 
-  type String // citation, isCitedBy, etc (prefix from identifiers.org)
+  type String // citation, isCitedBy, etc 
 
+  // todo: might need to change target to a resource id if we don't want to 
   target      String // can be a internal link or external link
   target_type String // book, article, etc
 

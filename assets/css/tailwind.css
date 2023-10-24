@@ -57,7 +57,7 @@ body {
   }
 
   pre {
-    @apply text-xs;
+    @apply whitespace-pre-wrap text-xs;
   }
 
   /* #endregion  /**======== Typography =========== */

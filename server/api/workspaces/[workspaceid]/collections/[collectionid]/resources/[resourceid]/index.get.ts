@@ -21,6 +21,9 @@ export default defineEventHandler(async (event) => {
 
   // Check if the resource is part of the collection version
   const resource = await prisma.resource.findUnique({
+    // include: {
+    //   Relation: true,
+    // },
     where: {
       id: resourceid,
       Version: {
@@ -37,6 +40,13 @@ export default defineEventHandler(async (event) => {
       statusCode: 404,
     });
   }
+
+  // get all the relations for the resource
+  // const relations = await prisma.relation.findMany({
+  //   where: {
+  //     resource_id: resourceid,
+  //   },
+  // });
 
   return {
     ...resource,
