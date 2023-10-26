@@ -17,6 +17,7 @@ const push = usePush();
 const route = useRoute();
 
 const removeResourceLoadingIndicator = ref(false);
+const newResourceVersionLoadingIndicator = ref(false);
 
 const { collectionid, resourceid, workspaceid } = route.params as {
   collectionid: string;
@@ -77,6 +78,45 @@ const removeResource = async () => {
     );
   }
 };
+
+const createNewVersion = async () => {
+  const body = { back_link_id: resourceid };
+
+  newResourceVersionLoadingIndicator.value = true;
+
+  const { data, error } = await useFetch(
+    `/api/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/new-version`,
+    {
+      body: JSON.stringify(body),
+      headers: useRequestHeaders(["cookie"]),
+      method: "POST",
+    }
+  );
+
+  newResourceVersionLoadingIndicator.value = false;
+
+  if (error.value) {
+    console.log(error.value);
+
+    push.error({
+      title: "Something went wrong",
+      message: "We couldn't create a new version of your resource",
+    });
+
+    throw new Error("Something went wrong");
+  }
+
+  if (data.value) {
+    push.success({
+      title: "Success",
+      message: "A new version of your resource has been created",
+    });
+
+    navigateTo(
+      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${data.value.resourceId}`
+    );
+  }
+};
 </script>
 
 <template>
@@ -85,7 +125,13 @@ const removeResource = async () => {
       <div
         class="mx-auto flex w-full max-w-screen-xl items-center justify-between px-2.5 lg:px-20"
       >
-        <h1>{{ resource?.title || resource?.id }}</h1>
+        <n-space vertical>
+          <h1>{{ resource?.title || resource?.id }}</h1>
+
+          <n-tag v-if="resource?.back_link_id" type="info" size="large">
+            {{ resource?.back_link_id }}
+          </n-tag>
+        </n-space>
 
         <div class="flex items-center space-x-2">
           <n-button
@@ -102,7 +148,12 @@ const removeResource = async () => {
             Remove
           </n-button>
 
-          <n-button color="black" size="large">
+          <n-button
+            color="black"
+            size="large"
+            :loading="newResourceVersionLoadingIndicator"
+            @click="createNewVersion"
+          >
             <template #icon>
               <Icon name="iconoir:axes" />
             </template>

@@ -8,9 +8,10 @@ const collectionStore = useCollectionStore();
 
 const selectedWorkspace = ref("");
 const selectedCollection = ref("");
+const selectedResource = ref("");
 
 // Temp data ref - TODO: Remove later
-const tempDataRef = ref({
+const tempWorkspaceDataRef = ref({
   id: "sdfds",
   title: "sdfdsf",
   collections: [
@@ -25,6 +26,30 @@ const tempDataRef = ref({
     },
   ],
   description: "as",
+});
+
+const tempCollectionDataRef = ref({
+  id: "clnbeyl820002aujgejzz8iir",
+  title: "test",
+  created: "2023-10-04T07:14:56.112Z",
+  description: "test",
+  identifier: "J87dJcZT3GxOCjSdsIOEn",
+  image: "https://api.dicebear.com/6.x/shapes/svg?seed=QbFa8J0jvqtRmqaaRKMtw",
+  private: false,
+
+  resources: [
+    {
+      id: "clnbeyl820002aujgejzz8iir",
+      title: "test",
+      back_link_id: "test",
+      description: "test",
+      icon: "test",
+      target: "test",
+      type: "test",
+    },
+  ],
+
+  version: null,
 });
 
 const { data: workspaces, error: workspacesError } = await useFetch(
@@ -56,9 +81,7 @@ if (route.params.workspaceid) {
     }
   );
 
-  tempDataRef.value = data.value as any;
-
-  console.log(data.value);
+  tempWorkspaceDataRef.value = data.value as any;
 
   if (collectionsError.value) {
     console.log(collectionsError.value);
@@ -70,9 +93,43 @@ if (route.params.workspaceid) {
   }
 }
 
+if (route.params.resourceid) {
+  const { data: resources, error: resourceError } = await useFetch(
+    `/api/workspaces/${route.params.workspaceid}/collections/${route.params.collectionid}`,
+    {
+      headers: useRequestHeaders(["cookie"]),
+    }
+  );
+
+  tempCollectionDataRef.value = resources.value as any;
+
+  console.log(resources.value);
+
+  if (resourceError.value) {
+    console.log(resourceError.value);
+
+    push.error({
+      title: "Something went wrong",
+      message: "We couldn't load your resourcee",
+    });
+
+    // navigateTo(
+    //   `/dashboard/workspaces/${route.params.workspaceid}/collections/${route.params.collectionid}`
+    // );
+  }
+}
+
 const collections = computed(() => {
-  if (tempDataRef) {
-    return tempDataRef.value?.collections;
+  if (tempWorkspaceDataRef) {
+    return tempWorkspaceDataRef.value?.collections;
+  }
+
+  return [];
+});
+
+const resources = computed(() => {
+  if (tempCollectionDataRef) {
+    return tempCollectionDataRef.value?.resources;
   }
 
   return [];
@@ -82,6 +139,7 @@ const collections = computed(() => {
 watchEffect(() => {
   const workspaceid = route.params.workspaceid;
   const collectionid = route.params.collectionid;
+  const resourceid = route.params.resourceid;
 
   if (workspaceid) {
     selectedWorkspace.value = workspaceid as string;
@@ -89,6 +147,10 @@ watchEffect(() => {
 
   if (collectionid) {
     selectedCollection.value = collectionid as string;
+  }
+
+  if (resourceid) {
+    selectedResource.value = resourceid as string;
   }
 });
 
@@ -109,6 +171,12 @@ const navigateToCollection = (collectionid: string) => {
 
 const createNewCollection = () => {
   collectionStore.showNewCollectionModal();
+};
+
+const navigateToResource = (resourceid: string) => {
+  navigateTo(
+    `/dashboard/workspaces/${selectedWorkspace.value}/collections/${selectedCollection.value}/resources/${resourceid}`
+  );
 };
 </script>
 
@@ -319,6 +387,126 @@ const createNewCollection = () => {
                           'block truncate',
                         ]"
                         >{{ collection.title }}</span
+                      >
+                    </div>
+
+                    <span
+                      v-if="selected"
+                      class="flex items-center text-amber-600"
+                    >
+                      <Icon name="ph:check-bold" class="h-5 w-5" />
+                    </span>
+                  </li>
+                </HeadlessListboxOption>
+
+                <div class="mx-auto my-1 h-[1px] w-[90%] bg-slate-200"></div>
+
+                <div @click="createNewCollection">
+                  <li
+                    class="flex w-full cursor-pointer items-center justify-between px-4 py-2 text-gray-900"
+                  >
+                    <div class="flex items-center justify-start space-x-2 pr-4">
+                      <Icon name="ph:plus-circle-bold" />
+
+                      <span class="block truncate font-medium">
+                        Create a new collection
+                      </span>
+                    </div>
+                  </li>
+                </div>
+              </HeadlessListboxOptions>
+            </transition>
+          </div>
+        </HeadlessListbox>
+      </div>
+    </TransitionFade>
+
+    <TransitionFade>
+      <svg
+        v-if="route.params.resourceid"
+        fill="none"
+        shape-rendering="geometricPrecision"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="1"
+        viewBox="0 0 24 24"
+        width="14"
+        height="14"
+        class="h-8 w-8 text-gray-200"
+      >
+        <path d="M16.88 3.549L7.12 20.451"></path>
+      </svg>
+    </TransitionFade>
+
+    <TransitionFade>
+      <div v-if="route.params.resourceid" class="w-max">
+        <HeadlessListbox v-model="selectedResource">
+          <div class="relative">
+            <HeadlessListboxButton
+              class="relative w-full cursor-pointer rounded-lg border border-slate-100 bg-white py-2 pl-3 pr-10 text-left transition-all hover:border-slate-300 hover:bg-slate-50 hover:shadow-sm sm:text-sm"
+            >
+              <div class="flex items-center justify-start space-x-2">
+                <n-avatar
+                  :size="20"
+                  :src="`https://api.dicebear.com/6.x/shapes/svg?seed=${selectedResource}`"
+                  class="border hover:cursor-pointer hover:opacity-80"
+                  round
+                />
+
+                <span class="text-base font-medium">{{
+                  resources?.find(
+                    (resource) => resource.id === selectedResource
+                  )?.title
+                }}</span>
+              </div>
+
+              <span
+                class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
+              >
+                <Icon name="ph:caret-up-down-bold" class="h-5 w-5" />
+              </span>
+            </HeadlessListboxButton>
+
+            <transition
+              leave-active-class="transition duration-100 ease-in"
+              enter-active-class="transition duration-75 ease-out"
+              leave-from-class="opacity-100"
+              leave-to-class="opacity-0"
+              enter-from-class="opacity-0 transition transform origin-top-right scale-95"
+              enter-to-class="opacity-100 transform origin-top-right scale-100"
+            >
+              <HeadlessListboxOptions
+                class="absolute mt-1 max-h-60 w-max overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 sm:text-sm"
+              >
+                <HeadlessListboxOption
+                  v-for="resource in resources"
+                  v-slot="{ active, selected }"
+                  :key="resource.id"
+                  :value="resource.id"
+                  as="template"
+                  @click="navigateToResource(resource.id)"
+                >
+                  <li
+                    :class="[
+                      active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
+                      'flex w-full cursor-pointer items-center justify-between px-4 py-2',
+                    ]"
+                  >
+                    <div class="flex items-center justify-start space-x-2 pr-4">
+                      <n-avatar
+                        :size="20"
+                        :src="`https://api.dicebear.com/6.x/shapes/svg?seed=${resource.id}`"
+                        class="border hover:cursor-pointer hover:opacity-80"
+                        round
+                      />
+
+                      <span
+                        :class="[
+                          selected ? 'font-medium' : 'font-normal',
+                          'block truncate',
+                        ]"
+                        >{{ resource.title }}</span
                       >
                     </div>
 

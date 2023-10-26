@@ -5448,7 +5448,7 @@
   {
     "icon": "ic:twotone-select-all",
     "label": "URL",
-    "pattern": "https://example.com/{id}",
+    "pattern": "^https?:\\/\\/.*$",
     "placeholder": "https://example.com/123",
     "value": "url"
   },

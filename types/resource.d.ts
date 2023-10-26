@@ -1,7 +1,7 @@
 interface ResourceType {
   id: string;
   title: string;
-  backlink: string;
+  back_link_id: string;
   description: string;
   icon: string;
   type: string | null;
