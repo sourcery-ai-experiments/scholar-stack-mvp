@@ -45,6 +45,17 @@ if (error.value) {
   );
 }
 
+const {
+  data: relations,
+  error: relationsError,
+  pending: relationsPending,
+} = useLazyFetch(
+  `/api/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/relations`,
+  {
+    headers: useRequestHeaders(["cookie"]),
+  }
+);
+
 const removeResource = async () => {
   removeResourceLoadingIndicator.value = true;
 
@@ -181,13 +192,17 @@ const createNewVersion = async () => {
             </n-button>
           </NuxtLink>
 
-          <n-button>
-            <template #icon>
-              <Icon name="iconoir:axes" />
-            </template>
+          <NuxtLink
+            :to="`/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/relations/edit`"
+          >
+            <n-button>
+              <template #icon>
+                <Icon name="iconoir:axes" />
+              </template>
 
-            Update relations
-          </n-button>
+              Update relations
+            </n-button>
+          </NuxtLink>
         </n-space>
       </div>
 
@@ -198,6 +213,24 @@ const createNewVersion = async () => {
       <pre>{{ resource }}</pre>
 
       <h3>Relations</h3>
+
+      <transition name="fade" mode="out-in">
+        <div v-if="relationsPending">
+          <client-only>
+            <Vue3Lottie
+              animation-link="https://assets10.lottiefiles.com/packages/lf20_AQEOul.json"
+              :height="200"
+              :width="200"
+            />
+          </client-only>
+        </div>
+
+        <div v-else>
+          <pre>
+            {{ relations }}
+          </pre>
+        </div>
+      </transition>
     </div>
 
     <ModalNewCollection />

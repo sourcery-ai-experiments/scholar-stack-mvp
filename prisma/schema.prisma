@@ -158,23 +158,43 @@ model Resource {
   created DateTime @default(now())
   updated DateTime @updatedAt
 
-  Version  Version[]
-  Relation Relation[]
+  Version Version[]
 
   Resource Resource[] @relation("NewVersionRelation")
+
+  ExternalRelation ExternalRelation[]
+
+  InternalRelationSource InternalRelation[] @relation("SourceRelation")
+  InternalRelationTarget InternalRelation[] @relation("TargetRelation")
 }
 
-model Relation {
+model InternalRelation {
   id String @id @default(cuid())
 
-  resource Resource @relation(fields: [source], references: [id])
-  source   String
+  source    Resource @relation("SourceRelation", fields: [source_id], references: [id])
+  source_id String
 
-  type String // citation, isCitedBy, etc 
+  target    Resource @relation("TargetRelation", fields: [target_id], references: [id])
+  target_id String
 
-  // todo: might need to change target to a resource id if we don't want to 
-  target      String // can be a internal link or external link
-  target_type String // book, article, etc
+  type          String // isCitedBy, etc 
+  resource_type String // Book, Article, etc
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+}
+
+model ExternalRelation {
+  id String @id @default(cuid())
+
+  source    Resource @relation(fields: [source_id], references: [id])
+  source_id String
+
+  target      String // the actual identifier (10.1234/abc)
+  target_type String // doi, url, ror, orcid, etc (prefix from identifiers.org)
+
+  type          String // isCitedBy, etc 
+  resource_type String // Book, Article, etc
 
   created DateTime @default(now())
   updated DateTime @updatedAt
