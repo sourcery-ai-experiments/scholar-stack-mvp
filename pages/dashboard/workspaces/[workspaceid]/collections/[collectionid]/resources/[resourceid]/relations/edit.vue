@@ -132,7 +132,8 @@ if (relations.value) {
             <Icon name="carbon:add-filled" />
           </template>
 
-          Add a new internal relation | Make this a drawer
+          Add a new internal relation | use post type saving like fairhub does |
+          one form for all relations
         </n-button>
       </div>
 
