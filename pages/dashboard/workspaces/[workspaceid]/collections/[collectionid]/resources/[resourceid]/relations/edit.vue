@@ -4,6 +4,7 @@ import type { FormInst } from "naive-ui";
 import { nanoid } from "nanoid";
 import { Icon } from "#components";
 
+import PREFIX_JSON from "@/assets/json/prefix.json";
 import RELATION_TYPE_JSON from "@/assets/json/relation-type.json";
 import RESOURCE_TYPE_JSON from "@/assets/json/resource-type.json";
 
@@ -22,6 +23,7 @@ const moduleData = reactive<Relations>({
   internal: [],
 });
 
+const typeOptions = PREFIX_JSON;
 const relationTypeOptions = RELATION_TYPE_JSON;
 const resourceTypeOptions = RESOURCE_TYPE_JSON;
 
@@ -95,11 +97,196 @@ const addNewInternalRelation = () => {
     created: new Date().toISOString(),
     origin: "local",
     resource_type: null,
-    source_id: resourceid,
     target_id: null,
     type: null,
     updated: new Date().toISOString(),
   });
+};
+
+const removeInternalRelation = (id: string) => {
+  const internalRelation = moduleData.internal.find(
+    (relation) => relation.id === id
+  );
+
+  if (internalRelation?.origin === "remote") {
+    const {
+      data: deleteInternalRelationData,
+      error: deleteInternalRelationError,
+    } = useFetch(
+      `/api/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/relations/${id}/internal`,
+      {
+        headers: useRequestHeaders(["cookie"]),
+        method: "DELETE",
+      }
+    );
+
+    if (deleteInternalRelationError.value) {
+      console.log(deleteInternalRelationError.value);
+
+      push.error({
+        title: "Something went wrong",
+        message: "We couldn't delete your relation",
+      });
+
+      throw new Error("We couldn't delete your relation");
+    }
+
+    if (deleteInternalRelationData.value) {
+      console.log(deleteInternalRelationData.value.message);
+    }
+  }
+
+  push.success({
+    title: "Success",
+    message: "Your relation has been deleted",
+  });
+
+  moduleData.internal = moduleData.internal.filter(
+    (relation) => relation.id !== id
+  );
+};
+
+const addNewExternalRelation = () => {
+  moduleData.external.push({
+    id: nanoid(),
+    created: new Date().toISOString(),
+    origin: "local",
+    resource_type: null,
+    target: "",
+    target_type: null,
+    type: null,
+    updated: new Date().toISOString(),
+  });
+};
+
+const removeExternalRelation = (id: string) => {
+  const externalRelation = moduleData.external.find(
+    (relation) => relation.id === id
+  );
+
+  if (externalRelation?.origin === "remote") {
+    const {
+      data: deleteExternalRelationData,
+      error: deleteExternalRelationError,
+    } = useFetch(
+      `/api/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/relations/${id}/external`,
+      {
+        headers: useRequestHeaders(["cookie"]),
+        method: "DELETE",
+      }
+    );
+
+    if (deleteExternalRelationError.value) {
+      console.log(deleteExternalRelationError.value);
+
+      push.error({
+        title: "Something went wrong",
+        message: "We couldn't delete your relation",
+      });
+
+      throw new Error("We couldn't delete your relation");
+    }
+
+    if (deleteExternalRelationData.value) {
+      console.log(deleteExternalRelationData.value.message);
+    }
+  }
+
+  push.success({
+    title: "Success",
+    message: "Your relation has been deleted",
+  });
+
+  moduleData.external = moduleData.external.filter(
+    (relation) => relation.id !== id
+  );
+};
+
+const saveRelations = async () => {
+  const body = {
+    external: moduleData.external.map((relation) => {
+      const data = {
+        resource_type: relation.resource_type,
+        target: relation.target,
+        target_type: relation.target_type,
+        type: relation.type,
+      };
+
+      if (relation.origin === "remote") {
+        return {
+          ...data,
+          id: relation.id,
+        };
+      } else {
+        return data;
+      }
+    }),
+    internal: moduleData.internal.map((relation) => {
+      const data = {
+        resource_type: relation.resource_type,
+        target_id: relation.target_id,
+        type: relation.type,
+      };
+
+      if (relation.origin === "remote") {
+        return {
+          ...data,
+          id: relation.id,
+        };
+      } else {
+        return data;
+      }
+    }),
+  };
+
+  saveRelationsLoadingIndicator.value = true;
+
+  const { data: saveRelationsData, error: saveRelationsError } = await useFetch(
+    `/api/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/relations`,
+    {
+      body: JSON.stringify(body),
+      headers: useRequestHeaders(["cookie"]),
+      method: "PUT",
+    }
+  );
+
+  saveRelationsLoadingIndicator.value = false;
+
+  if (saveRelationsError.value) {
+    console.log(saveRelationsError.value.message);
+
+    push.error({
+      title: "Something went wrong",
+      message: "We couldn't save your relations",
+    });
+
+    throw new Error("We couldn't save your relations");
+  }
+
+  if (saveRelationsData.value) {
+    moduleData.internal = saveRelationsData.value.relations.internal.map(
+      (relation) => {
+        return {
+          ...relation,
+          origin: "remote",
+        };
+      }
+    );
+
+    moduleData.external = saveRelationsData.value.relations.external.map(
+      (relation) => {
+        return {
+          ...relation,
+          origin: "remote",
+        };
+      }
+    );
+
+    push.success({
+      title: "Success",
+      message: "Your relations have been saved. Syncing...",
+    });
+  }
 };
 </script>
 
@@ -116,6 +303,7 @@ const addNewInternalRelation = () => {
             size="large"
             color="black"
             :loading="saveRelationsLoadingIndicator"
+            @click="saveRelations"
           >
             <template #icon>
               <Icon name="iconoir:axes" />
@@ -128,26 +316,30 @@ const addNewInternalRelation = () => {
     </div>
 
     <div class="mx-auto w-full max-w-screen-xl px-2.5 lg:px-20">
-      <div class="flex items-center justify-between">
-        <h2 class="pb-10 pt-16">Internal Relations</h2>
-
-        <n-button color="black" @click="addNewInternalRelation">
-          <template #icon>
-            <Icon name="carbon:add-filled" />
-          </template>
-
-          Add a new internal relation
-        </n-button>
-      </div>
-
       <n-form
         ref="formRef"
         :label-width="80"
         :model="moduleData.internal"
         size="large"
       >
-        <div v-for="relation of moduleData.internal" :key="relation.id">
-          <n-form-item path="type" label="Type">
+        <div class="flex items-center justify-between">
+          <h2 class="pb-10 pt-16">Internal Relations</h2>
+
+          <n-button color="black" @click="addNewInternalRelation">
+            <template #icon>
+              <Icon name="carbon:add-filled" />
+            </template>
+
+            Add a new internal relation
+          </n-button>
+        </div>
+
+        <div
+          v-for="relation of moduleData.internal"
+          :key="relation.id"
+          class="flex items-center justify-between space-x-8"
+        >
+          <n-form-item path="type" label="Type" class="w-full">
             <n-select
               v-model:value="relation.type"
               filterable
@@ -155,7 +347,7 @@ const addNewInternalRelation = () => {
             />
           </n-form-item>
 
-          <n-form-item path="target" label="Target">
+          <n-form-item path="target" label="Target" class="w-full">
             <n-select
               v-model:value="relation.target_id"
               filterable
@@ -164,45 +356,97 @@ const addNewInternalRelation = () => {
             />
           </n-form-item>
 
-          <n-form-item path="resource_type" label="Resource Type">
+          <n-form-item
+            path="resource_type"
+            label="Resource Type"
+            class="w-full"
+          >
             <n-select
               v-model:value="relation.resource_type"
               filterable
               :options="resourceTypeOptions"
             />
           </n-form-item>
+
+          <n-button
+            type="error"
+            size="large"
+            @click="removeInternalRelation(relation.id)"
+          >
+            <template #icon>
+              <Icon name="iconoir:trash" />
+            </template>
+          </n-button>
         </div>
 
-        <!-- <n-form-item path="icon" label="Icon">
-          <n-select
-            v-model:value="internalFormData.icon"
-            filterable
-            :options="iconOptions"
-            :render-label="renderLabel"
-          />
-        </n-form-item> -->
-      </n-form>
+        <n-divider />
 
-      <n-divider />
+        <pre>{{ moduleData.internal }}</pre>
 
-      <pre>{{ moduleData.internal }}</pre>
+        <n-divider />
 
-      <h2 class="pb-10 pt-16">External Relations</h2>
+        <div class="flex items-center justify-between">
+          <h2 class="pb-10 pt-16">External Relations</h2>
 
-      <n-form
-        ref="formRef"
-        :label-width="80"
-        :model="moduleData.external"
-        size="large"
-      >
-        <!-- <n-form-item path="icon" label="Icon">
-          <n-select
-            v-model:value="internalFormData.icon"
-            filterable
-            :options="iconOptions"
-            :render-label="renderLabel"
-          />
-        </n-form-item> -->
+          <n-button color="black" @click="addNewExternalRelation">
+            <template #icon>
+              <Icon name="carbon:add-filled" />
+            </template>
+
+            Add a new external relation
+          </n-button>
+        </div>
+
+        <div
+          v-for="relation of moduleData.external"
+          :key="relation.id"
+          class="flex items-center justify-between space-x-8"
+        >
+          <n-form-item path="type" label="Type" class="w-full">
+            <n-select
+              v-model:value="relation.type"
+              filterable
+              :options="relationTypeOptions"
+            />
+          </n-form-item>
+
+          <n-form-item path="target" label="Target Type" class="w-full">
+            <n-select
+              v-model:value="relation.target_type"
+              filterable
+              :options="typeOptions"
+            />
+          </n-form-item>
+
+          <n-form-item path="resource_type" label="Target" class="w-full">
+            <n-input
+              v-model:value="relation.target"
+              placeholder="https://example.com"
+            />
+          </n-form-item>
+
+          <n-form-item
+            path="resource_type"
+            label="Resource Type"
+            class="w-full"
+          >
+            <n-select
+              v-model:value="relation.resource_type"
+              filterable
+              :options="resourceTypeOptions"
+            />
+          </n-form-item>
+
+          <n-button
+            type="error"
+            size="large"
+            @click="removeExternalRelation(relation.id)"
+          >
+            <template #icon>
+              <Icon name="iconoir:trash" />
+            </template>
+          </n-button>
+        </div>
       </n-form>
 
       <n-divider />

@@ -1,6 +1,5 @@
 interface InternalRelation {
   id: string;
-  source_id: string;
   type: string | null;
   target_id: string | null;
   resource_type: string | null;
@@ -11,11 +10,10 @@ interface InternalRelation {
 
 interface ExternalRelation {
   id: string;
-  source_id: string;
-  type: string;
+  type: string | null;
   target: string;
-  target_type: string;
-  resource_type: string;
+  target_type: string | null;
+  resource_type: string | null;
   created: string;
   updated: string;
   origin: "local" | "remote";

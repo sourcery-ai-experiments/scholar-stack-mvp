@@ -40,19 +40,25 @@ export default defineEventHandler(async (event) => {
 
   // get all the relations for the resource
   const internalRelations = await prisma.internalRelation.findMany({
+    orderBy: {
+      created: "asc",
+    },
     where: {
       source_id: resourceid,
     },
   });
 
   const externalRelations = await prisma.externalRelation.findMany({
+    orderBy: {
+      created: "asc",
+    },
     where: {
       source_id: resourceid,
     },
   });
 
   return {
-    internal: internalRelations,
     external: externalRelations,
+    internal: internalRelations,
   };
 });
