@@ -7,3 +7,19 @@ interface ResourceType {
   type: string | null;
   target: string;
 }
+
+interface ResourcesListItemChild {
+  label: string;
+  value: string;
+}
+
+interface ResourcesListItemChildren extends Array<ResourcesListItemChild> {}
+
+interface ResourcesListItem {
+  children: ResourcesListItemChildren;
+  key: string;
+  label: string;
+  type: string;
+}
+
+interface ResourcesList extends Array<ResourcesListItem> {}

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { FormInst, FormItemRule, SelectOption } from "naive-ui";
+import type { FormInst } from "naive-ui";
 
-import type { VNodeChild } from "vue";
-import { faker } from "@faker-js/faker";
+import { nanoid } from "nanoid";
 import { Icon } from "#components";
 
 import RELATION_TYPE_JSON from "@/assets/json/relation-type.json";
+import RESOURCE_TYPE_JSON from "@/assets/json/resource-type.json";
 
 definePageMeta({
   layout: "collections-layout",
@@ -18,11 +18,12 @@ const route = useRoute();
 const formRef = ref<FormInst | null>(null);
 
 const moduleData = reactive<Relations>({
-  internal: [],
   external: [],
+  internal: [],
 });
 
 const relationTypeOptions = RELATION_TYPE_JSON;
+const resourceTypeOptions = RESOURCE_TYPE_JSON;
 
 const saveRelationsLoadingIndicator = ref(false);
 
@@ -32,15 +33,15 @@ const { collectionid, resourceid, workspaceid } = route.params as {
   workspaceid: string;
 };
 
-const { data: relations, error } = await useFetch(
+const { data: relations, error: relationsError } = await useFetch(
   `/api/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/relations`,
   {
     headers: useRequestHeaders(["cookie"]),
   }
 );
 
-if (error.value) {
-  console.log(error.value);
+if (relationsError.value) {
+  console.log(relationsError.value);
 
   push.error({
     title: "Something went wrong",
@@ -53,50 +54,53 @@ if (error.value) {
 }
 
 if (relations.value) {
-  moduleData.internal = relations.value.internal;
-  moduleData.external = relations.value.external;
+  moduleData.internal = relations.value.internal.map((relation) => {
+    return {
+      ...relation,
+      origin: "remote",
+    };
+  });
+  moduleData.external = relations.value.external.map((relation) => {
+    return {
+      ...relation,
+      origin: "remote",
+    };
+  });
 }
 
-// const addRelation = async () => {
-//   const { data, error } = await useFetch(
-//     `/api/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/relation`,
-//     {
-//       headers: useRequestHeaders(["cookie"]),
-//       method: "POST",
-//     }
-//   );
+const {
+  data: resourceList,
+  error: resourceListError,
+  pending: resourceListLoadingIndicator,
+} = useLazyFetch(
+  `/api/workspaces/${workspaceid}/collections/${collectionid}/resources`,
+  {
+    headers: useRequestHeaders(["cookie"]),
+  }
+);
 
-//   if (error.value) {
-//     console.log(error.value);
+// TODO: might need to make this into a watch statement
+if (resourceListError.value) {
+  console.log(resourceListError.value);
 
-//     push.error({
-//       title: "Something went wrong",
-//       message: "We couldn't create a new relation",
-//     });
+  push.error({
+    title: "Something went wrong",
+    message: "We couldn't load your resources",
+  });
+}
 
-//     throw new Error("Something went wrong");
-//   }
-
-//   if (data.value) {
-//     if (!resource.value!.Relation) {
-//       resource.value!.Relation = [];
-//     }
-
-//     resource.value!.Relation.push({
-//       id: data.value.id,
-//       created: new Date().toISOString(),
-//       source: resource.value!.id,
-//       target: "",
-//       target_type: "",
-//       type: "",
-//       updated: new Date().toISOString(),
-//     });
-//   }
-// };
-
-// const removeRelation = (id: string) => {
-//   console.log("remove relation", id);
-// };
+const addNewInternalRelation = () => {
+  moduleData.internal.push({
+    id: nanoid(),
+    created: new Date().toISOString(),
+    origin: "local",
+    resource_type: null,
+    source_id: resourceid,
+    target_id: null,
+    type: null,
+    updated: new Date().toISOString(),
+  });
+};
 </script>
 
 <template>
@@ -127,13 +131,12 @@ if (relations.value) {
       <div class="flex items-center justify-between">
         <h2 class="pb-10 pt-16">Internal Relations</h2>
 
-        <n-button color="black" :loading="saveRelationsLoadingIndicator">
+        <n-button color="black" @click="addNewInternalRelation">
           <template #icon>
             <Icon name="carbon:add-filled" />
           </template>
 
-          Add a new internal relation | use post type saving like fairhub does |
-          one form for all relations
+          Add a new internal relation
         </n-button>
       </div>
 
@@ -149,6 +152,23 @@ if (relations.value) {
               v-model:value="relation.type"
               filterable
               :options="relationTypeOptions"
+            />
+          </n-form-item>
+
+          <n-form-item path="target" label="Target">
+            <n-select
+              v-model:value="relation.target_id"
+              filterable
+              :loading="resourceListLoadingIndicator"
+              :options="resourceList || []"
+            />
+          </n-form-item>
+
+          <n-form-item path="resource_type" label="Resource Type">
+            <n-select
+              v-model:value="relation.resource_type"
+              filterable
+              :options="resourceTypeOptions"
             />
           </n-form-item>
         </div>

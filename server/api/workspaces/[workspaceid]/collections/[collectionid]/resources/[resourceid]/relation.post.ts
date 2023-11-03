@@ -19,17 +19,7 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const newRelation = await prisma.relation.create({
-    data: {
-      source: resourceid,
-      target: "",
-      target_type: "",
-      type: "",
-    },
-  });
-
   return {
-    id: newRelation.id,
     message: "Relation created",
     statusCode: 201,
   };
