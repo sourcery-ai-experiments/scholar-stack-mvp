@@ -132,6 +132,7 @@ export default defineEventHandler(async (event) => {
     if (relation.id) {
       await prisma.internalRelation.update({
         data: {
+          mirror: false,
           resource_type: relation.resource_type,
           target_id: relation.target_id,
           type: relation.type,
@@ -149,10 +150,45 @@ export default defineEventHandler(async (event) => {
           type: relation.type,
         },
       });
+
+      // Create the inverse relation
+      const relationType = relation.type;
+      const mirrorRelationType = mirrorRelation(relationType);
+
+      if (!mirrorRelationType) {
+        continue;
+      }
+
+      // check if the resource exists and if it is part of the collection
+      const targetResource = await prisma.resource.findUnique({
+        where: {
+          id: relation.target_id,
+          Version: {
+            some: {
+              collection_id: collectionid,
+            },
+          },
+        },
+      });
+
+      if (!targetResource) {
+        throw createError({
+          message: "Target resource not found",
+          statusCode: 404,
+        });
+      }
+
+      // Add the inverse relation
+      await prisma.internalRelation.create({
+        data: {
+          mirror: true,
+          source_id: relation.target_id,
+          target_id: resourceid,
+          type: mirrorRelationType,
+        },
+      });
     }
   }
-
-  // TODO: Add the mirror relations
 
   // Organize the relations to return
 

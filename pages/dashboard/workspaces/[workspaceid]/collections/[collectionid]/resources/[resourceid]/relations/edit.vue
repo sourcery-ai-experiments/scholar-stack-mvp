@@ -206,7 +206,7 @@ const saveRelations = async () => {
   const body = {
     external: moduleData.external.map((relation) => {
       const data = {
-        resource_type: relation.resource_type,
+        resource_type: relation.resource_type || "",
         target: relation.target,
         target_type: relation.target_type,
         type: relation.type,
@@ -223,7 +223,7 @@ const saveRelations = async () => {
     }),
     internal: moduleData.internal.map((relation) => {
       const data = {
-        resource_type: relation.resource_type,
+        resource_type: relation.resource_type || "",
         target_id: relation.target_id,
         type: relation.type,
       };

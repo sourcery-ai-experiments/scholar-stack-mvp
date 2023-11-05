@@ -178,7 +178,9 @@ model InternalRelation {
   target_id String
 
   type          String // isCitedBy, etc 
-  resource_type String // Book, Article, etc
+  resource_type String? // Book, Article, etc
+
+  mirror Boolean @default(false)
 
   created DateTime @default(now())
   updated DateTime @updatedAt
@@ -194,7 +196,7 @@ model ExternalRelation {
   target_type String // doi, url, ror, orcid, etc (prefix from identifiers.org)
 
   type          String // isCitedBy, etc 
-  resource_type String // Book, Article, etc
+  resource_type String? // Book, Article, etc
 
   created DateTime @default(now())
   updated DateTime @updatedAt
