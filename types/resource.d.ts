@@ -5,6 +5,7 @@ interface ResourceType {
   description: string;
   icon: string;
   type: string | null;
+  action?: string;
   target: string;
 }
 

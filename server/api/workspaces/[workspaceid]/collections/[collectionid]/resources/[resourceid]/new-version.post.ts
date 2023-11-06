@@ -91,6 +91,14 @@ export default defineEventHandler(async (event) => {
     },
   });
 
+  // Add the 'oldVersion' action to the old version
+  await prisma.resource.update({
+    data: {
+      action: "oldVersion",
+    },
+    where: { id: resourceid },
+  });
+
   await prisma.version.update({
     data: {
       Resources: {

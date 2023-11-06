@@ -200,11 +200,15 @@ const addResource = async () => {
             </div>
           </div>
 
-          <div>
+          <n-space vertical>
+            <n-tag v-if="resource.action">
+              {{ resource.action }}
+            </n-tag>
+
             <span>
               {{ resource.description }}
             </span>
-          </div>
+          </n-space>
         </NuxtLink>
       </div>
     </div>

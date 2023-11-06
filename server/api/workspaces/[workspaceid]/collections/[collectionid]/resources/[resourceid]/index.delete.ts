@@ -61,23 +61,36 @@ export default defineEventHandler(async (event) => {
       });
     }
 
+    // todo: maybe revert the following section
+
     // Remove the resource from the draft version
-    await prisma.version.update({
-      data: {
-        Resources: {
-          disconnect: {
-            id: resourceid,
-          },
-        },
-      },
-      where: { id: draftVersion.id },
-    });
+
+    // await prisma.version.update({
+    //   data: {
+    //     Resources: {
+    //       disconnect: {
+    //         id: resourceid,
+    //       },
+    //     },
+    //   },
+    //   where: { id: draftVersion.id },
+    // });
   } else {
+    // todo: maybe revert the following section
     // Delete the resource
-    await prisma.resource.delete({
-      where: { id: resourceid },
-    });
+    // await prisma.resource.delete({
+    //   where: { id: resourceid },
+    // });
   }
+
+  await prisma.resource.update({
+    data: {
+      action: "deleted",
+    },
+    where: { id: resourceid },
+  });
+
+  // todo: remove relations upon deletion
 
   return {
     message: "Resource removed",

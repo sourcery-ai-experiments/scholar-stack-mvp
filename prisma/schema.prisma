@@ -155,6 +155,8 @@ model Resource {
   back_link    Resource? @relation("NewVersionRelation", fields: [back_link_id], references: [id])
   back_link_id String?
 
+  action String? // oldVersion | deleted 
+
   created DateTime @default(now())
   updated DateTime @updatedAt
 
