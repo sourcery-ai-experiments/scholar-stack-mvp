@@ -141,6 +141,31 @@ model Version {
   @@index([identifier, collection_id])
 }
 
+model StagingResource {
+  id String @id @default(cuid())
+
+  type   String // doi, url, ror, orcid, etc (prefix from identifiers.org)
+  target String // the actual identifier (10.1234/abc)
+
+  title       String @default("")
+  description String @default("")
+
+  icon String @default("mdi:resource-description-framework")
+
+  back_link    StagingResource? @relation("NewVersionRelation", fields: [back_link_id], references: [id])
+  back_link_id String?
+
+  orignal_resource    Resource? @relation(fields: [orignal_resource_id], references: [id])
+  orignal_resource_id String?
+
+  action String? // oldVersion | deleted
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  StagingResource StagingResource[] @relation("NewVersionRelation")
+}
+
 model Resource {
   id String @id @default(cuid())
 
@@ -155,8 +180,6 @@ model Resource {
   back_link    Resource? @relation("NewVersionRelation", fields: [back_link_id], references: [id])
   back_link_id String?
 
-  action String? // oldVersion | deleted 
-
   created DateTime @default(now())
   updated DateTime @updatedAt
 
@@ -168,6 +191,7 @@ model Resource {
 
   InternalRelationSource InternalRelation[] @relation("SourceRelation")
   InternalRelationTarget InternalRelation[] @relation("TargetRelation")
+  StagingResource        StagingResource[]
 }
 
 model InternalRelation {
