@@ -141,31 +141,6 @@ model Version {
   @@index([identifier, collection_id])
 }
 
-model StagingResource {
-  id String @id @default(cuid())
-
-  type   String // doi, url, ror, orcid, etc (prefix from identifiers.org)
-  target String // the actual identifier (10.1234/abc)
-
-  title       String @default("")
-  description String @default("")
-
-  icon String @default("mdi:resource-description-framework")
-
-  back_link    StagingResource? @relation("NewVersionRelation", fields: [back_link_id], references: [id])
-  back_link_id String?
-
-  orignal_resource    Resource? @relation(fields: [orignal_resource_id], references: [id])
-  orignal_resource_id String?
-
-  action String? // oldVersion | deleted
-
-  created DateTime @default(now())
-  updated DateTime @updatedAt
-
-  StagingResource StagingResource[] @relation("NewVersionRelation")
-}
-
 model Resource {
   id String @id @default(cuid())
 
@@ -187,11 +162,16 @@ model Resource {
 
   Resource Resource[] @relation("NewVersionRelation")
 
-  ExternalRelation ExternalRelation[]
+  ExternalRelationSource ExternalRelation[]
 
   InternalRelationSource InternalRelation[] @relation("SourceRelation")
   InternalRelationTarget InternalRelation[] @relation("TargetRelation")
-  StagingResource        StagingResource[]
+
+  StagingResource StagingResource[]
+
+  StagingInternalRelationOriginalSource StagingInternalRelation[] @relation("OriginalSourceRelation")
+  StagingInternalRelationOriginalTarget StagingInternalRelation[] @relation("OriginalTargetRelation")
+  StagingExternalRelationSource         StagingExternalRelation[]
 }
 
 model InternalRelation {
@@ -223,6 +203,82 @@ model ExternalRelation {
 
   type          String // isCitedBy, etc 
   resource_type String? // Book, Article, etc
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+}
+
+model StagingResource {
+  id String @id @default(cuid())
+
+  type   String // doi, url, ror, orcid, etc (prefix from identifiers.org)
+  target String // the actual identifier (10.1234/abc)
+
+  title       String @default("")
+  description String @default("")
+
+  icon String @default("mdi:resource-description-framework")
+
+  back_link    StagingResource? @relation("NewVersionRelation", fields: [back_link_id], references: [id])
+  back_link_id String?
+
+  orignal_resource    Resource? @relation(fields: [orignal_resource_id], references: [id])
+  orignal_resource_id String?
+
+  action String? // oldVersion | deleted
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  StagingResource StagingResource[] @relation("NewVersionRelation")
+
+  StagingInternalRelationSource StagingInternalRelation[] @relation("SourceRelation")
+  StagingInternalRelationTarget StagingInternalRelation[] @relation("TargetRelation")
+  StagingExternalRelationSource StagingExternalRelation[]
+}
+
+model StagingInternalRelation {
+  id String @id @default(cuid())
+
+  source    StagingResource @relation("SourceRelation", fields: [source_id], references: [id])
+  source_id String
+
+  original_source    Resource? @relation("OriginalSourceRelation", fields: [original_source_id], references: [id])
+  original_source_id String?
+
+  target    StagingResource @relation("TargetRelation", fields: [target_id], references: [id])
+  target_id String
+
+  original_target    Resource? @relation("OriginalTargetRelation", fields: [original_target_id], references: [id])
+  original_target_id String?
+
+  type          String // isCitedBy, etc
+  resource_type String? // Book, Article, etc
+
+  action String? // deleted
+
+  mirror Boolean @default(false)
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+}
+
+model StagingExternalRelation {
+  id String @id @default(cuid())
+
+  source    StagingResource @relation(fields: [source_id], references: [id])
+  source_id String
+
+  original_source    Resource? @relation(fields: [original_source_id], references: [id])
+  original_source_id String?
+
+  target      String // the actual identifier (10.1234/abc)
+  target_type String // doi, url, ror, orcid, etc (prefix from identifiers.org)
+
+  type          String // isCitedBy, etc
+  resource_type String? // Book, Article, etc
+
+  action String? // deleted
 
   created DateTime @default(now())
   updated DateTime @updatedAt
