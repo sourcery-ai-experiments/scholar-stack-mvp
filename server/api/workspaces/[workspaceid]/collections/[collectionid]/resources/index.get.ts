@@ -36,7 +36,7 @@ export default defineEventHandler(async (event) => {
       type: "group",
     };
 
-    const resources = await prisma.resource.findMany({
+    const resources = await prisma.stagingResource.findMany({
       where: {
         Version: {
           some: {

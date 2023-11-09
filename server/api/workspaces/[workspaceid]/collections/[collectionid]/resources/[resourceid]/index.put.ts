@@ -56,7 +56,7 @@ export default defineEventHandler(async (event) => {
 
   const { title, description, icon, target, type } = parsedBody.data;
 
-  const updatedResource = await prisma.resource.update({
+  const updatedResource = await prisma.stagingResource.update({
     data: {
       title,
       description,

@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
   }
 
   // Check if the resource exists
-  const resource = await prisma.resource.findUnique({
+  const resource = await prisma.stagingResource.findUnique({
     where: { id: resourceid },
   });
 
@@ -32,63 +32,55 @@ export default defineEventHandler(async (event) => {
   }
 
   // Check if the resource is part of any published versions
-  const publishedResource = await prisma.resource.findFirst({
-    where: {
-      id: resourceid,
-      Version: {
-        some: {
-          published: true,
-        },
-      },
-    },
-  });
-
-  if (publishedResource) {
-    // If the resource is part of a published version, we can't delete it
-    // We should remove it from the draft version instead
-
-    const draftVersion = await prisma.version.findFirst({
+  if (resource.orignal_resource_id) {
+    const publishedResource = await prisma.resource.findFirst({
       where: {
-        collection_id: collectionid,
-        published: false,
+        id: resource.orignal_resource_id,
+        Version: {
+          some: {
+            published: true,
+          },
+        },
       },
     });
 
-    if (!draftVersion) {
-      throw createError({
-        message: "Draft version not found",
-        statusCode: 404,
+    if (publishedResource) {
+      // If the resource is part of a published version, we can't delete it
+      // We should mark the resource as deleted from the draft version instead
+
+      const draftVersion = await prisma.version.findFirst({
+        where: {
+          collection_id: collectionid,
+          published: false,
+        },
+      });
+
+      if (!draftVersion) {
+        throw createError({
+          message: "Draft version not found",
+          statusCode: 404,
+        });
+      }
+
+      // mark the resource as deleted
+      await prisma.stagingResource.update({
+        data: {
+          action: "deleted",
+        },
+        where: { id: resourceid },
+      });
+    } else {
+      // Delete the resource
+      await prisma.stagingResource.delete({
+        where: { id: resourceid },
       });
     }
-
-    // todo: maybe revert the following section
-
-    // Remove the resource from the draft version
-
-    // await prisma.version.update({
-    //   data: {
-    //     Resources: {
-    //       disconnect: {
-    //         id: resourceid,
-    //       },
-    //     },
-    //   },
-    //   where: { id: draftVersion.id },
-    // });
   } else {
-    // todo: maybe revert the following section
     // Delete the resource
-    // await prisma.resource.delete({
-    //   where: { id: resourceid },
-    // });
+    await prisma.stagingResource.delete({
+      where: { id: resourceid },
+    });
   }
-
-  await prisma.resource.update({
-    data: {
-      action: "deleted",
-    },
-    where: { id: resourceid },
-  });
 
   // todo: remove relations upon deletion
 
