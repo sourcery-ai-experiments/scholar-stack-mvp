@@ -136,7 +136,8 @@ model Version {
   published    Boolean   @default(false)
   published_on DateTime?
 
-  Resources Resource[]
+  Resources        Resource[]
+  StagingResources StagingResource[]
 
   @@index([identifier, collection_id])
 }
@@ -229,6 +230,8 @@ model StagingResource {
 
   created DateTime @default(now())
   updated DateTime @updatedAt
+
+  Version Version[]
 
   StagingResource StagingResource[] @relation("NewVersionRelation")
 
