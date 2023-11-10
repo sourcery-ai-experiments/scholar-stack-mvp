@@ -22,7 +22,7 @@ export default defineEventHandler(async (event) => {
   }
 
   // Check if the resource exists
-  const resource = await prisma.resource.findUnique({
+  const resource = await prisma.stagingResource.findUnique({
     where: { id: resourceid },
   });
 
@@ -34,7 +34,7 @@ export default defineEventHandler(async (event) => {
   }
 
   // Check if the resource is part of the draft version
-  const draftResource = await prisma.resource.findFirst({
+  const draftResource = await prisma.stagingResource.findFirst({
     where: {
       id: resourceid,
       Version: {
@@ -53,7 +53,7 @@ export default defineEventHandler(async (event) => {
   }
 
   // Check if the relation exists
-  const relation = await prisma.internalRelation.findUnique({
+  const relation = await prisma.stagingInternalRelation.findUnique({
     where: { id: relationid },
   });
 
@@ -64,29 +64,34 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const relationType = relation.type;
-  const mirrorRelationType = mirrorRelation(relationType);
+  // todo: remove mirror on publish
 
-  if (mirrorRelationType && !relation.mirror) {
-    // Only the original relation should delete the mirror relation
-    const mirroredRelation = await prisma.internalRelation.findFirst({
-      where: {
-        mirror: true,
-        target_id: relation.source_id,
-        type: mirrorRelationType,
-      },
-    });
+  // const relationType = relation.type;
+  // const mirrorRelationType = mirrorRelation(relationType);
 
-    if (mirroredRelation) {
-      // found mirror relation, delete it
-      await prisma.internalRelation.delete({
-        where: { id: mirroredRelation.id },
-      });
-    }
-  }
+  // if (mirrorRelationType && !relation.mirror) {
+  // Only the original relation should delete the mirror relation
+  //   const mirroredRelation = await prisma.internalRelation.findFirst({
+  //     where: {
+  //       mirror: true,
+  //       target_id: relation.source_id,
+  //       type: mirrorRelationType,
+  //     },
+  //   });
+
+  //   if (mirroredRelation) {
+  // found mirror relation, delete it
+  //     await prisma.internalRelation.delete({
+  //       where: { id: mirroredRelation.id },
+  //     });
+  //   }
+  // }
 
   // Delete the relation
-  await prisma.internalRelation.delete({
+  await prisma.stagingInternalRelation.update({
+    data: {
+      action: "deleted",
+    },
     where: { id: relationid },
   });
 

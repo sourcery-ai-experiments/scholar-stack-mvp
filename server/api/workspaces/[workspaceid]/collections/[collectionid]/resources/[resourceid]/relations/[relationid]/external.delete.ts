@@ -22,7 +22,7 @@ export default defineEventHandler(async (event) => {
   }
 
   // Check if the resource exists
-  const resource = await prisma.resource.findUnique({
+  const resource = await prisma.stagingResource.findUnique({
     where: { id: resourceid },
   });
 
@@ -34,7 +34,7 @@ export default defineEventHandler(async (event) => {
   }
 
   // Check if the resource is part of the draft version
-  const draftResource = await prisma.resource.findFirst({
+  const draftResource = await prisma.stagingResource.findFirst({
     where: {
       id: resourceid,
       Version: {
@@ -53,7 +53,7 @@ export default defineEventHandler(async (event) => {
   }
 
   // Check if the relation is exists
-  const relation = await prisma.externalRelation.findUnique({
+  const relation = await prisma.stagingExternalRelation.findUnique({
     where: { id: relationid },
   });
 
@@ -65,12 +65,12 @@ export default defineEventHandler(async (event) => {
   }
 
   // Delete the relation
-  await prisma.externalRelation.delete({
+  await prisma.stagingExternalRelation.update({
+    data: {
+      action: "deleted",
+    },
     where: { id: relationid },
   });
-
-  // TODO: Remove the mirror relation if it exists
-  // Might not be correct potentially
 
   return {
     message: "Relation removed",

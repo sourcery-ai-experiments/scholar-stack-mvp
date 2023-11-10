@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
   }
 
   // Check if the resource is part of the collection version
-  const resource = await prisma.resource.findUnique({
+  const resource = await prisma.stagingResource.findUnique({
     where: {
       id: resourceid,
       Version: {
@@ -39,7 +39,7 @@ export default defineEventHandler(async (event) => {
   }
 
   // get all the relations for the resource
-  const internalRelations = await prisma.internalRelation.findMany({
+  const internalRelations = await prisma.stagingInternalRelation.findMany({
     orderBy: {
       created: "asc",
     },
@@ -48,7 +48,7 @@ export default defineEventHandler(async (event) => {
     },
   });
 
-  const externalRelations = await prisma.externalRelation.findMany({
+  const externalRelations = await prisma.stagingExternalRelation.findMany({
     orderBy: {
       created: "asc",
     },

@@ -71,7 +71,7 @@ export default defineEventHandler(async (event) => {
   // Check if the relation exists for the ones with an id and that the relation is part of the resource
   for (const relation of external) {
     if (relation.id) {
-      const existingRelation = await prisma.externalRelation.findUnique({
+      const existingRelation = await prisma.stagingExternalRelation.findUnique({
         where: { id: relation.id, source_id: resourceid },
       });
 
@@ -87,7 +87,7 @@ export default defineEventHandler(async (event) => {
   // Check if the relation exists for the ones with an id and that the relation is part of the resource
   for (const relation of internal) {
     if (relation.id) {
-      const existingRelation = await prisma.internalRelation.findUnique({
+      const existingRelation = await prisma.stagingInternalRelation.findUnique({
         where: { id: relation.id, source_id: resourceid },
       });
 
@@ -103,7 +103,7 @@ export default defineEventHandler(async (event) => {
   // Update the relations
   for (const relation of external) {
     if (relation.id) {
-      await prisma.externalRelation.update({
+      await prisma.stagingExternalRelation.update({
         data: {
           resource_type: relation.resource_type,
           target: relation.target,
@@ -115,7 +115,7 @@ export default defineEventHandler(async (event) => {
         },
       });
     } else {
-      await prisma.externalRelation.create({
+      await prisma.stagingExternalRelation.create({
         data: {
           resource_type: relation.resource_type,
           source_id: resourceid,
@@ -130,7 +130,7 @@ export default defineEventHandler(async (event) => {
   // Update the relations
   for (const relation of internal) {
     if (relation.id) {
-      await prisma.internalRelation.update({
+      await prisma.stagingInternalRelation.update({
         data: {
           mirror: false,
           resource_type: relation.resource_type,
@@ -142,7 +142,7 @@ export default defineEventHandler(async (event) => {
         },
       });
     } else {
-      await prisma.internalRelation.create({
+      await prisma.stagingInternalRelation.create({
         data: {
           resource_type: relation.resource_type,
           source_id: resourceid,
@@ -151,49 +151,64 @@ export default defineEventHandler(async (event) => {
         },
       });
 
-      // Create the inverse relation
-      const relationType = relation.type;
-      const mirrorRelationType = mirrorRelation(relationType);
+      /**
+       * TODO: mirror relations should be created on publish in this instance
+       * * this way we can check and see if the resource exists in the collection
+       * * as a well as map the relations to the correct resource
+       */
 
-      if (!mirrorRelationType) {
-        continue;
-      }
+      // Create the inverse relation
+      // const relationType = relation.type;
+      // const mirrorRelationType = mirrorRelation(relationType);
+
+      // if (!mirrorRelationType) {
+      //   continue;
+      // }
 
       // check if the resource exists and if it is part of the collection
-      const targetResource = await prisma.resource.findUnique({
-        where: {
-          id: relation.target_id,
-          Version: {
-            some: {
-              collection_id: collectionid,
-            },
-          },
-        },
-      });
+      // const targetResource = await prisma.resource.findUnique({
+      //   where: {
+      //     id: relation.target_id,
+      //     Version: {
+      //       some: {
+      //         collection_id: collectionid,
+      //       },
+      //     },
+      //   },
+      // });
 
-      if (!targetResource) {
-        throw createError({
-          message: "Target resource not found",
-          statusCode: 404,
-        });
-      }
+      // if (!targetResource) {
+      //   throw createError({
+      //     message: "Target resource not found",
+      //     statusCode: 404,
+      //   });
+      // }
+
+      // todo: check if the relation already exists
+      // const relationExists = await prisma.stagingInternalRelation.findFirst({
+      //   where: {
+      //     source_id: relation.target_id,
+      //     target_id: resourceid,
+      //     type: mirrorRelationType,
+      //   },
+      // });
 
       // Add the inverse relation
-      await prisma.internalRelation.create({
-        data: {
-          mirror: true,
-          source_id: relation.target_id,
-          target_id: resourceid,
-          type: mirrorRelationType,
-        },
-      });
+      // await prisma.stagingInternalRelation.create({
+      //   data: {
+      //     mirror: true,
+      //     source_id: relation.target_id,
+      //     target_id: resourceid,
+      //     type: mirrorRelationType,
+      //   },
+      // });
     }
   }
 
   // Organize the relations to return
 
   // get all the relations for the resource
-  const internalRelations = await prisma.internalRelation.findMany({
+  const internalRelations = await prisma.stagingInternalRelation.findMany({
     orderBy: {
       created: "asc",
     },
@@ -202,7 +217,7 @@ export default defineEventHandler(async (event) => {
     },
   });
 
-  const externalRelations = await prisma.externalRelation.findMany({
+  const externalRelations = await prisma.stagingExternalRelation.findMany({
     orderBy: {
       created: "asc",
     },

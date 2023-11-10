@@ -243,7 +243,7 @@ model StagingResource {
 model StagingInternalRelation {
   id String @id @default(cuid())
 
-  source    StagingResource @relation("SourceRelation", fields: [source_id], references: [id])
+  source    StagingResource @relation("SourceRelation", fields: [source_id], references: [id], onDelete: Cascade)
   source_id String
 
   original_source    Resource? @relation("OriginalSourceRelation", fields: [original_source_id], references: [id])
@@ -269,7 +269,7 @@ model StagingInternalRelation {
 model StagingExternalRelation {
   id String @id @default(cuid())
 
-  source    StagingResource @relation(fields: [source_id], references: [id])
+  source    StagingResource @relation(fields: [source_id], references: [id], onDelete: Cascade)
   source_id String
 
   original_source    Resource? @relation(fields: [original_source_id], references: [id])
