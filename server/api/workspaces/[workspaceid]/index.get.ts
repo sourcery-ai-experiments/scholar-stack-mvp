@@ -31,6 +31,7 @@ export default defineEventHandler(async (event) => {
       image: collection.image,
     })),
     description: workspace.description,
+    personal: workspace.personal,
   };
 
   return responseWorkspace;

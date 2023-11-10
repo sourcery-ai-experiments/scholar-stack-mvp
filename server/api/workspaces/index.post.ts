@@ -65,6 +65,13 @@ export default defineEventHandler(async (event) => {
 
   return {
     statusCode: 201,
-    workspaceId,
+    workspace: {
+      id: workspace.id,
+      title: workspace.title,
+      created: workspace.created,
+      description: workspace.description,
+      personal: workspace.personal,
+      updated: workspace.updated,
+    },
   };
 });

@@ -19,3 +19,13 @@ interface APIResponseWorkspace {
 
   collections: APIResponseWorkspaceCollectionItem[];
 }
+
+interface Workspace {
+  id: string;
+  title: string;
+  description: string;
+  personal: boolean;
+  created: string;
+}
+
+interface Workspaces extends Array<Workspace> {}
