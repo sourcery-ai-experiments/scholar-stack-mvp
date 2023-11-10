@@ -102,7 +102,7 @@ export default defineEventHandler(async (event) => {
 
   await prisma.version.update({
     data: {
-      Resources: {
+      StagingResources: {
         connect: { id: newResourceVersion.id },
       },
     },

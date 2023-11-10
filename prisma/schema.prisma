@@ -89,6 +89,8 @@ model Workspace {
   title       String @default("")
   description String @default("")
 
+  personal Boolean @default(false)
+
   created DateTime @default(now())
   updated DateTime @updatedAt
 

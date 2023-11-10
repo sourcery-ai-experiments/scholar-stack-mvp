@@ -10,6 +10,7 @@ export default defineEventHandler(async (event) => {
     .object({
       title: z.string().min(1),
       description: z.string(),
+      personal: z.boolean().optional(),
     })
     .strict();
 
@@ -51,6 +52,7 @@ export default defineEventHandler(async (event) => {
         },
       },
       description: parsedBody.data.description,
+      personal: parsedBody.data.personal || false,
     },
   });
 

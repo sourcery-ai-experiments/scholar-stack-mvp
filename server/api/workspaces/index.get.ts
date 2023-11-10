@@ -13,6 +13,7 @@ export default defineEventHandler(async (event) => {
           title: true,
           created: true,
           description: true,
+          personal: true,
         },
       },
     },

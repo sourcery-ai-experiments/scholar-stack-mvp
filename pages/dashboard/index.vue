@@ -29,11 +29,16 @@ if (error.value) {
 if (workspaces.value?.length === 0) {
   console.log("No workspaces found");
 
+  push.info({
+    message: "Please wait while we create your personal workspace...",
+  });
+
   // Create a new personal workspace
   const { data: workspace, error } = await useFetch("/api/workspaces", {
     body: JSON.stringify({
       title: "My workspace",
       description: "This is my personal workspace",
+      personal: true,
     }),
     headers: useRequestHeaders(["cookie"]),
     method: "POST",

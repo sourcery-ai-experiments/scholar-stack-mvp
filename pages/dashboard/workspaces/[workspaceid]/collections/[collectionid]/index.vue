@@ -95,7 +95,7 @@ const addResource = async () => {
 
     // navigate to the new resource
     navigateTo(
-      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceId}`
+      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceId}/edit`
     );
   }
 };
@@ -201,9 +201,9 @@ const addResource = async () => {
           </div>
 
           <n-space vertical>
-            <n-tag v-if="resource.action">
+            <!-- <n-tag v-if="resource.action">
               {{ resource.action }}
-            </n-tag>
+            </n-tag> -->
 
             <span>
               {{ resource.description }}

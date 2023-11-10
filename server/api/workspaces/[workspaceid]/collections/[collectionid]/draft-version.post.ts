@@ -26,8 +26,24 @@ export default defineEventHandler(async (event) => {
     where: { collection_id: collectionid },
   });
 
-  // if there is no version or the latest version is published, create a new version
-  if (latestVersion && latestVersion.published) {
+  if (!latestVersion) {
+    const draftVersion = await prisma.version.create({
+      data: {
+        name: "Draft",
+        changelog: "xxx",
+        collection_id: collectionid,
+        identifier: nanoid(),
+      },
+    });
+
+    return {
+      statusCode: 201,
+      version: draftVersion,
+    };
+  }
+
+  // if the latest version is published clone it into a draft version
+  if (latestVersion.published) {
     const draftVersion = await prisma.version.create({
       data: {
         name: "Draft",
@@ -38,6 +54,7 @@ export default defineEventHandler(async (event) => {
     });
 
     // Get all the resources in the latest version
+
     const originalResources = await prisma.resource.findMany({
       where: {
         Version: {

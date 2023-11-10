@@ -86,6 +86,13 @@ export default defineEventHandler(async (event) => {
 
   // Check if the relation exists for the ones with an id and that the relation is part of the resource
   for (const relation of internal) {
+    if (relation.target_id === resourceid) {
+      throw createError({
+        message: "Cannot create a relation to itself",
+        statusCode: 400,
+      });
+    }
+
     if (relation.id) {
       const existingRelation = await prisma.stagingInternalRelation.findUnique({
         where: { id: relation.id, source_id: resourceid },

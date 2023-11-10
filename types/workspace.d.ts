@@ -15,5 +15,7 @@ interface APIResponseWorkspace {
   title: string;
   description: string;
 
+  personal: boolean;
+
   collections: APIResponseWorkspaceCollectionItem[];
 }

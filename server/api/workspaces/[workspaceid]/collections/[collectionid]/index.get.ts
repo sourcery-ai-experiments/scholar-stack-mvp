@@ -25,15 +25,21 @@ export default defineEventHandler(async (event) => {
   const version = await prisma.version.findMany({
     include: {
       Resources: true,
+      StagingResources: true,
     },
     orderBy: { created: "desc" },
     take: 1,
     where: { collection_id: collectionid },
   });
 
-  const resources = version.length > 0 ? version[0].Resources : [];
+  const resources =
+    version.length > 0
+      ? version[0].published
+        ? version[0].Resources
+        : version[0].StagingResources
+      : [];
 
-  const response = {
+  return {
     id: collection.id,
     title: collection.title,
     created: collection.created,
@@ -58,11 +64,4 @@ export default defineEventHandler(async (event) => {
           }
         : null,
   };
-
-  // keep only the latest version
-  // collection.Versions = collection.Versions.sort(
-  //   (a, b) => b.created.getTime() - a.created.getTime()
-  // ).slice(0, 1);
-
-  return response;
 });

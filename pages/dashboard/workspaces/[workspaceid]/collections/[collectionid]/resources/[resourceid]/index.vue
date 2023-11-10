@@ -160,6 +160,7 @@ const createNewVersion = async () => {
           </n-button>
 
           <n-button
+            v-if="resource?.orignal_resource_id"
             color="black"
             size="large"
             :loading="newResourceVersionLoadingIndicator"

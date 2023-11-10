@@ -20,14 +20,26 @@ const truncateTables = async () => {
   console.log("Truncating table Version...");
   await prisma.$executeRaw`TRUNCATE TABLE "Version" RESTART IDENTITY CASCADE`;
 
-  console.log("Truncating table Resource...");
-  await prisma.$executeRaw`TRUNCATE TABLE "Resource" RESTART IDENTITY CASCADE`;
+  console.log("Truncating table InternalRelation...");
+  await prisma.$executeRaw`TRUNCATE TABLE "InternalRelation" RESTART IDENTITY CASCADE`;
+
+  console.log("Truncating table ExternalRelation...");
+  await prisma.$executeRaw`TRUNCATE TABLE "ExternalRelation" RESTART IDENTITY CASCADE`;
 
   console.log("Truncating table _ResourceToVersion...");
   await prisma.$executeRaw`TRUNCATE TABLE "_ResourceToVersion" RESTART IDENTITY CASCADE`;
 
-  console.log("Truncating table Relation...");
-  await prisma.$executeRaw`TRUNCATE TABLE "Relation" RESTART IDENTITY CASCADE`;
+  console.log("Truncating table StagingInternalRelation...");
+  await prisma.$executeRaw`TRUNCATE TABLE "StagingInternalRelation" RESTART IDENTITY CASCADE`;
+
+  console.log("Truncating table StagingExternalRelation...");
+  await prisma.$executeRaw`TRUNCATE TABLE "StagingExternalRelation" RESTART IDENTITY CASCADE`;
+
+  console.log("Truncating table StagingResource...");
+  await prisma.$executeRaw`TRUNCATE TABLE "StagingResource" RESTART IDENTITY CASCADE`;
+
+  console.log("Truncating table _StagingResourceToVersion...");
+  await prisma.$executeRaw`TRUNCATE TABLE "_StagingResourceToVersion" RESTART IDENTITY CASCADE`;
 
   console.log("Truncating table Analytics...");
   await prisma.$executeRaw`TRUNCATE TABLE "Analytics" RESTART IDENTITY CASCADE`;
