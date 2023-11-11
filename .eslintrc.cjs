@@ -31,6 +31,7 @@ module.exports = {
       "error",
       { orderedKeys: ["id", "username", "name", "title", "50"] },
     ],
+
     "unused-imports/no-unused-imports": "error",
     "unused-imports/no-unused-vars": [
       "warn",
@@ -40,6 +41,11 @@ module.exports = {
         vars: "all",
         varsIgnorePattern: "^_",
       },
+    ],
+
+    "vue/padding-line-between-tags": [
+      "error",
+      [{ blankLine: "always", next: "*", prev: "*" }],
     ],
   },
 };

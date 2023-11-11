@@ -6,6 +6,7 @@ export const useWorkspaceStore = defineStore("workspace", () => {
   const newWorkspaceModalIsOpen = ref(false);
 
   const workspaces = ref<Workspaces>([]);
+  const workspace = ref<Workspace>();
 
   const showNewWorkspaceModal = () => {
     newWorkspaceModalIsOpen.value = true;
@@ -62,6 +63,16 @@ export const useWorkspaceStore = defineStore("workspace", () => {
     }
   };
 
+  const getWorkspace = (workspaceId: string) => {
+    if (!workspaces.value) {
+      return;
+    }
+
+    workspace.value = workspaces.value.find(
+      (workspace) => workspace.id === workspaceId
+    );
+  };
+
   const setWorkspaces = (data: Workspaces) => {
     workspaces.value = data;
   };
@@ -69,10 +80,13 @@ export const useWorkspaceStore = defineStore("workspace", () => {
   return {
     fetchWorkspaces,
     getLoading,
+    getWorkspace,
     hideNewWorkspaceModal,
     newWorkspaceModalIsOpen,
     setWorkspaces,
     showNewWorkspaceModal,
+    sortWorkspaces,
+    workspace,
     workspaces,
   };
 });

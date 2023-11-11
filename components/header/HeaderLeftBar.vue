@@ -10,6 +10,8 @@ const selectedWorkspace = ref("");
 const selectedCollection = ref("");
 const selectedResource = ref("");
 
+workspaceStore.fetchWorkspaces();
+
 // Temp data ref - TODO: Remove later
 const tempWorkspaceDataRef = ref({
   id: "sdfds",
@@ -52,21 +54,17 @@ const tempCollectionDataRef = ref({
   version: null,
 });
 
-const { data: workspaces, error: workspacesError } = await useFetch(
-  "/api/workspaces",
-  {
-    headers: useRequestHeaders(["cookie"]),
-  }
-);
+const personalWorkspace = computed(() => {
+  return workspaceStore.workspaces.find((workspace) => workspace.personal);
+});
 
-if (workspacesError.value) {
-  console.log(workspacesError.value);
+const allOtherWorkspaces = computed(() => {
+  return workspaceStore.workspaces.filter((workspace) => !workspace.personal);
+});
 
-  push.error({
-    title: "Something went wrong",
-    message: "We couldn't load your workspaces",
-  });
-}
+const currentWorkspace = computed(() => {
+  return workspaceStore.workspace;
+});
 
 /**
  * TODO: Replace with a skeleton loader
@@ -112,10 +110,6 @@ if (route.params.resourceid) {
       title: "Something went wrong",
       message: "We couldn't load your resourcee",
     });
-
-    // navigateTo(
-    //   `/dashboard/workspaces/${route.params.workspaceid}/collections/${route.params.collectionid}`
-    // );
   }
 }
 
@@ -143,6 +137,7 @@ watchEffect(() => {
 
   if (workspaceid) {
     selectedWorkspace.value = workspaceid as string;
+    workspaceStore.getWorkspace(workspaceid as string);
   }
 
   if (collectionid) {
@@ -155,7 +150,6 @@ watchEffect(() => {
 });
 
 const navigateToWorkspace = (workspaceid: string) => {
-  console.log(workspaceid);
   navigateTo(`/dashboard/workspaces/${workspaceid}`);
 };
 
@@ -204,30 +198,43 @@ const navigateToResource = (resourceid: string) => {
     <div class="w-max">
       <HeadlessListbox v-model="selectedWorkspace">
         <div class="relative">
-          <HeadlessListboxButton
-            class="relative w-full cursor-pointer rounded-lg border border-slate-100 bg-white py-2 pl-3 pr-10 text-left transition-all hover:border-slate-300 hover:bg-slate-50 hover:shadow-sm sm:text-sm"
-          >
-            <div class="flex items-center justify-start space-x-2">
-              <n-avatar
-                :size="20"
-                :src="`https://api.dicebear.com/6.x/shapes/svg?seed=${selectedWorkspace}`"
-                class="border hover:cursor-pointer hover:opacity-80"
-                round
-              />
+          <n-space align="center">
+            <NuxtLink :to="`/dashboard/workspaces/${currentWorkspace?.id}`">
+              <n-space align="center">
+                <n-avatar
+                  :size="20"
+                  :src="`https://api.dicebear.com/6.x/shapes/svg?seed=${currentWorkspace?.id}`"
+                  class="border"
+                  round
+                />
 
-              <span class="text-base font-medium">{{
-                workspaces?.find(
-                  (workspace) => workspace.id === selectedWorkspace
-                )?.title
-              }}</span>
-            </div>
+                <span
+                  class="text-base font-medium transition-all hover:text-gray-600"
+                >
+                  {{ currentWorkspace?.title }}
+                </span>
 
-            <span
-              class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
+                <n-tag
+                  v-if="currentWorkspace?.personal"
+                  type="info"
+                  size="small"
+                  class="pointer-events-none"
+                >
+                  Personal
+                </n-tag>
+              </n-space>
+            </NuxtLink>
+
+            <HeadlessListboxButton
+              class="relative w-full cursor-pointer rounded-lg border border-slate-100 bg-white p-1 text-left transition-all hover:border-slate-300 hover:bg-slate-50 hover:shadow-sm sm:text-sm"
             >
-              <Icon name="ph:caret-up-down-bold" class="h-5 w-5" />
-            </span>
-          </HeadlessListboxButton>
+              <span
+                class="pointer-events-none inset-y-0 right-0 flex items-center"
+              >
+                <Icon name="ph:caret-up-down-bold" class="h-5 w-5" />
+              </span>
+            </HeadlessListboxButton>
+          </n-space>
 
           <transition
             leave-active-class="transition duration-100 ease-in"
@@ -241,7 +248,47 @@ const navigateToResource = (resourceid: string) => {
               class="absolute mt-1 max-h-60 w-max overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 sm:text-sm"
             >
               <HeadlessListboxOption
-                v-for="(workspace, index) in workspaces"
+                v-slot="{ active, selected }"
+                :value="personalWorkspace?.id"
+                as="template"
+                @click="navigateToWorkspace(personalWorkspace?.id || '')"
+              >
+                <li
+                  :class="[
+                    active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
+                    'flex w-full cursor-pointer items-center justify-between px-4 py-2',
+                  ]"
+                >
+                  <div class="flex items-center justify-start space-x-2 pr-4">
+                    <n-avatar
+                      :size="20"
+                      :src="`https://api.dicebear.com/6.x/shapes/svg?seed=${personalWorkspace?.id}`"
+                      class="border hover:cursor-pointer hover:opacity-80"
+                      round
+                    />
+
+                    <span
+                      :class="[
+                        selected ? 'font-medium' : 'font-normal',
+                        'block truncate',
+                      ]"
+                      >{{ personalWorkspace?.title }}</span
+                    >
+                  </div>
+
+                  <span
+                    v-if="selected"
+                    class="flex items-center text-amber-600"
+                  >
+                    <Icon name="ph:check-bold" class="h-5 w-5" />
+                  </span>
+                </li>
+              </HeadlessListboxOption>
+
+              <div class="mx-auto my-1 h-[1px] w-[90%] bg-slate-200"></div>
+
+              <HeadlessListboxOption
+                v-for="(workspace, index) in allOtherWorkspaces"
                 v-slot="{ active, selected }"
                 :key="index"
                 :value="workspace.id"
@@ -542,6 +589,7 @@ const navigateToResource = (resourceid: string) => {
     </TransitionFade>
 
     <ModalNewWorkspace />
+
     <ModalNewCollection v-if="route.params.collectionid" />
   </div>
 </template>

@@ -41,27 +41,33 @@ if (workspaces.value?.length === 0) {
     headers: useRequestHeaders(["cookie"]),
     method: "POST",
   });
+
   if (error.value) {
     console.log(error.value);
+
     push.error({
       title: "Something went wrong",
       message: "Please contact support",
     });
+
     navigateTo("/");
   }
+
   if (workspace.value) {
-    console.log("Workspace created", workspace.value);
     push.success({
       title: "Workspace created",
       message: "You can now start adding your collections",
     });
-    navigateTo(`dashboard/workspaces/${workspace.value.workspace.id}`);
+
+    workspaceStore.setWorkspaces([workspace.value.workspace]);
   }
+} else {
+  workspaceStore.setWorkspaces(workspaces.value || []);
 }
 </script>
 
 <template>
-  <main class="h-full bg-zinc-50">
+  <main class="h-full bg-zinc-50 px-4">
     <div class="flex h-36 items-center border-b border-gray-200 bg-white">
       <div
         class="mx-auto flex w-full max-w-screen-xl items-center justify-between px-2.5 lg:px-20"
