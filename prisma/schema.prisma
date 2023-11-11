@@ -58,7 +58,7 @@ model Access {
   user    User   @relation(fields: [user_id], references: [id])
   user_id String
 
-  workspace    Workspace @relation(fields: [workspace_id], references: [id])
+  workspace    Workspace @relation(fields: [workspace_id], references: [id], onDelete: Cascade)
   workspace_id String
 
   role String @default("owner") // owner | admin | editor | viewer

@@ -37,6 +37,24 @@ export default defineEventHandler(async (event) => {
 
   const { workspaceid } = event.context.params as { workspaceid: string };
 
+  /**
+   * Check if the workspace is a personal workspace
+   * If it is, throw an error
+   */
+  const personalWorkspace = await prisma.workspace.findFirst({
+    where: {
+      id: workspaceid,
+      personal: true,
+    },
+  });
+
+  if (personalWorkspace) {
+    throw createError({
+      message: "You cannot invite members to a personal workspace",
+      statusCode: 400,
+    });
+  }
+
   const { role, user } = parsedBody.data;
 
   // check if the user exists as username or email

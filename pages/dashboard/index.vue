@@ -11,25 +11,52 @@ const workspaceStore = useWorkspaceStore();
 
 const gridView = ref(true);
 
-await workspaceStore.fetchWorkspaces();
+const { data: workspaces, error } = await useFetch("/api/workspaces", {
+  headers: useRequestHeaders(["cookie"]),
+});
 
-const workspaces = computed(() => workspaceStore.workspaces);
+if (error.value) {
+  console.log(error.value);
+
+  push.error({
+    title: "Something went wrong",
+    message: "Please contact support",
+  });
+
+  navigateTo("/");
+}
 
 if (workspaces.value?.length === 0) {
-  console.log("No workspaces found");
-
   push.info({
     message: "Please wait while we create your personal workspace...",
   });
 
   // Create a new personal workspace
-  await workspaceStore.createWorkspace({
-    title: "Personal Workspace",
-    description: "This is your personal workspace.",
-    isPersonal: true,
+  const { data: workspace, error } = await useFetch("/api/workspaces", {
+    body: JSON.stringify({
+      title: "My workspace",
+      description: "This is my personal workspace",
+      personal: true,
+    }),
+    headers: useRequestHeaders(["cookie"]),
+    method: "POST",
   });
-} else {
-  console.log("Workspaces found", workspaces.value);
+  if (error.value) {
+    console.log(error.value);
+    push.error({
+      title: "Something went wrong",
+      message: "Please contact support",
+    });
+    navigateTo("/");
+  }
+  if (workspace.value) {
+    console.log("Workspace created", workspace.value);
+    push.success({
+      title: "Workspace created",
+      message: "You can now start adding your collections",
+    });
+    navigateTo(`dashboard/workspaces/${workspace.value.workspace.id}`);
+  }
 }
 </script>
 

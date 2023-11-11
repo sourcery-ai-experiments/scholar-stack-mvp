@@ -32,6 +32,7 @@ const createWorkspace = () => {
         body: JSON.stringify({
           title: formValue.name.trim(),
           description: formValue.description.trim(),
+          personal: false,
         }),
         headers: useRequestHeaders(["cookie"]),
         method: "POST",
@@ -59,19 +60,14 @@ const createWorkspace = () => {
         return;
       }
 
-      console.log("Workspace created", workspace.value);
       push.success({
         title: "Workspace created",
       });
 
       workspaceStore.hideNewWorkspaceModal();
+      workspaceStore.fetchWorkspaces(); // refreshes the header list
 
-      navigateTo(`/dashboard/workspaces/${workspace.value.workspaceId}`);
-
-      /**
-       * reload the window to refresh the list component?
-       * or just add the new workspace to the list
-       */
+      navigateTo(`/dashboard/workspaces/${workspace.value.workspace.id}`);
     } else {
       console.log(errors);
       push.error({

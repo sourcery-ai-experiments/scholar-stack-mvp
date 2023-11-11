@@ -1,17 +1,11 @@
 import { defineStore } from "pinia";
 
 export const useWorkspaceStore = defineStore("workspace", () => {
-  const push = usePush();
+  const getLoading = ref(false);
 
   const newWorkspaceModalIsOpen = ref(false);
+
   const workspaces = ref<Workspaces>([]);
-  const workspace = ref<Workspace>({
-    id: "",
-    title: "",
-    created: "",
-    description: "",
-    personal: false,
-  });
 
   const showNewWorkspaceModal = () => {
     newWorkspaceModalIsOpen.value = true;
@@ -21,10 +15,41 @@ export const useWorkspaceStore = defineStore("workspace", () => {
     newWorkspaceModalIsOpen.value = false;
   };
 
+  const sortWorkspaces = () => {
+    // Sort the workspaces by alphabetical order
+    workspaces.value.sort((a, b) => {
+      if (a.title < b.title) {
+        return -1;
+      }
+
+      if (a.title > b.title) {
+        return 1;
+      }
+
+      return 0;
+    });
+
+    // move the personal workspace to the top
+    const personalWorkspace = workspaces.value.find(
+      (workspace) => workspace.personal
+    );
+
+    if (personalWorkspace) {
+      workspaces.value = [
+        personalWorkspace,
+        ...workspaces.value.filter((workspace) => !workspace.personal),
+      ];
+    }
+  };
+
   const fetchWorkspaces = async () => {
+    getLoading.value = true;
+
     const { data, error } = await useFetch("/api/workspaces", {
       headers: useRequestHeaders(["cookie"]),
     });
+
+    getLoading.value = false;
 
     if (error.value) {
       console.error(error);
@@ -32,69 +57,22 @@ export const useWorkspaceStore = defineStore("workspace", () => {
 
     if (data.value) {
       workspaces.value = data.value;
+
+      sortWorkspaces();
     }
   };
 
-  const getWorkspace = async (id: string) => {
-    if (workspaces.value.length === 0) {
-      await fetchWorkspaces();
-    }
-
-    const ws = workspaces.value.find((workspace) => workspace.id === id);
-
-    if (ws && workspace.value) {
-      workspace.value = ws;
-    } else {
-      push.error("Workspace not found");
-    }
-  };
-
-  const createWorkspace = async (body: {
-    title: string;
-    description: string;
-    isPersonal: boolean;
-  }) => {
-    const { data, error } = await useFetch("/api/workspaces", {
-      body: JSON.stringify({
-        title: body.title,
-        description: body.description,
-        personal: body.isPersonal || false,
-      }),
-      headers: useRequestHeaders(["cookie"]),
-      method: "POST",
-    });
-
-    if (error.value) {
-      console.error(error);
-
-      push.error({
-        title: "Something went wrong",
-        message: "Please contact support",
-      });
-    }
-
-    if (data.value) {
-      workspaces.value.push(data.value.workspace);
-
-      push.success({
-        title: "Workspace created",
-        message: "You can now start adding your collections",
-      });
-
-      navigateTo(`dashboard/workspaces/${data.value.workspace.id}`);
-    }
-
-    // todo: reorder by workspace perhaps
+  const setWorkspaces = (data: Workspaces) => {
+    workspaces.value = data;
   };
 
   return {
-    createWorkspace,
     fetchWorkspaces,
-    getWorkspace,
+    getLoading,
     hideNewWorkspaceModal,
     newWorkspaceModalIsOpen,
+    setWorkspaces,
     showNewWorkspaceModal,
-    workspace,
     workspaces,
   };
 });

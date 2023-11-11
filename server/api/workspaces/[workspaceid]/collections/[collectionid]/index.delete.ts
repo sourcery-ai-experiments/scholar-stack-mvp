@@ -23,6 +23,8 @@ export default defineEventHandler(async (event) => {
     });
   }
 
+  // todo: should this even be allowed?
+
   const deletedCollection = await prisma.collection.delete({
     where: { id: collectionid },
   });

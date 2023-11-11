@@ -37,6 +37,23 @@ export default defineEventHandler(async (event) => {
   }
 
   const user = await serverSupabaseUser(event);
+
+  // Check if the user already has a personal workspace
+  if (parsedBody.data.personal) {
+    const personalWorkspace = await prisma.workspace.findFirst({
+      where: {
+        personal: true,
+      },
+    });
+
+    if (personalWorkspace) {
+      throw createError({
+        message: "You already have a personal workspace",
+        statusCode: 400,
+      });
+    }
+  }
+
   const userid = (user?.id as string) || "16df9f62-71f3-442a-ac47-8142e63ded77";
 
   const workspaceId = nanoid();
