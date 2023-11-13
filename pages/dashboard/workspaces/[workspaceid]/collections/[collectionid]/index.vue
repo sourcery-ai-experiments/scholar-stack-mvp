@@ -207,6 +207,7 @@ const addResource = async () => {
 
             <span>
               {{ resource.description }}
+              <pre>{{ resource }}</pre>
             </span>
           </n-space>
         </NuxtLink>

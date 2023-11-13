@@ -19,14 +19,12 @@ export default defineEventHandler(async (event) => {
   }
 
   // get the latest version of the collection
-  const version = await prisma.version.findMany({
-    orderBy: { created: "desc" },
-    take: 1,
+  const version = await prisma.version.findFirst({
     where: { collection_id: collectionid, published: false },
   });
 
   // if there is no version return an error
-  if (version.length === 0) {
+  if (!version) {
     throw createError({
       message: "No draft version found",
       statusCode: 404,
@@ -37,6 +35,7 @@ export default defineEventHandler(async (event) => {
   // Also add the resource to the version
   const resource = await prisma.stagingResource.create({
     data: {
+      action: "new",
       target: "",
       type: "",
     },
@@ -48,7 +47,7 @@ export default defineEventHandler(async (event) => {
         connect: { id: resource.id },
       },
     },
-    where: { id: version[0].id },
+    where: { id: version.id },
   });
 
   console.log(addedToVersion);

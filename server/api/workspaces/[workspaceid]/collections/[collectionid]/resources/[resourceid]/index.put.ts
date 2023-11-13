@@ -54,11 +54,24 @@ export default defineEventHandler(async (event) => {
     });
   }
 
+  // Check if the resource exists
+  const resource = await prisma.stagingResource.findUnique({
+    where: { id: resourceid },
+  });
+
+  if (!resource) {
+    throw createError({
+      message: "Resource not found",
+      statusCode: 404,
+    });
+  }
+
   const { title, description, icon, target, type } = parsedBody.data;
 
   const updatedResource = await prisma.stagingResource.update({
     data: {
       title,
+      action: resource.action || "update",
       description,
       icon,
       target,

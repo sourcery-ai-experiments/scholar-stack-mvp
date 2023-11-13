@@ -76,6 +76,8 @@ export default defineEventHandler(async (event) => {
       });
     }
   } else {
+    // todo: this shouldn't be possible i think. Anything with an original_resource_id should be part of a published version
+    // will need to check this later
     // Delete the resource
     await prisma.stagingResource.delete({
       where: { id: resourceid },
