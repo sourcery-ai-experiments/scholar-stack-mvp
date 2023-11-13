@@ -211,6 +211,7 @@ const updateCollectionDetails = async () => {
                 >
                   Payment successful
                 </HeadlessDialogTitle>
+
                 <div class="mt-2">
                   <p class="text-sm text-slate-500">
                     Your payment has been successfully submitted. We’ve sent you

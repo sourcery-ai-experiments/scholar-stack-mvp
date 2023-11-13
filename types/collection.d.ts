@@ -7,5 +7,5 @@ interface CollectionGETAPIResponse {
   image: string;
   private: boolean;
   resources: ResourceGETAPIResponse[];
-  version: VersionGETAPIResponse;     
+  version: VersionGETAPIResponse;
 }

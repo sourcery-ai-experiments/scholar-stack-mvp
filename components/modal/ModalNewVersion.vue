@@ -326,9 +326,11 @@ const changesPresent = computed(() => {
           The changes to your project will automatically release a new version.
           You can add release notes to describe the changes below.
         </span>
+
         <span class="text-sm font-normal text-slate-700">
           These notes cannot be edited after the version is released.
         </span>
+
         <span class="text-sm font-normal"> </span>
       </div>
     </template>

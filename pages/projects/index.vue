@@ -53,12 +53,15 @@ definePageMeta({
         <n-breadcrumb-item>
           <div class="flex items-center space-x-2">
             <Icon name="fluent:home-16-filled" />
+
             <nuxt-link to="/">Home</nuxt-link>
           </div>
         </n-breadcrumb-item>
+
         <n-breadcrumb-item>
           <div class="flex items-center space-x-2">
             <Icon name="ph:stack-bold" />
+
             <nuxt-link to="/">Your Projects</nuxt-link>
           </div>
         </n-breadcrumb-item>
@@ -93,6 +96,7 @@ definePageMeta({
             }"
             @click="selectViewType('list')"
           />
+
           <Icon
             name="mingcute:grid-fill"
             size="27"
@@ -118,6 +122,7 @@ definePageMeta({
             />
           </client-only>
         </div>
+
         <div v-else>
           <div
             v-if="projects && projects.length <= 0"
@@ -130,10 +135,12 @@ definePageMeta({
                 :width="200"
               />
             </client-only>
+
             <p class="my-4 text-center text-xl text-slate-700">
               You don't have any projects yet.
             </p>
           </div>
+
           <div v-else>
             <n-divider />
 
@@ -154,6 +161,7 @@ definePageMeta({
                     fallback-src="https://via.placeholder.com/100"
                     class="mx-auto rounded-lg"
                   />
+
                   <div class="flex flex-col px-2 pb-1 pt-3">
                     <p class="text-center text-xl font-semibold">
                       {{ project.name }}
@@ -171,6 +179,7 @@ definePageMeta({
                   </div>
                 </nuxt-link>
               </div>
+
               <n-list v-else hoverable clickable>
                 <n-list-item v-for="project in projects" :key="project.id">
                   <nuxt-link :to="`/projects/${project.identifier}`">
@@ -189,6 +198,7 @@ definePageMeta({
                           class="rounded-lg"
                         />
                       </template>
+
                       <template #description>
                         <div class="flex flex-col px-4">
                           <p class="mb-2 text-lg">
@@ -214,6 +224,7 @@ definePageMeta({
                               <template #trigger>
                                 <div class="flex items-center">
                                   <Icon name="clarity:date-outline-badged" />
+
                                   <span class="pl-1 pr-2 text-sm">
                                     {{ displayShortDate(project.updated) }}
                                   </span>
@@ -226,6 +237,7 @@ definePageMeta({
                               <template #trigger>
                                 <div class="flex items-center">
                                   <Icon name="bx:time" />
+
                                   <span class="pl-1 pr-2 text-sm">
                                     {{ displayDateDifference(project.updated) }}
                                     ago

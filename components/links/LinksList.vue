@@ -122,6 +122,7 @@ const hideAddEditLinkDrawerFunction = () => {
         Add a resource
       </n-button>
     </div>
+
     <div v-else class="flex flex-col px-2 py-4">
       <n-list>
         <n-list-item v-for="link in allLinks" :key="link.id">
@@ -305,7 +306,9 @@ const hideAddEditLinkDrawerFunction = () => {
                     <span class="text-base font-medium">
                       Do you still want to delete this resource?
                     </span>
+
                     <br />
+
                     <span class="text-xs">
                       This is a permanent action and cannot be undone.
                     </span>

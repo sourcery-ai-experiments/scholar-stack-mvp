@@ -266,6 +266,7 @@ const saveResourceData = () => {
 
     <div class="mx-auto w-full max-w-screen-xl px-2.5 lg:px-20">
       <div class="flex items-center justify-between space-x-4 py-10"></div>
+
       <n-form
         ref="formRef"
         :label-width="80"
@@ -414,6 +415,7 @@ const saveResourceData = () => {
       </n-form>
 
       <pre>{{ resource }}</pre>
+
       <pre>{{ selectedIdentifier }}</pre>
     </div>
 
