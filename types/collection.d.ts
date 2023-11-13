@@ -6,6 +6,6 @@ interface CollectionGETAPIResponse {
   identifier: string;
   image: string;
   private: boolean;
-  resources: ResourceGETAPIResponse[];
-  version: VersionGETAPIResponse;
+  resources: ResourceType[];
+  version: Version | null;
 }

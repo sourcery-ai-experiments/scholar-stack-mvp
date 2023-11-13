@@ -15,7 +15,7 @@ const { collectionid, workspaceid } = route.params as {
   workspaceid: string;
 };
 
-const { data: collection, error } = await useFetch(
+const { data: collection, error } = await useFetch<CollectionGETAPIResponse>(
   `/api/workspaces/${workspaceid}/collections/${collectionid}`,
   {
     headers: useRequestHeaders(["cookie"]),
@@ -201,9 +201,9 @@ const addResource = async () => {
           </div>
 
           <n-space vertical>
-            <!-- <n-tag v-if="resource.action">
+            <n-tag v-if="resource.action">
               {{ resource.action }}
-            </n-tag> -->
+            </n-tag>
 
             <span>
               {{ resource.description }}

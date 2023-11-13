@@ -7,6 +7,7 @@ interface ResourceType {
   type: string | null;
   action?: string;
   target: string;
+  created: string;
 }
 
 interface ResourcesListItemChild {
