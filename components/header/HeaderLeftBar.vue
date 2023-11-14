@@ -66,6 +66,14 @@ const currentWorkspace = computed(() => {
   return workspaceStore.workspace;
 });
 
+const allCollections = computed(() => {
+  return collectionStore.collections;
+});
+
+const currentCollection = computed(() => {
+  return collectionStore.collection;
+});
+
 /**
  * TODO: Replace with a skeleton loader
  * TODO: Call this client side
@@ -113,14 +121,6 @@ if (route.params.resourceid) {
   }
 }
 
-const collections = computed(() => {
-  if (tempWorkspaceDataRef) {
-    return tempWorkspaceDataRef.value?.collections;
-  }
-
-  return [];
-});
-
 const resources = computed(() => {
   if (tempCollectionDataRef) {
     return tempCollectionDataRef.value?.resources;
@@ -142,6 +142,7 @@ watchEffect(() => {
 
   if (collectionid) {
     selectedCollection.value = collectionid as string;
+    collectionStore.fetchCollections(workspaceid as string);
   }
 
   if (resourceid) {
@@ -370,30 +371,34 @@ const navigateToResource = (resourceid: string) => {
       <div v-if="route.params.collectionid" class="w-max">
         <HeadlessListbox v-model="selectedCollection">
           <div class="relative">
-            <HeadlessListboxButton
-              class="relative w-full cursor-pointer rounded-lg border border-slate-100 bg-white py-2 pl-3 pr-10 text-left transition-all hover:border-slate-300 hover:bg-slate-50 hover:shadow-sm sm:text-sm"
-            >
-              <div class="flex items-center justify-start space-x-2">
-                <n-avatar
-                  :size="20"
-                  :src="`https://api.dicebear.com/6.x/shapes/svg?seed=${selectedCollection}`"
-                  class="border hover:cursor-pointer hover:opacity-80"
-                  round
-                />
+            <n-space align="center">
+              <NuxtLink :to="`/dashboard/workspaces/${currentWorkspace?.id}`">
+                <n-space align="center">
+                  <n-avatar
+                    :size="20"
+                    :src="`https://api.dicebear.com/6.x/shapes/svg?seed=${selectedCollection}`"
+                    class="border"
+                    round
+                  />
 
-                <span class="text-base font-medium">{{
-                  collections?.find(
-                    (collection) => collection.id === selectedCollection
-                  )?.title
-                }}</span>
-              </div>
+                  <span
+                    class="text-base font-medium transition-all hover:text-gray-600"
+                  >
+                    {{ currentCollection?.title }}
+                  </span>
+                </n-space>
+              </NuxtLink>
 
-              <span
-                class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
+              <HeadlessListboxButton
+                class="relative w-full cursor-pointer rounded-lg border border-slate-100 bg-white py-2 pl-3 pr-10 text-left transition-all hover:border-slate-300 hover:bg-slate-50 hover:shadow-sm sm:text-sm"
               >
-                <Icon name="ph:caret-up-down-bold" class="h-5 w-5" />
-              </span>
-            </HeadlessListboxButton>
+                <span
+                  class="pointer-events-none inset-y-0 right-0 flex items-center"
+                >
+                  <Icon name="ph:caret-up-down-bold" class="h-5 w-5" />
+                </span>
+              </HeadlessListboxButton>
+            </n-space>
 
             <transition
               leave-active-class="transition duration-100 ease-in"
@@ -407,7 +412,7 @@ const navigateToResource = (resourceid: string) => {
                 class="absolute mt-1 max-h-60 w-max overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 sm:text-sm"
               >
                 <HeadlessListboxOption
-                  v-for="collection in collections"
+                  v-for="collection in allCollections"
                   v-slot="{ active, selected }"
                   :key="collection.id"
                   :value="collection.id"

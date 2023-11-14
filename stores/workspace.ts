@@ -63,9 +63,9 @@ export const useWorkspaceStore = defineStore("workspace", () => {
     }
   };
 
-  const getWorkspace = (workspaceId: string) => {
-    if (!workspaces.value) {
-      return;
+  const getWorkspace = async (workspaceId: string) => {
+    if (workspaces.value.length === 0) {
+      await fetchWorkspaces();
     }
 
     workspace.value = workspaces.value.find(
