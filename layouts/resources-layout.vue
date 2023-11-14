@@ -23,7 +23,7 @@ const devMode = process.env.NODE_ENV === "development";
       <nav
         class="flex w-full flex-col-reverse border-b border-gray-200 bg-white px-4 pt-2.5 lg:px-6"
       >
-        <HeaderCollectionsSubMenu :key="$route.fullPath" />
+        <HeaderResourcesSubMenu :key="$route.fullPath" />
 
         <div class="flex w-full items-center justify-between">
           <HeaderLeftBar />

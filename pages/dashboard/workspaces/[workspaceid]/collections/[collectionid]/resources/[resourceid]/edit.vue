@@ -10,7 +10,7 @@ import PREFIX_JSON from "@/assets/json/prefix.json";
 // import RELATION_TYPE_JSON from "@/assets/json/relation-type.json";
 
 definePageMeta({
-  layout: "collections-layout",
+  layout: "resources-layout",
   middleware: ["auth"],
 });
 
@@ -30,6 +30,7 @@ const formData = reactive<ResourceType>({
   id: route.params.resourceid as string,
   title: faker.commerce.productName(),
   back_link_id: "",
+  created: "",
   description: "",
   icon: "",
   target: "",

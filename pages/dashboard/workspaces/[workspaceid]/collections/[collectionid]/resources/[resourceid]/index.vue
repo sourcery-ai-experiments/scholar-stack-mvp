@@ -2,7 +2,7 @@
 import { Icon } from "#components";
 
 definePageMeta({
-  layout: "collections-layout",
+  layout: "resources-layout",
   middleware: ["auth"],
 });
 
@@ -45,11 +45,7 @@ if (error.value) {
   );
 }
 
-const {
-  data: relations,
-  error: relationsError,
-  pending: relationsPending,
-} = useLazyFetch(
+const { data: relations, pending: relationsPending } = useLazyFetch(
   `/api/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/relations`,
   {
     headers: useRequestHeaders(["cookie"]),
