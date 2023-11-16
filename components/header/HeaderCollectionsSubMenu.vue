@@ -13,6 +13,11 @@ const navItems = [
     icon: "cil:list",
   },
   {
+    name: "Changelog",
+    href: `/dashboard/workspaces/${route.params.workspaceid}/collections/${route.params.collectionid}/changelog`,
+    icon: "mdi:history",
+  },
+  {
     name: "Activity",
     href: `/dashboard/workspaces/${route.params.workspaceid}/collections/${route.params.collectionid}/activity`,
     icon: "mdi:timeline-clock-outline",

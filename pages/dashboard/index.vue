@@ -116,19 +116,30 @@ if (workspaces.value?.length === 0) {
           v-for="workspace in workspaces"
           :key="workspace.id"
           :to="`/dashboard/workspaces/${workspace.id}`"
-          class="flex flex-col space-y-5 rounded-md border bg-white p-6 shadow-sm transition-all hover:shadow-md"
+          class="flex w-full flex-col space-y-5 rounded-md border bg-white p-6 shadow-sm transition-all hover:shadow-md"
         >
-          <div class="flex items-center justify-start space-x-2">
+          <div class="flex w-full items-center justify-start space-x-2">
             <n-avatar
               :size="40"
               :src="`https://api.dicebear.com/6.x/shapes/svg?seed=${workspace.id}`"
               class="hover:cursor-pointer hover:opacity-80"
             />
 
-            <div class="flex flex-col space-y-0">
-              <span class="text-lg font-medium">
-                {{ workspace.title }}
-              </span>
+            <div class="flex w-full flex-col space-y-0">
+              <n-space align="start" justify="space-between">
+                <span class="text-lg font-medium">
+                  {{ workspace.title }}
+                </span>
+
+                <n-tag
+                  v-if="workspace.personal"
+                  type="warning"
+                  size="small"
+                  class="mt-1"
+                >
+                  Personal
+                </n-tag>
+              </n-space>
 
               <span class="text-sm text-slate-500">
                 {{ $dayjs(workspace.created).format("MMMM DD, YYYY") }}

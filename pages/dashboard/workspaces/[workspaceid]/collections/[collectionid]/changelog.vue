@@ -67,9 +67,7 @@ const createNewDraftVersion = async () => {
         class="mx-auto flex w-full max-w-screen-xl items-center justify-between px-2.5 lg:px-20"
       >
         <div class="flex w-full items-center justify-between">
-          <h1>
-            {{ collection?.title || "Untitled Collection" }}
-          </h1>
+          <h1>Changelog</h1>
 
           <n-tag v-if="!collection?.version?.published" type="info">
             draft version
@@ -94,38 +92,8 @@ const createNewDraftVersion = async () => {
 
     <div class="mx-auto w-full max-w-screen-xl px-2.5 lg:px-20">
       <div class="flex items-center justify-between space-x-4 pb-5 pt-10">
-        <h3>About</h3>
+        <div>editor box</div>
       </div>
-
-      <p>
-        {{ collection?.description || "No description" }}
-      </p>
-
-      <div class="flex items-center justify-between space-x-4 pb-5 pt-10">
-        <n-space align="center">
-          <h3>Changelog</h3>
-
-          <n-tag v-if="collection?.version?.published === false" type="warning">
-            draft
-          </n-tag>
-        </n-space>
-
-        <NuxtLink
-          :to="`/dashboard/workspaces/${workspaceid}/collections/${collectionid}/changelog`"
-        >
-          <n-button size="large" color="black">
-            <template #icon>
-              <Icon name="mdi:text-box-edit" />
-            </template>
-
-            Update changelog
-          </n-button>
-        </NuxtLink>
-      </div>
-
-      <p>
-        {{ collection?.version?.changelog || "No changelog" }}
-      </p>
     </div>
 
     <ModalNewCollection />
