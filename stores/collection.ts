@@ -49,7 +49,7 @@ export const useCollectionStore = defineStore("Collection", () => {
     }
 
     if (data.value) {
-      collections.value = data.value;
+      collections.value = data.value.collections;
 
       sortCollections();
     }
@@ -61,7 +61,7 @@ export const useCollectionStore = defineStore("Collection", () => {
     }
 
     collection.value = collections.value.find(
-      (collection) => collection.id === collectionid
+      (c: Collection) => c.id === collectionid
     );
   };
 

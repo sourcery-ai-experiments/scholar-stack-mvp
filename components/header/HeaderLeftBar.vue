@@ -142,7 +142,10 @@ watchEffect(() => {
 
   if (collectionid) {
     selectedCollection.value = collectionid as string;
-    collectionStore.fetchCollections(workspaceid as string);
+    collectionStore.getCollection(
+      workspaceid as string,
+      collectionid as string
+    );
   }
 
   if (resourceid) {
@@ -390,7 +393,7 @@ const navigateToResource = (resourceid: string) => {
               </NuxtLink>
 
               <HeadlessListboxButton
-                class="relative w-full cursor-pointer rounded-lg border border-slate-100 bg-white py-2 pl-3 pr-10 text-left transition-all hover:border-slate-300 hover:bg-slate-50 hover:shadow-sm sm:text-sm"
+                class="relative w-full cursor-pointer rounded-lg border border-slate-100 bg-white p-1 text-left transition-all hover:border-slate-300 hover:bg-slate-50 hover:shadow-sm sm:text-sm"
               >
                 <span
                   class="pointer-events-none inset-y-0 right-0 flex items-center"
