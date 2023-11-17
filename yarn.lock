@@ -653,6 +653,15 @@
   resolved "https://registry.yarnpkg.com/@codemirror/state/-/state-6.2.1.tgz#6dc8d8e5abb26b875e3164191872d69a5e85bd73"
   integrity sha512-RupHSZ8+OjNT38zU9fKH2sv+Dnlr8Eb8sl4NOnnqz95mCFTZUaiRP8Xv5MeeaG0px2b8Bnfe7YGwCV3nsBhbuw==
 
+"@codemirror/view@6.22.0":
+  version "6.22.0"
+  resolved "https://registry.yarnpkg.com/@codemirror/view/-/view-6.22.0.tgz#5a5214a04f149ecf54c4803b7fec9bdac56d0d74"
+  integrity sha512-6zLj4YIoIpfTGKrDMTbeZRpa8ih4EymMCKmddEDcJWrCdp/N1D46B38YEz4creTb4T177AVS9EyXkLeC/HL2jA==
+  dependencies:
+    "@codemirror/state" "^6.1.4"
+    style-mod "^4.1.0"
+    w3c-keyname "^2.2.4"
+
 "@codemirror/view@^6.0.0", "@codemirror/view@^6.17.0":
   version "6.19.0"
   resolved "https://registry.yarnpkg.com/@codemirror/view/-/view-6.19.0.tgz#24b35e3797626a1b944ecd0a921126f669b2728d"
@@ -6240,15 +6249,15 @@ markdown-it@^13.0.1:
     mdurl "^1.0.1"
     uc.micro "^1.0.5"
 
-marked@^7.0.3:
-  version "7.0.5"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-7.0.5.tgz#8a9e4e3afb93b58fe9ee7608e67cc154eb15d508"
-  integrity sha512-lwNAFTfXgqpt/XvK17a/8wY9/q6fcSPZT1aP6QW0u74VwaJF/Z9KbRcX23sWE4tODM+AolJNcUtErTkgOeFP/Q==
+marked@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-10.0.0.tgz#7fe1805bb908433d760e2de0fcc8841a2b2d745c"
+  integrity sha512-YiGcYcWj50YrwBgNzFoYhQ1hT6GmQbFG8SksnYJX1z4BXTHSOrz1GB5/Jm2yQvMg4nN1FHP4M6r03R10KrVUiA==
 
-md-editor-v3@^4.0.4:
-  version "4.6.1"
-  resolved "https://registry.yarnpkg.com/md-editor-v3/-/md-editor-v3-4.6.1.tgz#c7d0084a5f60cf1c64b7b97e611406f08e06c45a"
-  integrity sha512-jHW2y7JafmMA+bZHmGPwpryqQqevbI5fhRX9THQ/N+fCWMesb/gi5beewIvGG6AW6csRt9XgXBGZY8BGc8CewQ==
+md-editor-v3@4.8.3:
+  version "4.8.3"
+  resolved "https://registry.yarnpkg.com/md-editor-v3/-/md-editor-v3-4.8.3.tgz#96c1e3d82b5496e3471980d6c316503b26e9d6da"
+  integrity sha512-yzxAGZyg/TAhb2Ph1f6VF3ZmdCt5Y3RWBFGOjost8o/dexqCG/rjBoN+4D+zlVi7u/Pp1STqqMWy327gAEmjOQ==
   dependencies:
     "@codemirror/lang-markdown" "^6.1.1"
     "@codemirror/language-data" "^6.3.0"

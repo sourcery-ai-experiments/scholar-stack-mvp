@@ -2,12 +2,10 @@ import { z } from "zod";
 
 export default defineEventHandler(async (event) => {
   await protectRoute(event);
-  await workspaceMinAdminPermission(event);
 
   const bodySchema = z
     .object({
-      title: z.string().min(1),
-      description: z.string(),
+      changelog: z.string().min(1),
     })
     .strict();
 
@@ -33,6 +31,8 @@ export default defineEventHandler(async (event) => {
     });
   }
 
+  await workspaceMinEditorPermission(event);
+
   const { collectionid, workspaceid } = event.context.params as {
     collectionid: string;
     workspaceid: string;
@@ -49,17 +49,35 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const { title, description } = parsedBody.data;
+  const { changelog } = parsedBody.data;
 
-  const updatedCollection = await prisma.collection.update({
-    data: {
-      title,
-      description,
-    },
-    where: { id: collectionid },
+  const latestVersion = await prisma.version.findFirst({
+    orderBy: { created: "desc" },
+    where: { collection_id: collectionid },
   });
 
-  if (!updatedCollection) {
+  if (!latestVersion) {
+    throw createError({
+      message: "No version found",
+      statusCode: 404,
+    });
+  }
+
+  if (latestVersion.published) {
+    throw createError({
+      message: "Cannot edit a published version",
+      statusCode: 400,
+    });
+  }
+
+  const updatedVersion = await prisma.version.update({
+    data: {
+      changelog,
+    },
+    where: { id: latestVersion.id },
+  });
+
+  if (!updatedVersion) {
     throw createError({
       message: "Something went wrong",
       statusCode: 404,
@@ -67,7 +85,7 @@ export default defineEventHandler(async (event) => {
   }
 
   return {
-    message: "Collection updated",
+    message: "Version updated",
     statusCode: 200,
   };
 });

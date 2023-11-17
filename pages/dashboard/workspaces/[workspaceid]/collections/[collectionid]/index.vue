@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import sanitizeHtml from "sanitize-html";
+import { parse } from "marked";
+
 definePageMeta({
   layout: "collections-layout",
   middleware: ["auth"],
@@ -29,10 +32,17 @@ if (error.value) {
 
   navigateTo(`/dashboard/workspaces/${workspaceid}`);
 }
+const sanitize = (html: string) => sanitizeHtml(html);
+
+const markdownToHtml = computed(() => {
+  return sanitize(
+    parse(collection.value?.version?.changelog || "No changelog")
+  );
+});
 
 const createNewDraftVersion = async () => {
   const { data, error } = await useFetch(
-    `/api/workspaces/${workspaceid}/collections/${collectionid}/draft-version`,
+    `/api/workspaces/${workspaceid}/collections/${collectionid}/version`,
     {
       headers: useRequestHeaders(["cookie"]),
       method: "POST",
@@ -101,6 +111,8 @@ const createNewDraftVersion = async () => {
         {{ collection?.description || "No description" }}
       </p>
 
+      <n-divider />
+
       <div class="flex items-center justify-between space-x-4 pb-5 pt-10">
         <n-space align="center">
           <h3>Changelog</h3>
@@ -123,9 +135,10 @@ const createNewDraftVersion = async () => {
         </NuxtLink>
       </div>
 
-      <p>
-        {{ collection?.version?.changelog || "No changelog" }}
-      </p>
+      <div
+        class="prose mt-10 min-h-[300px] max-w-none"
+        v-html="markdownToHtml"
+      />
     </div>
 
     <ModalNewCollection />

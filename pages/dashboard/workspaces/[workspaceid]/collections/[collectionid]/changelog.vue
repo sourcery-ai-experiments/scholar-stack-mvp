@@ -1,4 +1,15 @@
 <script setup lang="ts">
+import sanitizeHtml from "sanitize-html";
+import { MdEditor, config } from "md-editor-v3";
+
+import TargetBlankExtension from "@/utils/TargetBlankExtension";
+
+config({
+  markdownItConfig(md) {
+    md.use(TargetBlankExtension);
+  },
+});
+
 definePageMeta({
   layout: "collections-layout",
   middleware: ["auth"],
@@ -7,13 +18,18 @@ definePageMeta({
 const push = usePush();
 const route = useRoute();
 
+const changelog = ref("");
+const saveLoading = ref(false);
+
+const sanitize = (html: string) => sanitizeHtml(html);
+
 const { collectionid, workspaceid } = route.params as {
   collectionid: string;
   workspaceid: string;
 };
 
-const { data: collection, error } = await useFetch<CollectionGETAPIResponse>(
-  `/api/workspaces/${workspaceid}/collections/${collectionid}`,
+const { data, error } = await useFetch(
+  `/api/workspaces/${workspaceid}/collections/${collectionid}/version`,
   {
     headers: useRequestHeaders(["cookie"]),
   }
@@ -24,38 +40,50 @@ if (error.value) {
 
   push.error({
     title: "Something went wrong",
-    message: "We couldn't load your collectionss",
+    message: "We couldn't load your changelog.",
   });
 
   navigateTo(`/dashboard/workspaces/${workspaceid}`);
 }
 
-const createNewDraftVersion = async () => {
+if (data.value) {
+  const version = data.value.version;
+
+  if (version) {
+    changelog.value = version.changelog;
+  }
+}
+
+const saveChangelog = async () => {
+  saveLoading.value = true;
+
   const { data, error } = await useFetch(
-    `/api/workspaces/${workspaceid}/collections/${collectionid}/draft-version`,
+    `/api/workspaces/${workspaceid}/collections/${collectionid}/version/changelog`,
     {
+      body: JSON.stringify({
+        changelog: changelog.value,
+      }),
       headers: useRequestHeaders(["cookie"]),
-      method: "POST",
+      method: "PUT",
     }
   );
+
+  saveLoading.value = false;
 
   if (error.value) {
     console.log(error.value);
 
     push.error({
       title: "Something went wrong",
-      message: "We couldn't create a new draft version",
+      message: "We couldn't save your changelog.",
     });
   }
 
   if (data.value) {
     push.success({
       title: "Success",
-      message: "We created a new draft version",
+      message: "We saved your changelog.",
     });
-
-    // refresh the page
-    window.location.reload();
   }
 };
 </script>
@@ -68,23 +96,20 @@ const createNewDraftVersion = async () => {
       >
         <div class="flex w-full items-center justify-between">
           <h1>Changelog</h1>
-
-          <n-tag v-if="!collection?.version?.published" type="info">
-            draft version
-          </n-tag>
         </div>
 
         <div class="flex items-center space-x-2">
           <n-button
-            v-if="collection?.version?.published || !collection?.version"
+            v-if="!data?.version?.published"
             size="large"
             color="black"
-            @click="createNewDraftVersion"
+            :loading="saveLoading"
+            @click="saveChangelog"
           >
             <template #icon>
-              <Icon name="iconoir:axes" />
+              <Icon name="material-symbols:save" />
             </template>
-            Create a new {{ !collection?.version ? "draft" : "" }} version
+            Save changelog
           </n-button>
         </div>
       </div>
@@ -92,7 +117,14 @@ const createNewDraftVersion = async () => {
 
     <div class="mx-auto w-full max-w-screen-xl px-2.5 lg:px-20">
       <div class="flex items-center justify-between space-x-4 pb-5 pt-10">
-        <div>editor box</div>
+        <MdEditor
+          v-model="changelog"
+          class="mt-0"
+          language="en-US"
+          preview-theme="github"
+          :show-code-row-number="true"
+          :sanitize="sanitize"
+        />
       </div>
     </div>
 

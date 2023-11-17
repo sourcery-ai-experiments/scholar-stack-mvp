@@ -35,7 +35,7 @@ if (error.value) {
 
 const createNewDraftVersion = async () => {
   const { data, error } = await useFetch(
-    `/api/workspaces/${workspaceid}/collections/${collectionid}/draft-version`,
+    `/api/workspaces/${workspaceid}/collections/${collectionid}/version`,
     {
       headers: useRequestHeaders(["cookie"]),
       method: "POST",
