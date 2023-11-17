@@ -1,3 +1,6 @@
+/**
+ * Clone the latest version of a collection into a draft version
+ */
 import { nanoid } from "nanoid";
 
 export default defineEventHandler(async (event) => {
