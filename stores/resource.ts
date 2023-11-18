@@ -1,9 +1,66 @@
 import { defineStore } from "pinia";
 
 export const useResourceStore = defineStore("Resource", () => {
-  // todo: remove the modal and take it straight to the new resource page
+  const getLoading = ref(false);
 
   const newResourceModalIsOpen = ref(false);
+
+  const resources = ref<ResourceType[]>([]);
+  const resource = ref<ResourceType>();
+
+  const sortResources = () => {
+    if (resources.value.length === 0) {
+      return;
+    }
+
+    // Sort the resources by alphabetical order
+    resources.value.sort((a, b) => {
+      if (a.title < b.title) {
+        return -1;
+      }
+
+      if (a.title > b.title) {
+        return 1;
+      }
+
+      return 0;
+    });
+  };
+
+  const fetchResources = async (workspaceid: string, collectionid: string) => {
+    getLoading.value = true;
+
+    const { data, error } = await useFetch(
+      `/api/workspaces/${workspaceid}/collections/${collectionid}`,
+      {
+        headers: useRequestHeaders(["cookie"]),
+      }
+    );
+
+    getLoading.value = false;
+
+    if (error.value) {
+      console.error(error);
+    }
+
+    if (data.value) {
+      resources.value = data.value.resources;
+
+      sortResources();
+    }
+  };
+
+  const getResource = async (
+    workspaceid: string,
+    collectionid: string,
+    resourceid: string
+  ) => {
+    if (resources.value.length === 0) {
+      await fetchResources(workspaceid, collectionid);
+    }
+
+    resource.value = resources.value.find((r) => r.id === resourceid);
+  };
 
   const showNewResourceModal = () => {
     newResourceModalIsOpen.value = true;
@@ -14,8 +71,13 @@ export const useResourceStore = defineStore("Resource", () => {
   };
 
   return {
+    fetchResources,
+    getLoading,
+    getResource,
     hideNewResourceModal,
     newResourceModalIsOpen,
+    resource,
+    resources,
     showNewResourceModal,
   };
 });

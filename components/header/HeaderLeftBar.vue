@@ -3,8 +3,10 @@ import { useWorkspaceStore } from "@/stores/workspace";
 
 const push = usePush();
 const route = useRoute();
+
 const workspaceStore = useWorkspaceStore();
 const collectionStore = useCollectionStore();
+const resourceStore = useResourceStore();
 
 const selectedWorkspace = ref("");
 const selectedCollection = ref("");
@@ -74,6 +76,14 @@ const currentCollection = computed(() => {
   return collectionStore.collection;
 });
 
+const allResources = computed(() => {
+  return resourceStore.resources;
+});
+
+const currentResource = computed(() => {
+  return resourceStore.resource;
+});
+
 /**
  * TODO: Replace with a skeleton loader
  * TODO: Call this client side
@@ -109,8 +119,6 @@ if (route.params.resourceid) {
 
   tempCollectionDataRef.value = resources.value as any;
 
-  console.log(resources.value);
-
   if (resourceError.value) {
     console.log(resourceError.value);
 
@@ -120,14 +128,6 @@ if (route.params.resourceid) {
     });
   }
 }
-
-const resources = computed(() => {
-  if (tempCollectionDataRef) {
-    return tempCollectionDataRef.value?.resources;
-  }
-
-  return [];
-});
 
 // watch for route changes and update selected workspace
 watchEffect(() => {
@@ -150,6 +150,11 @@ watchEffect(() => {
 
   if (resourceid) {
     selectedResource.value = resourceid as string;
+    resourceStore.getResource(
+      workspaceid as string,
+      collectionid as string,
+      resourceid as string
+    );
   }
 });
 
@@ -175,6 +180,10 @@ const navigateToResource = (resourceid: string) => {
   navigateTo(
     `/dashboard/workspaces/${selectedWorkspace.value}/collections/${selectedCollection.value}/resources/${resourceid}`
   );
+};
+
+const createNewResource = () => {
+  resourceStore.showNewResourceModal();
 };
 </script>
 
@@ -498,30 +507,36 @@ const navigateToResource = (resourceid: string) => {
       <div v-if="route.params.resourceid" class="w-max">
         <HeadlessListbox v-model="selectedResource">
           <div class="relative">
-            <HeadlessListboxButton
-              class="relative w-full cursor-pointer rounded-lg border border-slate-100 bg-white py-2 pl-3 pr-10 text-left transition-all hover:border-slate-300 hover:bg-slate-50 hover:shadow-sm sm:text-sm"
-            >
-              <div class="flex items-center justify-start space-x-2">
-                <n-avatar
-                  :size="20"
-                  :src="`https://api.dicebear.com/6.x/shapes/svg?seed=${selectedResource}`"
-                  class="border hover:cursor-pointer hover:opacity-80"
-                  round
-                />
-
-                <span class="text-base font-medium">{{
-                  resources?.find(
-                    (resource) => resource.id === selectedResource
-                  )?.title
-                }}</span>
-              </div>
-
-              <span
-                class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
+            <n-space align="center">
+              <NuxtLink
+                :to="`/dashboard/workspaces/${currentWorkspace?.id}/collections/${currentResource?.id}`"
               >
-                <Icon name="ph:caret-up-down-bold" class="h-5 w-5" />
-              </span>
-            </HeadlessListboxButton>
+                <n-space align="center">
+                  <n-avatar
+                    :size="20"
+                    :src="`https://api.dicebear.com/6.x/shapes/svg?seed=${selectedResource}`"
+                    class="border"
+                    round
+                  />
+
+                  <span
+                    class="text-base font-medium transition-all hover:text-gray-600"
+                  >
+                    {{ currentResource?.title }}
+                  </span>
+                </n-space>
+              </NuxtLink>
+
+              <HeadlessListboxButton
+                class="relative w-full cursor-pointer rounded-lg border border-slate-100 bg-white p-1 text-left transition-all hover:border-slate-300 hover:bg-slate-50 hover:shadow-sm sm:text-sm"
+              >
+                <span
+                  class="pointer-events-none inset-y-0 right-0 flex items-center"
+                >
+                  <Icon name="ph:caret-up-down-bold" class="h-5 w-5" />
+                </span>
+              </HeadlessListboxButton>
+            </n-space>
 
             <transition
               leave-active-class="transition duration-100 ease-in"
@@ -535,7 +550,7 @@ const navigateToResource = (resourceid: string) => {
                 class="absolute mt-1 max-h-60 w-max overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 sm:text-sm"
               >
                 <HeadlessListboxOption
-                  v-for="resource in resources"
+                  v-for="resource in allResources"
                   v-slot="{ active, selected }"
                   :key="resource.id"
                   :value="resource.id"
@@ -584,7 +599,7 @@ const navigateToResource = (resourceid: string) => {
                       <Icon name="ph:plus-circle-bold" />
 
                       <span class="block truncate font-medium">
-                        Create a new collection
+                        Create a new resource
                       </span>
                     </div>
                   </li>

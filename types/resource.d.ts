@@ -1,7 +1,7 @@
 interface ResourceType {
   id: string;
   title: string;
-  back_link_id: string;
+  back_link_id: string | null;
   description: string;
   icon: string;
   type: string | null;
