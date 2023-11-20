@@ -18,6 +18,11 @@ const navItems = [
     icon: "mdi:history",
   },
   {
+    name: "Publish",
+    href: `/dashboard/workspaces/${route.params.workspaceid}/collections/${route.params.collectionid}/publish`,
+    icon: "entypo:publish",
+  },
+  {
     name: "Activity",
     href: `/dashboard/workspaces/${route.params.workspaceid}/collections/${route.params.collectionid}/activity`,
     icon: "mdi:timeline-clock-outline",

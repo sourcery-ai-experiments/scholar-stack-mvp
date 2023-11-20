@@ -181,10 +181,6 @@ const navigateToResource = (resourceid: string) => {
     `/dashboard/workspaces/${selectedWorkspace.value}/collections/${selectedCollection.value}/resources/${resourceid}`
   );
 };
-
-const createNewResource = () => {
-  resourceStore.showNewResourceModal();
-};
 </script>
 
 <template>
@@ -384,7 +380,9 @@ const createNewResource = () => {
         <HeadlessListbox v-model="selectedCollection">
           <div class="relative">
             <n-space align="center">
-              <NuxtLink :to="`/dashboard/workspaces/${currentWorkspace?.id}`">
+              <NuxtLink
+                :to="`/dashboard/workspaces/${currentWorkspace?.id}/collections/${selectedCollection}`"
+              >
                 <n-space align="center">
                   <n-avatar
                     :size="20"
@@ -509,7 +507,7 @@ const createNewResource = () => {
           <div class="relative">
             <n-space align="center">
               <NuxtLink
-                :to="`/dashboard/workspaces/${currentWorkspace?.id}/collections/${currentResource?.id}`"
+                :to="`/dashboard/workspaces/${currentWorkspace?.id}/collections/${selectedCollection}/resources/${selectedResource}`"
               >
                 <n-space align="center">
                   <n-avatar
@@ -588,22 +586,6 @@ const createNewResource = () => {
                     </span>
                   </li>
                 </HeadlessListboxOption>
-
-                <div class="mx-auto my-1 h-[1px] w-[90%] bg-slate-200"></div>
-
-                <div @click="createNewCollection">
-                  <li
-                    class="flex w-full cursor-pointer items-center justify-between px-4 py-2 text-gray-900"
-                  >
-                    <div class="flex items-center justify-start space-x-2 pr-4">
-                      <Icon name="ph:plus-circle-bold" />
-
-                      <span class="block truncate font-medium">
-                        Create a new resource
-                      </span>
-                    </div>
-                  </li>
-                </div>
               </HeadlessListboxOptions>
             </transition>
           </div>

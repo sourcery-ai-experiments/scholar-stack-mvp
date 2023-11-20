@@ -77,27 +77,44 @@ const createNewDraftVersion = async () => {
         class="mx-auto flex w-full max-w-screen-xl items-center justify-between px-2.5 lg:px-20"
       >
         <div class="flex w-full items-center justify-between">
-          <h1>
-            {{ collection?.title || "Untitled Collection" }}
-          </h1>
+          <n-space align="center">
+            <h1>
+              {{ collection?.title || "Untitled Collection" }}
+            </h1>
 
-          <n-tag v-if="!collection?.version?.published" type="info">
-            draft version
-          </n-tag>
-        </div>
+            <n-tag v-if="!collection?.version?.published" type="info">
+              draft version
+            </n-tag>
+          </n-space>
 
-        <div class="flex items-center space-x-2">
-          <n-button
-            v-if="collection?.version?.published || !collection?.version"
-            size="large"
-            color="black"
-            @click="createNewDraftVersion"
-          >
-            <template #icon>
-              <Icon name="iconoir:axes" />
-            </template>
-            Create a new {{ !collection?.version ? "draft" : "" }} version
-          </n-button>
+          <n-space align="center">
+            <NuxtLink
+              :to="`/dashboard/workspaces/${workspaceid}/collections/${collectionid}/publish`"
+            >
+              <n-button
+                v-if="!collection?.version?.published"
+                size="large"
+                color="black"
+              >
+                <template #icon>
+                  <Icon name="solar:star-bold" />
+                </template>
+                Publish collection
+              </n-button>
+            </NuxtLink>
+
+            <n-button
+              v-if="collection?.version?.published || !collection?.version"
+              size="large"
+              color="black"
+              @click="createNewDraftVersion"
+            >
+              <template #icon>
+                <Icon name="iconoir:axes" />
+              </template>
+              Create a new {{ !collection?.version ? "draft" : "" }} version
+            </n-button>
+          </n-space>
         </div>
       </div>
     </div>
@@ -135,10 +152,12 @@ const createNewDraftVersion = async () => {
         </NuxtLink>
       </div>
 
+      <!-- eslint-disable vue/no-v-html -->
       <div
         class="prose mt-10 min-h-[300px] max-w-none"
         v-html="markdownToHtml"
       />
+      <!-- eslint-enable vue/no-v-html -->
     </div>
 
     <ModalNewCollection />

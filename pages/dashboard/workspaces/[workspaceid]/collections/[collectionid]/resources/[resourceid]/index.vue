@@ -81,7 +81,7 @@ const removeResource = async () => {
     });
 
     navigateTo(
-      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}`
+      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources`
     );
   }
 };
