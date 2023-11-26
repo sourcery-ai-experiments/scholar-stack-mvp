@@ -8,6 +8,7 @@ definePageMeta({
 });
 
 const push = usePush();
+const route = useRoute();
 
 const user = useSupabaseUser();
 const supabase = useSupabaseClient();
@@ -53,6 +54,18 @@ const signIn = (e: MouseEvent) => {
       }
 
       loading.value = true;
+
+      setTimeout(() => {
+        if (route.path === "/auth/login") {
+          push.warning({
+            title: "Slow Connection",
+            message: "Please wait while we sign you in.",
+          });
+
+          // refresh the page
+          window.location.reload();
+        }
+      }, 5000);
 
       const { error: loginError } = await supabase.auth.signInWithPassword({
         email: loginForm.emailAddress,
