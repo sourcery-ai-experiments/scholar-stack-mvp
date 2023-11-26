@@ -12,7 +12,6 @@ export default defineEventHandler(async (event) => {
       StagingResources: true,
     },
     orderBy: { created: "desc" },
-    take: 1,
     where: { collection_id: collectionid },
   });
 
@@ -20,6 +19,13 @@ export default defineEventHandler(async (event) => {
     throw createError({
       message: "There are no unpublished versions of this collection",
       statusCode: 404,
+    });
+  }
+
+  if (versions.length > 1) {
+    throw createError({
+      message: "There are multiple unpublished versions of this collection",
+      statusCode: 500,
     });
   }
 

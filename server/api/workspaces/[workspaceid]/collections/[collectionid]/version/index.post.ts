@@ -47,6 +47,21 @@ export default defineEventHandler(async (event) => {
 
   // if the latest version is published clone it into a draft version
   if (latestVersion.published) {
+    // Check for other unpublished versions - sanity check
+    const unpublishedVersions = await prisma.version.findMany({
+      where: {
+        collection_id: collectionid,
+        published: false,
+      },
+    });
+
+    if (unpublishedVersions.length > 0) {
+      throw createError({
+        message: "There are multiple unpublished versions of this collection",
+        statusCode: 422,
+      });
+    }
+
     const draftVersion = await prisma.version.create({
       data: {
         name: "Draft",
