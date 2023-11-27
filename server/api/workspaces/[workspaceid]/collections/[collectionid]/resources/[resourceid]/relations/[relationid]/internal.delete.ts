@@ -90,7 +90,7 @@ export default defineEventHandler(async (event) => {
   // Delete the relation
   await prisma.stagingInternalRelation.update({
     data: {
-      action: "deleted",
+      action: "delete",
     },
     where: { id: relationid },
   });

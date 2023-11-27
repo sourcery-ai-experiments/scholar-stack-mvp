@@ -89,7 +89,7 @@ export default defineEventHandler(async (event) => {
       const newStagingResource = await prisma.stagingResource.create({
         data: {
           title: originalResource.title,
-          action: "cloned",
+          action: "clone",
           back_link_id: originalResource.back_link_id, // todo: check if this is correct
           description: originalResource.description,
           icon: originalResource.icon,
@@ -111,7 +111,8 @@ export default defineEventHandler(async (event) => {
       for (const originalExternalRelation of originalExternalRelations) {
         await prisma.stagingExternalRelation.create({
           data: {
-            action: "cloned",
+            action: "clone",
+            original_id: originalExternalRelation.id,
             original_source_id: originalResource.id,
             resource_type: originalExternalRelation.resource_type || null,
             source_id: newStagingResource.id,
@@ -132,8 +133,9 @@ export default defineEventHandler(async (event) => {
       for (const originalInternalRelation of originalInternalRelations) {
         await prisma.stagingInternalRelation.create({
           data: {
-            action: "cloned",
+            action: "clone",
             mirror: originalInternalRelation.mirror,
+            original_id: originalInternalRelation.id,
             original_source_id: originalResource.id,
             original_target_id: originalInternalRelation.target_id,
             resource_type: originalInternalRelation.resource_type,

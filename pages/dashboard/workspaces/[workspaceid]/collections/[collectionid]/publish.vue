@@ -130,7 +130,7 @@ const publishCollection = async () => {
         </n-space>
       </div>
 
-      <transition name="fade" mode="out-in">
+      <TransitionFade>
         <div v-if="validationPending">
           <client-only>
             <Vue3Lottie
@@ -172,7 +172,7 @@ const publishCollection = async () => {
             validationResults?.valid ? "Valid" : "Invalid"
           }}</n-tag>
         </n-space>
-      </transition>
+      </TransitionFade>
 
       <n-divider />
 

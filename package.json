@@ -16,7 +16,7 @@
     "prisma:studio": "prisma studio",
     "prisma:db:push": "prisma db push",
     "prisma:db:pull": "prisma db pull --preview-feature",
-    "scripts:truncate:tables": "ts-node --project tsconfig.tsnode.json --esm --swc ./scripts/truncate-tables.mts",
+    "scripts:truncate:tables": "ts-node --project tsconfig.tsnode.json --esm --swc ./scripts/truncate-tables.mjs",
     "scripts:fetch:save:identifiers": "ts-node --project tsconfig.tsnode.json --esm --swc ./scripts/fetch-save-identifiers.mts",
     "scripts:compare:identifiers": "ts-node --project tsconfig.tsnode.json --esm --swc ./scripts/compare-identifiers.mts",
     "postinstall": "nuxt prepare"

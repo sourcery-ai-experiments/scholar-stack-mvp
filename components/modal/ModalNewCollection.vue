@@ -62,6 +62,7 @@ const createCollection = () => {
       });
 
       collectionStore.hideNewCollectionModal();
+      collectionStore.fetchCollections(workspaceid);
 
       navigateTo(
         `/dashboard/workspaces/${workspaceid}/collections/${collection.value?.collectionId}`

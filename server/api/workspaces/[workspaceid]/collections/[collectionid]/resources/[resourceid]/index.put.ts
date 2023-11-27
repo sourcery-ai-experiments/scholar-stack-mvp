@@ -66,6 +66,10 @@ export default defineEventHandler(async (event) => {
     });
   }
 
+  if (resource.action === "clone") {
+    resource.action = "update";
+  }
+
   const { title, description, icon, target, type } = parsedBody.data;
 
   const updatedResource = await prisma.stagingResource.update({

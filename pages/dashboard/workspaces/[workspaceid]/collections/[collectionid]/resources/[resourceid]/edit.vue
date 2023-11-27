@@ -197,47 +197,6 @@ const saveResourceData = () => {
     }
   });
 };
-
-// const addRelation = async () => {
-//   const { data, error } = await useFetch(
-//     `/api/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/relation`,
-//     {
-//       headers: useRequestHeaders(["cookie"]),
-//       method: "POST",
-//     }
-//   );
-
-//   if (error.value) {
-//     console.log(error.value);
-
-//     push.error({
-//       title: "Something went wrong",
-//       message: "We couldn't create a new relation",
-//     });
-
-//     throw new Error("Something went wrong");
-//   }
-
-//   if (data.value) {
-//     if (!resource.value!.Relation) {
-//       resource.value!.Relation = [];
-//     }
-
-//     resource.value!.Relation.push({
-//       id: data.value.id,
-//       created: new Date().toISOString(),
-//       source: resource.value!.id,
-//       target: "",
-//       target_type: "",
-//       type: "",
-//       updated: new Date().toISOString(),
-//     });
-//   }
-// };
-
-// const removeRelation = (id: string) => {
-//   console.log("remove relation", id);
-// };
 </script>
 
 <template>
@@ -298,6 +257,7 @@ const saveResourceData = () => {
               v-model:value="formData.type"
               filterable
               placeholder="DOI"
+              :disabled="!!resource?.orignal_resource_id"
               :options="typeOptions"
               @update:value="selectIcon"
             />
@@ -314,7 +274,7 @@ const saveResourceData = () => {
               v-model:value="formData.target"
               :placeholder="selectedIdentifier?.placeholder"
               type="text"
-              :disabled="!formData.type"
+              :disabled="!formData.type || !!resource?.orignal_resource_id"
               clearable
               @keydown.enter.prevent
             />
@@ -336,83 +296,6 @@ const saveResourceData = () => {
             :render-label="renderLabel"
           />
         </n-form-item>
-
-        <!-- <n-form-item path="Relation" label="Relations">
-          <div class="flex w-full flex-col">
-            <div
-              v-for="(item, index) in resource?.Relation || []"
-              :key="index"
-              class="flex w-full flex-row items-center justify-between space-x-8"
-            >
-              <n-space vertical class="w-full">
-                <div
-                  class="flex w-full flex-row items-center justify-between space-x-4"
-                >
-                  <n-form-item
-                    label="Type"
-                    :path="`Relation[${index}].type`"
-                    :rule="{
-                      message: 'Please select the type of this relation',
-                      required: true,
-                      trigger: ['blur', 'change'],
-                    }"
-                    class="w-full"
-                  >
-                    <n-select
-                      v-model:value="item.type"
-                      placeholder="Is Part Of"
-                      clearable
-                      :options="relationTypeOptions"
-                    />
-                  </n-form-item>
-
-                  <n-form-item
-                    label="Target"
-                    :path="`Relation[${index}].target`"
-                    :rule="{
-                      message: 'Please enter the target of this relation',
-                      required: true,
-                      trigger: ['blur', 'input'],
-                    }"
-                    class="w-full"
-                  >
-                    <n-input
-                      v-model:value="item.target"
-                      placeholder="10.1038/s41597-023-02463-x"
-                      clearable
-                    />
-                  </n-form-item>
-                </div>
-              </n-space>
-
-              <n-popconfirm
-                class="self-justify-end"
-                @positive-click="removeRelation(item.id)"
-              >
-                <template #trigger>
-                  <n-button class="ml-0" size="large" type="error">
-                    <Icon name="gridicons:trash" />
-                  </n-button>
-                </template>
-
-                Are you sure you want to remove this relation?
-              </n-popconfirm>
-            </div>
-          </div>
-        </n-form-item>
-
-        <n-button
-          class="mb-10 w-full"
-          dashed
-          type="success"
-          @click="addRelation"
-        >
-          <template #icon>
-            <Icon name="gridicons:create" />
-          </template>
-
-          Add a new relation
-        </n-button> -->
       </n-form>
 
       <pre>{{ resource }}</pre>

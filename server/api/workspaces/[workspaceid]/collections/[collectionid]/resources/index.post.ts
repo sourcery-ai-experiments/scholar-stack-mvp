@@ -35,7 +35,7 @@ export default defineEventHandler(async (event) => {
   // Also add the resource to the version
   const resource = await prisma.stagingResource.create({
     data: {
-      action: "new",
+      action: "create",
       target: "",
       type: "",
     },

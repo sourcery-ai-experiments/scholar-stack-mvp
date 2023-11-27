@@ -107,14 +107,13 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  // Update the relations
+  // Update the external relations
+  // todo: check diff and add update action
   for (const relation of external) {
     if (relation.id) {
       await prisma.stagingExternalRelation.update({
         data: {
           resource_type: relation.resource_type,
-          target: relation.target,
-          target_type: relation.target_type,
           type: relation.type,
         },
         where: {
@@ -124,6 +123,7 @@ export default defineEventHandler(async (event) => {
     } else {
       await prisma.stagingExternalRelation.create({
         data: {
+          action: "create",
           resource_type: relation.resource_type,
           source_id: resourceid,
           target: relation.target,
@@ -134,14 +134,14 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  // Update the relations
+  // Update the internal relations
+  // todo: check diff and add update action
   for (const relation of internal) {
     if (relation.id) {
       await prisma.stagingInternalRelation.update({
         data: {
           mirror: false,
           resource_type: relation.resource_type,
-          target_id: relation.target_id,
           type: relation.type,
         },
         where: {
@@ -151,6 +151,7 @@ export default defineEventHandler(async (event) => {
     } else {
       await prisma.stagingInternalRelation.create({
         data: {
+          action: "create",
           resource_type: relation.resource_type,
           source_id: resourceid,
           target_id: relation.target_id,

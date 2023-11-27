@@ -65,7 +65,7 @@ export default defineEventHandler(async (event) => {
       // mark the resource as deleted
       await prisma.stagingResource.update({
         data: {
-          action: "deleted",
+          action: "delete",
         },
         where: { id: resourceid },
       });

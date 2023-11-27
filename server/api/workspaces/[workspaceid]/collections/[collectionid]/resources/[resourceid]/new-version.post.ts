@@ -78,15 +78,32 @@ export default defineEventHandler(async (event) => {
     });
   }
 
+  // if the resource is new return an error
+  if (resource.action === "create") {
+    throw createError({
+      message: "Resource is new",
+      statusCode: 400,
+    });
+  }
+
+  // if the resource already has a new version return an error
+  if (resource.action === "newVersion") {
+    throw createError({
+      message: "Resource already has a new version",
+      statusCode: 400,
+    });
+  }
+
   // Add a new resource to the collection
   // Also add the resource to the version
   const newResourceVersion = await prisma.stagingResource.create({
     data: {
       title: resource.title,
-      back_link_id: parsedBody.data.back_link_id, // todo: check if this is correct
+      action: "newVersion",
+      back_link_id: parsedBody.data.back_link_id, // used for front-end
       description: resource.description,
       icon: resource.icon,
-      orignal_resource_id: resource.orignal_resource_id,
+      orignal_resource_id: resource.orignal_resource_id, // todo: check if this is correct
       target: resource.target,
       type: resource.type,
     },
@@ -99,6 +116,8 @@ export default defineEventHandler(async (event) => {
     },
     where: { id: resourceid },
   });
+
+  // todo: should the relations also be cloned for this new version?
 
   await prisma.version.update({
     data: {

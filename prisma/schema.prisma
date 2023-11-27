@@ -191,8 +191,9 @@ model InternalRelation {
 
   mirror Boolean @default(false)
 
-  created DateTime @default(now())
-  updated DateTime @updatedAt
+  created                 DateTime                  @default(now())
+  updated                 DateTime                  @updatedAt
+  StagingInternalRelation StagingInternalRelation[]
 }
 
 model ExternalRelation {
@@ -209,6 +210,8 @@ model ExternalRelation {
 
   created DateTime @default(now())
   updated DateTime @updatedAt
+
+  StagingExternalRelation StagingExternalRelation[]
 }
 
 model StagingResource {
@@ -228,7 +231,7 @@ model StagingResource {
   orignal_resource    Resource? @relation(fields: [orignal_resource_id], references: [id])
   orignal_resource_id String?
 
-  action String? // oldVersion | deleted
+  action String? // oldVersion | delete
 
   created DateTime @default(now())
   updated DateTime @updatedAt
@@ -245,6 +248,9 @@ model StagingResource {
 model StagingInternalRelation {
   id String @id @default(cuid())
 
+  original    InternalRelation? @relation(fields: [original_id], references: [id])
+  original_id String?
+
   source    StagingResource @relation("SourceRelation", fields: [source_id], references: [id], onDelete: Cascade)
   source_id String
 
@@ -260,7 +266,7 @@ model StagingInternalRelation {
   type          String // isCitedBy, etc
   resource_type String? // Book, Article, etc
 
-  action String? // deleted
+  action String? // delete
 
   mirror Boolean @default(false)
 
@@ -270,6 +276,9 @@ model StagingInternalRelation {
 
 model StagingExternalRelation {
   id String @id @default(cuid())
+
+  original    ExternalRelation? @relation(fields: [original_id], references: [id])
+  original_id String?
 
   source    StagingResource @relation(fields: [source_id], references: [id], onDelete: Cascade)
   source_id String

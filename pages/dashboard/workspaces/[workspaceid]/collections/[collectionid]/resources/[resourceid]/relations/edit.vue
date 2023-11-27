@@ -96,6 +96,7 @@ const addNewInternalRelation = () => {
     id: nanoid(),
     created: new Date().toISOString(),
     origin: "local",
+    original_id: null,
     resource_type: null,
     target_id: null,
     type: null,
@@ -151,6 +152,7 @@ const addNewExternalRelation = () => {
     id: nanoid(),
     created: new Date().toISOString(),
     origin: "local",
+    original_id: null,
     resource_type: null,
     target: "",
     target_type: null,
@@ -351,6 +353,7 @@ const saveRelations = async () => {
             <n-select
               v-model:value="relation.target_id"
               filterable
+              :disabled="!!relation.original_id"
               :loading="resourceListLoadingIndicator"
               :options="resourceList || []"
             />
@@ -413,6 +416,7 @@ const saveRelations = async () => {
           <n-form-item path="target" label="Target Type" class="w-full">
             <n-select
               v-model:value="relation.target_type"
+              :disabled="!!relation.original_id"
               filterable
               :options="typeOptions"
             />
@@ -421,6 +425,7 @@ const saveRelations = async () => {
           <n-form-item path="resource_type" label="Target" class="w-full">
             <n-input
               v-model:value="relation.target"
+              :disabled="!!relation.original_id"
               placeholder="https://example.com"
             />
           </n-form-item>
