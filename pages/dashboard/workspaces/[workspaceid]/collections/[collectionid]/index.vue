@@ -92,7 +92,7 @@ const createNewDraftVersion = async () => {
               :to="`/dashboard/workspaces/${workspaceid}/collections/${collectionid}/publish`"
             >
               <n-button
-                v-if="!collection?.version?.published"
+                v-if="collection?.version && !collection?.version.published"
                 size="large"
                 color="black"
               >

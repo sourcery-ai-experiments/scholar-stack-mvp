@@ -257,6 +257,12 @@ export default defineEventHandler(async (event) => {
     });
   }
 
+  await prisma.version.delete({
+    where: {
+      id: draftVersion.id,
+    },
+  });
+
   return {
     statusCode: 201,
     success: true,
