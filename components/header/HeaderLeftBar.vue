@@ -294,7 +294,10 @@ const navigateToResource = (resourceid: string) => {
                 </li>
               </HeadlessListboxOption>
 
-              <div class="mx-auto my-1 h-[1px] w-[90%] bg-slate-200"></div>
+              <div
+                v-if="allOtherWorkspaces.length > 0"
+                class="mx-auto my-1 h-[1px] w-[90%] bg-slate-200"
+              ></div>
 
               <HeadlessListboxOption
                 v-for="(workspace, index) in allOtherWorkspaces"

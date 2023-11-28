@@ -141,6 +141,8 @@ export default defineEventHandler(async (event) => {
         });
 
         newResourceId = newResource.id;
+
+        resource.new_resource_id = newResource.id;
       }
 
       if (resource.action === "delete" || resource.action === "oldVersion") {
@@ -205,7 +207,9 @@ export default defineEventHandler(async (event) => {
         }
       }
     }
+  }
 
+  for (const resource of stagingResources) {
     const stagingInternalRelations =
       await prisma.stagingInternalRelation.findMany({
         where: {
@@ -236,11 +240,16 @@ export default defineEventHandler(async (event) => {
       }
 
       if (internalRelation.action === "create") {
+        const targetResource = stagingResources.find(
+          (stagingResource) => stagingResource.id === internalRelation.target_id
+        );
+
         await prisma.internalRelation.create({
           data: {
             resource_type: internalRelation.resource_type,
-            source_id: resource.orignal_resource_id || newResourceId,
-            target_id: internalRelation.target_id,
+            source_id: resource.new_resource_id || resource.orignal_resource_id,
+            target_id:
+              targetResource?.new_resource_id || internalRelation.target_id,
             type: internalRelation.type,
           },
         });
