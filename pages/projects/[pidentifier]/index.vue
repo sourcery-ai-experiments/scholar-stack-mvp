@@ -10,7 +10,7 @@
       </client-only>
     </div>
 
-    <transition name="fade" mode="out-in" appear>
+    <TransitionFade>
       <div v-if="showRefreshPrompt" class="flex flex-col justify-center">
         <p class="text-slate-00 text-center text-lg font-medium">
           Your project is taking a little longer than expected to load...
@@ -34,7 +34,7 @@
           Refresh Page
         </n-button>
       </div>
-    </transition>
+    </TransitionFade>
   </main>
 </template>
 

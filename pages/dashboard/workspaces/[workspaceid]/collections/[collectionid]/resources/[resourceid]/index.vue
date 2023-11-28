@@ -211,7 +211,7 @@ const createNewVersion = async () => {
 
       <h3>Relations</h3>
 
-      <transition name="fade" mode="out-in">
+      <TransitionFade>
         <div v-if="relationsPending">
           <client-only>
             <Vue3Lottie
@@ -227,7 +227,7 @@ const createNewVersion = async () => {
             {{ relations }}
           </pre>
         </div>
-      </transition>
+      </TransitionFade>
     </div>
 
     <ModalNewCollection />

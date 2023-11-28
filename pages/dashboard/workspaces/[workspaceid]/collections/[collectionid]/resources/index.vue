@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useResourceStore } from "@/stores/resource";
+
 definePageMeta({
   layout: "collections-layout",
   middleware: ["auth"],
@@ -6,6 +8,8 @@ definePageMeta({
 
 const push = usePush();
 const route = useRoute();
+
+const resourceStore = useResourceStore();
 
 const gridView = ref(true);
 const newResourceLoading = ref(false);
@@ -85,6 +89,8 @@ const addResource = async () => {
   }
 
   if (data.value) {
+    resourceStore.fetchResources(workspaceid, collectionid);
+
     push.success({
       title: "Success",
       message: "We created a new resource",

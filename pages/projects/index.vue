@@ -112,7 +112,7 @@ definePageMeta({
     </div>
 
     <div class="my-4">
-      <transition name="fade" mode="out-in">
+      <TransitionFade>
         <div v-if="pending">
           <client-only>
             <Vue3Lottie
@@ -144,7 +144,7 @@ definePageMeta({
           <div v-else>
             <n-divider />
 
-            <transition name="fade" mode="out-in">
+            <TransitionFade>
               <div
                 v-if="viewType === 'grid'"
                 class="flex flex-wrap justify-start"
@@ -254,10 +254,10 @@ definePageMeta({
                   </nuxt-link>
                 </n-list-item>
               </n-list>
-            </transition>
+            </TransitionFade>
           </div>
         </div>
-      </transition>
+      </TransitionFade>
     </div>
   </main>
 </template>

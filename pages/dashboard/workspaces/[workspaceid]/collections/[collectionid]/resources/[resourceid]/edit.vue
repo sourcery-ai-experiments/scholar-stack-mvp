@@ -3,6 +3,7 @@ import type { FormInst, FormItemRule, SelectOption } from "naive-ui";
 
 import type { VNodeChild } from "vue";
 import { faker } from "@faker-js/faker";
+import { useResourceStore } from "@/stores/resource";
 import { Icon } from "#components";
 
 import FALLBACK_JSON from "@/assets/json/url-doi-icons.json";
@@ -23,6 +24,8 @@ definePageMeta({
 
 const push = usePush();
 const route = useRoute();
+
+const resourceStore = useResourceStore();
 
 const formRef = ref<FormInst | null>(null);
 
@@ -182,6 +185,8 @@ const saveResourceData = () => {
       }
 
       if (data.value) {
+        resourceStore.fetchResources(workspaceid, collectionid);
+
         push.success({
           title: "Resource saved",
           message: "Your resource has been saved",

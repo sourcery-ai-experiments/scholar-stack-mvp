@@ -12,11 +12,6 @@ const navItems = [
     href: `/dashboard/workspaces/${route.params.workspaceid}/collections/${route.params.collectionid}/resources/${route.params.resourceid}/relations`,
     icon: "icon-park-twotone:connection-point-two",
   },
-  {
-    name: "Activity",
-    href: `/dashboard/workspaces/${route.params.workspaceid}/collections/${route.params.collectionid}/activity`,
-    icon: "mdi:timeline-clock-outline",
-  },
 ];
 </script>
 
