@@ -163,16 +163,17 @@ export default defineEventHandler(async (event) => {
     );
 
     for (const externalRelation of externalRelations) {
-      if (externalRelation.action === "update") {
+      if (
+        externalRelation.action === "update" &&
+        externalRelation.original_id
+      ) {
         await prisma.externalRelation.update({
           data: {
             resource_type: externalRelation.resource_type,
-            target: externalRelation.target,
-            target_type: externalRelation.target_type,
             type: externalRelation.type,
           },
           where: {
-            id: resource.orignal_resource_id || newResourceId,
+            id: externalRelation.original_id,
           },
         });
       }
@@ -217,6 +218,49 @@ export default defineEventHandler(async (event) => {
         internalRelation.action !== "delete" ||
         (internalRelation.action === "delete" && internalRelation.original_id)
     );
+
+    for (const internalRelation of internalRelations) {
+      if (
+        internalRelation.action === "update" &&
+        internalRelation.original_id
+      ) {
+        await prisma.internalRelation.update({
+          data: {
+            resource_type: internalRelation.resource_type,
+            type: internalRelation.type,
+          },
+          where: {
+            id: internalRelation.original_id,
+          },
+        });
+      }
+
+      if (internalRelation.action === "create") {
+        await prisma.internalRelation.create({
+          data: {
+            resource_type: internalRelation.resource_type,
+            source_id: resource.orignal_resource_id || newResourceId,
+            target_id: internalRelation.target_id,
+            type: internalRelation.type,
+          },
+        });
+      }
+
+      if (internalRelation.action === "delete") {
+        if (internalRelation.original_id) {
+          await prisma.internalRelation.delete({
+            where: {
+              id: internalRelation.original_id,
+            },
+          });
+        } else {
+          throw createError({
+            message: "Internal relation not found",
+            statusCode: 404,
+          });
+        }
+      }
+    }
   }
 
   // publish the the version
