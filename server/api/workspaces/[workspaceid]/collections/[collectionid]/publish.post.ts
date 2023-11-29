@@ -106,6 +106,8 @@ export default defineEventHandler(async (event) => {
         });
 
         newResourceId = newResource.id;
+
+        resource.new_resource_id = newResource.id;
       }
 
       if (resource.action === "clone") {
