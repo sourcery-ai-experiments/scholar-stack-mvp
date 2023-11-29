@@ -32,10 +32,10 @@ export default defineEventHandler(async (event) => {
   }
 
   // Check if the resource is part of any published versions
-  if (resource.orignal_resource_id) {
+  if (resource.original_resource_id) {
     const publishedResource = await prisma.resource.findFirst({
       where: {
-        id: resource.orignal_resource_id,
+        id: resource.original_resource_id,
         Version: {
           some: {
             published: true,

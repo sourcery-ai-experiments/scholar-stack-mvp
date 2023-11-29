@@ -103,7 +103,7 @@ export default defineEventHandler(async (event) => {
       back_link_id: parsedBody.data.back_link_id, // used for front-end
       description: resource.description,
       icon: resource.icon,
-      orignal_resource_id: resource.orignal_resource_id, // todo: check if this is correct
+      original_resource_id: resource.original_resource_id, // todo: check if this is correct
       target: resource.target,
       type: resource.type,
     },

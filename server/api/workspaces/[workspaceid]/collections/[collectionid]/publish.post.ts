@@ -63,10 +63,17 @@ export default defineEventHandler(async (event) => {
 
   const stagingResources = draftVersion.StagingResources;
 
-  for (const resource of stagingResources) {
+  const resources = stagingResources.map((resource) => {
+    return {
+      ...resource,
+      new_resource_id: "",
+    };
+  });
+
+  for (const resource of resources) {
     let newResourceId = resource.id;
 
-    if (resource.orignal_resource_id) {
+    if (resource.original_resource_id) {
       if (resource.action === "update") {
         await prisma.resource.update({
           data: {
@@ -83,7 +90,7 @@ export default defineEventHandler(async (event) => {
             },
           },
           where: {
-            id: resource.orignal_resource_id,
+            id: resource.original_resource_id,
           },
         });
       }
@@ -92,7 +99,7 @@ export default defineEventHandler(async (event) => {
         const newResource = await prisma.resource.create({
           data: {
             title: resource.title,
-            back_link_id: resource.orignal_resource_id,
+            back_link_id: resource.original_resource_id,
             description: resource.description,
             icon: resource.icon,
             target: resource.target,
@@ -106,7 +113,6 @@ export default defineEventHandler(async (event) => {
         });
 
         newResourceId = newResource.id;
-
         resource.new_resource_id = newResource.id;
       }
 
@@ -115,7 +121,7 @@ export default defineEventHandler(async (event) => {
           data: {
             Resources: {
               connect: {
-                id: resource.orignal_resource_id,
+                id: resource.original_resource_id,
               },
             },
           },
@@ -143,7 +149,6 @@ export default defineEventHandler(async (event) => {
         });
 
         newResourceId = newResource.id;
-
         resource.new_resource_id = newResource.id;
       }
 
@@ -186,7 +191,7 @@ export default defineEventHandler(async (event) => {
         await prisma.externalRelation.create({
           data: {
             resource_type: externalRelation.resource_type,
-            source_id: resource.orignal_resource_id || newResourceId,
+            source_id: resource.original_resource_id || newResourceId,
             target: externalRelation.target,
             target_type: externalRelation.target_type,
             type: externalRelation.type,
@@ -211,7 +216,7 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  for (const resource of stagingResources) {
+  for (const resource of resources) {
     const stagingInternalRelations =
       await prisma.stagingInternalRelation.findMany({
         where: {
@@ -242,14 +247,15 @@ export default defineEventHandler(async (event) => {
       }
 
       if (internalRelation.action === "create") {
-        const targetResource = stagingResources.find(
+        const targetResource = resources.find(
           (stagingResource) => stagingResource.id === internalRelation.target_id
         );
 
         await prisma.internalRelation.create({
           data: {
             resource_type: internalRelation.resource_type,
-            source_id: resource.new_resource_id || resource.orignal_resource_id,
+            source_id:
+              resource.original_resource_id || resource.new_resource_id,
             target_id:
               targetResource?.new_resource_id || internalRelation.target_id,
             type: internalRelation.type,

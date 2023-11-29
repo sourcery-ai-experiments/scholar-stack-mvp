@@ -262,7 +262,7 @@ const saveResourceData = () => {
               v-model:value="formData.type"
               filterable
               placeholder="DOI"
-              :disabled="!!resource?.orignal_resource_id"
+              :disabled="!!resource?.original_resource_id"
               :options="typeOptions"
               @update:value="selectIcon"
             />
@@ -279,7 +279,7 @@ const saveResourceData = () => {
               v-model:value="formData.target"
               :placeholder="selectedIdentifier?.placeholder"
               type="text"
-              :disabled="!formData.type || !!resource?.orignal_resource_id"
+              :disabled="!formData.type || !!resource?.original_resource_id"
               clearable
               @keydown.enter.prevent
             />

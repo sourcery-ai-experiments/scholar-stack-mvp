@@ -228,8 +228,8 @@ model StagingResource {
   back_link    StagingResource? @relation("NewVersionRelation", fields: [back_link_id], references: [id])
   back_link_id String?
 
-  orignal_resource    Resource? @relation(fields: [orignal_resource_id], references: [id])
-  orignal_resource_id String?
+  original_resource    Resource? @relation(fields: [original_resource_id], references: [id])
+  original_resource_id String?
 
   action String? // oldVersion | delete
 

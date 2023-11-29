@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { FormInst } from "naive-ui";
-
+import { faker } from "@faker-js/faker";
 import { nanoid } from "nanoid";
 import { Icon } from "#components";
 
@@ -153,10 +153,10 @@ const addNewExternalRelation = () => {
     created: new Date().toISOString(),
     origin: "local",
     original_id: null,
-    resource_type: null,
-    target: "",
-    target_type: null,
-    type: null,
+    resource_type: "poster",
+    target: faker.internet.url(),
+    target_type: "URL",
+    type: "cites",
     updated: new Date().toISOString(),
   });
 };

@@ -42,22 +42,6 @@ if (error.value) {
         <h1>
           {{ workspace?.title }}
         </h1>
-
-        <div class="flex items-center space-x-2">
-          <n-button size="large" secondary>
-            <template #icon>
-              <Icon name="iconoir:brain-electricity" />
-            </template>
-            Edit Workspace
-          </n-button>
-
-          <n-button size="large" color="black">
-            <template #icon>
-              <Icon name="iconoir:axes" />
-            </template>
-            Action Button
-          </n-button>
-        </div>
       </div>
     </div>
 
