@@ -1,4 +1,5 @@
 import { nanoid } from "nanoid";
+import calver from "calver";
 
 export default defineEventHandler(async (event) => {
   await protectRoute(event);
@@ -49,12 +50,27 @@ export default defineEventHandler(async (event) => {
     });
   }
 
+  // get the last published version
+  const lastPublishedVersion = await prisma.version.findFirst({
+    orderBy: {
+      published_on: "desc",
+    },
+    where: {
+      collection_id: collectionid,
+      published: true,
+    },
+  });
+
   // start the reverse mapping process
 
   // create a new version
   const newVersion = await prisma.version.create({
     data: {
-      name: draftVersion.name,
+      name: `v.${calver.inc(
+        "yyyy.ww.minor",
+        lastPublishedVersion?.name || "",
+        "calendar.minor"
+      )}`,
       changelog: draftVersion.changelog,
       collection_id: collectionid,
       identifier: nanoid(),

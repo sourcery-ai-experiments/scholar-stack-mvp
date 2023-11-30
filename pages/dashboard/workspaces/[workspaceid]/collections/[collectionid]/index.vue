@@ -82,8 +82,24 @@ const createNewDraftVersion = async () => {
               {{ collection?.title || "Untitled Collection" }}
             </h1>
 
-            <n-tag v-if="!collection?.version?.published" type="info">
+            <n-tag
+              v-if="
+                collection &&
+                collection.version &&
+                !collection.version.published
+              "
+              type="info"
+            >
               draft version
+            </n-tag>
+
+            <n-tag
+              v-if="
+                collection && collection.version && collection.version.published
+              "
+              type="success"
+            >
+              {{ collection?.version?.name || "" }}
             </n-tag>
           </n-space>
 

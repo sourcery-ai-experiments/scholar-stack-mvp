@@ -11,6 +11,8 @@ definePageMeta({
 const push = usePush();
 const route = useRoute();
 
+const publishLoading = ref(false);
+
 const { collectionid, workspaceid } = route.params as {
   collectionid: string;
   workspaceid: string;
@@ -53,6 +55,8 @@ const markdownToHtml = computed(() => {
 });
 
 const publishCollection = async () => {
+  publishLoading.value = true;
+
   const { data, error } = await useFetch(
     `/api/workspaces/${workspaceid}/collections/${collectionid}/publish`,
     {
@@ -60,6 +64,8 @@ const publishCollection = async () => {
       method: "POST",
     }
   );
+
+  publishLoading.value = false;
 
   if (error.value) {
     console.log(error.value);
@@ -105,7 +111,7 @@ const publishCollection = async () => {
               v-if="!collection?.version?.published"
               size="large"
               color="black"
-              :loading="validationPending"
+              :loading="validationPending || publishLoading"
               :disabled="validationPending || !validationResults?.valid"
               @click="publishCollection"
             >
