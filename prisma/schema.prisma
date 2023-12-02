@@ -141,6 +141,12 @@ model Version {
   Resources        Resource[]
   StagingResources StagingResource[]
 
+  InternalRelations InternalRelation[]
+  ExternalRelations ExternalRelation[]
+
+  StagingInternalRelations StagingInternalRelation[]
+  StagingExternalRelations StagingExternalRelation[]
+
   @@index([identifier, collection_id])
 }
 
@@ -194,6 +200,8 @@ model InternalRelation {
   created                 DateTime                  @default(now())
   updated                 DateTime                  @updatedAt
   StagingInternalRelation StagingInternalRelation[]
+
+  Version Version[]
 }
 
 model ExternalRelation {
@@ -212,6 +220,8 @@ model ExternalRelation {
   updated DateTime @updatedAt
 
   StagingExternalRelation StagingExternalRelation[]
+
+  Version Version[]
 }
 
 model StagingResource {
@@ -272,6 +282,8 @@ model StagingInternalRelation {
 
   created DateTime @default(now())
   updated DateTime @updatedAt
+
+  Version Version[]
 }
 
 model StagingExternalRelation {
@@ -296,6 +308,8 @@ model StagingExternalRelation {
 
   created DateTime @default(now())
   updated DateTime @updatedAt
+
+  Version Version[]
 }
 
 model Analytics {
