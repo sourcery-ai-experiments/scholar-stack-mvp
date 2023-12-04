@@ -26,6 +26,12 @@ const truncateTables = async () => {
   console.log("Truncating table ExternalRelation...");
   await prisma.$executeRaw`TRUNCATE TABLE "ExternalRelation" RESTART IDENTITY CASCADE`;
 
+  console.log("Truncating table _InternalRelationToVersion...");
+  await prisma.$executeRaw`TRUNCATE TABLE "_InternalRelationToVersion" RESTART IDENTITY CASCADE`;
+
+  console.log("Truncating table _ExternalRelationToVersion...");
+  await prisma.$executeRaw`TRUNCATE TABLE "_ExternalRelationToVersion" RESTART IDENTITY CASCADE`;
+
   console.log("Truncating table _ResourceToVersion...");
   await prisma.$executeRaw`TRUNCATE TABLE "_ResourceToVersion" RESTART IDENTITY CASCADE`;
 
@@ -37,6 +43,12 @@ const truncateTables = async () => {
 
   console.log("Truncating table StagingResource...");
   await prisma.$executeRaw`TRUNCATE TABLE "StagingResource" RESTART IDENTITY CASCADE`;
+
+  console.log("Truncating table _StagingInternalRelationToVersion...");
+  await prisma.$executeRaw`TRUNCATE TABLE "_StagingInternalRelationToVersion" RESTART IDENTITY CASCADE`;
+
+  console.log("Truncating table _StagingExternalRelationToVersion...");
+  await prisma.$executeRaw`TRUNCATE TABLE "_StagingExternalRelationToVersion" RESTART IDENTITY CASCADE`;
 
   console.log("Truncating table _StagingResourceToVersion...");
   await prisma.$executeRaw`TRUNCATE TABLE "_StagingResourceToVersion" RESTART IDENTITY CASCADE`;

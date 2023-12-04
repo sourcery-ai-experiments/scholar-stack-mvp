@@ -96,6 +96,11 @@ export default defineEventHandler(async (event) => {
           original_resource_id: originalResource.id,
           target: originalResource.target,
           type: originalResource.type,
+          Version: {
+            connect: {
+              id: draftVersion.id,
+            },
+          },
         },
       });
 
@@ -119,6 +124,11 @@ export default defineEventHandler(async (event) => {
             target: originalExternalRelation.target,
             target_type: originalExternalRelation.target_type,
             type: originalExternalRelation.type,
+            Version: {
+              connect: {
+                id: draftVersion.id,
+              },
+            },
           },
         });
       }
@@ -142,6 +152,11 @@ export default defineEventHandler(async (event) => {
             source_id: newStagingResource.id,
             target_id: originalInternalRelation.target_id,
             type: originalInternalRelation.type,
+            Version: {
+              connect: {
+                id: draftVersion.id,
+              },
+            },
           },
         });
       }
