@@ -70,6 +70,7 @@ export const useCollectionStore = defineStore("Collection", () => {
     collections,
     fetchCollections,
     getCollection,
+    getLoading,
     hideNewCollectionModal,
     newCollectionModalIsOpen,
     showNewCollectionModal,

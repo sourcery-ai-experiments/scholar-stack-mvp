@@ -14,48 +14,6 @@ const selectedResource = ref("");
 
 workspaceStore.fetchWorkspaces();
 
-// Temp data ref - TODO: Remove later
-const tempWorkspaceDataRef = ref({
-  id: "sdfds",
-  title: "sdfdsf",
-  collections: [
-    {
-      id: "clnbeyl820002aujgejzz8iir",
-      title: "test",
-      created: "2023-10-04T07:14:56.112Z",
-      description: "test",
-      identifier: "J87dJcZT3GxOCjSdsIOEn",
-      image:
-        "https://api.dicebear.com/6.x/shapes/svg?seed=QbFa8J0jvqtRmqaaRKMtw",
-    },
-  ],
-  description: "as",
-});
-
-const tempCollectionDataRef = ref({
-  id: "clnbeyl820002aujgejzz8iir",
-  title: "test",
-  created: "2023-10-04T07:14:56.112Z",
-  description: "test",
-  identifier: "J87dJcZT3GxOCjSdsIOEn",
-  image: "https://api.dicebear.com/6.x/shapes/svg?seed=QbFa8J0jvqtRmqaaRKMtw",
-  private: false,
-
-  resources: [
-    {
-      id: "clnbeyl820002aujgejzz8iir",
-      title: "test",
-      back_link_id: "test",
-      description: "test",
-      icon: "test",
-      target: "test",
-      type: "test",
-    },
-  ],
-
-  version: null,
-});
-
 const personalWorkspace = computed(() => {
   return workspaceStore.workspaces.find((workspace) => workspace.personal);
 });
@@ -83,51 +41,6 @@ const allResources = computed(() => {
 const currentResource = computed(() => {
   return resourceStore.resource;
 });
-
-/**
- * TODO: Replace with a skeleton loader
- * TODO: Call this client side
- * TODO: Remove if condition later as well
- */
-if (route.params.workspaceid) {
-  const { data, error: collectionsError } = await useFetch(
-    `/api/workspaces/${route.params.workspaceid}`,
-    {
-      headers: useRequestHeaders(["cookie"]),
-    }
-  );
-
-  tempWorkspaceDataRef.value = data.value as any;
-
-  if (collectionsError.value) {
-    console.log(collectionsError.value);
-
-    push.error({
-      title: "Something went wrong",
-      message: "We couldn't load your collectioons",
-    });
-  }
-}
-
-if (route.params.resourceid) {
-  const { data: resources, error: resourceError } = await useFetch(
-    `/api/workspaces/${route.params.workspaceid}/collections/${route.params.collectionid}`,
-    {
-      headers: useRequestHeaders(["cookie"]),
-    }
-  );
-
-  tempCollectionDataRef.value = resources.value as any;
-
-  if (resourceError.value) {
-    console.log(resourceError.value);
-
-    push.error({
-      title: "Something went wrong",
-      message: "We couldn't load your resourcee",
-    });
-  }
-}
 
 // watch for route changes and update selected workspace
 watchEffect(() => {
@@ -209,29 +122,47 @@ const navigateToResource = (resourceid: string) => {
         <div class="relative">
           <n-space align="center">
             <NuxtLink :to="`/dashboard/workspaces/${currentWorkspace?.id}`">
-              <div class="flex items-center justify-start space-x-2">
-                <n-avatar
-                  :size="20"
-                  :src="`https://api.dicebear.com/6.x/shapes/svg?seed=${currentWorkspace?.id}`"
-                  class="border"
-                  round
-                />
-
-                <span
-                  class="text-base font-medium transition-all hover:text-gray-600"
+              <TransitionFade>
+                <div
+                  v-if="workspaceStore.getLoading"
+                  class="flex items-center justify-start space-x-2"
                 >
-                  {{ currentWorkspace?.title }}
-                </span>
+                  <n-skeleton circle :width="20" />
 
-                <n-tag
-                  v-if="currentWorkspace?.personal"
-                  type="info"
-                  size="small"
-                  class="pointer-events-none"
+                  <n-skeleton
+                    v-if="workspaceStore.getLoading"
+                    :width="100"
+                    height="25"
+                  />
+                </div>
+
+                <div
+                  v-else
+                  class="flex items-center justify-start space-x-2 rounded-md p-1 transition-all hover:bg-gray-50"
                 >
-                  Personal
-                </n-tag>
-              </div>
+                  <n-avatar
+                    :size="20"
+                    :src="`https://api.dicebear.com/6.x/shapes/svg?seed=${currentWorkspace?.id}`"
+                    class="border"
+                    round
+                  />
+
+                  <span
+                    class="text-base font-medium transition-all hover:text-gray-600"
+                  >
+                    {{ currentWorkspace?.title }}
+                  </span>
+
+                  <n-tag
+                    v-if="currentWorkspace?.personal"
+                    type="info"
+                    size="small"
+                    class="pointer-events-none"
+                  >
+                    Personal
+                  </n-tag>
+                </div>
+              </TransitionFade>
             </NuxtLink>
 
             <HeadlessListboxButton
@@ -386,20 +317,34 @@ const navigateToResource = (resourceid: string) => {
               <NuxtLink
                 :to="`/dashboard/workspaces/${currentWorkspace?.id}/collections/${selectedCollection}`"
               >
-                <div class="flex items-center justify-start space-x-2">
-                  <n-avatar
-                    :size="20"
-                    :src="`https://api.dicebear.com/6.x/shapes/svg?seed=${selectedCollection}`"
-                    class="border"
-                    round
-                  />
-
-                  <span
-                    class="text-base font-medium transition-all hover:text-gray-600"
+                <TransitionFade>
+                  <div
+                    v-if="collectionStore.getLoading"
+                    class="flex items-center justify-start space-x-2"
                   >
-                    {{ currentCollection?.title }}
-                  </span>
-                </div>
+                    <n-skeleton circle :width="20" />
+
+                    <n-skeleton :width="100" height="25" />
+                  </div>
+
+                  <div
+                    v-else
+                    class="flex items-center justify-start space-x-2 rounded-md p-1 transition-all hover:bg-gray-50"
+                  >
+                    <n-avatar
+                      :size="20"
+                      :src="`https://api.dicebear.com/6.x/shapes/svg?seed=${selectedCollection}`"
+                      class="border"
+                      round
+                    />
+
+                    <span
+                      class="text-base font-medium transition-all hover:text-gray-600"
+                    >
+                      {{ currentCollection?.title }}
+                    </span>
+                  </div>
+                </TransitionFade>
               </NuxtLink>
 
               <HeadlessListboxButton
@@ -512,20 +457,34 @@ const navigateToResource = (resourceid: string) => {
               <NuxtLink
                 :to="`/dashboard/workspaces/${currentWorkspace?.id}/collections/${selectedCollection}/resources/${selectedResource}`"
               >
-                <div class="flex items-center justify-start space-x-2">
-                  <n-avatar
-                    :size="20"
-                    :src="`https://api.dicebear.com/6.x/shapes/svg?seed=${selectedResource}`"
-                    class="border"
-                    round
-                  />
-
-                  <span
-                    class="text-base font-medium transition-all hover:text-gray-600"
+                <TransitionFade>
+                  <div
+                    v-if="resourceStore.getLoading"
+                    class="flex items-center justify-start space-x-2"
                   >
-                    {{ currentResource?.title }}
-                  </span>
-                </div>
+                    <n-skeleton circle :width="20" />
+
+                    <n-skeleton :width="100" height="25" />
+                  </div>
+
+                  <div
+                    v-else
+                    class="flex items-center justify-start space-x-2 rounded-md p-1 transition-all hover:bg-gray-50"
+                  >
+                    <n-avatar
+                      :size="20"
+                      :src="`https://api.dicebear.com/6.x/shapes/svg?seed=${selectedResource}`"
+                      class="border"
+                      round
+                    />
+
+                    <span
+                      class="text-base font-medium transition-all hover:text-gray-600"
+                    >
+                      {{ currentResource?.title }}
+                    </span>
+                  </div>
+                </TransitionFade>
               </NuxtLink>
 
               <HeadlessListboxButton
