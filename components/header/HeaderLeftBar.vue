@@ -209,7 +209,7 @@ const navigateToResource = (resourceid: string) => {
         <div class="relative">
           <n-space align="center">
             <NuxtLink :to="`/dashboard/workspaces/${currentWorkspace?.id}`">
-              <n-space align="center">
+              <div class="flex items-center justify-start space-x-2">
                 <n-avatar
                   :size="20"
                   :src="`https://api.dicebear.com/6.x/shapes/svg?seed=${currentWorkspace?.id}`"
@@ -231,7 +231,7 @@ const navigateToResource = (resourceid: string) => {
                 >
                   Personal
                 </n-tag>
-              </n-space>
+              </div>
             </NuxtLink>
 
             <HeadlessListboxButton
@@ -386,7 +386,7 @@ const navigateToResource = (resourceid: string) => {
               <NuxtLink
                 :to="`/dashboard/workspaces/${currentWorkspace?.id}/collections/${selectedCollection}`"
               >
-                <n-space align="center">
+                <div class="flex items-center justify-start space-x-2">
                   <n-avatar
                     :size="20"
                     :src="`https://api.dicebear.com/6.x/shapes/svg?seed=${selectedCollection}`"
@@ -399,7 +399,7 @@ const navigateToResource = (resourceid: string) => {
                   >
                     {{ currentCollection?.title }}
                   </span>
-                </n-space>
+                </div>
               </NuxtLink>
 
               <HeadlessListboxButton
@@ -512,7 +512,7 @@ const navigateToResource = (resourceid: string) => {
               <NuxtLink
                 :to="`/dashboard/workspaces/${currentWorkspace?.id}/collections/${selectedCollection}/resources/${selectedResource}`"
               >
-                <n-space align="center">
+                <div class="flex items-center justify-start space-x-2">
                   <n-avatar
                     :size="20"
                     :src="`https://api.dicebear.com/6.x/shapes/svg?seed=${selectedResource}`"
@@ -525,7 +525,7 @@ const navigateToResource = (resourceid: string) => {
                   >
                     {{ currentResource?.title }}
                   </span>
-                </n-space>
+                </div>
               </NuxtLink>
 
               <HeadlessListboxButton
