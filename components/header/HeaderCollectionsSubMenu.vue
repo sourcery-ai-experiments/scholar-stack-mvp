@@ -1,8 +1,6 @@
 <script setup lang="ts">
 const route = useRoute();
 
-const isDraftVersion = ref(false);
-
 const {
   data: collection,
   error,
@@ -20,13 +18,14 @@ if (error.value) {
   console.error(error.value);
 }
 
-watchEffect(() => {
+const isDraftVersion = computed(() => {
   if (collection.value) {
-    console.log(collection.value);
     if (collection.value.version) {
-      isDraftVersion.value = !collection.value.version.published;
+      return !collection.value.version.published;
     }
   }
+
+  return false;
 });
 </script>
 

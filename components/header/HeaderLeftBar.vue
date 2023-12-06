@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useWorkspaceStore } from "@/stores/workspace";
 
-const push = usePush();
 const route = useRoute();
 
 const workspaceStore = useWorkspaceStore();

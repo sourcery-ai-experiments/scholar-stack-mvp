@@ -8,6 +8,12 @@ defineProps({
     default: true,
     type: Boolean,
   },
+  type: {
+    default: "default",
+    required: false,
+    validator: (value: string) =>
+      ["default", "warning", "success", "error"].includes(value),
+  },
 });
 </script>
 

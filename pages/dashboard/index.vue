@@ -118,7 +118,7 @@ if (workspaces.value?.length === 0) {
           v-for="workspace in workspaces"
           :key="workspace.id"
           :to="`/dashboard/workspaces/${workspace.id}`"
-          class="flex w-full flex-col space-y-5 rounded-md border bg-white p-6 shadow-sm transition-all hover:shadow-md"
+          class="flex w-full flex-col space-y-4 rounded-md border bg-white p-6 shadow-sm transition-all hover:shadow-md"
         >
           <div class="flex w-full items-center justify-start space-x-2">
             <n-avatar
@@ -128,22 +128,18 @@ if (workspaces.value?.length === 0) {
             />
 
             <div class="flex w-full flex-col space-y-0">
-              <n-space align="start" justify="space-between">
+              <ContainerFlex justify="space-between">
                 <span class="text-lg font-medium">
                   {{ workspace.title }}
                 </span>
 
-                <n-tag
-                  v-if="workspace.personal"
-                  type="warning"
-                  size="small"
-                  class="mt-1"
-                >
+                <n-tag v-if="workspace.personal" type="warning" size="small">
                   Personal
                 </n-tag>
-              </n-space>
+              </ContainerFlex>
 
               <span class="text-sm text-slate-500">
+                Created on
                 {{ $dayjs(workspace.created).format("MMMM DD, YYYY") }}
               </span>
             </div>

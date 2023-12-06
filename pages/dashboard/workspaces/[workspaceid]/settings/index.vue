@@ -31,6 +31,10 @@ if (workspace.value) {
   workspaceDescription.value = workspace.value.description;
 }
 
+const personalWorkspace = computed(() => {
+  return workspace.value?.personal;
+});
+
 const closeModal = () => {
   modalIsOpen.value = false;
 };
@@ -67,6 +71,33 @@ const updateWorkspaceDetails = async () => {
 
     window.location.reload();
   }
+};
+
+const deleteWorkspace = () => {
+  openModal(); // todo: add a confirmation modal
+
+  // const { data, error } = await useFetch(`/api/workspaces/${workspaceid}`, {
+  //   headers: useRequestHeaders(["cookie"]),
+  //   method: "DELETE",
+  // });
+
+  // if (error.value) {
+  //   console.log(error.value);
+
+  //   push.error({
+  //     title: "Something went wrong",
+  //     message: "We couldn't delete your workspace",
+  //   });
+  // }
+
+  // if (data.value) {
+  //   push.success({
+  //     title: "Success",
+  //     message: "Your workspace has been deleted",
+  //   });
+
+  //   navigateTo("/dashboard");
+  // }
 };
 </script>
 
@@ -127,17 +158,27 @@ const updateWorkspaceDetails = async () => {
       </template>
     </CardWithAction>
 
-    <CardWithAction title="Delete workspace">
-      <p class="my-3 text-sm">
-        Permanently remove your workspace and all of its contents from the
-        platform. This action is not reversible, so please continue with
-        caution.
+    <CardWithAction title="Delete workspace" class="bg-red-50">
+      <p class="my-3 font-medium text-red-600">
+        Permanently remove your workspace. This action is not reversible, so
+        please continue with caution. This will not delete your collections and
+        resources. You will lose access to those projects.
       </p>
 
       <template #action>
-        <div class="flex items-center justify-end">
-          <n-button type="error" @click="openModal"> Delete </n-button>
-        </div>
+        <ContainerFlex justify="end">
+          <n-button
+            type="error"
+            size="large"
+            :disabled="personalWorkspace"
+            @click="deleteWorkspace"
+          >
+            <template #icon>
+              <Icon name="ph:warning-duotone" />
+            </template>
+            Delete
+          </n-button>
+        </ContainerFlex>
       </template>
     </CardWithAction>
 

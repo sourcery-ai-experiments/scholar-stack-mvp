@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import type { FormInst } from "naive-ui";
 
+const user = useSupabaseUser();
 const push = usePush();
+
+const workspaceStore = useWorkspaceStore();
 
 const formRef = ref<FormInst>();
 
@@ -31,6 +34,8 @@ const inviteLoading = ref(false);
 
 const { workspaceid } = useRoute().params as { workspaceid: string };
 
+workspaceStore.getWorkspace(workspaceid);
+
 const { data: members, error } = await useFetch(
   `/api/workspaces/${workspaceid}/members`,
   {
@@ -47,17 +52,20 @@ if (error.value) {
   });
 }
 
-const manageOptions = [
-  {
-    disabled: members.value?.members.length === 1,
-    key: "makeWorkspaceOwner",
-    label: "Make Workspace Owner",
-  },
-  {
-    key: "leaveWorkspace",
-    label: "Leave Workspace",
-  },
-];
+const generateManageOptions = (memberId: string) => {
+  return [
+    {
+      disabled: members.value?.members.length === 1,
+      key: "makeWorkspaceOwner",
+      label: "Make Workspace Owner",
+    },
+    {
+      disabled: user.value?.id !== memberId,
+      key: "leaveWorkspace",
+      label: "Leave Workspace",
+    },
+  ];
+};
 
 const manageMember = (key: string | number) => {
   console.log(key);
@@ -143,6 +151,7 @@ const inviteMember = () => {
             <n-form-item label="Username or Email Address" path="user">
               <n-input
                 v-model:value="formValue.user"
+                :disabled="workspaceStore.workspace?.personal"
                 placeholder="hi@sciconnect.io"
               />
             </n-form-item>
@@ -152,6 +161,7 @@ const inviteMember = () => {
             <n-form-item label="Role" path="role">
               <n-select
                 v-model:value="formValue.role"
+                :disabled="workspaceStore.workspace?.personal"
                 :options="options"
                 placeholder="Admin"
               />
@@ -163,7 +173,14 @@ const inviteMember = () => {
       <div
         class="flex items-center justify-between rounded-lg bg-slate-50 px-6 py-3"
       >
-        <p class="text-sm">
+        <p
+          v-if="workspaceStore.workspace?.personal"
+          class="text-sm text-red-400"
+        >
+          You cannot invite members to your personal workspace.
+        </p>
+
+        <p v-else class="text-sm">
           Lorem ipsum dolor sit amet consectetur, adipisicing elit.
         </p>
 
@@ -171,6 +188,7 @@ const inviteMember = () => {
           color="black"
           size="large"
           :loading="inviteLoading"
+          :disabled="workspaceStore.workspace?.personal"
           @click="inviteMember"
         >
           <template #icon>
@@ -224,16 +242,17 @@ const inviteMember = () => {
                 />
 
                 <div class="flex flex-col">
-                  <p class="font-bold">{{ member.username }}</p>
+                  <p class="font-bold">
+                    {{
+                      user?.id === member.id
+                        ? "Me"
+                        : member.name || "Anonymous User"
+                    }}
+                  </p>
 
                   <p class="text-sm text-slate-600">
                     {{ member.emailAddress }}
                   </p>
-
-                  <!-- <p class="text-xs">
-                    Joined
-                    {{ $dayjs(member.created).format("MMMM DD, YYYY") }}
-                  </p> -->
                 </div>
               </div>
 
@@ -245,10 +264,13 @@ const inviteMember = () => {
                 <n-dropdown
                   trigger="click"
                   placement="bottom-end"
-                  :options="manageOptions"
+                  :options="generateManageOptions(member.id)"
                   @select="manageMember"
                 >
-                  <n-button secondary>
+                  <n-button
+                    secondary
+                    :disabled="workspaceStore.workspace?.personal"
+                  >
                     <template #icon>
                       <Icon name="iconamoon:menu-kebab-vertical-bold" />
                     </template>

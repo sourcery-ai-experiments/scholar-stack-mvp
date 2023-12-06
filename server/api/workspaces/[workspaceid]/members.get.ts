@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
     where: { workspace_id: workspaceid },
   });
 
-  const allMembers = {
+  return {
     invitedMembers: invitedMembers.map((member) => ({
       id: member.email_address,
       created: member.created.toISOString(),
@@ -21,12 +21,10 @@ export default defineEventHandler(async (event) => {
     })),
     members: members.map((member) => ({
       id: member.user_id,
-      username: member.user.username,
+      name: member.user.name,
       created: member.created.toISOString(),
       emailAddress: member.user.email_address,
       role: member.role,
     })),
   };
-
-  return allMembers;
 });

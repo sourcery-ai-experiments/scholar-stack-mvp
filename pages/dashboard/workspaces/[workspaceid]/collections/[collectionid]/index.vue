@@ -81,7 +81,7 @@ const createNewDraftVersion = async () => {
               type="info"
               size="medium"
             >
-              draft version
+              Draft Version
             </n-tag>
 
             <n-tag
@@ -118,9 +118,9 @@ const createNewDraftVersion = async () => {
               @click="createNewDraftVersion"
             >
               <template #icon>
-                <Icon name="iconoir:axes" />
+                <Icon name="carbon:intent-request-create" />
               </template>
-              Create a new {{ !collection?.version ? "draft" : "" }} version
+              Prepare a draft version
             </n-button>
           </n-space>
         </div>
