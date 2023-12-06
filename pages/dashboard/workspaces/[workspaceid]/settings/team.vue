@@ -338,7 +338,7 @@ const inviteMember = () => {
                 <n-dropdown
                   trigger="click"
                   placement="bottom-end"
-                  :options="manageOptions"
+                  :options="generateManageOptions(member.id)"
                   @select="manageMember"
                 >
                   <n-button secondary>
