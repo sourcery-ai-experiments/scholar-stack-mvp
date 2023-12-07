@@ -39,9 +39,7 @@ if (error.value) {
       <div
         class="mx-auto flex w-full max-w-screen-xl items-center justify-between px-2.5 lg:px-20"
       >
-        <h1>
-          {{ workspace?.title }}
-        </h1>
+        <h1>Collections</h1>
       </div>
     </div>
 
