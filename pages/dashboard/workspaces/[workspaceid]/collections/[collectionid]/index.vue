@@ -129,12 +129,50 @@ const createNewDraftVersion = async () => {
 
     <div class="mx-auto w-full max-w-screen-xl px-2.5 lg:px-20">
       <div class="flex items-center justify-between space-x-4 pb-5 pt-10">
-        <h3>About</h3>
+        <h3>Description</h3>
       </div>
 
       <p>
         {{ collection?.description || "No description" }}
       </p>
+
+      <n-divider />
+
+      <div class="flex items-center justify-between space-x-4 pb-5">
+        <h3>About</h3>
+      </div>
+
+      <n-descriptions label-placement="top" title="">
+        <n-descriptions-item>
+          <template #label> Created on </template>
+          {{
+            collection?.created
+              ? $dayjs(collection.created).format("MMMM DD, YYYY")
+              : "No date"
+          }}
+        </n-descriptions-item>
+
+        <n-descriptions-item label="Visibility" :span="2">
+          <n-tag v-if="collection?.private" type="success" size="medium">
+            Private Collection
+          </n-tag>
+
+          <n-tag v-else type="info" size="medium"> Public Collection </n-tag>
+        </n-descriptions-item>
+
+        <n-descriptions-item label="Identifier" :span="3">
+          {{ collection?.identifier || "No identifier" }}
+        </n-descriptions-item>
+
+        <n-descriptions-item v-if="collection?.image" label="Image">
+          <n-image
+            :src="collection.image"
+            :alt="collection.title"
+            width="100"
+            height="100"
+          />
+        </n-descriptions-item>
+      </n-descriptions>
     </div>
 
     <ModalNewCollection />

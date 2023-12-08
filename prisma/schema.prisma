@@ -163,6 +163,7 @@ model Resource {
 
   back_link    Resource? @relation("NewVersionRelation", fields: [back_link_id], references: [id])
   back_link_id String?
+  version      String?
 
   created DateTime @default(now())
   updated DateTime @updatedAt

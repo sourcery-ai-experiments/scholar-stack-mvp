@@ -92,13 +92,14 @@ if (error.value) {
               class="hover:cursor-pointer hover:opacity-80"
             />
 
-            <div class="flex flex-col space-y-1">
+            <div class="flex flex-col">
               <span class="text-lg font-medium">
                 {{ collection.title }}
               </span>
 
               <span class="text-sm text-slate-500">
-                {{ collection.created }}
+                Created on
+                {{ $dayjs(collection.created).format("MMMM DD, YYYY") }}
               </span>
             </div>
           </div>

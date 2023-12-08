@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useResourceStore } from "@/stores/resource";
+import { displayDateDifference, displayLongDate } from "~/utils/displayDates";
 
 definePageMeta({
   layout: "collections-layout",
@@ -114,12 +115,16 @@ const addResource = async () => {
         class="mx-auto flex w-full max-w-screen-xl items-center justify-between px-2.5 lg:px-20"
       >
         <div class="flex items-center space-x-2">
-          <h1>
-            {{ collection?.title }}
-          </h1>
+          <h1>Resources</h1>
 
-          <n-tag v-if="!collection?.version?.published" type="info">
-            draft version
+          <n-tag
+            v-if="
+              collection && collection.version && !collection.version.published
+            "
+            type="info"
+            size="medium"
+          >
+            Draft Version
           </n-tag>
         </div>
 
@@ -131,7 +136,7 @@ const addResource = async () => {
             @click="createNewDraftVersion"
           >
             <template #icon>
-              <Icon name="iconoir:axes" />
+              <Icon name="codicon:git-pull-request-draft" />
             </template>
             Create a new {{ !collection?.version ? "draft" : "" }} version
           </n-button>
@@ -176,12 +181,20 @@ const addResource = async () => {
         </n-button>
       </div>
 
-      <div v-if="collection?.version === null" class="debug">
-        <p>No Version</p>
-
-        <n-button @click="createNewDraftVersion">
-          Create a new draft version</n-button
-        >
+      <div
+        v-if="collection?.version === null"
+        class="rounded-lg border border-dashed px-4 py-8"
+      >
+        <n-empty size="large" description="No resources found">
+          <template #extra>
+            <n-button color="black" @click="createNewDraftVersion">
+              <template #icon>
+                <Icon name="codicon:git-pull-request-draft" />
+              </template>
+              Create a new draft version
+            </n-button>
+          </template>
+        </n-empty>
       </div>
 
       <div
@@ -192,25 +205,51 @@ const addResource = async () => {
           v-for="resource in collection?.resources"
           :key="resource.id"
           :to="`/dashboard/workspaces/${workspaceid}/collections/${collection?.id}/resources/${resource.id}`"
-          class="flex flex-col space-y-5 rounded-md border bg-white p-6 shadow-sm transition-all hover:shadow-md"
+          class="hover:shadow-m flex w-full flex-grow flex-col space-y-5 rounded-md border bg-white p-6 shadow-sm transition-all"
         >
-          <div class="flex items-center justify-start space-x-2">
+          <n-space>
             <n-avatar
               :size="40"
               :src="`https://api.dicebear.com/6.x/notionists-neutral/svg?seed=${resource.id}`"
               class="hover:cursor-pointer hover:opacity-80"
             />
 
-            <div class="flex flex-col space-y-1">
+            <n-space vertical>
               <span class="text-lg font-medium">
                 {{ resource.title || resource.id || "Untitled" }}
               </span>
 
-              <span class="text-sm text-slate-500">
-                {{ resource.created }}
-              </span>
-            </div>
-          </div>
+              <ContainerFlex justify="start" align="center">
+                <n-tooltip trigger="hover" placement="bottom-start">
+                  <template #trigger>
+                    <ContainerFlex justify="start">
+                      <Icon name="clarity:date-outline-badged" size="16" />
+
+                      <span class="text-sm text-slate-500">
+                        {{ displayDateDifference(resource.created) }} ago
+                      </span>
+                    </ContainerFlex>
+                  </template>
+                  Created on {{ displayLongDate(resource.created) }}
+                </n-tooltip>
+
+                <n-divider vertical />
+
+                <n-tooltip trigger="hover" placement="bottom-end">
+                  <template #trigger>
+                    <ContainerFlex justify="start" align="center">
+                      <Icon name="bx:time" size="16" />
+
+                      <span class="text-sm text-slate-500">
+                        {{ displayDateDifference(resource.updated) }} ago
+                      </span>
+                    </ContainerFlex>
+                  </template>
+                  Last modified on {{ displayLongDate(resource.updated) }}
+                </n-tooltip>
+              </ContainerFlex>
+            </n-space>
+          </n-space>
 
           <n-space vertical>
             <n-tag v-if="resource.action">

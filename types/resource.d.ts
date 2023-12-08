@@ -8,6 +8,7 @@ interface ResourceType {
   action?: string;
   target: string;
   created: string;
+  updated: string;
 }
 
 interface ResourcesListItemChild {
