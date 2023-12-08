@@ -207,27 +207,27 @@ const addResource = async () => {
           :to="`/dashboard/workspaces/${workspaceid}/collections/${collection?.id}/resources/${resource.id}`"
           class="hover:shadow-m flex w-full flex-grow flex-col space-y-5 rounded-md border bg-white p-6 shadow-sm transition-all"
         >
-          <n-space>
+          <div class="flex w-full items-center justify-start space-x-4">
             <n-avatar
               :size="40"
               :src="`https://api.dicebear.com/6.x/notionists-neutral/svg?seed=${resource.id}`"
               class="hover:cursor-pointer hover:opacity-80"
             />
 
-            <n-space vertical>
+            <div class="flex w-full flex-col">
               <span class="text-lg font-medium">
                 {{ resource.title || resource.id || "Untitled" }}
               </span>
 
-              <ContainerFlex justify="start" align="center">
+              <n-space>
                 <n-tooltip trigger="hover" placement="bottom-start">
                   <template #trigger>
                     <ContainerFlex justify="start">
                       <Icon name="clarity:date-outline-badged" size="16" />
 
-                      <span class="text-sm text-slate-500">
+                      <p class="text-sm text-slate-500">
                         {{ displayDateDifference(resource.created) }} ago
-                      </span>
+                      </p>
                     </ContainerFlex>
                   </template>
                   Created on {{ displayLongDate(resource.created) }}
@@ -247,9 +247,9 @@ const addResource = async () => {
                   </template>
                   Last modified on {{ displayLongDate(resource.updated) }}
                 </n-tooltip>
-              </ContainerFlex>
-            </n-space>
-          </n-space>
+              </n-space>
+            </div>
+          </div>
 
           <n-space vertical>
             <n-tag v-if="resource.action">
