@@ -144,7 +144,7 @@ const addResource = async () => {
       </div>
     </div>
 
-    <div class="mx-auto w-full max-w-screen-xl px-2.5 lg:px-20">
+    <div class="mx-auto w-full max-w-screen-xl px-2.5 pb-20 lg:px-20">
       <div class="flex items-center justify-between space-x-4 py-10">
         <n-input placeholder="Search..." size="large">
           <template #prefix>
@@ -197,29 +197,55 @@ const addResource = async () => {
         </n-empty>
       </div>
 
-      <div
-        v-if="collection?.version && collection?.resources"
-        class="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-3"
-      >
+      <n-space v-if="collection?.version && collection?.resources" vertical>
         <NuxtLink
           v-for="resource in collection?.resources"
           :key="resource.id"
           :to="`/dashboard/workspaces/${workspaceid}/collections/${collection?.id}/resources/${resource.id}`"
-          class="hover:shadow-m flex w-full flex-grow flex-col space-y-5 rounded-md border bg-white p-6 shadow-sm transition-all"
+          class="hover:shadow-m flex w-full flex-grow flex-col space-y-5 rounded-md border p-6 shadow-sm transition-all"
+          :class="{
+            'border-red-300 bg-red-50': resource.action === 'delete',
+            'border-slate-300 bg-white': resource.action === 'clone',
+            'border-blue-300 bg-blue-50': resource.action === 'create',
+          }"
         >
           <div class="flex w-full items-center justify-start space-x-4">
-            <n-avatar
-              :size="40"
-              :src="`https://api.dicebear.com/6.x/notionists-neutral/svg?seed=${resource.id}`"
-              class="hover:cursor-pointer hover:opacity-80"
-            />
+            <div>
+              <n-avatar
+                :size="40"
+                :src="`https://api.dicebear.com/6.x/notionists-neutral/svg?seed=${resource.id}`"
+                class="hover:cursor-pointer hover:opacity-80"
+              />
+            </div>
+
+            <n-divider vertical />
 
             <div class="flex w-full flex-col">
-              <span class="text-lg font-medium">
-                {{ resource.title || resource.id || "Untitled" }}
-              </span>
+              <n-space justify="space-between">
+                <span class="text-lg font-medium">
+                  {{ resource.title || resource.id || "Untitled" }}
+                </span>
 
-              <n-space>
+                <n-tag
+                  v-if="resource.action === 'create'"
+                  type="info"
+                  size="medium"
+                  class="ml-2"
+                >
+                  New Resource
+                </n-tag>
+
+                <n-tag
+                  v-if="resource.action === 'delete'"
+                  type="error"
+                  size="medium"
+                  class="ml-2"
+                >
+                  Marked for deletion
+                </n-tag>
+              </n-space>
+
+              <n-space inline class="!gap-0">
                 <n-tooltip trigger="hover" placement="bottom-start">
                   <template #trigger>
                     <ContainerFlex justify="start">
@@ -251,17 +277,11 @@ const addResource = async () => {
             </div>
           </div>
 
-          <n-space vertical>
-            <n-tag v-if="resource.action">
-              {{ resource.action }}
-            </n-tag>
-
-            <span>
-              {{ resource.description }}
-            </span>
-          </n-space>
+          <p>
+            {{ resource.description }}
+          </p>
         </NuxtLink>
-      </div>
+      </n-space>
     </div>
 
     <ModalNewCollection />
