@@ -202,7 +202,7 @@ const addResource = async () => {
           v-for="resource in collection?.resources"
           :key="resource.id"
           :to="`/dashboard/workspaces/${workspaceid}/collections/${collection?.id}/resources/${resource.id}`"
-          class="hover:shadow-m flex w-full flex-grow flex-col space-y-5 rounded-md border p-6 shadow-sm transition-all"
+          class="flex w-full flex-grow flex-col space-y-5 rounded-md border p-6 shadow-sm transition-all hover:shadow-md"
           :class="{
             'border-red-300 bg-red-50': resource.action === 'delete',
             'border-slate-300 bg-white': resource.action === 'clone',
@@ -220,66 +220,75 @@ const addResource = async () => {
 
             <n-divider vertical />
 
-            <div class="flex w-full flex-col">
-              <n-space justify="space-between">
-                <span class="text-lg font-medium">
-                  {{ resource.title || resource.id || "Untitled" }}
-                </span>
+            <n-space justify="space-between" class="w-full">
+              <span class="text-lg font-medium">
+                {{ resource.title || resource.id || "Untitled" }}
+              </span>
 
-                <n-tag
-                  v-if="resource.action === 'create'"
-                  type="info"
-                  size="medium"
-                  class="ml-2"
-                >
-                  New Resource
-                </n-tag>
+              <n-tag
+                v-if="resource.action === 'create'"
+                type="info"
+                size="medium"
+                class="ml-2"
+              >
+                New Resource
+              </n-tag>
 
-                <n-tag
-                  v-if="resource.action === 'delete'"
-                  type="error"
-                  size="medium"
-                  class="ml-2"
-                >
-                  Marked for deletion
-                </n-tag>
-              </n-space>
+              <n-tag
+                v-if="resource.action === 'delete'"
+                type="error"
+                size="medium"
+                class="ml-2"
+              >
+                Marked for deletion
+              </n-tag>
 
-              <n-space inline class="!gap-0">
-                <n-tooltip trigger="hover" placement="bottom-start">
-                  <template #trigger>
-                    <ContainerFlex justify="start">
-                      <Icon name="clarity:date-outline-badged" size="16" />
-
-                      <p class="text-sm text-slate-500">
-                        {{ displayDateDifference(resource.created) }} ago
-                      </p>
-                    </ContainerFlex>
-                  </template>
-                  Created on {{ displayLongDate(resource.created) }}
-                </n-tooltip>
-
-                <n-divider vertical />
-
-                <n-tooltip trigger="hover" placement="bottom-end">
-                  <template #trigger>
-                    <ContainerFlex justify="start" align="center">
-                      <Icon name="bx:time" size="16" />
-
-                      <span class="text-sm text-slate-500">
-                        {{ displayDateDifference(resource.updated) }} ago
-                      </span>
-                    </ContainerFlex>
-                  </template>
-                  Last modified on {{ displayLongDate(resource.updated) }}
-                </n-tooltip>
-              </n-space>
-            </div>
+              <n-tag
+                v-if="resource.action === 'update'"
+                type="success"
+                size="medium"
+                class="ml-2"
+              >
+                Updated
+              </n-tag>
+            </n-space>
           </div>
 
           <p>
             {{ resource.description }}
           </p>
+
+          <n-divider />
+
+          <n-space inline class="!gap-0">
+            <n-tooltip trigger="hover" placement="bottom-start">
+              <template #trigger>
+                <ContainerFlex justify="start">
+                  <Icon name="clarity:date-outline-badged" size="16" />
+
+                  <p class="text-sm text-slate-500">
+                    {{ displayDateDifference(resource.created) }} ago
+                  </p>
+                </ContainerFlex>
+              </template>
+              Created on {{ displayLongDate(resource.created) }}
+            </n-tooltip>
+
+            <n-divider vertical />
+
+            <n-tooltip trigger="hover" placement="bottom-end">
+              <template #trigger>
+                <ContainerFlex justify="start" align="center">
+                  <Icon name="bx:time" size="16" />
+
+                  <span class="text-sm text-slate-500">
+                    {{ displayDateDifference(resource.updated) }} ago
+                  </span>
+                </ContainerFlex>
+              </template>
+              Last modified on {{ displayLongDate(resource.updated) }}
+            </n-tooltip>
+          </n-space>
         </NuxtLink>
       </n-space>
     </div>
