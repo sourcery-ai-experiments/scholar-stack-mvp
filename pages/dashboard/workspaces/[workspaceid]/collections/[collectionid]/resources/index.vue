@@ -197,7 +197,11 @@ const addResource = async () => {
         </n-empty>
       </div>
 
-      <n-space v-if="collection?.version && collection?.resources" vertical>
+      <n-space
+        v-if="collection?.version && collection?.resources"
+        vertical
+        :size="20"
+      >
         <NuxtLink
           v-for="resource in collection?.resources"
           :key="resource.id"
