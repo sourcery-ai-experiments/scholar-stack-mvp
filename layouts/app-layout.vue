@@ -29,7 +29,7 @@ const currentLayout = computed(() => {
       <nav
         class="flex w-full flex-col-reverse border-b border-gray-200 bg-white px-4 pt-2.5 lg:px-6"
       >
-        <HeaderWorkspaceSubMenu
+        <HeaderWorkspacesSubMenu
           v-if="currentLayout === 'workspace-layout'"
           :key="$route.fullPath"
         />

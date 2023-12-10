@@ -201,10 +201,15 @@ const addResource = async () => {
         <NuxtLink
           v-for="resource in collection?.resources"
           :key="resource.id"
-          :to="`/dashboard/workspaces/${workspaceid}/collections/${collection?.id}/resources/${resource.id}`"
+          :to="
+            resource.action === 'delete'
+              ? ''
+              : `/dashboard/workspaces/${workspaceid}/collections/${collection?.id}/resources/${resource.id}`
+          "
           class="flex w-full flex-grow flex-col space-y-5 rounded-md border p-6 shadow-sm transition-all hover:shadow-md"
           :class="{
-            'border-red-300 bg-red-50': resource.action === 'delete',
+            'cursor-not-allowed border-red-300 bg-red-50 !shadow-none':
+              resource.action === 'delete',
             'border-slate-300 bg-white': resource.action === 'clone',
             'border-blue-300 bg-white': resource.action === 'create',
             'border-teal-400 bg-white': resource.action === 'update',
@@ -227,37 +232,50 @@ const addResource = async () => {
                   {{ resource.title || resource.id || "Untitled" }}
                 </span>
 
-                <n-tooltip trigger="hover" placement="bottom-end">
-                  <template #trigger>
-                    <n-tag
-                      v-if="resource.action === 'create'"
-                      type="info"
-                      size="medium"
-                      class="ml-2"
-                    >
-                      New Resource
-                    </n-tag>
+                <n-space align="center">
+                  <n-tooltip trigger="hover" placement="bottom-end">
+                    <template #trigger>
+                      <n-tag
+                        v-if="resource.action === 'create'"
+                        type="info"
+                        size="medium"
+                        class="ml-2"
+                      >
+                        New Resource
+                      </n-tag>
 
-                    <n-tag
-                      v-if="resource.action === 'delete'"
-                      type="error"
-                      size="medium"
-                      class="ml-2"
-                    >
-                      Marked for deletion
-                    </n-tag>
+                      <n-tag
+                        v-if="resource.action === 'delete'"
+                        type="error"
+                        size="medium"
+                        class="ml-2"
+                      >
+                        Marked for deletion
+                      </n-tag>
 
-                    <n-tag
-                      v-if="resource.action === 'update'"
-                      type="success"
-                      size="medium"
-                      class="ml-2"
-                    >
-                      Updated
-                    </n-tag>
-                  </template>
-                  Last modified on {{ displayLongDate(resource.updated) }}
-                </n-tooltip>
+                      <n-tag
+                        v-if="resource.action === 'update'"
+                        type="success"
+                        size="medium"
+                        class="ml-2"
+                      >
+                        Updated
+                      </n-tag>
+                    </template>
+                    Last modified on {{ displayLongDate(resource.updated) }}
+                  </n-tooltip>
+
+                  <n-button
+                    v-if="resource.action === 'delete'"
+                    type="error"
+                    tertiary
+                  >
+                    <template #icon>
+                      <Icon name="mdi:undo" />
+                    </template>
+                    Undo delete
+                  </n-button>
+                </n-space>
               </n-space>
 
               <div class="group flex w-full items-center space-x-1">
