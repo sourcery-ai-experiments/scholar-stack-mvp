@@ -60,13 +60,13 @@ const isDraftVersion = computed(() => {
     </NuxtLink>
 
     <NuxtLink
-      class="flex items-center space-x-1 text-slate-500"
+      class="flex items-center space-x-1 text-slate-500 transition-all"
       active-class="border-b-2 border-slate-800 text-slate-900"
       :to="`/dashboard/workspaces/${route.params.workspaceid}/collections/${route.params.collectionid}/changelog`"
       :class="{
-        'cursor-not-allowed': !isDraftVersion,
-        'opacity-50': !isDraftVersion,
-        'pointer-events-none': !isDraftVersion,
+        'cursor-not-allowed': !isDraftVersion || pending,
+        'opacity-50': !isDraftVersion || pending,
+        'pointer-events-none': !isDraftVersion || pending,
       }"
     >
       <div
@@ -79,13 +79,13 @@ const isDraftVersion = computed(() => {
     </NuxtLink>
 
     <NuxtLink
-      class="flex items-center space-x-1 text-slate-500"
+      class="flex items-center space-x-1 text-slate-500 transition-all"
       active-class="border-b-2 border-slate-800 text-slate-900"
       :to="`/dashboard/workspaces/${route.params.workspaceid}/collections/${route.params.collectionid}/publish`"
       :class="{
-        'cursor-not-allowed': !isDraftVersion,
-        'opacity-50': !isDraftVersion,
-        'pointer-events-none': !isDraftVersion,
+        'cursor-not-allowed': !isDraftVersion || pending,
+        'opacity-50': !isDraftVersion || pending,
+        'pointer-events-none': !isDraftVersion || pending,
       }"
     >
       <div

@@ -2,7 +2,7 @@
 import { useCollectionStore } from "@/stores/collection";
 
 definePageMeta({
-  layout: "workspaces-layout",
+  layout: "app-layout",
   middleware: ["auth"],
 });
 

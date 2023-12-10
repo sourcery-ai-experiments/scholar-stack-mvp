@@ -11,7 +11,7 @@ import PREFIX_JSON from "@/assets/json/prefix.json";
 // import RELATION_TYPE_JSON from "@/assets/json/relation-type.json";
 
 definePageMeta({
-  layout: "resources-layout",
+  layout: "app-layout",
   middleware: ["auth"],
 });
 
@@ -38,6 +38,7 @@ const formData = reactive<ResourceType>({
   icon: "",
   target: "",
   type: null,
+  updated: "",
 });
 
 const rules = {

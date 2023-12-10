@@ -106,7 +106,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <main class="flex h-full flex-row flex-wrap items-start justify-center">
+  <main class="flex flex-row flex-wrap items-start justify-center">
     <div class="flex w-1/2 flex-col items-center pt-[5%]">
       <div
         class="mt-4 w-full max-w-lg space-y-6 rounded-lg bg-white px-4 py-6 sm:px-8 sm:py-8"

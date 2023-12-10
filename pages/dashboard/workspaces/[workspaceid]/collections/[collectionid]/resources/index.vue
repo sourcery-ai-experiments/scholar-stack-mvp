@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useResourceStore } from "@/stores/resource";
-import { displayDateDifference, displayLongDate } from "~/utils/displayDates";
+import { displayLongDate } from "~/utils/displayDates";
 
 definePageMeta({
-  layout: "collections-layout",
+  layout: "app-layout",
   middleware: ["auth"],
 });
 
@@ -112,7 +112,7 @@ const addResource = async () => {
   <main class="h-full bg-zinc-50">
     <div class="flex h-36 items-center border-b border-gray-200 bg-white">
       <div
-        class="mx-auto flex w-full max-w-screen-xl items-center justify-between px-2.5 lg:px-20"
+        class="mx-auto flex w-full max-w-screen-xl items-center justify-between px-2 lg:px-20"
       >
         <div class="flex items-center space-x-2">
           <h1>Resources</h1>
@@ -206,10 +206,11 @@ const addResource = async () => {
           :class="{
             'border-red-300 bg-red-50': resource.action === 'delete',
             'border-slate-300 bg-white': resource.action === 'clone',
-            'border-blue-300 bg-blue-50': resource.action === 'create',
+            'border-blue-300 bg-white': resource.action === 'create',
+            'border-teal-400 bg-white': resource.action === 'update',
           }"
         >
-          <div class="flex w-full items-center justify-start space-x-4">
+          <div class="flex w-full items-center justify-start">
             <div>
               <n-avatar
                 :size="40"
@@ -220,75 +221,80 @@ const addResource = async () => {
 
             <n-divider vertical />
 
-            <n-space justify="space-between" class="w-full">
-              <span class="text-lg font-medium">
-                {{ resource.title || resource.id || "Untitled" }}
-              </span>
+            <div class="flex w-full flex-col space-y-0">
+              <n-space justify="space-between">
+                <span class="text-lg font-medium">
+                  {{ resource.title || resource.id || "Untitled" }}
+                </span>
 
-              <n-tag
-                v-if="resource.action === 'create'"
-                type="info"
-                size="medium"
-                class="ml-2"
-              >
-                New Resource
-              </n-tag>
+                <n-tooltip trigger="hover" placement="bottom-end">
+                  <template #trigger>
+                    <n-tag
+                      v-if="resource.action === 'create'"
+                      type="info"
+                      size="medium"
+                      class="ml-2"
+                    >
+                      New Resource
+                    </n-tag>
 
-              <n-tag
-                v-if="resource.action === 'delete'"
-                type="error"
-                size="medium"
-                class="ml-2"
-              >
-                Marked for deletion
-              </n-tag>
+                    <n-tag
+                      v-if="resource.action === 'delete'"
+                      type="error"
+                      size="medium"
+                      class="ml-2"
+                    >
+                      Marked for deletion
+                    </n-tag>
 
-              <n-tag
-                v-if="resource.action === 'update'"
-                type="success"
-                size="medium"
-                class="ml-2"
-              >
-                Updated
-              </n-tag>
-            </n-space>
+                    <n-tag
+                      v-if="resource.action === 'update'"
+                      type="success"
+                      size="medium"
+                      class="ml-2"
+                    >
+                      Updated
+                    </n-tag>
+                  </template>
+                  Last modified on {{ displayLongDate(resource.updated) }}
+                </n-tooltip>
+              </n-space>
+
+              <div class="group flex w-full items-center space-x-1">
+                <n-tag
+                  v-if="resource.type !== 'url'"
+                  type="info"
+                  size="small"
+                  class=""
+                >
+                  {{ resource.type }}
+                </n-tag>
+
+                <NuxtLink
+                  :to="
+                    resource.type !== 'url'
+                      ? `https://identifiers.org/${resource.type}/${resource.target}`
+                      : resource.target
+                  "
+                  class="font-medium text-blue-600 transition-all group-hover:text-blue-700 group-hover:underline"
+                  target="_blank"
+                  @click.stop=""
+                >
+                  {{ resource.target }}
+                </NuxtLink>
+
+                <Icon
+                  name="mdi:external-link"
+                  size="16"
+                  class="text-blue-600 transition-all group-hover:text-blue-700 group-hover:underline"
+                />
+              </div>
+            </div>
           </div>
 
           <p>
             {{ resource.description }}
           </p>
-
-          <n-divider />
-
-          <n-space inline class="!gap-0">
-            <n-tooltip trigger="hover" placement="bottom-start">
-              <template #trigger>
-                <ContainerFlex justify="start">
-                  <Icon name="clarity:date-outline-badged" size="16" />
-
-                  <p class="text-sm text-slate-500">
-                    {{ displayDateDifference(resource.created) }} ago
-                  </p>
-                </ContainerFlex>
-              </template>
-              Created on {{ displayLongDate(resource.created) }}
-            </n-tooltip>
-
-            <n-divider vertical />
-
-            <n-tooltip trigger="hover" placement="bottom-end">
-              <template #trigger>
-                <ContainerFlex justify="start" align="center">
-                  <Icon name="bx:time" size="16" />
-
-                  <span class="text-sm text-slate-500">
-                    {{ displayDateDifference(resource.updated) }} ago
-                  </span>
-                </ContainerFlex>
-              </template>
-              Last modified on {{ displayLongDate(resource.updated) }}
-            </n-tooltip>
-          </n-space>
         </NuxtLink>
       </n-space>
     </div>

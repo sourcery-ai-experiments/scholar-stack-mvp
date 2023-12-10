@@ -2,7 +2,7 @@
 import { Icon } from "#components";
 
 definePageMeta({
-  layout: "resources-layout",
+  layout: "app-layout",
   middleware: ["auth"],
 });
 

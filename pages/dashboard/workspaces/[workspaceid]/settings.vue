@@ -1,6 +1,6 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: "workspaces-layout",
+  layout: "app-layout",
   middleware: ["auth"],
 });
 

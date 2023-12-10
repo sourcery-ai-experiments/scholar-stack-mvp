@@ -11,7 +11,7 @@ config({
 });
 
 definePageMeta({
-  layout: "collections-layout",
+  layout: "app-layout",
   middleware: ["auth"],
 });
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: "collections-layout",
+  layout: "app-layout",
   middleware: ["auth"],
 });
 

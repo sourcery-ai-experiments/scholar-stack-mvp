@@ -4,7 +4,7 @@ import { parse } from "marked";
 import calver from "calver";
 
 definePageMeta({
-  layout: "collections-layout",
+  layout: "app-layout",
   middleware: ["auth"],
 });
 
