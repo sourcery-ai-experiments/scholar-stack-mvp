@@ -38,6 +38,8 @@ if (error.value) {
   navigateTo(`/dashboard/workspaces/${workspaceid}`);
 }
 
+console.log(collection.value);
+
 const createNewDraftVersion = async () => {
   const { data, error } = await useFetch(
     `/api/workspaces/${workspaceid}/collections/${collectionid}/version`,
@@ -206,17 +208,19 @@ const addResource = async () => {
           v-for="resource in collection?.resources"
           :key="resource.id"
           :to="
-            resource.action === 'delete'
+            resource.action === 'delete' || resource.action === 'oldVersion'
               ? ''
               : `/dashboard/workspaces/${workspaceid}/collections/${collection?.id}/resources/${resource.id}`
           "
           class="flex w-full flex-grow flex-col space-y-5 rounded-md border p-6 shadow-sm transition-all hover:shadow-md"
           :class="{
             'cursor-not-allowed border-red-300 bg-red-50 !shadow-none':
-              resource.action === 'delete',
+              resource.action === 'delete' || resource.action === 'oldVersion',
+
             'border-slate-300 bg-white': resource.action === 'clone',
             'border-blue-300 bg-white': resource.action === 'create',
             'border-teal-400 bg-white': resource.action === 'update',
+            'border-cyan-400 bg-white': resource.action === 'newVersion',
           }"
         >
           <div class="flex w-full items-center justify-start">
@@ -239,50 +243,83 @@ const addResource = async () => {
                 <n-space align="center">
                   <n-tooltip trigger="hover" placement="bottom-end">
                     <template #trigger>
-                      <n-tag
-                        v-if="resource.action === 'create'"
-                        type="info"
-                        size="medium"
-                        class="ml-2"
-                      >
-                        New Resource
-                      </n-tag>
+                      <n-space>
+                        <n-tag
+                          v-if="resource.action === 'create'"
+                          type="info"
+                          size="medium"
+                        >
+                          New Resource
+                        </n-tag>
 
-                      <n-tag
-                        v-if="resource.action === 'delete'"
-                        type="error"
-                        size="medium"
-                        class="ml-2"
-                      >
-                        Marked for deletion
-                      </n-tag>
+                        <n-tag
+                          v-if="
+                            resource.action === 'delete' ||
+                            resource.action === 'oldVersion'
+                          "
+                          type="error"
+                          size="medium"
+                        >
+                          Marked for deletion
+                        </n-tag>
 
-                      <n-tag
-                        v-if="resource.action === 'update'"
-                        type="success"
-                        size="medium"
-                        class="ml-2"
-                      >
-                        Updated
-                      </n-tag>
+                        <n-tag
+                          v-if="resource.action === 'update'"
+                          type="success"
+                          size="medium"
+                        >
+                          Updated
+                        </n-tag>
+                      </n-space>
                     </template>
                     Last modified on {{ displayLongDate(resource.updated) }}
                   </n-tooltip>
 
+                  <n-tag
+                    v-if="resource.action === 'oldVersion'"
+                    type="warning"
+                    size="medium"
+                  >
+                    Newer Version Available
+                  </n-tag>
+
+                  <n-tag
+                    v-if="resource.action === 'newVersion'"
+                    type="info"
+                    size="medium"
+                  >
+                    New Version
+                  </n-tag>
+
                   <n-button
                     v-if="resource.action === 'delete'"
                     type="error"
-                    tertiary
+                    size="small"
                   >
                     <template #icon>
                       <Icon name="mdi:undo" />
                     </template>
                     Undo delete
                   </n-button>
+
+                  <NuxtLink
+                    v-if="
+                      resource.action !== 'delete' &&
+                      resource.action !== 'oldVersion'
+                    "
+                    :to="`/dashboard/workspaces/${workspaceid}/collections/${collection?.id}/resources/${resource.id}/edit`"
+                  >
+                    <n-button type="info" size="small">
+                      <template #icon>
+                        <Icon name="akar-icons:edit" />
+                      </template>
+                      Edit
+                    </n-button>
+                  </NuxtLink>
                 </n-space>
               </n-space>
 
-              <div class="group flex w-full items-center space-x-1">
+              <div class="group flex w-max items-center space-x-1">
                 <n-tag
                   v-if="resource.type !== 'url'"
                   type="info"

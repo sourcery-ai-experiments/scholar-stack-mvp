@@ -8,19 +8,11 @@ import { Icon } from "#components";
 
 import FALLBACK_JSON from "@/assets/json/url-doi-icons.json";
 import PREFIX_JSON from "@/assets/json/prefix.json";
-// import RELATION_TYPE_JSON from "@/assets/json/relation-type.json";
 
 definePageMeta({
   layout: "app-layout",
   middleware: ["auth"],
 });
-
-/**
- * TODO: split this into three pages
- * 1. overview with the root url
- * 2. edit page with the form
- * 3. relation page with the relations (too complex for one page alone)
- */
 
 const push = usePush();
 const route = useRoute();
@@ -53,7 +45,6 @@ const rules = {
     trigger: ["blur", "input"],
   },
   target: {
-    // message: "Please enter your identifier",
     required: true,
     trigger: ["blur", "input"],
     validator(rule: FormItemRule, value: string) {
@@ -85,7 +76,6 @@ const rules = {
 
 const iconOptions = FALLBACK_JSON;
 const typeOptions = PREFIX_JSON;
-// const relationTypeOptions = RELATION_TYPE_JSON;
 
 const selectedIdentifier = computed(() => {
   return typeOptions.find((prefix) => prefix.value === formData.type);
@@ -120,6 +110,24 @@ if (error.value) {
 }
 
 if (resource.value) {
+  // If the resource is marked for deletion, redirect the user
+  // to the collection page
+  if (
+    resource.value.action === "delete" ||
+    resource.value.action === "oldVersion"
+  ) {
+    push.error({
+      title: "Resource marked for deletion",
+      message: "You will need to undelete this resource before you can view it",
+    });
+
+    navigateTo(
+      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources`
+    );
+
+    throw new Error("Resource marked for deletion");
+  }
+
   formData.title = resource.value.title || faker.commerce.productName();
   formData.description = resource.value.description || faker.lorem.paragraph();
   formData.target = resource.value.target || faker.internet.url();
@@ -211,7 +219,7 @@ const saveResourceData = () => {
       <div
         class="mx-auto flex w-full max-w-screen-xl items-center justify-between px-2.5 lg:px-20"
       >
-        <h1>Edit resource</h1>
+        <h1>Edit</h1>
 
         <div class="flex items-center space-x-2">
           <n-button
@@ -221,7 +229,7 @@ const saveResourceData = () => {
             @click="saveResourceData"
           >
             <template #icon>
-              <Icon name="iconoir:axes" />
+              <Icon name="humbleicons:save" />
             </template>
 
             Save changes
@@ -230,9 +238,7 @@ const saveResourceData = () => {
       </div>
     </div>
 
-    <div class="mx-auto w-full max-w-screen-xl px-2.5 lg:px-20">
-      <div class="flex items-center justify-between space-x-4 py-10"></div>
-
+    <div class="mx-auto w-full max-w-screen-xl px-2.5 py-10 lg:px-20">
       <n-form
         ref="formRef"
         :label-width="80"
@@ -240,23 +246,6 @@ const saveResourceData = () => {
         :rules="rules"
         size="large"
       >
-        <n-form-item label="Title" path="title">
-          <n-input
-            v-model:value="formData.title"
-            placeholder="My random resource"
-            clearable
-          />
-        </n-form-item>
-
-        <n-form-item label="Description" path="description">
-          <n-input
-            v-model:value="formData.description"
-            placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae nisi eget nunc ultricies aliquet. Sed vitae nisi eget nunc ultricies aliquet."
-            type="textarea"
-            clearable
-          />
-        </n-form-item>
-
         <n-form-item path="type" label="Identifier Type">
           <div class="flex w-full flex-col">
             <n-select
@@ -294,6 +283,23 @@ const saveResourceData = () => {
           </div>
         </n-form-item>
 
+        <n-form-item label="Title" path="title">
+          <n-input
+            v-model:value="formData.title"
+            placeholder="My random resource"
+            clearable
+          />
+        </n-form-item>
+
+        <n-form-item label="Description" path="description">
+          <n-input
+            v-model:value="formData.description"
+            placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae nisi eget nunc ultricies aliquet. Sed vitae nisi eget nunc ultricies aliquet."
+            type="textarea"
+            clearable
+          />
+        </n-form-item>
+
         <n-form-item path="icon" label="Icon">
           <n-select
             v-model:value="formData.icon"
@@ -303,10 +309,6 @@ const saveResourceData = () => {
           />
         </n-form-item>
       </n-form>
-
-      <pre>{{ resource }}</pre>
-
-      <pre>{{ selectedIdentifier }}</pre>
     </div>
 
     <ModalNewCollection />

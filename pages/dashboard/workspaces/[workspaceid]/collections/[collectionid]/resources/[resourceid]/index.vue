@@ -1,20 +1,20 @@
 <script setup lang="ts">
+import { useResourceStore } from "@/stores/resource";
 import { Icon } from "#components";
+import PREFIX_JSON from "@/assets/json/prefix.json";
+import { displayLongDate } from "~/utils/displayDates";
 
 definePageMeta({
   layout: "app-layout",
   middleware: ["auth"],
 });
 
-/**
- * TODO: split this into three pages
- * 1. overview with the root url
- * 2. edit page with the form
- * 3. relation page with the relations (too complex for one page alone)
- */
-
 const push = usePush();
 const route = useRoute();
+
+const resourceStore = useResourceStore();
+
+const devMode = process.env.NODE_ENV === "development";
 
 const removeResourceLoadingIndicator = ref(false);
 const newResourceVersionLoadingIndicator = ref(false);
@@ -45,12 +45,45 @@ if (error.value) {
   );
 }
 
-const { data: relations, pending: relationsPending } = useLazyFetch(
-  `/api/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/relations`,
-  {
-    headers: useRequestHeaders(["cookie"]),
+if (resource.value) {
+  // If the resource is marked for deletion, redirect the user
+  // to the collection page
+  if (
+    resource.value.action === "delete" ||
+    resource.value.action === "oldVersion"
+  ) {
+    push.error({
+      title: "Resource marked for deletion",
+      message: "You will need to undelete this resource before you can view it",
+    });
+
+    navigateTo(
+      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources`
+    );
+
+    throw new Error("Resource marked for deletion");
   }
-);
+}
+
+const resourceType = computed(() => {
+  if (!resource.value) {
+    return "Unknown";
+  }
+
+  const type = resource.value.type;
+
+  if (type === "url") {
+    return "URL";
+  }
+
+  const prefix = PREFIX_JSON.find((prefix) => prefix.value === type);
+
+  if (prefix) {
+    return prefix.label;
+  }
+
+  return "Unknown";
+});
 
 const removeResource = async () => {
   removeResourceLoadingIndicator.value = true;
@@ -114,6 +147,8 @@ const createNewVersion = async () => {
   }
 
   if (data.value) {
+    resourceStore.fetchResources(workspaceid, collectionid);
+
     push.success({
       title: "Success",
       message: "A new version of your resource has been created",
@@ -127,20 +162,62 @@ const createNewVersion = async () => {
 </script>
 
 <template>
-  <main class="h-full bg-white">
+  <main class="bg-white">
     <div class="flex h-36 items-center border-b border-gray-200 bg-white">
       <div
         class="mx-auto flex w-full max-w-screen-xl items-center justify-between px-2.5 lg:px-20"
       >
         <n-space vertical>
-          <h1>{{ resource?.title || resource?.id }}</h1>
+          <h1>Overview</h1>
 
-          <n-tag v-if="resource?.back_link_id" type="info" size="large">
-            {{ resource?.back_link_id }}
-          </n-tag>
+          <n-space v-if="resource?.back_link_id">
+            <span class="font-medium text-slate-500">Newer version of</span>
+
+            <n-tag type="info" size="large">
+              {{ resource?.back_link_id }}
+            </n-tag>
+          </n-space>
         </n-space>
 
         <div class="flex items-center space-x-2">
+          <NuxtLink
+            :to="`/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/edit`"
+          >
+            <n-button ghost size="large">
+              <template #icon>
+                <Icon name="tabler:edit" />
+              </template>
+
+              Edit resource
+            </n-button>
+          </NuxtLink>
+
+          <NuxtLink
+            :to="`/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/relations/edit`"
+          >
+            <n-button ghost size="large">
+              <template #icon>
+                <Icon name="carbon:chart-relationship" />
+              </template>
+
+              Edit relations
+            </n-button>
+          </NuxtLink>
+
+          <n-button
+            v-if="resource?.original_resource_id"
+            ghost
+            size="large"
+            :loading="newResourceVersionLoadingIndicator"
+            @click="createNewVersion"
+          >
+            <template #icon>
+              <Icon name="material-symbols:conversion-path" />
+            </template>
+
+            Create new version
+          </n-button>
+
           <n-button
             size="large"
             type="error"
@@ -152,82 +229,71 @@ const createNewVersion = async () => {
               <Icon name="iconoir:trash" />
             </template>
 
-            Remove
-          </n-button>
-
-          <n-button
-            v-if="resource?.original_resource_id"
-            color="black"
-            size="large"
-            :loading="newResourceVersionLoadingIndicator"
-            @click="createNewVersion"
-          >
-            <template #icon>
-              <Icon name="iconoir:axes" />
-            </template>
-
-            Create new version
+            Delete resource
           </n-button>
         </div>
       </div>
     </div>
 
     <div class="mx-auto w-full max-w-screen-xl px-2.5 lg:px-20">
-      <div class="flex items-center justify-between space-x-4 pb-5 pt-10">
+      <div class="flex items-center justify-between space-x-4 pt-10">
         <h3>About</h3>
 
-        <n-space>
-          <NuxtLink
-            :to="`/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/edit`"
-          >
-            <n-button>
-              <template #icon>
-                <Icon name="iconoir:axes" />
-              </template>
+        <NuxtLink
+          :to="
+            resource?.type !== 'url'
+              ? `https://identifiers.org/${resource?.type}/${resource?.target}`
+              : resource.target
+          "
+          target="_blank"
+        >
+          <n-button color="black" size="large">
+            <template #icon>
+              <Icon name="iconoir:internet" />
+            </template>
 
-              Edit resource
-            </n-button>
-          </NuxtLink>
-
-          <NuxtLink
-            :to="`/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/relations/edit`"
-          >
-            <n-button>
-              <template #icon>
-                <Icon name="iconoir:axes" />
-              </template>
-
-              Update relations
-            </n-button>
-          </NuxtLink>
-        </n-space>
+            Visit resource
+          </n-button>
+        </NuxtLink>
       </div>
 
-      <p>
+      <h4 class="pb-2 pt-5">Title</h4>
+
+      <p class="text-lg">{{ resource?.title || "No title provided" }}</p>
+
+      <h4 class="pb-2 pt-5">Description</h4>
+
+      <p class="text-lg">
         {{ resource?.description || "No description available" }}
       </p>
 
-      <pre>{{ resource }}</pre>
+      <h4 class="pb-2 pt-5">Type</h4>
 
-      <h3>Relations</h3>
+      <p class="text-lg">{{ resourceType }}</p>
 
-      <TransitionFade>
-        <div v-if="relationsPending">
-          <client-only>
-            <Vue3Lottie
-              animation-link="https://assets10.lottiefiles.com/packages/lf20_AQEOul.json"
-              :height="200"
-              :width="200"
-            />
-          </client-only>
-        </div>
+      <h4 class="pb-2 pt-5">Identifier</h4>
 
-        <div v-else>
-          <pre>
-            {{ relations }}
-          </pre>
-        </div>
-      </TransitionFade>
+      <p class="text-lg">{{ resource?.target || "No identifier provided" }}</p>
+
+      <h4 v-if="resource?.back_link_id" class="pb-2 pt-5">Derived from</h4>
+
+      <p v-if="resource?.back_link_id" class="text-lg">
+        {{ resource?.back_link_id }}
+      </p>
+
+      <h4 class="pb-2 pt-5">Created on</h4>
+
+      <p class="text-lg">
+        {{ displayLongDate(resource?.created as string) }}
+      </p>
+
+      <h4 class="pb-2 pt-5">Last updated on</h4>
+
+      <p class="text-lg">
+        {{ displayLongDate(resource?.updated as string) }}
+      </p>
+
+      <pre v-if="devMode" class="pt-10">{{ resource }}</pre>
     </div>
 
     <ModalNewCollection />

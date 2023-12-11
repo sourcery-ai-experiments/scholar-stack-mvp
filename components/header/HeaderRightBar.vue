@@ -1,13 +1,5 @@
 <template>
   <div class="flex items-center space-x-3 lg:order-2">
-    <n-button> Feedback </n-button>
-
-    <n-button text> Changelog </n-button>
-
-    <n-button text> Help </n-button>
-
-    <n-button text> Docs </n-button>
-
     <n-button tertiary round class="">
       <Icon name="mdi:bell-outline" />
     </n-button>

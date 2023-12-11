@@ -35,6 +35,26 @@ if (error.value) {
   );
 }
 
+if (resource.value) {
+  // If the resource is marked for deletion, redirect the user
+  // to the collection page
+  if (
+    resource.value.action === "delete" ||
+    resource.value.action === "oldVersion"
+  ) {
+    push.error({
+      title: "Resource marked for deletion",
+      message: "You will need to undelete this resource before you can view it",
+    });
+
+    navigateTo(
+      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources`
+    );
+
+    throw new Error("Resource marked for deletion");
+  }
+}
+
 const { data: relations, pending: relationsPending } = useLazyFetch(
   `/api/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/relations`,
   {
