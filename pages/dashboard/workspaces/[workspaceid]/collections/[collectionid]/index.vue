@@ -61,7 +61,7 @@ const createNewDraftVersion = async () => {
 </script>
 
 <template>
-  <main class="h-full bg-white">
+  <main class="bg-white">
     <div class="flex h-36 items-center border-b border-gray-200 bg-white">
       <div
         class="mx-auto flex w-full max-w-screen-xl items-center justify-between px-2.5 lg:px-20"
@@ -127,52 +127,46 @@ const createNewDraftVersion = async () => {
       </div>
     </div>
 
-    <div class="mx-auto w-full max-w-screen-xl px-2.5 lg:px-20">
-      <div class="flex items-center justify-between space-x-4 pb-5 pt-10">
-        <h3>Description</h3>
-      </div>
+    <div class="mx-auto w-full max-w-screen-xl px-2.5 py-10 lg:px-20">
+      <h3>About</h3>
 
-      <p>
-        {{ collection?.description || "No description" }}
+      <h4 class="pb-2 pt-5">Title</h4>
+
+      <p class="text-lg">{{ collection?.title || "No title provided" }}</p>
+
+      <h4 class="pb-2 pt-5">Description</h4>
+
+      <p class="text-lg">
+        {{ collection?.description || "No description provided" }}
       </p>
 
-      <n-divider />
+      <h4 class="pb-2 pt-5">Identifer</h4>
 
-      <div class="flex items-center justify-between space-x-4 pb-5">
-        <h3>About</h3>
-      </div>
+      <p class="text-lg">
+        {{ collection?.identifier }}
+      </p>
 
-      <n-descriptions label-placement="top" title="">
-        <n-descriptions-item>
-          <template #label> Created on </template>
-          {{
-            collection?.created
-              ? $dayjs(collection.created).format("MMMM DD, YYYY")
-              : "No date"
-          }}
-        </n-descriptions-item>
+      <h4 class="pb-2 pt-5">Visibility</h4>
 
-        <n-descriptions-item label="Visibility" :span="2">
-          <n-tag v-if="collection?.private" type="success" size="medium">
-            Private Collection
-          </n-tag>
+      <p class="text-lg">
+        {{ collection?.private ? "Private" : "Public" }}
+      </p>
 
-          <n-tag v-else type="info" size="medium"> Public Collection </n-tag>
-        </n-descriptions-item>
+      <h4 class="pb-2 pt-5">Created on</h4>
 
-        <n-descriptions-item label="Identifier" :span="3">
-          {{ collection?.identifier || "No identifier" }}
-        </n-descriptions-item>
+      <p class="text-lg">
+        {{ displayLongDate(collection?.created as string) }}
+      </p>
 
-        <n-descriptions-item v-if="collection?.image" label="Image">
-          <n-image
-            :src="collection.image"
-            :alt="collection.title"
-            width="100"
-            height="100"
-          />
-        </n-descriptions-item>
-      </n-descriptions>
+      <h4 class="pb-2 pt-5">Image</h4>
+
+      <n-image
+        v-if="collection?.image"
+        :src="collection.image"
+        :alt="collection.title"
+        width="100"
+        height="100"
+      />
     </div>
 
     <ModalNewCollection />

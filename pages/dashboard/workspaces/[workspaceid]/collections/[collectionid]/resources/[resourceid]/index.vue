@@ -167,71 +167,76 @@ const createNewVersion = async () => {
       <div
         class="mx-auto flex w-full max-w-screen-xl items-center justify-between px-2.5 lg:px-20"
       >
-        <n-space vertical>
-          <h1>Overview</h1>
+        <n-space vertical class="w-full">
+          <n-space justify="space-between">
+            <h1>Overview</h1>
 
-          <n-space v-if="resource?.back_link_id">
-            <span class="font-medium text-slate-500">Newer version of</span>
+            <div class="flex items-center space-x-2">
+              <NuxtLink
+                :to="`/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/edit`"
+              >
+                <n-button ghost size="large">
+                  <template #icon>
+                    <Icon name="tabler:edit" />
+                  </template>
 
-            <n-tag type="info" size="large">
+                  Edit resource
+                </n-button>
+              </NuxtLink>
+
+              <NuxtLink
+                :to="`/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/relations/edit`"
+              >
+                <n-button ghost size="large">
+                  <template #icon>
+                    <Icon name="carbon:chart-relationship" />
+                  </template>
+
+                  Edit relations
+                </n-button>
+              </NuxtLink>
+
+              <n-button
+                v-if="
+                  resource?.original_resource_id &&
+                  resource?.action !== 'newVersion'
+                "
+                ghost
+                size="large"
+                :loading="newResourceVersionLoadingIndicator"
+                @click="createNewVersion"
+              >
+                <template #icon>
+                  <Icon name="material-symbols:conversion-path" />
+                </template>
+
+                Create new version
+              </n-button>
+
+              <n-button
+                size="large"
+                type="error"
+                secondary
+                :loading="removeResourceLoadingIndicator"
+                @click="removeResource"
+              >
+                <template #icon>
+                  <Icon name="iconoir:trash" />
+                </template>
+
+                Delete resource
+              </n-button>
+            </div>
+          </n-space>
+
+          <n-space v-if="resource?.back_link_id" align="center">
+            <span class="font-medium text-slate-500">Derived from</span>
+
+            <n-tag type="info" size="small">
               {{ resource?.back_link_id }}
             </n-tag>
           </n-space>
         </n-space>
-
-        <div class="flex items-center space-x-2">
-          <NuxtLink
-            :to="`/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/edit`"
-          >
-            <n-button ghost size="large">
-              <template #icon>
-                <Icon name="tabler:edit" />
-              </template>
-
-              Edit resource
-            </n-button>
-          </NuxtLink>
-
-          <NuxtLink
-            :to="`/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/relations/edit`"
-          >
-            <n-button ghost size="large">
-              <template #icon>
-                <Icon name="carbon:chart-relationship" />
-              </template>
-
-              Edit relations
-            </n-button>
-          </NuxtLink>
-
-          <n-button
-            v-if="resource?.original_resource_id"
-            ghost
-            size="large"
-            :loading="newResourceVersionLoadingIndicator"
-            @click="createNewVersion"
-          >
-            <template #icon>
-              <Icon name="material-symbols:conversion-path" />
-            </template>
-
-            Create new version
-          </n-button>
-
-          <n-button
-            size="large"
-            type="error"
-            secondary
-            :loading="removeResourceLoadingIndicator"
-            @click="removeResource"
-          >
-            <template #icon>
-              <Icon name="iconoir:trash" />
-            </template>
-
-            Delete resource
-          </n-button>
-        </div>
       </div>
     </div>
 
