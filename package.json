@@ -17,8 +17,8 @@
     "prisma:db:push": "prisma db push",
     "prisma:db:pull": "prisma db pull --preview-feature",
     "scripts:truncate:tables": "ts-node --project tsconfig.tsnode.json --esm --swc ./scripts/truncate-tables.mjs",
-    "scripts:fetch:save:identifiers": "ts-node --project tsconfig.tsnode.json --esm --swc ./scripts/fetch-save-identifiers.mts",
-    "scripts:compare:identifiers": "ts-node --project tsconfig.tsnode.json --esm --swc ./scripts/compare-identifiers.mts",
+    "scripts:fetch:save:identifiers": "tsx ./scripts/fetch-save-identifiers.ts",
+    "scripts:compare:identifiers": "tsx ./scripts/compare-identifiers.ts",
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
@@ -52,6 +52,7 @@
     "prisma": "latest",
     "tailwindcss-debug-screens": "^2.2.1",
     "ts-node": "^10.9.1",
+    "tsx": "^4.6.2",
     "typescript": "^5.0.4"
   },
   "dependencies": {

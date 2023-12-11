@@ -4,6 +4,7 @@
     "label": "3DMET",
     "pattern": "^B\\d{5}$",
     "placeholder": "B00162",
+    "type": "other",
     "value": "3dmet"
   },
   {
@@ -11,6 +12,7 @@
     "label": "BioData Catalyst",
     "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
     "placeholder": "3dab719c-1fa0-461b-a543-5f0e564a9be4",
+    "type": "other",
     "value": "4503"
   },
   {
@@ -18,6 +20,7 @@
     "label": "4D Nucleome",
     "pattern": "^4DN[A-Z]{2}[A-Z0-9]{7}$",
     "placeholder": "4DNES265ETYQ",
+    "type": "other",
     "value": "4dn"
   },
   {
@@ -25,6 +28,7 @@
     "label": "JCOIN Portal",
     "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
     "placeholder": "005bf193-fa93-44c0-9b2b-9b039f94d692",
+    "type": "other",
     "value": "6vts"
   },
   {
@@ -32,6 +36,7 @@
     "label": "ABS",
     "pattern": "^A\\d+$",
     "placeholder": "A0014",
+    "type": "other",
     "value": "abs"
   },
   {
@@ -39,6 +44,7 @@
     "label": "Aceview Worm",
     "pattern": "^[a-z0-9-]+$",
     "placeholder": "aap-1",
+    "type": "other",
     "value": "aceview.worm"
   },
   {
@@ -46,6 +52,7 @@
     "label": "Addgene Plasmid Repository",
     "pattern": "^[0-9]{5}(-[a-zA-Z0-9-]{0,7})?$|^[0-9]{10}$",
     "placeholder": "50943",
+    "type": "other",
     "value": "addgene"
   },
   {
@@ -53,6 +60,7 @@
     "label": "Animal Diversity Web",
     "pattern": "^[A-Z_a-z]+$",
     "placeholder": "Lycalopex_vetulus",
+    "type": "other",
     "value": "adw"
   },
   {
@@ -60,6 +68,7 @@
     "label": "Affymetrix Probeset",
     "pattern": "\\d{4,}((_[asx])?_at)?",
     "placeholder": "243002_at",
+    "type": "other",
     "value": "affy.probeset"
   },
   {
@@ -67,6 +76,7 @@
     "label": "AFTOL",
     "pattern": "^\\d+$",
     "placeholder": "959",
+    "type": "other",
     "value": "aftol.taxonomy"
   },
   {
@@ -74,6 +84,7 @@
     "label": "AGRICOLA",
     "pattern": "^\\d+$",
     "placeholder": "50018",
+    "type": "other",
     "value": "agricola"
   },
   {
@@ -81,6 +92,7 @@
     "label": "Allergome",
     "pattern": "^\\d+$",
     "placeholder": "1948",
+    "type": "other",
     "value": "allergome"
   },
   {
@@ -88,6 +100,7 @@
     "label": "AmoebaDB",
     "pattern": "^EDI_\\d+$",
     "placeholder": "EDI_244000",
+    "type": "other",
     "value": "amoebadb"
   },
   {
@@ -95,6 +108,7 @@
     "label": "Antibody Registry",
     "pattern": "^\\d{6}$",
     "placeholder": "493771",
+    "type": "other",
     "value": "antibodyregistry"
   },
   {
@@ -102,6 +116,7 @@
     "label": "AntWeb",
     "pattern": "^casent\\d+(\\-D\\d+)?$",
     "placeholder": "casent0106247",
+    "type": "other",
     "value": "antweb"
   },
   {
@@ -109,6 +124,7 @@
     "label": "AOPWiki",
     "pattern": "^\\d+$",
     "placeholder": "98",
+    "type": "other",
     "value": "aop"
   },
   {
@@ -116,6 +132,7 @@
     "label": "AOPWiki (Key Event)",
     "pattern": "^\\d+$",
     "placeholder": "3",
+    "type": "other",
     "value": "aop.events"
   },
   {
@@ -123,6 +140,7 @@
     "label": "AOPWiki (Key Event Relationship)",
     "pattern": "^\\d+$",
     "placeholder": "5",
+    "type": "other",
     "value": "aop.relationships"
   },
   {
@@ -130,6 +148,7 @@
     "label": "AOPWiki (Stressor)",
     "pattern": "^\\d+$",
     "placeholder": "9",
+    "type": "other",
     "value": "aop.stressor"
   },
   {
@@ -137,6 +156,7 @@
     "label": "APD",
     "pattern": "^\\d{5}$",
     "placeholder": "01001",
+    "type": "other",
     "value": "apd"
   },
   {
@@ -144,6 +164,7 @@
     "label": "AphidBase Transcript",
     "pattern": "^ACYPI\\d{6}(-RA)?$",
     "placeholder": "ACYPI000159",
+    "type": "other",
     "value": "aphidbase.transcript"
   },
   {
@@ -151,6 +172,7 @@
     "label": "APID Interactomes",
     "pattern": "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\\.\\d+)?$",
     "placeholder": "P01116",
+    "type": "other",
     "value": "apid.interactions"
   },
   {
@@ -158,6 +180,7 @@
     "label": "ArachnoServer",
     "pattern": "^AS\\d{6}$",
     "placeholder": "AS000060",
+    "type": "other",
     "value": "arachnoserver"
   },
   {
@@ -165,6 +188,7 @@
     "label": "Antibiotic Resistance Genes Database",
     "pattern": "^[A-Z_]{3}[0-9]{4,}$",
     "placeholder": "CAE46076",
+    "type": "other",
     "value": "ardb"
   },
   {
@@ -172,6 +196,7 @@
     "label": "Archival Resource Key (ARK)",
     "pattern": "^(ark\\:)/*[0-9A-Za-z]+(?:/[\\w/.=*+@\\$-]*)?(?:\\?.*)?$",
     "placeholder": "/53355/cl010066723",
+    "type": "other",
     "value": "ark"
   },
   {
@@ -179,6 +204,7 @@
     "label": "ArrayExpress",
     "pattern": "^[AEP]-\\w{4}-\\d+$",
     "placeholder": "E-MEXP-1712",
+    "type": "other",
     "value": "arrayexpress"
   },
   {
@@ -186,6 +212,7 @@
     "label": "ArrayExpress Platform",
     "pattern": "^[AEP]-\\w{4}-\\d+$",
     "placeholder": "A-GEOD-50",
+    "type": "other",
     "value": "arrayexpress.platform"
   },
   {
@@ -193,6 +220,7 @@
     "label": "ArrayMap",
     "pattern": "^[\\w\\-:,]{3,64}$",
     "placeholder": "icdom:8500_3",
+    "type": "other",
     "value": "arraymap"
   },
   {
@@ -200,6 +228,7 @@
     "label": "arXiv",
     "pattern": "^(\\w+(\\-\\w+)?(\\.\\w+)?)?\\d{4,7}(\\.\\d+(v\\d+)?)?$",
     "placeholder": "0807.4956v1",
+    "type": "other",
     "value": "arxiv"
   },
   {
@@ -207,6 +236,7 @@
     "label": "ASAP",
     "pattern": "^[A-Za-z0-9-]+$",
     "placeholder": "ABE-0009634",
+    "type": "other",
     "value": "asap"
   },
   {
@@ -214,6 +244,7 @@
     "label": "Astrophysics Source Code Library",
     "pattern": "^[0-9\\.]+$",
     "placeholder": "1801.012",
+    "type": "other",
     "value": "ascl"
   },
   {
@@ -221,6 +252,7 @@
     "label": "Amazon Standard Identification Number (ASIN)",
     "pattern": "^[0-9]{10}$",
     "placeholder": "0471491039",
+    "type": "other",
     "value": "asin"
   },
   {
@@ -228,6 +260,7 @@
     "label": "AspGD Locus",
     "pattern": "^[A-Za-z_0-9]+$",
     "placeholder": "ASPL0000349247",
+    "type": "other",
     "value": "aspgd.locus"
   },
   {
@@ -235,6 +268,7 @@
     "label": "AspGD Protein",
     "pattern": "^[A-Za-z_0-9]+$",
     "placeholder": "ASPL0000349247",
+    "type": "other",
     "value": "aspgd.protein"
   },
   {
@@ -242,6 +276,7 @@
     "label": "Assembly",
     "pattern": "^[a-zA-Z0-9_\\.]+$",
     "placeholder": "GCF_000005845.2",
+    "type": "other",
     "value": "assembly"
   },
   {
@@ -249,6 +284,7 @@
     "label": "Anatomical Therapeutic Chemical",
     "pattern": "^[A-Z](\\d+([A-Z]{1,2}(\\d+)?)?)?$",
     "placeholder": "A10BA02",
+    "type": "other",
     "value": "atc"
   },
   {
@@ -256,6 +292,7 @@
     "label": "ATCC",
     "pattern": "^\\d+$",
     "placeholder": "11303",
+    "type": "other",
     "value": "atcc"
   },
   {
@@ -263,6 +300,7 @@
     "label": "Anatomical Therapeutic Chemical Vetinary",
     "pattern": "^Q[A-Z0-9]+$",
     "placeholder": "QJ51RV02",
+    "type": "other",
     "value": "atcvet"
   },
   {
@@ -270,6 +308,7 @@
     "label": "Animal TFDB Family",
     "pattern": "^\\w+$",
     "placeholder": "CUT",
+    "type": "other",
     "value": "atfdb.family"
   },
   {
@@ -277,6 +316,7 @@
     "label": "AutDB",
     "pattern": "^[A-Z]+[A-Z-0-9]{2,}$",
     "placeholder": "ADA",
+    "type": "other",
     "value": "autdb"
   },
   {
@@ -284,6 +324,7 @@
     "label": "Bacterial Diversity Metadatabase",
     "pattern": "^[0-9]+$",
     "placeholder": "131392",
+    "type": "other",
     "value": "bacdive"
   },
   {
@@ -291,6 +332,7 @@
     "label": "BacMap Biography",
     "pattern": "^\\d+$",
     "placeholder": "1050",
+    "type": "other",
     "value": "bacmap.biog"
   },
   {
@@ -298,6 +340,7 @@
     "label": "BacMap Map",
     "pattern": "^\\w+(\\_)?\\d+(\\.\\d+)?$",
     "placeholder": "AP011135",
+    "type": "other",
     "value": "bacmap.map"
   },
   {
@@ -305,6 +348,7 @@
     "label": "BioAssay Ontology",
     "pattern": "^\\d{7}$",
     "placeholder": "0002989",
+    "type": "other",
     "value": "bao"
   },
   {
@@ -312,6 +356,7 @@
     "label": "Blue Brain Project Knowledge Graph",
     "pattern": "^[-\\w]+(?:\\/[-\\w]+)(?:\\/\\b[0-9a-f]{8}\\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\\b[0-9a-f]{12}\\b)$",
     "placeholder": "topological-sampling/studios/f0ba2f3e-aa6f-4264-8d18-8ee65cf6f61a",
+    "type": "other",
     "value": "bbkg"
   },
   {
@@ -319,6 +364,7 @@
     "label": "Blue Brain Project Topological sampling Knowledge Graph",
     "pattern": "\\b[0-9a-f]{8}\\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\\b[0-9a-f]{12}\\b",
     "placeholder": "f0ba2f3e-aa6f-4264-8d18-8ee65cf6f61a",
+    "type": "other",
     "value": "bbtp"
   },
   {
@@ -326,6 +372,7 @@
     "label": "BDGP EST",
     "pattern": "^\\w+(\\.)?(\\d+)?$",
     "placeholder": "EY223054.1",
+    "type": "other",
     "value": "bdgp.est"
   },
   {
@@ -333,6 +380,7 @@
     "label": "BDGP insertion DB",
     "pattern": "^\\w+$",
     "placeholder": "KG09531",
+    "type": "other",
     "value": "bdgp.insertion"
   },
   {
@@ -340,6 +388,7 @@
     "label": "Bloomington Drosophila Stock Center",
     "pattern": "^\\d+$",
     "placeholder": "33607",
+    "type": "other",
     "value": "bdsc"
   },
   {
@@ -347,6 +396,7 @@
     "label": "BeetleBase",
     "pattern": "^TC\\d+$",
     "placeholder": "TC010103",
+    "type": "other",
     "value": "beetlebase"
   },
   {
@@ -354,6 +404,7 @@
     "label": "Benchmark Energy & Geometry Database",
     "pattern": "^[0-9]+$",
     "placeholder": "4214",
+    "type": "other",
     "value": "begdb"
   },
   {
@@ -361,6 +412,7 @@
     "label": "Bgee gene",
     "pattern": "^[A-Za-z0-9]+$",
     "placeholder": "FBgn0000015",
+    "type": "other",
     "value": "bgee.gene"
   },
   {
@@ -368,6 +420,7 @@
     "label": "BiGG Compartment",
     "pattern": "^[a-z_A-Z]+$",
     "placeholder": "c",
+    "type": "other",
     "value": "bigg.compartment"
   },
   {
@@ -375,6 +428,7 @@
     "label": "BiGG Metabolite",
     "pattern": "^[a-z_A-Z0-9]+$",
     "placeholder": "12dgr161",
+    "type": "other",
     "value": "bigg.metabolite"
   },
   {
@@ -382,6 +436,7 @@
     "label": "BiGG Model",
     "pattern": "^[a-z_A-Z0-9]+$",
     "placeholder": "iECABU_c1320",
+    "type": "other",
     "value": "bigg.model"
   },
   {
@@ -389,6 +444,7 @@
     "label": "BiGG Reaction",
     "pattern": "^[a-z_A-Z0-9]+$",
     "placeholder": "13GS",
+    "type": "other",
     "value": "bigg.reaction"
   },
   {
@@ -396,6 +452,7 @@
     "label": "BindingDB",
     "pattern": "^\\w\\d+$",
     "placeholder": "e999",
+    "type": "other",
     "value": "bindingdb"
   },
   {
@@ -403,6 +460,7 @@
     "label": "BioCarta Pathway",
     "pattern": "^([hm]\\_)?\\w+Pathway$",
     "placeholder": "h_aktPathway",
+    "type": "other",
     "value": "biocarta.pathway"
   },
   {
@@ -410,6 +468,7 @@
     "label": "BioCatalogue",
     "pattern": "^\\d+$",
     "placeholder": "614",
+    "type": "other",
     "value": "biocatalogue.service"
   },
   {
@@ -417,6 +476,7 @@
     "label": "BioCyc",
     "pattern": "^[A-Z-0-9]+(\\:)?[A-Za-z0-9+_.%-:]+$",
     "placeholder": "ECOLI:CYT-D-UBIOX-CPLX",
+    "type": "other",
     "value": "biocyc"
   },
   {
@@ -424,6 +484,7 @@
     "label": "BioGRID",
     "pattern": "^\\d+$",
     "placeholder": "31623",
+    "type": "other",
     "value": "biogrid"
   },
   {
@@ -431,6 +492,7 @@
     "label": "BioKC",
     "pattern": "bkc[0-9]*",
     "placeholder": "bkc640",
+    "type": "other",
     "value": "biokc"
   },
   {
@@ -438,6 +500,7 @@
     "label": "BioLink Model",
     "pattern": "^\\S+$",
     "placeholder": "Gene",
+    "type": "other",
     "value": "biolink"
   },
   {
@@ -445,6 +508,7 @@
     "label": "Bio-MINDER Tissue Database",
     "pattern": "^[a-z0-9\\-]+$",
     "placeholder": "aef4c195-9cf9-46db-a12a-7cfd1ff3eec3",
+    "type": "other",
     "value": "biominder"
   },
   {
@@ -452,6 +516,7 @@
     "label": "BioModels Database",
     "pattern": "^((BIOMD|MODEL)\\d{10})|(BMID\\d{12})$",
     "placeholder": "BIOMD0000000048",
+    "type": "other",
     "value": "biomodels.db"
   },
   {
@@ -459,6 +524,7 @@
     "label": "KiSAO",
     "pattern": "^KISAO_\\d+$",
     "placeholder": "KISAO_0000057",
+    "type": "other",
     "value": "biomodels.kisao"
   },
   {
@@ -466,6 +532,7 @@
     "label": "TEDDY",
     "pattern": "^TEDDY_\\d{7}$",
     "placeholder": "TEDDY_0000066",
+    "type": "other",
     "value": "biomodels.teddy"
   },
   {
@@ -473,6 +540,7 @@
     "label": "SBML RDF Vocabulary",
     "pattern": "^[A-Za-z]+$",
     "placeholder": "rateRule",
+    "type": "other",
     "value": "biomodels.vocabulary"
   },
   {
@@ -480,6 +548,7 @@
     "label": "BioNumbers",
     "pattern": "^\\d+$",
     "placeholder": "104674",
+    "type": "other",
     "value": "bionumbers"
   },
   {
@@ -487,6 +556,7 @@
     "label": "BioPortal",
     "pattern": "^\\d+$",
     "placeholder": "1046",
+    "type": "other",
     "value": "bioportal"
   },
   {
@@ -494,6 +564,7 @@
     "label": "BioProject",
     "pattern": "^PRJ[DEN][A-Z]\\d+$",
     "placeholder": "PRJDB3",
+    "type": "other",
     "value": "bioproject"
   },
   {
@@ -501,6 +572,7 @@
     "label": "BioSample",
     "pattern": "^SAM[NED](\\w)?\\d+$",
     "placeholder": "SAMEA2397676",
+    "type": "other",
     "value": "biosample"
   },
   {
@@ -508,6 +580,7 @@
     "label": "biosimulations",
     "pattern": "^[a-zA-Z0-9_-]{3,}$",
     "placeholder": "Yeast-cell-cycle-Irons-J-Theor-Biol-2009",
+    "type": "other",
     "value": "biosimulations"
   },
   {
@@ -515,6 +588,7 @@
     "label": "BioSimulators",
     "pattern": "[a-zA-Z0-9-_]+",
     "placeholder": "vcell",
+    "type": "other",
     "value": "biosimulators"
   },
   {
@@ -522,6 +596,7 @@
     "label": "BioStudies database",
     "pattern": "^S-[A-Z]{4}[\\-\\_A-Z\\d]+$",
     "placeholder": "S-EPMC6266652",
+    "type": "other",
     "value": "biostudies"
   },
   {
@@ -529,6 +604,7 @@
     "label": "BioSystems",
     "pattern": "^\\d+$",
     "placeholder": "001",
+    "type": "other",
     "value": "biosystems"
   },
   {
@@ -536,6 +612,7 @@
     "label": "BioTools",
     "pattern": "^[-A-Za-z0-9\\_]*$",
     "placeholder": "uniprotkb",
+    "type": "other",
     "value": "biotools"
   },
   {
@@ -543,6 +620,7 @@
     "label": "Bitbucket",
     "pattern": "^[0-9A-Za-z-_\\.]+/[0-9A-Za-z-_\\.]+$",
     "placeholder": "andreadega/systems-biology-compiler",
+    "type": "other",
     "value": "bitbucket"
   },
   {
@@ -550,6 +628,7 @@
     "label": "BitterDB Compound",
     "pattern": "^\\d+$",
     "placeholder": "46",
+    "type": "other",
     "value": "bitterdb.cpd"
   },
   {
@@ -557,6 +636,7 @@
     "label": "BitterDB Receptor",
     "pattern": "^\\d+$",
     "placeholder": "1",
+    "type": "other",
     "value": "bitterdb.rec"
   },
   {
@@ -564,6 +644,7 @@
     "label": "Biological Magnetic Resonance Data Bank",
     "pattern": "^(bmr|bmse|bmst)?[0-9]{1,6}$",
     "placeholder": "15000",
+    "type": "other",
     "value": "bmrb"
   },
   {
@@ -571,6 +652,7 @@
     "label": "BOLD Taxonomy",
     "pattern": "^\\d+$",
     "placeholder": "27267",
+    "type": "other",
     "value": "bold.taxonomy"
   },
   {
@@ -578,6 +660,7 @@
     "label": "BRENDA",
     "pattern": "^((\\d+\\.-\\.-\\.-)|(\\d+\\.\\d+\\.-\\.-)|(\\d+\\.\\d+\\.\\d+\\.-)|(\\d+\\.\\d+\\.\\d+\\.\\d+))$",
     "placeholder": "1.1.1.1",
+    "type": "other",
     "value": "brenda"
   },
   {
@@ -585,6 +668,7 @@
     "label": "Broad Fungal Genome Initiative",
     "pattern": "^S\\d+$",
     "placeholder": "S7000002168151102",
+    "type": "other",
     "value": "broad"
   },
   {
@@ -592,6 +676,7 @@
     "label": "Brenda Tissue Ontology",
     "pattern": "^BTO:\\d{7}$",
     "placeholder": "0000146",
+    "type": "other",
     "value": "bto"
   },
   {
@@ -599,6 +684,7 @@
     "label": "BugBase Expt",
     "pattern": "^\\d+$",
     "placeholder": "288",
+    "type": "other",
     "value": "bugbase.expt"
   },
   {
@@ -606,6 +692,7 @@
     "label": "BugBase Protocol",
     "pattern": "^\\d+$",
     "placeholder": "67",
+    "type": "other",
     "value": "bugbase.protocol"
   },
   {
@@ -613,6 +700,7 @@
     "label": "BYKdb",
     "pattern": "^[A-Z0-9]+$",
     "placeholder": "A0A009E7X8",
+    "type": "other",
     "value": "bykdb"
   },
   {
@@ -620,6 +708,7 @@
     "label": "CABRI",
     "pattern": "^([A-Za-z]+)?(\\_)?([A-Za-z-]+)\\:([A-Za-z0-9 ]+)$",
     "placeholder": "dsmz_mutz-id:ACC 291",
+    "type": "other",
     "value": "cabri"
   },
   {
@@ -627,6 +716,7 @@
     "label": "Cancer Data Standards Registry and Repository",
     "pattern": "^[0-9]*$",
     "placeholder": "3771992",
+    "type": "other",
     "value": "cadsr"
   },
   {
@@ -634,6 +724,7 @@
     "label": "CAMEO",
     "pattern": "^[0-9\\-_]+$",
     "placeholder": "2019-08-03_00000089_1",
+    "type": "other",
     "value": "cameo"
   },
   {
@@ -641,6 +732,7 @@
     "label": "CAPS-DB",
     "pattern": "^\\d+$",
     "placeholder": "434",
+    "type": "other",
     "value": "caps"
   },
   {
@@ -648,6 +740,7 @@
     "label": "CAS",
     "pattern": "^\\d{1,7}\\-\\d{2}\\-\\d$",
     "placeholder": "50-00-0",
+    "type": "other",
     "value": "cas"
   },
   {
@@ -655,6 +748,7 @@
     "label": "CATH Protein Structural Domain Superfamily",
     "pattern": "^[1-6]\\.[0-9]+\\.[0-9]+\\.[0-9]+$",
     "placeholder": "1.10.8.10",
+    "type": "other",
     "value": "cath"
   },
   {
@@ -662,6 +756,7 @@
     "label": "CATH domain",
     "pattern": "^\\w+$",
     "placeholder": "1cukA01",
+    "type": "other",
     "value": "cath.domain"
   },
   {
@@ -669,6 +764,7 @@
     "label": "CATH superfamily",
     "pattern": "^\\d+(\\.\\d+(\\.\\d+(\\.\\d+)?)?)?$",
     "placeholder": "1.10.10.200",
+    "type": "other",
     "value": "cath.superfamily"
   },
   {
@@ -676,6 +772,7 @@
     "label": "Animal Genome Cattle QTL",
     "pattern": "^\\d+$",
     "placeholder": "4685",
+    "type": "other",
     "value": "cattleqtldb"
   },
   {
@@ -683,6 +780,7 @@
     "label": "CAZy",
     "pattern": "^(GT|GH|PL|CE|CBM)\\d+(\\_\\d+)?$",
     "placeholder": "GT10",
+    "type": "other",
     "value": "cazy"
   },
   {
@@ -690,6 +788,7 @@
     "label": "The cBioPortal for Cancer Genomics",
     "pattern": "^[a-z0-9\\_]+$",
     "placeholder": "laml_tcga_pub",
+    "type": "other",
     "value": "cbioportal"
   },
   {
@@ -697,6 +796,7 @@
     "label": "CCDC Number",
     "pattern": "^\\d{6,7}$",
     "placeholder": "1829126",
+    "type": "other",
     "value": "ccdc"
   },
   {
@@ -704,6 +804,7 @@
     "label": "Consensus CDS",
     "pattern": "^CCDS\\d+\\.\\d+$",
     "placeholder": "CCDS13573.1",
+    "type": "other",
     "value": "ccds"
   },
   {
@@ -711,6 +812,7 @@
     "label": "Cell Cycle Ontology",
     "pattern": "^CCO:\\w+$",
     "placeholder": "0000003",
+    "type": "other",
     "value": "cco"
   },
   {
@@ -718,6 +820,7 @@
     "label": "Conserved Domain Database",
     "pattern": "^(cd)?\\d{5}$",
     "placeholder": "cd00400",
+    "type": "other",
     "value": "cdd"
   },
   {
@@ -725,6 +828,7 @@
     "label": "Canadian Drug Product Database",
     "pattern": "^\\d+$",
     "placeholder": "63250",
+    "type": "other",
     "value": "cdpd"
   },
   {
@@ -732,6 +836,7 @@
     "label": "Cell Image Library",
     "pattern": "^\\d+$",
     "placeholder": "24801",
+    "type": "other",
     "value": "cellimage"
   },
   {
@@ -739,6 +844,7 @@
     "label": "Cellosaurus",
     "pattern": "^CVCL_[A-Z0-9]{4}(\\.txt)?$",
     "placeholder": "CVCL_0030",
+    "type": "other",
     "value": "cellosaurus"
   },
   {
@@ -746,6 +852,7 @@
     "label": "Cell Version Control Repository",
     "pattern": "^[0-9]+$",
     "placeholder": "82",
+    "type": "other",
     "value": "cellrepo"
   },
   {
@@ -753,6 +860,7 @@
     "label": "Candida Genome Database",
     "pattern": "^CAL\\d{7}$",
     "placeholder": "CAL0003079",
+    "type": "other",
     "value": "cgd"
   },
   {
@@ -760,6 +868,7 @@
     "label": "CGSC Strain",
     "pattern": "^\\d+$",
     "placeholder": "74",
+    "type": "other",
     "value": "cgsc"
   },
   {
@@ -767,6 +876,7 @@
     "label": "CharProt",
     "pattern": "^CH_\\d+$",
     "placeholder": "CH_001923",
+    "type": "other",
     "value": "charprot"
   },
   {
@@ -774,6 +884,7 @@
     "label": "ChEBI",
     "pattern": "^CHEBI:\\d+$",
     "placeholder": "36927",
+    "type": "other",
     "value": "chebi"
   },
   {
@@ -781,6 +892,7 @@
     "label": "ChEMBL",
     "pattern": "^CHEMBL\\d+$",
     "placeholder": "CHEMBL4303805",
+    "type": "other",
     "value": "chembl"
   },
   {
@@ -788,6 +900,7 @@
     "label": "ChEMBL compound",
     "pattern": "^CHEMBL\\d+$",
     "placeholder": "CHEMBL308052",
+    "type": "other",
     "value": "chembl.compound"
   },
   {
@@ -795,6 +908,7 @@
     "label": "ChEMBL target",
     "pattern": "^CHEMBL\\d+$",
     "placeholder": "CHEMBL3467",
+    "type": "other",
     "value": "chembl.target"
   },
   {
@@ -802,6 +916,7 @@
     "label": "ChemDB",
     "pattern": "^\\d+$",
     "placeholder": "3966782",
+    "type": "other",
     "value": "chemdb"
   },
   {
@@ -809,6 +924,7 @@
     "label": "ChemIDplus",
     "pattern": "^\\d+\\-\\d+\\-\\d+$",
     "placeholder": "57-27-2",
+    "type": "other",
     "value": "chemidplus"
   },
   {
@@ -816,6 +932,7 @@
     "label": "ChemSpider",
     "pattern": "^\\d+$",
     "placeholder": "56586",
+    "type": "other",
     "value": "chemspider"
   },
   {
@@ -823,6 +940,7 @@
     "label": "Animal Genome Chicken QTL",
     "pattern": "^\\d+$",
     "placeholder": "14362",
+    "type": "other",
     "value": "chickenqtldb"
   },
   {
@@ -830,6 +948,7 @@
     "label": "CIViC Assertion",
     "pattern": "^[0-9]+$",
     "placeholder": "3",
+    "type": "other",
     "value": "civic.aid"
   },
   {
@@ -837,6 +956,7 @@
     "label": "CIViC Disease",
     "pattern": "^[0-9]+$",
     "placeholder": "46",
+    "type": "other",
     "value": "civic.did"
   },
   {
@@ -844,6 +964,7 @@
     "label": "CIViC Evidence",
     "pattern": "^[0-9]+$",
     "placeholder": "1199",
+    "type": "other",
     "value": "civic.eid"
   },
   {
@@ -851,6 +972,7 @@
     "label": "CIViC Gene",
     "pattern": "^[0-9]+$",
     "placeholder": "272",
+    "type": "other",
     "value": "civic.gid"
   },
   {
@@ -858,6 +980,7 @@
     "label": "CIViC Molecular Profile",
     "pattern": "^[0-9]+$",
     "placeholder": "559",
+    "type": "other",
     "value": "civic.mpid"
   },
   {
@@ -865,6 +988,7 @@
     "label": "CIViC Source",
     "pattern": "^[0-9]+$",
     "placeholder": "62",
+    "type": "other",
     "value": "civic.sid"
   },
   {
@@ -872,6 +996,7 @@
     "label": "CIViC Therapy",
     "pattern": "^[0-9]+$",
     "placeholder": "14",
+    "type": "other",
     "value": "civic.tid"
   },
   {
@@ -879,6 +1004,7 @@
     "label": "CIViC Variant Group",
     "pattern": "^[0-9]+$",
     "placeholder": "16",
+    "type": "other",
     "value": "civic.vgid"
   },
   {
@@ -886,6 +1012,7 @@
     "label": "CIViC Variant",
     "pattern": "^[0-9]+$",
     "placeholder": "12",
+    "type": "other",
     "value": "civic.vid"
   },
   {
@@ -893,6 +1020,7 @@
     "label": "Cell Type Ontology",
     "pattern": "^CL:\\d{7}$",
     "placeholder": "0000232",
+    "type": "other",
     "value": "cl"
   },
   {
@@ -900,6 +1028,7 @@
     "label": "ClassyFire",
     "pattern": "^C[0-9]{7}$",
     "placeholder": "C0004828",
+    "type": "other",
     "value": "classyfire"
   },
   {
@@ -907,6 +1036,7 @@
     "label": "ChecklistBank",
     "pattern": "^[0-9]+(LR)?$",
     "placeholder": "1010",
+    "type": "other",
     "value": "clb"
   },
   {
@@ -914,6 +1044,7 @@
     "label": "CLDB",
     "pattern": "^(cl|tum)\\d+$",
     "placeholder": "cl3603",
+    "type": "other",
     "value": "cldb"
   },
   {
@@ -921,6 +1052,7 @@
     "label": "ClinicalTrials.gov",
     "pattern": "^NCT\\d{8}$",
     "placeholder": "NCT00222573",
+    "type": "other",
     "value": "clinicaltrials"
   },
   {
@@ -928,6 +1060,7 @@
     "label": "ClinVar Variant",
     "pattern": "^\\d+$",
     "placeholder": "12345",
+    "type": "other",
     "value": "clinvar"
   },
   {
@@ -935,6 +1068,7 @@
     "label": "ClinVar Record",
     "pattern": "^RCV\\d+(\\.\\d+)?$",
     "placeholder": "RCV000033555.3",
+    "type": "other",
     "value": "clinvar.record"
   },
   {
@@ -942,6 +1076,7 @@
     "label": "ClinVar Submission",
     "pattern": "^SCV\\d+(\\.\\d+)?$",
     "placeholder": "SCV000151292",
+    "type": "other",
     "value": "clinvar.submission"
   },
   {
@@ -949,6 +1084,7 @@
     "label": "ClinVar Submitter",
     "pattern": "^\\d+$",
     "placeholder": "26957",
+    "type": "other",
     "value": "clinvar.submitter"
   },
   {
@@ -956,6 +1092,7 @@
     "label": "Cell Line Ontology",
     "pattern": "^\\d{7}$",
     "placeholder": "0000091",
+    "type": "other",
     "value": "clo"
   },
   {
@@ -963,6 +1100,7 @@
     "label": "COG",
     "pattern": "^COG[0-9]+$",
     "placeholder": "COG1806",
+    "type": "other",
     "value": "cog"
   },
   {
@@ -970,6 +1108,7 @@
     "label": "Catalogue of Life",
     "pattern": "^[23456789BCDFGHJKLMNPQRSTVWXYZ]{1,6}$",
     "placeholder": "4QHKG",
+    "type": "other",
     "value": "col"
   },
   {
@@ -977,6 +1116,7 @@
     "label": "COMBINE specifications",
     "pattern": "^\\w+(\\-|\\.|\\w)*$",
     "placeholder": "sed-ml.level-1.version-1",
+    "type": "other",
     "value": "combine.specifications"
   },
   {
@@ -984,6 +1124,7 @@
     "label": "Complex Portal",
     "pattern": "^CPX-[0-9]+$",
     "placeholder": "CPX-2158",
+    "type": "other",
     "value": "complexportal"
   },
   {
@@ -991,6 +1132,7 @@
     "label": "CompTox Chemistry Dashboard",
     "pattern": "^DTXSID\\d+$",
     "placeholder": "DTXSID2021028",
+    "type": "other",
     "value": "comptox"
   },
   {
@@ -998,6 +1140,7 @@
     "label": "Compulyeast",
     "pattern": "^([A-N,R-Z][0-9][A-Z][A-Z, 0-9][A-Z, 0-9][0-9])|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])$",
     "placeholder": "O08709",
+    "type": "other",
     "value": "compulyeast"
   },
   {
@@ -1005,6 +1148,7 @@
     "label": "Conoserver",
     "pattern": "^\\d+$",
     "placeholder": "2639",
+    "type": "other",
     "value": "conoserver"
   },
   {
@@ -1012,6 +1156,7 @@
     "label": "Coriell Cell Repositories",
     "pattern": "^[A-Z]{2}\\d+$",
     "placeholder": "GM17027",
+    "type": "other",
     "value": "coriell"
   },
   {
@@ -1019,6 +1164,7 @@
     "label": "CorrDB",
     "pattern": "^[0-9]+$",
     "placeholder": "37232",
+    "type": "other",
     "value": "corrdb"
   },
   {
@@ -1026,6 +1172,7 @@
     "label": "CORUM",
     "pattern": "^\\d+$",
     "placeholder": "100",
+    "type": "other",
     "value": "corum"
   },
   {
@@ -1033,6 +1180,7 @@
     "label": "COSMIC Gene",
     "pattern": "^[A-Z0-9]+$",
     "placeholder": "BRAF",
+    "type": "other",
     "value": "cosmic"
   },
   {
@@ -1040,6 +1188,7 @@
     "label": "SARS-CoV-2",
     "pattern": "^\\w+_COVID19_[-\\w]+$",
     "placeholder": "SFB_COVID19_MW286762",
+    "type": "other",
     "value": "covid19"
   },
   {
@@ -1047,6 +1196,7 @@
     "label": "Cooperative Patent Classification",
     "pattern": "^([A-H,Y]|[A-H, Y]\\d{2}|[A-H, Y]\\d{2}[A-Z]|[A-H, Y]\\d{2}[A-Z]\\d{1,3}|[A-H, Y]\\d{2}[A-Z]\\d{1,3}(\\/)?\\d{2,})$",
     "placeholder": "A01M1/026",
+    "type": "other",
     "value": "cpc"
   },
   {
@@ -1054,6 +1204,7 @@
     "label": "CRISPRdb",
     "pattern": "^[0-9]+$",
     "placeholder": "551115",
+    "type": "other",
     "value": "crisprdb"
   },
   {
@@ -1061,6 +1212,7 @@
     "label": "CropMRepository",
     "pattern": "^[0-9]{9}$",
     "placeholder": "000000001",
+    "type": "other",
     "value": "crop2ml"
   },
   {
@@ -1068,6 +1220,7 @@
     "label": "CryptoDB",
     "pattern": "^\\w+",
     "placeholder": "cgd7_230",
+    "type": "other",
     "value": "cryptodb"
   },
   {
@@ -1075,6 +1228,7 @@
     "label": "CSA",
     "pattern": "^[0-9][A-Za-z0-9]{3}$",
     "placeholder": "1a05",
+    "type": "other",
     "value": "csa"
   },
   {
@@ -1082,6 +1236,7 @@
     "label": "Cambridge Structural Database",
     "pattern": "^[A-Z]{6}(\\d{2})?$",
     "placeholder": "PELNAW",
+    "type": "other",
     "value": "csd"
   },
   {
@@ -1089,6 +1244,7 @@
     "label": "Cell Signaling Technology Pathways",
     "pattern": "^[A-Za-z0-9_-]+$",
     "placeholder": "Akt_PKB",
+    "type": "other",
     "value": "cst"
   },
   {
@@ -1096,6 +1252,7 @@
     "label": "Cell Signaling Technology Antibody",
     "pattern": "^\\d+$",
     "placeholder": "3305",
+    "type": "other",
     "value": "cst.ab"
   },
   {
@@ -1103,6 +1260,7 @@
     "label": "CSTR",
     "pattern": "^\\w{5}\\.\\d{2}\\..*$",
     "placeholder": "31253.11.sciencedb.j00001.00123",
+    "type": "other",
     "value": "cstr"
   },
   {
@@ -1110,6 +1268,7 @@
     "label": "CTD Chemical",
     "pattern": "^[CD]\\d+$",
     "placeholder": "D001151",
+    "type": "other",
     "value": "ctd.chemical"
   },
   {
@@ -1117,6 +1276,7 @@
     "label": "CTD Disease",
     "pattern": "^D\\d+$",
     "placeholder": "D053716",
+    "type": "other",
     "value": "ctd.disease"
   },
   {
@@ -1124,6 +1284,7 @@
     "label": "CTD Gene",
     "pattern": "^\\d+$",
     "placeholder": "101",
+    "type": "other",
     "value": "ctd.gene"
   },
   {
@@ -1131,6 +1292,7 @@
     "label": "Cube db",
     "pattern": "^[A-Za-z_0-9]+$",
     "placeholder": "AKR",
+    "type": "other",
     "value": "cubedb"
   },
   {
@@ -1138,6 +1300,7 @@
     "label": "DataONE",
     "pattern": "\\S+",
     "placeholder": "00030692-0FE1-4A1B-955E-A2E55D659267",
+    "type": "other",
     "value": "d1id"
   },
   {
@@ -1145,6 +1308,7 @@
     "label": "DailyMed",
     "pattern": "^[A-Za-z0-9-]+",
     "placeholder": "973a9333-fec7-46dd-8eb5-25738f06ee54",
+    "type": "other",
     "value": "dailymed"
   },
   {
@@ -1152,6 +1316,7 @@
     "label": "DANDI: Distributed Archives for Neurophysiology Data Integration",
     "pattern": "^\\d{6}(\\/\\d+\\.\\d+\\.\\d+)?$",
     "placeholder": "000017",
+    "type": "other",
     "value": "dandi"
   },
   {
@@ -1159,6 +1324,7 @@
     "label": "DARC",
     "pattern": "^\\d+$",
     "placeholder": "1250",
+    "type": "other",
     "value": "darc"
   },
   {
@@ -1166,6 +1332,7 @@
     "label": "DASHR",
     "pattern": "^(hsa-(let|mir)-\\w+(-\\w+)?)|(piR-\\d+)|(chr\\w+.tRNA\\d+-\\w+)|(chr\\w+.tRNA\\d+-\\w+-tRF\\d)|((SNORD|SNORA|ACA|HBII|HBI|U)(-)?\\w+)|(HY\\d\\+(-L\\d+)?)|((LSU|SSU|5S)(-rRNA_Hsa)?(-L\\d+)?)$",
     "placeholder": "hsa-mir-200a",
+    "type": "other",
     "value": "dashr"
   },
   {
@@ -1173,6 +1340,7 @@
     "label": "DASHR expression",
     "pattern": "^(hsa-(let|mir)-\\w+(-\\w+)?)|(piR-\\d+)|(chr\\w+.tRNA\\d+-\\w+)|(chr\\w+.tRNA\\d+-\\w+-tRF\\d)|((SNORD|SNORA|ACA|HBII|HBI|U)(-)?\\w+)|(HY\\d\\+(-L\\d+)?)|((LSU|SSU|5S)(-rRNA_Hsa)?(-L\\d+)?)$",
     "placeholder": "hsa-mir-200a",
+    "type": "other",
     "value": "dashr.expression"
   },
   {
@@ -1180,6 +1348,7 @@
     "label": "Datanator Gene",
     "pattern": "^K[0-9]+$",
     "placeholder": "K00973",
+    "type": "other",
     "value": "datanator.gene"
   },
   {
@@ -1187,6 +1356,7 @@
     "label": "Datanator Metabolite",
     "pattern": "^[A-Z\\-]+$",
     "placeholder": "OUYCCCASQSFEME-MRVPVSSYSA-N",
+    "type": "other",
     "value": "datanator.metabolite"
   },
   {
@@ -1194,6 +1364,7 @@
     "label": "Datanator Reaction",
     "pattern": "^.*?--%3E.*?$",
     "placeholder": "XLYOFNOQVPJJNP-UHFFFAOYSA-N,NBSCHQHZLSJFNQ-GASJEMHNSA-N--%3ENBIIXXVUZAFLBC-UHFFFAOYSA-N,WQZGKKKJIJFFOK-GASJEMHNSA-N",
+    "type": "other",
     "value": "datanator.reaction"
   },
   {
@@ -1201,6 +1372,7 @@
     "label": "DATF",
     "pattern": "^AT[1-5]G\\d{5}(\\.\\d+)?$",
     "placeholder": "AT1G01030.1",
+    "type": "other",
     "value": "datf"
   },
   {
@@ -1208,6 +1380,7 @@
     "label": "DBD",
     "pattern": "^\\d+$",
     "placeholder": "0045310",
+    "type": "other",
     "value": "dbd"
   },
   {
@@ -1215,6 +1388,7 @@
     "label": "dbEST",
     "pattern": "^([A-Z]+)?\\d+(\\.\\d+)?$",
     "placeholder": "BP100000",
+    "type": "other",
     "value": "dbest"
   },
   {
@@ -1222,6 +1396,7 @@
     "label": "DBG2 Introns",
     "pattern": "^\\w{1,2}\\.(\\w{1,2}\\.)?[A-Za-z0-9]+$",
     "placeholder": "Cu.me.I1",
+    "type": "other",
     "value": "dbg2introns"
   },
   {
@@ -1229,6 +1404,7 @@
     "label": "dbGaP",
     "pattern": "^phs[0-9]{6}(.v\\d+.p\\d+)?$",
     "placeholder": "phs000768.v2.p1",
+    "type": "other",
     "value": "dbgap"
   },
   {
@@ -1236,6 +1412,7 @@
     "label": "dbProbe",
     "pattern": "^\\d+$",
     "placeholder": "1000000",
+    "type": "other",
     "value": "dbprobe"
   },
   {
@@ -1243,6 +1420,7 @@
     "label": "dbSNP",
     "pattern": "^rs\\d+$",
     "placeholder": "rs121909098",
+    "type": "other",
     "value": "dbsnp"
   },
   {
@@ -1250,6 +1428,7 @@
     "label": "Degradome Database",
     "pattern": "^[AMCST][0-9x][0-9]$",
     "placeholder": "Ax1",
+    "type": "other",
     "value": "degradome"
   },
   {
@@ -1257,6 +1436,7 @@
     "label": "DEPOD",
     "pattern": "^[A-Z0-9]+$",
     "placeholder": "PTPN1",
+    "type": "other",
     "value": "depod"
   },
   {
@@ -1264,6 +1444,7 @@
     "label": "Development Data Object Service",
     "pattern": "^[a-zA-Z0-9\\-:#\\.]+$",
     "placeholder": "23fa7b4b-9d68-429b-aece-658b11124bb3#2017-03-24T18:43:16.886826-05:00",
+    "type": "other",
     "value": "dev.ga4ghdos"
   },
   {
@@ -1271,6 +1452,7 @@
     "label": "The AnVIL",
     "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
     "placeholder": "6f2f1d6c-c5b5-4171-8b5f-9b1ac8c8a8ca",
+    "type": "other",
     "value": "dg.373f"
   },
   {
@@ -1278,6 +1460,7 @@
     "label": "BioData Catalyst",
     "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
     "placeholder": "0000ffeb-36e0-4a29-b21d-84423bda979d",
+    "type": "other",
     "value": "dg.4503"
   },
   {
@@ -1285,6 +1468,7 @@
     "label": "ACCOuNT Data Commons",
     "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
     "placeholder": "003a12b5-1002-4791-bf7f-0d6f71ebd67b",
+    "type": "other",
     "value": "dg.4825"
   },
   {
@@ -1292,6 +1476,7 @@
     "label": "NCI Data Commons Framework Services",
     "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
     "placeholder": "81944ba1-81d0-436e-8552-33d77a27834b",
+    "type": "other",
     "value": "dg.4dfc"
   },
   {
@@ -1299,6 +1484,7 @@
     "label": "BloodPAC",
     "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
     "placeholder": "00000d53-99bc-4d3e-8ed7-6dc358baccb7",
+    "type": "other",
     "value": "dg.5b0d"
   },
   {
@@ -1306,6 +1492,7 @@
     "label": "Chicago Pandemic Response Commons",
     "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
     "placeholder": "00002b0f-0adf-4015-b2b7-b38f9337044a",
+    "type": "other",
     "value": "dg.63d5"
   },
   {
@@ -1313,6 +1500,7 @@
     "label": "JCOIN",
     "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
     "placeholder": "2afacf00-9a1d-4d80-8c32-69d3923d3913",
+    "type": "other",
     "value": "dg.6vts"
   },
   {
@@ -1320,6 +1508,7 @@
     "label": "NHLBI BioData Catalyst",
     "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
     "placeholder": "0129cb63-1cc7-4151-b119-5e3ba3a8eb07",
+    "type": "other",
     "value": "dg.712c"
   },
   {
@@ -1327,6 +1516,7 @@
     "label": "Environmental Data Commons",
     "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
     "placeholder": "00000014-990c-48f2-b0a8-fbb533860512",
+    "type": "other",
     "value": "dg.7c5b"
   },
   {
@@ -1334,6 +1524,7 @@
     "label": "GenoMEL Data Commons",
     "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
     "placeholder": "000e5d06-1326-4b6f-8d8a-95c63374c7c1",
+    "type": "other",
     "value": "dg.80b6"
   },
   {
@@ -1341,6 +1532,7 @@
     "label": "Anvil",
     "pattern": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}",
     "placeholder": "00077f1c-c45a-47ba-8e6c-1bf6b6b43fce",
+    "type": "other",
     "value": "dg.anv0"
   },
   {
@@ -1348,6 +1540,7 @@
     "label": "Canine Data Commons",
     "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
     "placeholder": "0002346e-5ee7-45fb-8c92-8333f8e13854",
+    "type": "other",
     "value": "dg.c78ne"
   },
   {
@@ -1355,6 +1548,7 @@
     "label": "NIDDK IBD Genetics Consortium Portal",
     "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
     "placeholder": "00083977-d4d7-4593-a216-2b9c931b8b03",
+    "type": "other",
     "value": "dg.ea80"
   },
   {
@@ -1362,6 +1556,7 @@
     "label": "Veterans Precision Oncology Data Commons",
     "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
     "placeholder": "000bf826-73ba-4685-aa6c-3e0971a2f260",
+    "type": "other",
     "value": "dg.f738"
   },
   {
@@ -1369,6 +1564,7 @@
     "label": "Kids First",
     "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
     "placeholder": "00026f50-858a-446b-8ed9-b0e3ecd7b20e",
+    "type": "other",
     "value": "dg.f82a1a"
   },
   {
@@ -1376,6 +1572,7 @@
     "label": "The HEAL platform",
     "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
     "placeholder": "022911d6-af91-4b02-8f96-9107c77c98b8",
+    "type": "other",
     "value": "dg.h34l"
   },
   {
@@ -1383,6 +1580,7 @@
     "label": "HEAL Data Platform",
     "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
     "placeholder": "007e4996-c902-49a0-8fe8-b363f1d3fb23",
+    "type": "other",
     "value": "dg.h35l"
   },
   {
@@ -1390,6 +1588,7 @@
     "label": "MIDRC Data Commons",
     "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
     "placeholder": "000007c3-356a-4d59-a6c0-0ee920b60305",
+    "type": "other",
     "value": "dg.md1r"
   },
   {
@@ -1397,6 +1596,7 @@
     "label": "https://accessclinicaldata.niaid.nih.gov/",
     "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
     "placeholder": "2096a0d6-1846-4b98-9ba3-e4065d82111d",
+    "type": "other",
     "value": "dg.nacd"
   },
   {
@@ -1404,6 +1604,7 @@
     "label": "NCI Data Commons Framework Services",
     "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
     "placeholder": "81944ba1-81d0-436e-8552-33d77a27834b",
+    "type": "other",
     "value": "dg.nci35"
   },
   {
@@ -1411,6 +1612,7 @@
     "label": "UMCCR AGHA Data Commons",
     "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
     "placeholder": "0aa770b4-66b3-4009-9f02-852236b0544f",
+    "type": "other",
     "value": "dg.um33r90"
   },
   {
@@ -1418,6 +1620,7 @@
     "label": "VA Data Commons",
     "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
     "placeholder": "00990747-f66a-4b1e-a6d2-3f08c5c1461f",
+    "type": "other",
     "value": "dg.va03"
   },
   {
@@ -1425,6 +1628,7 @@
     "label": "Dictybase EST",
     "pattern": "^DDB\\d+$",
     "placeholder": "DDB0016567",
+    "type": "other",
     "value": "dictybase.est"
   },
   {
@@ -1432,6 +1636,7 @@
     "label": "Dictybase Gene",
     "pattern": "^DDB_G\\d+$",
     "placeholder": "DDB_G0267522",
+    "type": "other",
     "value": "dictybase.gene"
   },
   {
@@ -1439,6 +1644,7 @@
     "label": "Decentralized Identifiers (DIDs)",
     "pattern": "^did:[a-z0-9]+:[A-Za-z0-9.\\-:]+$",
     "placeholder": "sov:WRfXPg8dantKVubE3HX8pw",
+    "type": "other",
     "value": "did"
   },
   {
@@ -1446,6 +1652,7 @@
     "label": "Database of Interacting Proteins",
     "pattern": "^DIP(\\:)?\\-\\d{1,}[ENXS]$",
     "placeholder": "DIP-743N",
+    "type": "other",
     "value": "dip"
   },
   {
@@ -1453,6 +1660,7 @@
     "label": "DisProt",
     "pattern": "^DP\\d{5}$",
     "placeholder": "DP00003",
+    "type": "other",
     "value": "disprot"
   },
   {
@@ -1460,6 +1668,7 @@
     "label": "DisProt region",
     "pattern": "^DP\\d{5}r\\d{3}$",
     "placeholder": "DP00086r013",
+    "type": "other",
     "value": "disprot.region"
   },
   {
@@ -1467,6 +1676,7 @@
     "label": "Linear double stranded DNA sequences",
     "pattern": "^[A-Z0-9]{6,7}$",
     "placeholder": "6VDC956",
+    "type": "other",
     "value": "dlxb"
   },
   {
@@ -1474,6 +1684,7 @@
     "label": "Circular double stranded DNA sequences composed",
     "pattern": "^[A-Z0-9]{6,7}$",
     "placeholder": "M77F7JM",
+    "type": "other",
     "value": "dlxc"
   },
   {
@@ -1481,6 +1692,7 @@
     "label": "DOI",
     "pattern": "^(doi\\:)?10\\.\\d+/.*$",
     "placeholder": "10.1038/nbt1156",
+    "type": "other",
     "value": "doi"
   },
   {
@@ -1488,6 +1700,7 @@
     "label": "Human Disease Ontology",
     "pattern": "^DOID:\\d+$",
     "placeholder": "11337",
+    "type": "other",
     "value": "doid"
   },
   {
@@ -1495,6 +1708,7 @@
     "label": "DOMMINO",
     "pattern": "^[0-9][A-Za-z0-9]{3}$",
     "placeholder": "2GC4",
+    "type": "other",
     "value": "dommino"
   },
   {
@@ -1502,6 +1716,7 @@
     "label": "DOOR",
     "pattern": "^\\d+$",
     "placeholder": "1398574",
+    "type": "other",
     "value": "door"
   },
   {
@@ -1509,6 +1724,7 @@
     "label": "Database of Quantitative Cellular Signaling: Model",
     "pattern": "^\\d+$",
     "placeholder": "57",
+    "type": "other",
     "value": "doqcs.model"
   },
   {
@@ -1516,6 +1732,7 @@
     "label": "Database of Quantitative Cellular Signaling: Pathway",
     "pattern": "^\\d+$",
     "placeholder": "131",
+    "type": "other",
     "value": "doqcs.pathway"
   },
   {
@@ -1523,6 +1740,7 @@
     "label": "DPV",
     "pattern": "^\\d+$",
     "placeholder": "100",
+    "type": "other",
     "value": "dpv"
   },
   {
@@ -1530,6 +1748,7 @@
     "label": "DragonDB Allele",
     "pattern": "^\\w+$",
     "placeholder": "cho",
+    "type": "other",
     "value": "dragondb.allele"
   },
   {
@@ -1537,6 +1756,7 @@
     "label": "DragonDB DNA",
     "pattern": "^\\d\\w+$",
     "placeholder": "3hB06",
+    "type": "other",
     "value": "dragondb.dna"
   },
   {
@@ -1544,6 +1764,7 @@
     "label": "DragonDB Locus",
     "pattern": "^\\w+$",
     "placeholder": "DEF",
+    "type": "other",
     "value": "dragondb.locus"
   },
   {
@@ -1551,6 +1772,7 @@
     "label": "DragonDB Protein",
     "pattern": "^\\w+$",
     "placeholder": "AMDEFA",
+    "type": "other",
     "value": "dragondb.protein"
   },
   {
@@ -1558,6 +1780,7 @@
     "label": "AnVIL DRS",
     "pattern": "^v2_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
     "placeholder": "v2_1b0f158a-86e2-3887-b990-89e3cf2d9082",
+    "type": "other",
     "value": "drs.anv0"
   },
   {
@@ -1565,6 +1788,7 @@
     "label": "DRSC",
     "pattern": "^DRSC\\d+$",
     "placeholder": "DRSC05221",
+    "type": "other",
     "value": "drsc"
   },
   {
@@ -1572,6 +1796,7 @@
     "label": "DrugBank",
     "pattern": "^DB\\d{5}$",
     "placeholder": "DB00001",
+    "type": "other",
     "value": "drugbank"
   },
   {
@@ -1579,6 +1804,7 @@
     "label": "DrugBank Target v4",
     "pattern": "^BE\\d{7}$",
     "placeholder": "BE0000048",
+    "type": "other",
     "value": "drugbankv4.target"
   },
   {
@@ -1586,6 +1812,7 @@
     "label": "DrugCentral",
     "pattern": "^[0-9]+$",
     "placeholder": "257",
+    "type": "other",
     "value": "drugcentral"
   },
   {
@@ -1593,6 +1820,7 @@
     "label": "Enzyme Nomenclature",
     "pattern": "^\\d+\\.-\\.-\\.-|\\d+\\.\\d+\\.-\\.-|\\d+\\.\\d+\\.\\d+\\.-|\\d+\\.\\d+\\.\\d+\\.(n)?\\d+$",
     "placeholder": "1.1.1.1",
+    "type": "other",
     "value": "ec-code"
   },
   {
@@ -1600,6 +1828,7 @@
     "label": "EchoBASE",
     "pattern": "^EB\\d+$",
     "placeholder": "EB0170",
+    "type": "other",
     "value": "echobase"
   },
   {
@@ -1607,6 +1836,7 @@
     "label": "Evidence Code Ontology",
     "pattern": "ECO:\\d{7}$",
     "placeholder": "0000006",
+    "type": "other",
     "value": "eco"
   },
   {
@@ -1614,6 +1844,7 @@
     "label": "EcoGene",
     "pattern": "^EG\\d+$",
     "placeholder": "EG10173",
+    "type": "other",
     "value": "ecogene"
   },
   {
@@ -1621,6 +1852,7 @@
     "label": "EcoliWiki",
     "pattern": "^[A-Za-z0-9-]+$",
     "placeholder": "aaeA",
+    "type": "other",
     "value": "ecoliwiki"
   },
   {
@@ -1628,6 +1860,7 @@
     "label": "E-cyanobacterium entity",
     "pattern": "^\\d+$",
     "placeholder": "23",
+    "type": "other",
     "value": "ecyano.entity"
   },
   {
@@ -1635,6 +1868,7 @@
     "label": "E-cyanobacterium Experimental Data",
     "pattern": "^\\d+$",
     "placeholder": "18",
+    "type": "other",
     "value": "ecyano.experiment"
   },
   {
@@ -1642,6 +1876,7 @@
     "label": "E-cyanobacterium model",
     "pattern": "^\\d+$",
     "placeholder": "26",
+    "type": "other",
     "value": "ecyano.model"
   },
   {
@@ -1649,6 +1884,7 @@
     "label": "E-cyanobacterium rule",
     "pattern": "^\\d+$",
     "placeholder": "56",
+    "type": "other",
     "value": "ecyano.rule"
   },
   {
@@ -1656,6 +1892,7 @@
     "label": "EDAM Ontology",
     "pattern": "^(data|topic|operation|format)\\_\\d{4}$",
     "placeholder": "data_1664",
+    "type": "other",
     "value": "edam"
   },
   {
@@ -1663,6 +1900,7 @@
     "label": "Experimental Factor Ontology",
     "pattern": "^\\d{7}$",
     "placeholder": "0004859",
+    "type": "other",
     "value": "efo"
   },
   {
@@ -1670,6 +1908,7 @@
     "label": "European Genome-phenome Archive Dataset",
     "pattern": "^EGAD\\d{11}$",
     "placeholder": "EGAD00000000001",
+    "type": "other",
     "value": "ega.dataset"
   },
   {
@@ -1677,6 +1916,7 @@
     "label": "European Genome-phenome Archive Study",
     "pattern": "^EGAS\\d{11}$",
     "placeholder": "EGAS00000000001",
+    "type": "other",
     "value": "ega.study"
   },
   {
@@ -1684,6 +1924,7 @@
     "label": "eggNOG",
     "pattern": "^\\w+$",
     "placeholder": "veNOG12876",
+    "type": "other",
     "value": "eggnog"
   },
   {
@@ -1691,6 +1932,7 @@
     "label": "ELM",
     "pattern": "^[A-Za-z_0-9]+$",
     "placeholder": "CLV_MEL_PAP_1",
+    "type": "other",
     "value": "elm"
   },
   {
@@ -1698,6 +1940,7 @@
     "label": "Electron Microscopy Data Bank",
     "pattern": "^EMD-\\d{4,5}$",
     "placeholder": "EMD-1001",
+    "type": "other",
     "value": "emdb"
   },
   {
@@ -1705,6 +1948,7 @@
     "label": "EMPIAR",
     "pattern": "EMPIAR-\\d{5,}",
     "placeholder": "EMPIAR-10002",
+    "type": "other",
     "value": "empiar"
   },
   {
@@ -1712,6 +1956,7 @@
     "label": "ENA",
     "pattern": "^[A-Z]+[0-9]+(\\.\\d+)?$",
     "placeholder": "BN000065",
+    "type": "other",
     "value": "ena.embl"
   },
   {
@@ -1719,6 +1964,7 @@
     "label": "ENCODE: Encyclopedia of DNA Elements",
     "pattern": "^ENC[A-Za-z]{2}[0-9]{3}[A-Za-z]{3}$",
     "placeholder": "ENCSR163RYW",
+    "type": "other",
     "value": "encode"
   },
   {
@@ -1726,6 +1972,7 @@
     "label": "Ensembl",
     "pattern": "^((ENS[FPTG]\\d{11}(\\.\\d+)?)|(FB\\w{2}\\d{7})|(Y[A-Z]{2}\\d{3}[a-zA-Z](\\-[A-Z])?)|([A-Z_a-z0-9]+(\\.)?(t)?(\\d+)?([a-z])?))$",
     "placeholder": "ENSG00000139618",
+    "type": "other",
     "value": "ensembl"
   },
   {
@@ -1733,6 +1980,7 @@
     "label": "Ensembl Bacteria",
     "pattern": "^((EB\\w+)|([A-Z0-9]+\\_[A-Z0-9]+))$",
     "placeholder": "MU9_3181",
+    "type": "other",
     "value": "ensembl.bacteria"
   },
   {
@@ -1740,6 +1988,7 @@
     "label": "Ensembl Fungi",
     "pattern": "^[A-Z-a-z0-9]+$",
     "placeholder": "CADAFLAT00006211",
+    "type": "other",
     "value": "ensembl.fungi"
   },
   {
@@ -1747,6 +1996,7 @@
     "label": "Ensembl Metazoa",
     "pattern": "^\\w+(\\.)?\\d+$",
     "placeholder": "FBtr0084214",
+    "type": "other",
     "value": "ensembl.metazoa"
   },
   {
@@ -1754,6 +2004,7 @@
     "label": "Ensembl Plants",
     "pattern": "^\\w+(\\.\\d+)?(\\.\\d+)?$",
     "placeholder": "AT1G73965",
+    "type": "other",
     "value": "ensembl.plant"
   },
   {
@@ -1761,6 +2012,7 @@
     "label": "Ensembl Protists",
     "pattern": "^\\w+$",
     "placeholder": "PF3D7_1328700",
+    "type": "other",
     "value": "ensembl.protist"
   },
   {
@@ -1768,6 +2020,7 @@
     "label": "enviPath",
     "pattern": "^[\\w^_]{8}-[\\w^_]{4}-[\\w^_]{4}-[\\w^_]{4}-[\\w^_]{12}\\/[\\w-]+\\/[\\w^_]{8}-[\\w^_]{4}-[\\w^_]{4}-[\\w^_]{4}-[\\w^_]{12}$",
     "placeholder": "32de3cf4-e3e6-4168-956e-32fa5ddb0ce1/compound/b545cabc-8c9e-4b20-8848-efa015b481ea",
+    "type": "other",
     "value": "envipath"
   },
   {
@@ -1775,6 +2028,7 @@
     "label": "Environment Ontology",
     "pattern": "^ENVO:\\d{7,8}$",
     "placeholder": "09200010",
+    "type": "other",
     "value": "envo"
   },
   {
@@ -1782,6 +2036,7 @@
     "label": "Plant Environment Ontology",
     "pattern": "^(P)?EO\\:\\d{7}$",
     "placeholder": "0007404",
+    "type": "other",
     "value": "eo"
   },
   {
@@ -1789,6 +2044,7 @@
     "label": "EPD",
     "pattern": "^[A-Z-_0-9]+$",
     "placeholder": "TA_H3",
+    "type": "other",
     "value": "epd"
   },
   {
@@ -1796,6 +2052,7 @@
     "label": "European Registry of Materials",
     "pattern": "^ERM[0-9]{8}$",
     "placeholder": "ERM00000044",
+    "type": "other",
     "value": "erm"
   },
   {
@@ -1803,6 +2060,7 @@
     "label": "Human Endogenous Retrovirus Database",
     "pattern": "^[A-Za-z0-9\\-\\_]+$",
     "placeholder": "THE1B",
+    "type": "other",
     "value": "erv"
   },
   {
@@ -1810,6 +2068,7 @@
     "label": "JRC Data Catalogue",
     "pattern": "^[a-z0-9\\-_]+$",
     "placeholder": "jrc-eurl-ecvam-chemagora",
+    "type": "other",
     "value": "eu89h"
   },
   {
@@ -1817,6 +2076,7 @@
     "label": "EU Clinical Trials",
     "pattern": "^\\d{4}\\-\\d{6}\\-\\d{2}$",
     "placeholder": "2008-005144-16",
+    "type": "other",
     "value": "euclinicaltrials"
   },
   {
@@ -1824,6 +2084,7 @@
     "label": "ExAC Gene",
     "pattern": "^ENSG\\d{11}$",
     "placeholder": "ENSG00000169174",
+    "type": "other",
     "value": "exac.gene"
   },
   {
@@ -1831,6 +2092,7 @@
     "label": "ExAC Transcript",
     "pattern": "^ENST\\d{11}$",
     "placeholder": "ENST00000407236",
+    "type": "other",
     "value": "exac.transcript"
   },
   {
@@ -1838,6 +2100,7 @@
     "label": "ExAC Variant",
     "pattern": "^\\d{1,2}\\-\\d+\\-[GATC]\\-[GATC]$",
     "placeholder": "22-46615880-T-C",
+    "type": "other",
     "value": "exac.variant"
   },
   {
@@ -1845,6 +2108,7 @@
     "label": "Kids First Data Catalog",
     "pattern": "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}",
     "placeholder": "0000324e-e2d9-4ccd-b25b-2d16c8a87b28",
+    "type": "other",
     "value": "f82a1a"
   },
   {
@@ -1852,6 +2116,7 @@
     "label": "FaceBase Data Repository",
     "pattern": "^FB\\d{8}$",
     "placeholder": "FB00000917",
+    "type": "other",
     "value": "facebase"
   },
   {
@@ -1859,6 +2124,7 @@
     "label": "FAIRsharing",
     "pattern": "^bsg-[dscp]?\\d{6}$",
     "placeholder": "bsg-000052",
+    "type": "other",
     "value": "fairsharing"
   },
   {
@@ -1866,6 +2132,7 @@
     "label": "FlyBase",
     "pattern": "^FB\\w{2}\\d{7}$",
     "placeholder": "FBgn0011293",
+    "type": "other",
     "value": "fb"
   },
   {
@@ -1873,6 +2140,7 @@
     "label": "Fungal Barcode",
     "pattern": "^\\d+$",
     "placeholder": "2224",
+    "type": "other",
     "value": "fbol"
   },
   {
@@ -1880,6 +2148,7 @@
     "label": "the FAIR Cookbook",
     "pattern": "^FCB\\d{3}",
     "placeholder": "FCB005",
+    "type": "other",
     "value": "fcb"
   },
   {
@@ -1887,6 +2156,7 @@
     "label": "FlowRepository",
     "pattern": "^FR\\-FCM\\-\\w{4}$",
     "placeholder": "FR-FCM-ZYGW",
+    "type": "other",
     "value": "flowrepository"
   },
   {
@@ -1894,6 +2164,7 @@
     "label": "FMA",
     "pattern": "^FMA:\\d+$",
     "placeholder": "67112",
+    "type": "other",
     "value": "fma"
   },
   {
@@ -1901,6 +2172,7 @@
     "label": "FooDB Compound",
     "pattern": "^FDB\\d+$",
     "placeholder": "FDB002100",
+    "type": "other",
     "value": "foodb.compound"
   },
   {
@@ -1908,6 +2180,7 @@
     "label": "FoodOn Food Ontology",
     "pattern": "^FOODON:[0-9]{8}$",
     "placeholder": "03307879",
+    "type": "other",
     "value": "foodon"
   },
   {
@@ -1915,6 +2188,7 @@
     "label": "FamPlex",
     "pattern": "^[a-zA-Z0-9][A-Za-z0-9_]+$",
     "placeholder": "RAS",
+    "type": "other",
     "value": "fplx"
   },
   {
@@ -1922,6 +2196,7 @@
     "label": "F-SNP",
     "pattern": "^rs\\d+$",
     "placeholder": "rs17852708",
+    "type": "other",
     "value": "fsnp"
   },
   {
@@ -1929,6 +2204,7 @@
     "label": "FuncBase Fly",
     "pattern": "^\\d+$",
     "placeholder": "10194",
+    "type": "other",
     "value": "funcbase.fly"
   },
   {
@@ -1936,6 +2212,7 @@
     "label": "FuncBase Human",
     "pattern": "^\\d+$",
     "placeholder": "119514",
+    "type": "other",
     "value": "funcbase.human"
   },
   {
@@ -1943,6 +2220,7 @@
     "label": "FuncBase Mouse",
     "pattern": "^\\d+$",
     "placeholder": "1351341",
+    "type": "other",
     "value": "funcbase.mouse"
   },
   {
@@ -1950,6 +2228,7 @@
     "label": "FuncBase Yeast",
     "pattern": "^\\d+$",
     "placeholder": "2701",
+    "type": "other",
     "value": "funcbase.yeast"
   },
   {
@@ -1957,6 +2236,7 @@
     "label": "FunderRegistry",
     "pattern": "^\\d{9,9}$",
     "placeholder": "100000001",
+    "type": "other",
     "value": "funderregistry"
   },
   {
@@ -1964,6 +2244,7 @@
     "label": "FungiDB",
     "pattern": "^[A-Za-z_0-9]+$",
     "placeholder": "CNBG_0001",
+    "type": "other",
     "value": "fungidb"
   },
   {
@@ -1971,6 +2252,7 @@
     "label": "Data Object Service",
     "pattern": "^[a-zA-Z0-9\\-:#/\\.]+$",
     "placeholder": "dg.4503/01b048d0-e128-4cb0-94e9-b2d2cab7563d",
+    "type": "other",
     "value": "ga4ghdos"
   },
   {
@@ -1978,6 +2260,7 @@
     "label": "GABI",
     "pattern": "^\\w+$",
     "placeholder": "2679240",
+    "type": "other",
     "value": "gabi"
   },
   {
@@ -1985,6 +2268,7 @@
     "label": "gateway",
     "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
     "placeholder": "fd8d0743-344a-4758-bb97-f8ad84a37357",
+    "type": "other",
     "value": "gateway"
   },
   {
@@ -1992,6 +2276,7 @@
     "label": "GWAS Catalog",
     "pattern": "^GCST\\d{6}\\d*$",
     "placeholder": "GCST000035",
+    "type": "other",
     "value": "gcst"
   },
   {
@@ -1999,6 +2284,7 @@
     "label": "Genomic Data Commons Data Portal",
     "pattern": "^[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}$",
     "placeholder": "ae8c77fe-e6c8-44d5-8265-4a38c637bbef",
+    "type": "other",
     "value": "gdc"
   },
   {
@@ -2006,6 +2292,7 @@
     "label": "Genomics of Drug Sensitivity in Cancer",
     "pattern": "^[0-9]+$",
     "placeholder": "1242",
+    "type": "other",
     "value": "gdsc"
   },
   {
@@ -2013,6 +2300,7 @@
     "label": "Genatlas",
     "pattern": "^\\w+$",
     "placeholder": "HBB",
+    "type": "other",
     "value": "genatlas"
   },
   {
@@ -2020,6 +2308,7 @@
     "label": "GeneCards",
     "pattern": "^[A-Za-z-0-9_]+(\\@)?$",
     "placeholder": "ABL1",
+    "type": "other",
     "value": "genecards"
   },
   {
@@ -2027,6 +2316,7 @@
     "label": "GeneFarm",
     "pattern": "^\\d+$",
     "placeholder": "4892",
+    "type": "other",
     "value": "genefarm"
   },
   {
@@ -2034,6 +2324,7 @@
     "label": "GeneTree",
     "pattern": "^ENSGT\\d+$",
     "placeholder": "ENSGT00550000074763",
+    "type": "other",
     "value": "genetree"
   },
   {
@@ -2041,6 +2332,7 @@
     "label": "Gene Wiki",
     "pattern": "^\\d+$",
     "placeholder": "1017",
+    "type": "other",
     "value": "genewiki"
   },
   {
@@ -2048,6 +2340,7 @@
     "label": "GenPept",
     "pattern": "^\\w{3}\\d{5}(\\.\\d+)?$",
     "placeholder": "CAA71118.1",
+    "type": "other",
     "value": "genpept"
   },
   {
@@ -2055,6 +2348,7 @@
     "label": "Genome Properties",
     "pattern": "^GenProp\\d+$",
     "placeholder": "GenProp0699",
+    "type": "other",
     "value": "genprop"
   },
   {
@@ -2062,6 +2356,7 @@
     "label": "GEO",
     "pattern": "^G(PL|SM|SE|DS)\\d+$",
     "placeholder": "GDS1234",
+    "type": "other",
     "value": "geo"
   },
   {
@@ -2069,6 +2364,7 @@
     "label": "Geographical Entity Ontology",
     "pattern": "^GEO_[0-9]{9}$",
     "placeholder": "GEO_000000021",
+    "type": "other",
     "value": "geogeo"
   },
   {
@@ -2076,6 +2372,7 @@
     "label": "GiardiaDB",
     "pattern": "^\\w+$",
     "placeholder": "GL50803_102438",
+    "type": "other",
     "value": "giardiadb"
   },
   {
@@ -2083,6 +2380,7 @@
     "label": "github",
     "pattern": "^[a-zA-Z0-9-_]+/[a-zA-Z0-9-_]+$",
     "placeholder": "identifiers-org/registry",
+    "type": "other",
     "value": "github"
   },
   {
@@ -2090,6 +2388,7 @@
     "label": "GitLab",
     "pattern": "^[0-9A-Za-z_][0-9A-Za-z-_()\\. ]*/[0-9A-Za-z_][0-9A-Za-z-_\\. ]*$",
     "placeholder": "morpheus.lab/morpheus",
+    "type": "other",
     "value": "gitlab"
   },
   {
@@ -2097,6 +2396,7 @@
     "label": "GLIDA GPCR",
     "pattern": "^[A-Z-_0-9]+$",
     "placeholder": "ACM1_HUMAN",
+    "type": "other",
     "value": "glida.gpcr"
   },
   {
@@ -2104,6 +2404,7 @@
     "label": "GLIDA Ligand",
     "pattern": "^L\\d+$",
     "placeholder": "L000001",
+    "type": "other",
     "value": "glida.ligand"
   },
   {
@@ -2111,6 +2412,7 @@
     "label": "GlycoEpitope",
     "pattern": "^EP\\d{4}$",
     "placeholder": "EP0311",
+    "type": "other",
     "value": "glycoepitope"
   },
   {
@@ -2118,6 +2420,7 @@
     "label": "GlycomeDB",
     "pattern": "^\\w+$",
     "placeholder": "G77500AY",
+    "type": "other",
     "value": "glycomedb"
   },
   {
@@ -2125,6 +2428,7 @@
     "label": "GlycoNAVI",
     "pattern": "^GN_[A-Za-z]*[_]*[A-Za-z0-9-:_]+$",
     "placeholder": "GN_GlyTouCan_G03681DA",
+    "type": "other",
     "value": "glyconavi"
   },
   {
@@ -2132,6 +2436,7 @@
     "label": "GlycoPOST",
     "pattern": "^GPST[0-9]{6}$",
     "placeholder": "GPST000024",
+    "type": "other",
     "value": "glycopost"
   },
   {
@@ -2139,6 +2444,7 @@
     "label": "GlyTouCan",
     "pattern": "^G[0-9]{5}[A-Z]{2}$",
     "placeholder": "G00054MO",
+    "type": "other",
     "value": "glytoucan"
   },
   {
@@ -2146,6 +2452,7 @@
     "label": "Golm Metabolome Database",
     "pattern": "^([0-9a-fA-F]){8}(-([0-9a-fA-F]){4}){3}-([0-9a-fA-F]){12}$",
     "placeholder": "68513255-fc44-4041-bc4b-4fd2fae7541d",
+    "type": "other",
     "value": "gmd"
   },
   {
@@ -2153,6 +2460,7 @@
     "label": "Golm Metabolome Database Analyte",
     "pattern": "^([0-9a-fA-F]){8}(-([0-9a-fA-F]){4}){3}-([0-9a-fA-F]){12}$",
     "placeholder": "4f0fa9b6-514f-4ff4-98cc-0009bc08eb80",
+    "type": "other",
     "value": "gmd.analyte"
   },
   {
@@ -2160,6 +2468,7 @@
     "label": "Golm Metabolome Database GC-MS spectra",
     "pattern": "^([0-9a-fA-F]){8}(-([0-9a-fA-F]){4}){3}-([0-9a-fA-F]){12}$",
     "placeholder": "53d583d8-40c6-40e1-9296-23f821cd77a5",
+    "type": "other",
     "value": "gmd.gcms"
   },
   {
@@ -2167,6 +2476,7 @@
     "label": "Golm Metabolome Database Profile",
     "pattern": "^([0-9a-fA-F]){8}(-([0-9a-fA-F]){4}){3}-([0-9a-fA-F]){12}$",
     "placeholder": "10b38aaf-b977-4950-85b8-f4775f66658d",
+    "type": "other",
     "value": "gmd.profile"
   },
   {
@@ -2174,6 +2484,7 @@
     "label": "Golm Metabolome Database Reference Substance",
     "pattern": "^([0-9a-fA-F]){8}(-([0-9a-fA-F]){4}){3}-([0-9a-fA-F]){12}$",
     "placeholder": "8cf84adb-b4db-4807-ac98-0004247c35df",
+    "type": "other",
     "value": "gmd.ref"
   },
   {
@@ -2181,6 +2492,7 @@
     "label": "Gemeinsame Normdatei",
     "pattern": "[0-9X\\-]+",
     "placeholder": "117145750",
+    "type": "other",
     "value": "gnd"
   },
   {
@@ -2188,6 +2500,7 @@
     "label": "GnpIS",
     "pattern": "^[A-Za-z0-9]+$",
     "placeholder": "AY109603",
+    "type": "other",
     "value": "gnpis"
   },
   {
@@ -2195,6 +2508,7 @@
     "label": "Gene Ontology",
     "pattern": "^GO:\\d{7}$",
     "placeholder": "0006915",
+    "type": "other",
     "value": "go"
   },
   {
@@ -2202,6 +2516,7 @@
     "label": "Gene Ontology Reference",
     "pattern": "^GO_REF:\\d{7}$",
     "placeholder": "0000041",
+    "type": "other",
     "value": "go_ref"
   },
   {
@@ -2209,6 +2524,7 @@
     "label": "GOA",
     "pattern": "^(([A-N,R-Z][0-9][A-Z][A-Z, 0-9][A-Z, 0-9][0-9])|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9]))|(URS[0-9A-F]{10}(_[0-9]+){0,1})|(EBI-[0-9]+)$",
     "placeholder": "P12345",
+    "type": "other",
     "value": "goa"
   },
   {
@@ -2216,6 +2532,7 @@
     "label": "Genomes OnLine Database (GOLD)",
     "pattern": "^[A-Z][a-z][0-9]+$",
     "placeholder": "Gs0000008",
+    "type": "other",
     "value": "gold"
   },
   {
@@ -2223,6 +2540,7 @@
     "label": "GOLD genome",
     "pattern": "^(Gi|Gc)\\d+$",
     "placeholder": "Gi07796",
+    "type": "other",
     "value": "gold.genome"
   },
   {
@@ -2230,6 +2548,7 @@
     "label": "GOLD metadata",
     "pattern": "^Gm\\d+$",
     "placeholder": "Gm00047",
+    "type": "other",
     "value": "gold.meta"
   },
   {
@@ -2237,6 +2556,7 @@
     "label": "Google Patents",
     "pattern": "^[A-Z]{2}\\d+([A-Z])?$",
     "placeholder": "US4145692",
+    "type": "other",
     "value": "google.patent"
   },
   {
@@ -2244,6 +2564,7 @@
     "label": "GPCRDB",
     "pattern": "^\\w+$",
     "placeholder": "RL3R1_HUMAN",
+    "type": "other",
     "value": "gpcrdb"
   },
   {
@@ -2251,6 +2572,7 @@
     "label": "GPMDB",
     "pattern": "^GPM\\d+$",
     "placeholder": "GPM32310002988",
+    "type": "other",
     "value": "gpmdb"
   },
   {
@@ -2258,6 +2580,7 @@
     "label": "Gramene genes",
     "pattern": "^GR\\:\\d+$",
     "placeholder": "GR:0080039",
+    "type": "other",
     "value": "gramene.gene"
   },
   {
@@ -2265,6 +2588,7 @@
     "label": "Gramene protein",
     "pattern": "^\\d+$",
     "placeholder": "78073",
+    "type": "other",
     "value": "gramene.protein"
   },
   {
@@ -2272,6 +2596,7 @@
     "label": "Gramene QTL",
     "pattern": "^\\w+$",
     "placeholder": "CQG5",
+    "type": "other",
     "value": "gramene.qtl"
   },
   {
@@ -2279,6 +2604,7 @@
     "label": "Gramene Taxonomy",
     "pattern": "^GR\\_tax\\:\\d+$",
     "placeholder": "GR_tax:013681",
+    "type": "other",
     "value": "gramene.taxonomy"
   },
   {
@@ -2286,6 +2612,7 @@
     "label": "GreenGenes",
     "pattern": "^\\d+$",
     "placeholder": "100000",
+    "type": "other",
     "value": "greengenes"
   },
   {
@@ -2293,6 +2620,7 @@
     "label": "GRID",
     "pattern": "^grid\\.[0-9]+\\.[a-f0-9]{1,2}$",
     "placeholder": "grid.225360.0",
+    "type": "other",
     "value": "grid"
   },
   {
@@ -2300,6 +2628,7 @@
     "label": "GRIN Plant Taxonomy",
     "pattern": "^\\d+$",
     "placeholder": "19333",
+    "type": "other",
     "value": "grin.taxonomy"
   },
   {
@@ -2307,6 +2636,7 @@
     "label": "Gramene Growth Stage Ontology",
     "pattern": "^GRO:\\d+$",
     "placeholder": "0007133",
+    "type": "other",
     "value": "gro"
   },
   {
@@ -2314,6 +2644,7 @@
     "label": "GRSDB",
     "pattern": "^\\d+$",
     "placeholder": "10142",
+    "type": "other",
     "value": "grsdb"
   },
   {
@@ -2321,6 +2652,7 @@
     "label": "Gender, Sex, and Sexual Orientation (GSSO) Ontology",
     "pattern": "^GSSO:\\d{6}$",
     "placeholder": "002368",
+    "type": "other",
     "value": "gsso"
   },
   {
@@ -2328,6 +2660,7 @@
     "label": "GTEx",
     "pattern": "^\\w.+$",
     "placeholder": "BRIP1",
+    "type": "other",
     "value": "gtex"
   },
   {
@@ -2335,6 +2668,7 @@
     "label": "GUDMAP",
     "pattern": "^[-0-9a-zA-Z]+(@[-0-9a-zA-Z]+)?$",
     "placeholder": "Q-2958",
+    "type": "other",
     "value": "gudmap"
   },
   {
@@ -2342,6 +2676,7 @@
     "label": "GWAS Central Marker",
     "pattern": "^HGVM\\d+$",
     "placeholder": "HGVM15354",
+    "type": "other",
     "value": "gwascentral.marker"
   },
   {
@@ -2349,6 +2684,7 @@
     "label": "GWAS Central Phenotype",
     "pattern": "^HGVPM\\d+$",
     "placeholder": "HGVPM623",
+    "type": "other",
     "value": "gwascentral.phenotype"
   },
   {
@@ -2356,6 +2692,7 @@
     "label": "GWAS Central Study",
     "pattern": "^HGVST\\d+$",
     "placeholder": "HGVST1828",
+    "type": "other",
     "value": "gwascentral.study"
   },
   {
@@ -2363,6 +2700,7 @@
     "label": "GXA Expt",
     "pattern": "^[AEP]-\\w{4}-\\d+$",
     "placeholder": "E-MTAB-2037",
+    "type": "other",
     "value": "gxa.expt"
   },
   {
@@ -2370,6 +2708,7 @@
     "label": "GXA Gene",
     "pattern": "^\\w+$",
     "placeholder": "AT4G01080",
+    "type": "other",
     "value": "gxa.gene"
   },
   {
@@ -2377,6 +2716,7 @@
     "label": "HAMAP",
     "pattern": "^MF_\\d+$",
     "placeholder": "MF_01400",
+    "type": "other",
     "value": "hamap"
   },
   {
@@ -2384,6 +2724,7 @@
     "label": "HCVDB",
     "pattern": "^M\\d{5}$",
     "placeholder": "M58335",
+    "type": "other",
     "value": "hcvdb"
   },
   {
@@ -2391,6 +2732,7 @@
     "label": "Homeodomain Research",
     "pattern": "^\\d+$",
     "placeholder": "63",
+    "type": "other",
     "value": "hdr"
   },
   {
@@ -2398,6 +2740,7 @@
     "label": "HGMD",
     "pattern": "^[A-Z_0-9]+$",
     "placeholder": "CALM1",
+    "type": "other",
     "value": "hgmd"
   },
   {
@@ -2405,6 +2748,7 @@
     "label": "HGNC",
     "pattern": "^((HGNC|hgnc):)?\\d{1,5}$",
     "placeholder": "2674",
+    "type": "other",
     "value": "hgnc"
   },
   {
@@ -2412,6 +2756,7 @@
     "label": "HGNC gene family",
     "pattern": "^\\d+$",
     "placeholder": "141",
+    "type": "other",
     "value": "hgnc.genefamily"
   },
   {
@@ -2419,6 +2764,7 @@
     "label": "HGNC Gene Group",
     "pattern": "^\\d+$",
     "placeholder": "141",
+    "type": "other",
     "value": "hgnc.genegroup"
   },
   {
@@ -2426,6 +2772,7 @@
     "label": "HGNC Symbol",
     "pattern": "^[A-Za-z-0-9_]+(\\@)?$",
     "placeholder": "DAPK1",
+    "type": "other",
     "value": "hgnc.symbol"
   },
   {
@@ -2433,6 +2780,7 @@
     "label": "H-InvDb Locus",
     "pattern": "^HIX\\d{7}(\\.\\d+)?$",
     "placeholder": "HIX0004394",
+    "type": "other",
     "value": "hinv.locus"
   },
   {
@@ -2440,6 +2788,7 @@
     "label": "H-InvDb Protein",
     "pattern": "^HIP\\d{9}(\\.\\d+)?$",
     "placeholder": "HIP000030660",
+    "type": "other",
     "value": "hinv.protein"
   },
   {
@@ -2447,6 +2796,7 @@
     "label": "H-InvDb Transcript",
     "pattern": "^HIT\\d{9}(\\.\\d+)?$",
     "placeholder": "HIT000195363",
+    "type": "other",
     "value": "hinv.transcript"
   },
   {
@@ -2454,6 +2804,7 @@
     "label": "HMDB",
     "pattern": "^HMDB\\d+$",
     "placeholder": "HMDB00001",
+    "type": "other",
     "value": "hmdb"
   },
   {
@@ -2461,6 +2812,7 @@
     "label": "HOGENOM",
     "pattern": "^\\w+$",
     "placeholder": "HBG284870",
+    "type": "other",
     "value": "hogenom"
   },
   {
@@ -2468,6 +2820,7 @@
     "label": "HOMD Sequence Metainformation",
     "pattern": "^SEQF\\d+$",
     "placeholder": "SEQF1003",
+    "type": "other",
     "value": "homd.seq"
   },
   {
@@ -2475,6 +2828,7 @@
     "label": "HOMD Taxonomy",
     "pattern": "^\\d+$",
     "placeholder": "811",
+    "type": "other",
     "value": "homd.taxon"
   },
   {
@@ -2482,6 +2836,7 @@
     "label": "HomoloGene",
     "pattern": "^\\d+$",
     "placeholder": "1000",
+    "type": "other",
     "value": "homologene"
   },
   {
@@ -2489,6 +2844,7 @@
     "label": "HOVERGEN",
     "pattern": "^HBG\\d+$",
     "placeholder": "HBG004341",
+    "type": "other",
     "value": "hovergen"
   },
   {
@@ -2496,6 +2852,7 @@
     "label": "Human Phenotype Ontology",
     "pattern": "^HP:\\d{7}$",
     "placeholder": "0000118",
+    "type": "other",
     "value": "hp"
   },
   {
@@ -2503,6 +2860,7 @@
     "label": "HPA",
     "pattern": "^ENSG\\d{11}$",
     "placeholder": "ENSG00000026508",
+    "type": "other",
     "value": "hpa"
   },
   {
@@ -2510,6 +2868,7 @@
     "label": "Human Proteome Map Peptide",
     "pattern": "^\\d+$",
     "placeholder": "9606117",
+    "type": "other",
     "value": "hpm.peptide"
   },
   {
@@ -2517,6 +2876,7 @@
     "label": "Human Proteome Map Protein",
     "pattern": "^\\d+$",
     "placeholder": "1968",
+    "type": "other",
     "value": "hpm.protein"
   },
   {
@@ -2524,6 +2884,7 @@
     "label": "HPRD",
     "pattern": "^\\d+$",
     "placeholder": "00001",
+    "type": "other",
     "value": "hprd"
   },
   {
@@ -2531,6 +2892,7 @@
     "label": "Human Pluripotent Stem Cell Registry",
     "pattern": "^[A-Z]{2,6}(e|i)[A-Za-z0-9]{3}-[A-Z]{1,2}(-[A-Za-z0-9]{1,2})?$",
     "placeholder": "BCRTi001-A",
+    "type": "other",
     "value": "hpscreg"
   },
   {
@@ -2538,6 +2900,7 @@
     "label": "HSSP",
     "pattern": "^\\w{4}$",
     "placeholder": "102l",
+    "type": "other",
     "value": "hssp"
   },
   {
@@ -2545,6 +2908,7 @@
     "label": "HUGE",
     "pattern": "^KIAA\\d{4}$",
     "placeholder": "KIAA0001",
+    "type": "other",
     "value": "huge"
   },
   {
@@ -2552,6 +2916,7 @@
     "label": "Information Artifact Ontology",
     "pattern": "^\\d{7}$",
     "placeholder": "0000030",
+    "type": "other",
     "value": "iao"
   },
   {
@@ -2559,6 +2924,7 @@
     "label": "ICD",
     "pattern": "^[A-Z]\\d+(\\.[-\\d+])?$",
     "placeholder": "C34",
+    "type": "other",
     "value": "icd"
   },
   {
@@ -2566,6 +2932,7 @@
     "label": "Integrated Canine Data Commons",
     "pattern": "^\\d{6}$",
     "placeholder": "000009",
+    "type": "other",
     "value": "icdc"
   },
   {
@@ -2573,6 +2940,7 @@
     "label": "ICEberg element",
     "pattern": "^\\d+$",
     "placeholder": "100",
+    "type": "other",
     "value": "iceberg.element"
   },
   {
@@ -2580,6 +2948,7 @@
     "label": "ICEberg family",
     "pattern": "^\\d+$",
     "placeholder": "1",
+    "type": "other",
     "value": "iceberg.family"
   },
   {
@@ -2587,6 +2956,7 @@
     "label": "IDEAL",
     "pattern": "^IID\\d+$",
     "placeholder": "IID00001",
+    "type": "other",
     "value": "ideal"
   },
   {
@@ -2594,6 +2964,7 @@
     "label": "Identifiers.org namespace",
     "pattern": "^[a-z_\\.]+$",
     "placeholder": "pubmed",
+    "type": "other",
     "value": "identifiers.namespace"
   },
   {
@@ -2601,6 +2972,7 @@
     "label": "Infectious Disease Ontology",
     "pattern": "^[0-9]+$",
     "placeholder": "0000504",
+    "type": "other",
     "value": "ido"
   },
   {
@@ -2608,6 +2980,7 @@
     "label": "Identifiers.org Ontology",
     "pattern": "^[0-9a-zA-Z]+$",
     "placeholder": "DataCollection",
+    "type": "other",
     "value": "idoo"
   },
   {
@@ -2615,6 +2988,7 @@
     "label": "Identifiers.org Terms",
     "pattern": "^[A-Za-z]+$",
     "placeholder": "identifierPattern",
+    "type": "other",
     "value": "idot"
   },
   {
@@ -2622,6 +2996,7 @@
     "label": "Image Data Resource",
     "pattern": "^[0-9]{4}$",
     "placeholder": "0001",
+    "type": "other",
     "value": "idr"
   },
   {
@@ -2629,6 +3004,7 @@
     "label": "Immune Epitope Database (IEDB)",
     "pattern": "^[0-9]+$",
     "placeholder": "1038233",
+    "type": "other",
     "value": "iedb"
   },
   {
@@ -2636,6 +3012,7 @@
     "label": "International Geo Sample Number",
     "pattern": "^[A-Za-z]{2,4}[A-Za-z0-9.-]{1,71}$",
     "placeholder": "AU124",
+    "type": "other",
     "value": "igsn"
   },
   {
@@ -2643,6 +3020,7 @@
     "label": "InterLex",
     "pattern": "^[0-9]+$",
     "placeholder": "0101963",
+    "type": "other",
     "value": "ilx"
   },
   {
@@ -2650,6 +3028,7 @@
     "label": "IMEx",
     "pattern": "^IM-\\d+(-?)(\\d+?)$",
     "placeholder": "IM-19210-3",
+    "type": "other",
     "value": "imex"
   },
   {
@@ -2657,6 +3036,7 @@
     "label": "Integrated Microbial Genomes Gene",
     "pattern": "^\\d+$",
     "placeholder": "638309541",
+    "type": "other",
     "value": "img.gene"
   },
   {
@@ -2664,6 +3044,7 @@
     "label": "Integrated Microbial Genomes Taxon",
     "pattern": "^\\d+$",
     "placeholder": "648028003",
+    "type": "other",
     "value": "img.taxon"
   },
   {
@@ -2671,6 +3052,7 @@
     "label": "IMGT HLA",
     "pattern": "^[A-Z0-9*:]+$",
     "placeholder": "A*01:01:01:01",
+    "type": "other",
     "value": "imgt.hla"
   },
   {
@@ -2678,6 +3060,7 @@
     "label": "IMGT LIGM",
     "pattern": "^M\\d+$",
     "placeholder": "M94112",
+    "type": "other",
     "value": "imgt.ligm"
   },
   {
@@ -2685,6 +3068,7 @@
     "label": "InChI",
     "pattern": "^InChI\\=1S?\\/[A-Za-z0-9\\.]+(\\+[0-9]+)?(\\/[cnpqbtmsih][A-Za-z0-9\\-\\+\\(\\)\\,\\/\\?\\;\\.]+)*$",
     "placeholder": "InChI=1S/C2H6O/c1-2-3/h3H,2H2,1H3",
+    "type": "other",
     "value": "inchi"
   },
   {
@@ -2692,6 +3076,7 @@
     "label": "InChIKey",
     "pattern": "^[A-Z]{14}\\-[A-Z]{10}(\\-[A-Z])?",
     "placeholder": "RYYVLZVUVIJVGH-UHFFFAOYSA-N",
+    "type": "other",
     "value": "inchikey"
   },
   {
@@ -2699,6 +3084,7 @@
     "label": "Nucleotide Sequence Database",
     "pattern": "^([A-Z]\\d{5}|[A-Z]{2}\\d{6}|[A-Z]{4,6}\\d{8,10}|[A-J][A-Z]{2}\\d{5})(\\.\\d+)?$",
     "placeholder": "X58356",
+    "type": "other",
     "value": "insdc"
   },
   {
@@ -2706,13 +3092,15 @@
     "label": "INSDC CDS",
     "pattern": "^([A-Z]\\d{5}|[A-Z]{2}\\d{6}|[A-Z]{4}\\d{8}|[A-J][A-Z]{2}\\d{5})(\\.\\d+)?$",
     "placeholder": "AAA35559",
+    "type": "other",
     "value": "insdc.cds"
   },
   {
     "icon": "ic:twotone-select-all",
-    "label": "Genome assembly database",
-    "pattern": "^GC[AF]_[0-9]{9}\\.[0-9]+$",
+    "label": "Genome assembly database - INSDC accessions",
+    "pattern": "^GCA_[0-9]{9}(\\.[0-9]+)?$",
     "placeholder": "GCA_000155495.1",
+    "type": "other",
     "value": "insdc.gca"
   },
   {
@@ -2720,6 +3108,7 @@
     "label": "Sequence Read Archive",
     "pattern": "^[SED]R[APRSXZ]\\d+$",
     "placeholder": "SRX000007",
+    "type": "other",
     "value": "insdc.sra"
   },
   {
@@ -2727,6 +3116,7 @@
     "label": "IntAct",
     "pattern": "^EBI\\-[0-9]+$",
     "placeholder": "EBI-2307691",
+    "type": "other",
     "value": "intact"
   },
   {
@@ -2734,6 +3124,7 @@
     "label": "IntAct Molecule",
     "pattern": "^EBI\\-[0-9]+$",
     "placeholder": "EBI-366083",
+    "type": "other",
     "value": "intact.molecule"
   },
   {
@@ -2741,6 +3132,7 @@
     "label": "InterPro",
     "pattern": "^IPR\\d{6}$",
     "placeholder": "IPR000100",
+    "type": "other",
     "value": "interpro"
   },
   {
@@ -2748,6 +3140,7 @@
     "label": "IRD Segment Sequence",
     "pattern": "^\\w+(\\_)?\\d+(\\.\\d+)?$",
     "placeholder": "CY077097",
+    "type": "other",
     "value": "ird.segment"
   },
   {
@@ -2755,6 +3148,7 @@
     "label": "iRefWeb",
     "pattern": "^\\d+$",
     "placeholder": "617102",
+    "type": "other",
     "value": "irefweb"
   },
   {
@@ -2762,6 +3156,7 @@
     "label": "ISBN",
     "pattern": "^(ISBN)?(-13|-10)?[:]?[ ]?(\\d{2,3}[ -]?)?\\d{1,5}[ -]?\\d{1,7}[ -]?\\d{1,6}[ -]?(\\d|X)$",
     "placeholder": "9781584885658",
+    "type": "other",
     "value": "isbn"
   },
   {
@@ -2769,6 +3164,7 @@
     "label": "ISFinder",
     "pattern": "^IS\\w+(\\-\\d)?$",
     "placeholder": "ISA1083-2",
+    "type": "other",
     "value": "isfinder"
   },
   {
@@ -2776,6 +3172,7 @@
     "label": "International Standard Name Identifier",
     "pattern": "^[0-9]{15}[0-9X]{1}$",
     "placeholder": "000000012281955X",
+    "type": "other",
     "value": "isni"
   },
   {
@@ -2783,6 +3180,7 @@
     "label": "ISSN",
     "pattern": "^\\d{4}-\\d{3}[\\dX]$",
     "placeholder": "0745-4570",
+    "type": "other",
     "value": "issn"
   },
   {
@@ -2790,6 +3188,7 @@
     "label": "Intelligence Task Ontology",
     "pattern": "^.+$",
     "placeholder": "ITO_01625",
+    "type": "other",
     "value": "ito"
   },
   {
@@ -2797,6 +3196,7 @@
     "label": "IUPHAR family",
     "pattern": "^\\d+$",
     "placeholder": "78",
+    "type": "other",
     "value": "iuphar.family"
   },
   {
@@ -2804,6 +3204,7 @@
     "label": "IUPHAR ligand",
     "pattern": "^\\d+$",
     "placeholder": "1755",
+    "type": "other",
     "value": "iuphar.ligand"
   },
   {
@@ -2811,6 +3212,7 @@
     "label": "IUPHAR receptor",
     "pattern": "^\\d+$",
     "placeholder": "101",
+    "type": "other",
     "value": "iuphar.receptor"
   },
   {
@@ -2818,6 +3220,7 @@
     "label": "JAX Mice",
     "pattern": "^\\d+$",
     "placeholder": "005012",
+    "type": "other",
     "value": "jaxmice"
   },
   {
@@ -2825,6 +3228,7 @@
     "label": "JCGGDB",
     "pattern": "^JCGG-STR\\d{6}$",
     "placeholder": "JCGG-STR008690",
+    "type": "other",
     "value": "jcggdb"
   },
   {
@@ -2832,6 +3236,7 @@
     "label": "Japan Collection of Microorganisms",
     "pattern": "^\\d+$",
     "placeholder": "17254",
+    "type": "other",
     "value": "jcm"
   },
   {
@@ -2839,6 +3244,7 @@
     "label": "Japan Chemical Substance Dictionary",
     "pattern": "^J\\d{1,3}(\\.\\d{3})?(\\.\\d{1,3})?[A-Za-z]$",
     "placeholder": "J55.713G",
+    "type": "other",
     "value": "jcsd"
   },
   {
@@ -2846,6 +3252,7 @@
     "label": "JSTOR",
     "pattern": "^\\d+$",
     "placeholder": "3075966",
+    "type": "other",
     "value": "jstor"
   },
   {
@@ -2853,6 +3260,7 @@
     "label": "JWS Online",
     "pattern": "^\\w+$",
     "placeholder": "curien",
+    "type": "other",
     "value": "jws"
   },
   {
@@ -2860,6 +3268,7 @@
     "label": "Kaggle",
     "pattern": "^[0-9a-zA-Z\\-]+\\/[0-9a-zA-Z\\-]+$",
     "placeholder": "nasa/kepler-exoplanet-search-results",
+    "type": "other",
     "value": "kaggle"
   },
   {
@@ -2867,6 +3276,7 @@
     "label": "Kyoto Encyclopedia of Genes and Genomes",
     "pattern": "^([CHDEGTMKR]\\d+)|(\\w+:[\\w\\d\\.-]*)|([a-z]{3,5})|(\\w{2,4}\\d{5})$",
     "placeholder": "hsa00190",
+    "type": "other",
     "value": "kegg"
   },
   {
@@ -2874,6 +3284,7 @@
     "label": "KEGG Compound",
     "pattern": "^C\\d+$",
     "placeholder": "C12345",
+    "type": "other",
     "value": "kegg.compound"
   },
   {
@@ -2881,6 +3292,7 @@
     "label": "KEGG Disease",
     "pattern": "^H\\d+$",
     "placeholder": "H00076",
+    "type": "other",
     "value": "kegg.disease"
   },
   {
@@ -2888,6 +3300,7 @@
     "label": "KEGG Drug",
     "pattern": "^D\\d+$",
     "placeholder": "D00123",
+    "type": "other",
     "value": "kegg.drug"
   },
   {
@@ -2895,6 +3308,7 @@
     "label": "KEGG Environ",
     "pattern": "^(ev\\:)?E\\d+$",
     "placeholder": "ev:E00032",
+    "type": "other",
     "value": "kegg.environ"
   },
   {
@@ -2902,6 +3316,7 @@
     "label": "KEGG Genes",
     "pattern": "^\\w+:[\\w\\d\\.-]*$",
     "placeholder": "syn:ssr3451",
+    "type": "other",
     "value": "kegg.genes"
   },
   {
@@ -2909,6 +3324,7 @@
     "label": "KEGG Genome",
     "pattern": "^(T0\\d+|\\w{3,5})$",
     "placeholder": "eco",
+    "type": "other",
     "value": "kegg.genome"
   },
   {
@@ -2916,6 +3332,7 @@
     "label": "KEGG Glycan",
     "pattern": "^G\\d+$",
     "placeholder": "G00123",
+    "type": "other",
     "value": "kegg.glycan"
   },
   {
@@ -2923,6 +3340,7 @@
     "label": "KEGG Metagenome",
     "pattern": "^T3\\d+$",
     "placeholder": "T30002",
+    "type": "other",
     "value": "kegg.metagenome"
   },
   {
@@ -2930,6 +3348,7 @@
     "label": "KEGG Module",
     "pattern": "^([a-z]{3,5}_)?M\\d{5}$",
     "placeholder": "M00002",
+    "type": "other",
     "value": "kegg.module"
   },
   {
@@ -2937,6 +3356,7 @@
     "label": "KEGG Orthology",
     "pattern": "^K\\d+$",
     "placeholder": "K00001",
+    "type": "other",
     "value": "kegg.orthology"
   },
   {
@@ -2944,6 +3364,7 @@
     "label": "KEGG Pathway",
     "pattern": "^\\w{2,4}\\d{5}$",
     "placeholder": "hsa00620",
+    "type": "other",
     "value": "kegg.pathway"
   },
   {
@@ -2951,6 +3372,7 @@
     "label": "KEGG Reaction",
     "pattern": "^R\\d+$",
     "placeholder": "R00100",
+    "type": "other",
     "value": "kegg.reaction"
   },
   {
@@ -2958,6 +3380,7 @@
     "label": "KNApSAcK",
     "pattern": "^C\\d{8}",
     "placeholder": "C00000001",
+    "type": "other",
     "value": "knapsack"
   },
   {
@@ -2965,6 +3388,7 @@
     "label": "Global LEI Index",
     "pattern": "^[0-9A-Z]{4}[0-9A-Z]{14}[0-9A-Z]{2}$",
     "placeholder": "HWUPKR0MPOU8FGXBT394",
+    "type": "other",
     "value": "lei"
   },
   {
@@ -2972,6 +3396,7 @@
     "label": "LG Chemical Entity Detection Dataset (LGCEDe)",
     "pattern": "^LGCEDe-S-\\d{9}$",
     "placeholder": "LGCEDe-S-000002244",
+    "type": "other",
     "value": "lgai.cede"
   },
   {
@@ -2979,6 +3404,7 @@
     "label": "Ligand-Gated Ion Channel database",
     "pattern": "^\\w+$",
     "placeholder": "5HT3Arano",
+    "type": "other",
     "value": "lgic"
   },
   {
@@ -2986,6 +3412,7 @@
     "label": "LiceBase",
     "pattern": "^[A-Za-z0-9\\-\\/]+$",
     "placeholder": "EMLSAT00000003403",
+    "type": "other",
     "value": "licebase"
   },
   {
@@ -2993,6 +3420,7 @@
     "label": "LigandBook",
     "pattern": "^[0-9]+$",
     "placeholder": "785",
+    "type": "other",
     "value": "ligandbook"
   },
   {
@@ -3000,6 +3428,7 @@
     "label": "LigandBox",
     "pattern": "^(HTS|KSH)[0-9]{4}-[0-9]{8}|PDB_[0-9,A-Z]{2,3}|[CD][0-9]{5}$",
     "placeholder": "D00001",
+    "type": "other",
     "value": "ligandbox"
   },
   {
@@ -3007,6 +3436,7 @@
     "label": "Ligand Expo",
     "pattern": "^(\\w){3}$",
     "placeholder": "ABC",
+    "type": "other",
     "value": "ligandexpo"
   },
   {
@@ -3014,6 +3444,7 @@
     "label": "LINCS Cell",
     "pattern": "(^LCL-\\d+$)|(^LDC-\\d+$)|(^ES-\\d+$)|(^LSC-\\d+$)|(^LPC-\\d+$)",
     "placeholder": "LCL-2085",
+    "type": "other",
     "value": "lincs.cell"
   },
   {
@@ -3021,6 +3452,7 @@
     "label": "LINCS Data",
     "pattern": "^[EL]D[SG]-\\d+$",
     "placeholder": "LDS-1110",
+    "type": "other",
     "value": "lincs.data"
   },
   {
@@ -3028,6 +3460,7 @@
     "label": "LINCS Protein",
     "pattern": "^\\d+$",
     "placeholder": "200282",
+    "type": "other",
     "value": "lincs.protein"
   },
   {
@@ -3035,6 +3468,7 @@
     "label": "LINCS Small Molecule",
     "pattern": "^LSM-\\d+$",
     "placeholder": "LSM-6306",
+    "type": "other",
     "value": "lincs.smallmolecule"
   },
   {
@@ -3042,6 +3476,7 @@
     "label": "Linguist",
     "pattern": "^[a-zA-Z0-9 +#'*]+$",
     "placeholder": "Python",
+    "type": "other",
     "value": "linguist"
   },
   {
@@ -3049,6 +3484,7 @@
     "label": "LipidBank",
     "pattern": "^\\w+\\d+$",
     "placeholder": "BBA0001",
+    "type": "other",
     "value": "lipidbank"
   },
   {
@@ -3056,6 +3492,7 @@
     "label": "LIPID MAPS",
     "pattern": "^LM(FA|GL|GP|SP|ST|PR|SL|PK)[0-9]{4}([0-9a-zA-Z]{4,6})?$",
     "placeholder": "LMPR0102010012",
+    "type": "other",
     "value": "lipidmaps"
   },
   {
@@ -3063,6 +3500,7 @@
     "label": "Locus Reference Genomic",
     "pattern": "^LRG_\\d+$",
     "placeholder": "LRG_1",
+    "type": "other",
     "value": "lrg"
   },
   {
@@ -3070,6 +3508,7 @@
     "label": "Mouse Adult Gross Anatomy",
     "pattern": "^MA:\\d+$",
     "placeholder": "0002502",
+    "type": "other",
     "value": "ma"
   },
   {
@@ -3077,13 +3516,23 @@
     "label": "MACiE",
     "pattern": "^M\\d{4}$",
     "placeholder": "M0001",
+    "type": "other",
     "value": "macie"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Maggot",
+    "pattern": "^[A-Za-z0-9]+$",
+    "placeholder": "frim1",
+    "type": "other",
+    "value": "maggot"
   },
   {
     "icon": "ic:twotone-select-all",
     "label": "MaizeGDB Locus",
     "pattern": "^\\d+$",
     "placeholder": "25011",
+    "type": "other",
     "value": "maizegdb.locus"
   },
   {
@@ -3091,6 +3540,7 @@
     "label": "Mathematical Modelling Ontology",
     "pattern": "^MAMO_\\d{7}$",
     "placeholder": "MAMO_0000026",
+    "type": "other",
     "value": "mamo"
   },
   {
@@ -3098,6 +3548,7 @@
     "label": "MassBank",
     "pattern": "^MSBNK-[0-9a-zA-Z_]+-[A-Z0-9_]+$",
     "placeholder": "MSBNK-IPB_Halle-PB000166",
+    "type": "other",
     "value": "massbank"
   },
   {
@@ -3105,6 +3556,7 @@
     "label": "MassIVE",
     "pattern": "^MSV\\d+$",
     "placeholder": "MSV000082131",
+    "type": "other",
     "value": "massive"
   },
   {
@@ -3112,13 +3564,23 @@
     "label": "MatrixDB",
     "pattern": "^([A-N,R-Z][0-9][A-Z][A-Z, 0-9][A-Z, 0-9][0-9])_.*|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9]_.*)|(GAG_.*)|(MULT_.*)|(PFRAG_.*)|(LIP_.*)|(CAT_.*)$",
     "placeholder": "P00747__P07355",
+    "type": "other",
     "value": "matrixdb.association"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Medical Action Ontology",
+    "pattern": "\\d{7}",
+    "placeholder": "0001073",
+    "type": "other",
+    "value": "maxo"
   },
   {
     "icon": "ic:twotone-select-all",
     "label": "MDM",
     "pattern": "^\\d+$",
     "placeholder": "4776",
+    "type": "other",
     "value": "mdm"
   },
   {
@@ -3126,6 +3588,7 @@
     "label": "MedDRA",
     "pattern": "^\\d+$",
     "placeholder": "10015919",
+    "type": "other",
     "value": "meddra"
   },
   {
@@ -3133,6 +3596,7 @@
     "label": "MedGen",
     "pattern": "^[CN]*\\d{4,7}$",
     "placeholder": "760050",
+    "type": "other",
     "value": "medgen"
   },
   {
@@ -3140,6 +3604,7 @@
     "label": "MedlinePlus",
     "pattern": "^\\d+$",
     "placeholder": "002804",
+    "type": "other",
     "value": "medlineplus"
   },
   {
@@ -3147,6 +3612,7 @@
     "label": "MEROPS",
     "pattern": "^[SCTAGMNU]\\d{2}\\.([AB]\\d{2}|\\d{3})$",
     "placeholder": "S01.001",
+    "type": "other",
     "value": "merops"
   },
   {
@@ -3154,6 +3620,7 @@
     "label": "MEROPS Family",
     "pattern": "^[SCTAGMNU]\\d+$",
     "placeholder": "S1",
+    "type": "other",
     "value": "merops.family"
   },
   {
@@ -3161,6 +3628,7 @@
     "label": "MEROPS Inhibitor",
     "pattern": "^I\\d{2}\\.\\d{3}$",
     "placeholder": "I31.952",
+    "type": "other",
     "value": "merops.inhibitor"
   },
   {
@@ -3168,6 +3636,7 @@
     "label": "MeSH",
     "pattern": "^(C|D)\\d{6,9}$",
     "placeholder": "C000100",
+    "type": "other",
     "value": "mesh"
   },
   {
@@ -3175,6 +3644,7 @@
     "label": "MeSH 2012",
     "pattern": "^[A-Za-z0-9]+$",
     "placeholder": "17186",
+    "type": "other",
     "value": "mesh.2012"
   },
   {
@@ -3182,6 +3652,7 @@
     "label": "MeSH 2013",
     "pattern": "^[A-Za-z0-9]+$",
     "placeholder": "17165",
+    "type": "other",
     "value": "mesh.2013"
   },
   {
@@ -3189,6 +3660,7 @@
     "label": "MetaboLights",
     "pattern": "^MTBLS\\d+$",
     "placeholder": "MTBLS1",
+    "type": "other",
     "value": "metabolights"
   },
   {
@@ -3196,6 +3668,7 @@
     "label": "MetaCyc Compound",
     "pattern": "^[A-Za-z0-9+_.%-:]+$",
     "placeholder": "CPD-10330",
+    "type": "other",
     "value": "metacyc.compound"
   },
   {
@@ -3203,6 +3676,7 @@
     "label": "MetaCyc Reaction",
     "pattern": "^[A-Za-z0-9+_.%-:]+$",
     "placeholder": "RXN-14904",
+    "type": "other",
     "value": "metacyc.reaction"
   },
   {
@@ -3210,6 +3684,7 @@
     "label": "MetaNetX chemical",
     "pattern": "^(MNXM\\d+|BIOMASS|WATER)$",
     "placeholder": "MNXM1723",
+    "type": "other",
     "value": "metanetx.chemical"
   },
   {
@@ -3217,6 +3692,7 @@
     "label": "MetaNetX compartment",
     "pattern": "^(MNX[CD]\\d+|BOUNDARY|IN|OUT)$",
     "placeholder": "MNXC15",
+    "type": "other",
     "value": "metanetx.compartment"
   },
   {
@@ -3224,6 +3700,7 @@
     "label": "MetaNetX reaction",
     "pattern": "^(MNXR\\d+|EMPTY)$",
     "placeholder": "MNXR101574",
+    "type": "other",
     "value": "metanetx.reaction"
   },
   {
@@ -3231,6 +3708,7 @@
     "label": "Metabolic Atlas",
     "pattern": "^MA[MR]\\d{5}[a-z]?$",
     "placeholder": "MAR01234",
+    "type": "other",
     "value": "metatlas"
   },
   {
@@ -3238,6 +3716,7 @@
     "label": "METLIN",
     "pattern": "^\\d{4}$",
     "placeholder": "1455",
+    "type": "other",
     "value": "metlin"
   },
   {
@@ -3245,6 +3724,7 @@
     "label": "Metabolome Express",
     "pattern": "^\\d+$",
     "placeholder": "36",
+    "type": "other",
     "value": "mex"
   },
   {
@@ -3252,6 +3732,7 @@
     "label": "Mouse Genome Database",
     "pattern": "^MGI:\\d+$",
     "placeholder": "2442292",
+    "type": "other",
     "value": "mgi"
   },
   {
@@ -3259,6 +3740,7 @@
     "label": "MGnify Project",
     "pattern": "^[A-Z]+[0-9]+$",
     "placeholder": "ERP004492",
+    "type": "other",
     "value": "mgnify.proj"
   },
   {
@@ -3266,6 +3748,7 @@
     "label": "MGnify Sample",
     "pattern": "^[A-Z]+[0-9]+$",
     "placeholder": "SRS086444",
+    "type": "other",
     "value": "mgnify.samp"
   },
   {
@@ -3273,6 +3756,7 @@
     "label": "Molecular Interactions Ontology",
     "pattern": "^MI:\\d{4}$",
     "placeholder": "0308",
+    "type": "other",
     "value": "mi"
   },
   {
@@ -3280,6 +3764,7 @@
     "label": "MicroScope",
     "pattern": "^\\d+$",
     "placeholder": "5601141",
+    "type": "other",
     "value": "microscope"
   },
   {
@@ -3287,6 +3772,7 @@
     "label": "MicrosporidiaDB",
     "pattern": "^\\w+$",
     "placeholder": "ECU03_0820i",
+    "type": "other",
     "value": "microsporidia"
   },
   {
@@ -3294,6 +3780,7 @@
     "label": "OMIM",
     "pattern": "^[*#+%^]?\\d{6}$",
     "placeholder": "603903",
+    "type": "other",
     "value": "mim"
   },
   {
@@ -3301,6 +3788,7 @@
     "label": "MimoDB",
     "pattern": "^\\d+$",
     "placeholder": "1",
+    "type": "other",
     "value": "mimodb"
   },
   {
@@ -3308,6 +3796,7 @@
     "label": "Minimal Viable Identifier",
     "pattern": "^[A-Za-z0-9]+$",
     "placeholder": "b97957",
+    "type": "other",
     "value": "minid"
   },
   {
@@ -3315,6 +3804,7 @@
     "label": "MINID Test",
     "pattern": "[A-Za-z0-9]+$",
     "placeholder": "3SBPLMKKVEVR",
+    "type": "other",
     "value": "minid.test"
   },
   {
@@ -3322,6 +3812,7 @@
     "label": "MINT",
     "pattern": "^MINT\\-\\d{1,7}$",
     "placeholder": "MINT-10000",
+    "type": "other",
     "value": "mint"
   },
   {
@@ -3329,6 +3820,7 @@
     "label": "MIPModDB",
     "pattern": "^\\w+$",
     "placeholder": "HOSAPI0399",
+    "type": "other",
     "value": "mipmod"
   },
   {
@@ -3336,6 +3828,7 @@
     "label": "Identifiers.org Registry",
     "pattern": "^MIR:\\d{8}$",
     "placeholder": "00100037",
+    "type": "other",
     "value": "mir"
   },
   {
@@ -3343,6 +3836,7 @@
     "label": "miRBase Sequence",
     "pattern": "MI\\d{7}",
     "placeholder": "MI0000001",
+    "type": "other",
     "value": "mirbase"
   },
   {
@@ -3350,6 +3844,7 @@
     "label": "miRBase mature sequence",
     "pattern": "MIMAT\\d{7}",
     "placeholder": "MIMAT0000001",
+    "type": "other",
     "value": "mirbase.mature"
   },
   {
@@ -3357,6 +3852,7 @@
     "label": "mirEX",
     "pattern": "^\\d+(\\w+)?$",
     "placeholder": "165a",
+    "type": "other",
     "value": "mirex"
   },
   {
@@ -3364,6 +3860,7 @@
     "label": "MIRIAM Registry resource",
     "pattern": "^MIR:001\\d{5}$",
     "placeholder": "MIR:00100005",
+    "type": "other",
     "value": "miriam.resource"
   },
   {
@@ -3371,6 +3868,7 @@
     "label": "miRNEST",
     "pattern": "^MNEST\\d+$",
     "placeholder": "MNEST029358",
+    "type": "other",
     "value": "mirnest"
   },
   {
@@ -3378,6 +3876,7 @@
     "label": "miRTarBase",
     "pattern": "^MIRT\\d{6}$",
     "placeholder": "MIRT000002",
+    "type": "other",
     "value": "mirtarbase"
   },
   {
@@ -3385,6 +3884,7 @@
     "label": "MLCommons Association",
     "pattern": "^[0-9a-zA-Z\\.\\-\\_]+$",
     "placeholder": "0.7-123",
+    "type": "other",
     "value": "mlc"
   },
   {
@@ -3392,6 +3892,7 @@
     "label": "Molecular Modeling Database",
     "pattern": "^\\d{1,5}$",
     "placeholder": "50885",
+    "type": "other",
     "value": "mmdb"
   },
   {
@@ -3399,6 +3900,7 @@
     "label": "Melanoma Molecular Map Project Biomaps",
     "pattern": "^\\d+$",
     "placeholder": "37",
+    "type": "other",
     "value": "mmmp:biomaps"
   },
   {
@@ -3406,6 +3908,7 @@
     "label": "MarCat",
     "pattern": "^MMP\\d+.\\d+$",
     "placeholder": "MMP743597.11",
+    "type": "other",
     "value": "mmp.cat"
   },
   {
@@ -3413,6 +3916,7 @@
     "label": "MarDB",
     "pattern": "^MMP\\d+.\\d+$",
     "placeholder": "MMP02954345.1",
+    "type": "other",
     "value": "mmp.db"
   },
   {
@@ -3420,6 +3924,7 @@
     "label": "MarFun",
     "pattern": "^MMP\\d+.\\d+$",
     "placeholder": "MMP3888430",
+    "type": "other",
     "value": "mmp.fun"
   },
   {
@@ -3427,6 +3932,7 @@
     "label": "MarRef",
     "pattern": "^MMP\\d+.\\d+$",
     "placeholder": "MMP3312982.2",
+    "type": "other",
     "value": "mmp.ref"
   },
   {
@@ -3434,6 +3940,7 @@
     "label": "MMRRC",
     "pattern": "^\\d+$",
     "placeholder": "70",
+    "type": "other",
     "value": "mmrrc"
   },
   {
@@ -3441,6 +3948,7 @@
     "label": "MGED Ontology",
     "pattern": "^\\w+$",
     "placeholder": "ArrayGroup",
+    "type": "other",
     "value": "mo"
   },
   {
@@ -3448,6 +3956,7 @@
     "label": "MobiDB",
     "pattern": "^[OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9]([A-Z][A-Z0-9]{2}[0-9]){1,2}$",
     "placeholder": "P10636",
+    "type": "other",
     "value": "mobidb"
   },
   {
@@ -3455,6 +3964,7 @@
     "label": "Protein Modification Ontology",
     "pattern": "^MOD:\\d{5}",
     "placeholder": "00001",
+    "type": "other",
     "value": "mod"
   },
   {
@@ -3462,6 +3972,7 @@
     "label": "ModelDB",
     "pattern": "^\\d+$",
     "placeholder": "45539",
+    "type": "other",
     "value": "modeldb"
   },
   {
@@ -3469,6 +3980,7 @@
     "label": "ModelDB concept",
     "pattern": "\\d+",
     "placeholder": "3639",
+    "type": "other",
     "value": "modeldb.concept"
   },
   {
@@ -3476,6 +3988,7 @@
     "label": "Molbase",
     "pattern": "^(\\d{1,7}\\-\\d{2}\\-\\d)|([A-Za-z0-9\\+\\-\\_]+)$",
     "placeholder": "128796-39-4",
+    "type": "other",
     "value": "molbase"
   },
   {
@@ -3483,6 +3996,7 @@
     "label": "MolMeDB",
     "pattern": "^[m,M]{2}[0-9]{5}[0-9]*$",
     "placeholder": "MM00040",
+    "type": "other",
     "value": "molmedb"
   },
   {
@@ -3490,6 +4004,7 @@
     "label": "Morpheus model repository",
     "pattern": "^M[0-9]{4,}$",
     "placeholder": "M0001",
+    "type": "other",
     "value": "morpheus"
   },
   {
@@ -3497,6 +4012,7 @@
     "label": "Mammalian Phenotype Ontology",
     "pattern": "^MP:\\d{7}$",
     "placeholder": "0005452",
+    "type": "other",
     "value": "mp"
   },
   {
@@ -3504,6 +4020,7 @@
     "label": "Microbial Protein Interaction Database",
     "pattern": "^\\d+$",
     "placeholder": "172",
+    "type": "other",
     "value": "mpid"
   },
   {
@@ -3511,6 +4028,7 @@
     "label": "Mass Spectrometry Controlled Vocabulary",
     "pattern": "^MS:\\d{7}$",
     "placeholder": "1000001",
+    "type": "other",
     "value": "ms"
   },
   {
@@ -3518,6 +4036,7 @@
     "label": "MultiCellDS Digital Cell Line",
     "pattern": "^MCDS_L_[a-zA-Z0-9]{1,10}$",
     "placeholder": "MCDS_L_0000000001",
+    "type": "other",
     "value": "multicellds.cell_line"
   },
   {
@@ -3525,6 +4044,7 @@
     "label": "MultiCellDS collection",
     "pattern": "^MCDS_C_[a-zA-Z0-9]{1,10}$",
     "placeholder": "MCDS_C_0000000001",
+    "type": "other",
     "value": "multicellds.collection"
   },
   {
@@ -3532,6 +4052,7 @@
     "label": "MultiCellDS Digital snapshot",
     "pattern": "^MCDS_S_[a-zA-Z0-9]{1,10}$",
     "placeholder": "MCDS_S_0000000001",
+    "type": "other",
     "value": "multicellds.snapshot"
   },
   {
@@ -3539,6 +4060,7 @@
     "label": "Metabolomics Workbench Project",
     "pattern": "^PR[0-9]{6}$",
     "placeholder": "PR000001",
+    "type": "other",
     "value": "mw.project"
   },
   {
@@ -3546,6 +4068,7 @@
     "label": "Metabolomics Workbench Study",
     "pattern": "^ST[0-9]{6}$",
     "placeholder": "ST000900",
+    "type": "other",
     "value": "mw.study"
   },
   {
@@ -3553,6 +4076,7 @@
     "label": "MycoBrowser leprae",
     "pattern": "^ML\\w+$",
     "placeholder": "ML0224",
+    "type": "other",
     "value": "myco.lepra"
   },
   {
@@ -3560,6 +4084,7 @@
     "label": "MycoBrowser marinum",
     "pattern": "^MMAR\\_\\d+$",
     "placeholder": "MMAR_2462",
+    "type": "other",
     "value": "myco.marinum"
   },
   {
@@ -3567,6 +4092,7 @@
     "label": "MycoBrowser smegmatis",
     "pattern": "^MSMEG\\w+$",
     "placeholder": "MSMEG_3769",
+    "type": "other",
     "value": "myco.smeg"
   },
   {
@@ -3574,6 +4100,7 @@
     "label": "MycoBrowser tuberculosis",
     "pattern": "^Rv\\d{4}(A|B|c)?$",
     "placeholder": "Rv1908c",
+    "type": "other",
     "value": "myco.tuber"
   },
   {
@@ -3581,6 +4108,7 @@
     "label": "MycoBank",
     "pattern": "^\\d+$",
     "placeholder": "349124",
+    "type": "other",
     "value": "mycobank"
   },
   {
@@ -3588,6 +4116,7 @@
     "label": "Universal Spectrum Identifier",
     "pattern": "^mzspec:.+$",
     "placeholder": "PXD002255::ES_XP_Ubi_97H_HCD_349:scan:9617:LAEIYVNSSFYK/2",
+    "type": "other",
     "value": "mzspec"
   },
   {
@@ -3595,6 +4124,7 @@
     "label": "Nanbyo Disease Ontology",
     "pattern": "^NANDO:[0-9]+$",
     "placeholder": "1200031",
+    "type": "other",
     "value": "nando"
   },
   {
@@ -3602,6 +4132,7 @@
     "label": "Natural Product-Drug Interaction Research Data Repository",
     "pattern": "^[0-9]+$",
     "placeholder": "28",
+    "type": "other",
     "value": "napdi"
   },
   {
@@ -3609,6 +4140,7 @@
     "label": "NAPP",
     "pattern": "^\\d+$",
     "placeholder": "351",
+    "type": "other",
     "value": "napp"
   },
   {
@@ -3616,6 +4148,7 @@
     "label": "NARCIS",
     "pattern": "^oai\\:cwi\\.nl\\:\\d+$",
     "placeholder": "oai:cwi.nl:4725",
+    "type": "other",
     "value": "narcis"
   },
   {
@@ -3623,6 +4156,7 @@
     "label": "NASC code",
     "pattern": "^(\\w+)?\\d+$",
     "placeholder": "N1899",
+    "type": "other",
     "value": "nasc"
   },
   {
@@ -3630,6 +4164,7 @@
     "label": "National Bibliography Number",
     "pattern": "^(urn|URN):(nbn|NBN)(:[A-Za-z_0-9]+)*.+$",
     "placeholder": "urn:nbn:fi:tkk-004781",
+    "type": "other",
     "value": "nbn"
   },
   {
@@ -3637,13 +4172,23 @@
     "label": "NITE Biological Research Center Catalogue",
     "pattern": "^\\d+$",
     "placeholder": "00001234",
+    "type": "other",
     "value": "nbrc"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "NCBI Data Repository Service",
+    "pattern": "^[0-9a-fA-F]{32}$",
+    "placeholder": "72ff6ff882ec447f12df018e6183de59",
+    "type": "other",
+    "value": "ncbidrs"
   },
   {
     "icon": "ic:twotone-select-all",
     "label": "NCBI Gene",
     "pattern": "^\\d+$",
     "placeholder": "100010",
+    "type": "other",
     "value": "ncbigene"
   },
   {
@@ -3651,6 +4196,7 @@
     "label": "NCBI Protein",
     "pattern": "^(\\w+\\d+(\\.\\d+)?)|(NP_\\d+)$",
     "placeholder": "CAA71118.1",
+    "type": "other",
     "value": "ncbiprotein"
   },
   {
@@ -3658,6 +4204,7 @@
     "label": "NCIm",
     "pattern": "^C\\d+$",
     "placeholder": "C0026339",
+    "type": "other",
     "value": "ncim"
   },
   {
@@ -3665,6 +4212,7 @@
     "label": "NCIt",
     "pattern": "^C\\d+$",
     "placeholder": "C80519",
+    "type": "other",
     "value": "ncit"
   },
   {
@@ -3672,6 +4220,7 @@
     "label": "National Drug Code",
     "pattern": "^\\d+\\-\\d+\\-\\d+",
     "placeholder": "0002-1975-61",
+    "type": "other",
     "value": "ndc"
   },
   {
@@ -3679,6 +4228,7 @@
     "label": "Neuroscience Multi-Omic BRAIN Initiative Data",
     "pattern": "[a-z]{3}-[a-km-z0-9]{7}",
     "placeholder": "smp-m3w9hbe",
+    "type": "other",
     "value": "nemo"
   },
   {
@@ -3686,6 +4236,7 @@
     "label": "NeuroLex",
     "pattern": "^([Bb]irnlex_|Sao|nlx_|GO_|CogPO|HDO|nifext_)\\d+$",
     "placeholder": "Birnlex_721",
+    "type": "other",
     "value": "neurolex"
   },
   {
@@ -3693,6 +4244,7 @@
     "label": "NeuroMorpho",
     "pattern": "^\\w+$",
     "placeholder": "Rosa2",
+    "type": "other",
     "value": "neuromorpho"
   },
   {
@@ -3700,6 +4252,7 @@
     "label": "NeuronDB",
     "pattern": "^\\d+$",
     "placeholder": "265",
+    "type": "other",
     "value": "neurondb"
   },
   {
@@ -3707,6 +4260,7 @@
     "label": "NeuroVault Collection",
     "pattern": "^[1-9][0-9]*$",
     "placeholder": "3304",
+    "type": "other",
     "value": "neurovault.collection"
   },
   {
@@ -3714,6 +4268,7 @@
     "label": "NeuroVault Image",
     "pattern": "^[1-9][0-9]*$",
     "placeholder": "58788",
+    "type": "other",
     "value": "neurovault.image"
   },
   {
@@ -3721,6 +4276,7 @@
     "label": "NEXTDB",
     "pattern": "^[A-Za-z0-9]+$",
     "placeholder": "6b1",
+    "type": "other",
     "value": "nextdb"
   },
   {
@@ -3728,6 +4284,7 @@
     "label": "nextProt",
     "pattern": "^NX_\\w+",
     "placeholder": "NX_O00165",
+    "type": "other",
     "value": "nextprot"
   },
   {
@@ -3735,6 +4292,7 @@
     "label": "NASA GeneLab",
     "pattern": "^GLDS-\\d+$",
     "placeholder": "GLDS-141",
+    "type": "other",
     "value": "ngl"
   },
   {
@@ -3742,6 +4300,7 @@
     "label": "NIAEST",
     "pattern": "^\\w\\d{4}\\w\\d{2}(\\-[35])?$",
     "placeholder": "J0705A10",
+    "type": "other",
     "value": "niaest"
   },
   {
@@ -3749,6 +4308,7 @@
     "label": "NLFFF Database",
     "pattern": "^[0-9]+$",
     "placeholder": "345201101230312003",
+    "type": "other",
     "value": "nlfff"
   },
   {
@@ -3756,6 +4316,7 @@
     "label": "National Microbiome Data Collaborative",
     "pattern": "^[A-Za-z0-9._~\\-\\:]+$",
     "placeholder": "6m4e-1vbv-03",
+    "type": "other",
     "value": "nmdc"
   },
   {
@@ -3763,6 +4324,7 @@
     "label": "Nuclear Magnetic Resonance Controlled Vocabulary",
     "pattern": "^NMR:\\d+$",
     "placeholder": "1000003",
+    "type": "other",
     "value": "nmr"
   },
   {
@@ -3770,6 +4332,7 @@
     "label": "NMR Shift Database",
     "pattern": "^[0-9]+$",
     "placeholder": "234",
+    "type": "other",
     "value": "nmrshiftdb2"
   },
   {
@@ -3777,6 +4340,7 @@
     "label": "NONCODE v3",
     "pattern": "^\\d+$",
     "placeholder": "377550",
+    "type": "other",
     "value": "noncodev3"
   },
   {
@@ -3784,6 +4348,7 @@
     "label": "NONCODE v4 Gene",
     "pattern": "^NONHSAG\\d{5}$",
     "placeholder": "NONHSAG00001",
+    "type": "other",
     "value": "noncodev4.gene"
   },
   {
@@ -3791,6 +4356,7 @@
     "label": "NONCODE v4 Transcript",
     "pattern": "^NONHSAT\\d{6}$",
     "placeholder": "NONHSAT000001",
+    "type": "other",
     "value": "noncodev4.rna"
   },
   {
@@ -3798,6 +4364,7 @@
     "label": "NORINE",
     "pattern": "^NOR\\d+$",
     "placeholder": "NOR00681",
+    "type": "other",
     "value": "norine"
   },
   {
@@ -3805,6 +4372,7 @@
     "label": "NucleaRDB",
     "pattern": "^\\w+\\_\\w+$",
     "placeholder": "prgr_human",
+    "type": "other",
     "value": "nuclearbd"
   },
   {
@@ -3812,6 +4380,7 @@
     "label": "Nucleotide",
     "pattern": "^[a-zA-Z0-9_\\.]+$",
     "placeholder": "880798137",
+    "type": "other",
     "value": "nucleotide"
   },
   {
@@ -3819,6 +4388,7 @@
     "label": "Ontology for Biomedical Investigations",
     "pattern": "(^OBI:\\d{7}$)|(^OBI_\\d{7}$)",
     "placeholder": "OBI_0000070",
+    "type": "other",
     "value": "obi"
   },
   {
@@ -3826,6 +4396,7 @@
     "label": "Austrian Library Network",
     "pattern": "AC[0-9]{8}",
     "placeholder": "AC00963334",
+    "type": "other",
     "value": "obv"
   },
   {
@@ -3833,6 +4404,7 @@
     "label": "OpenCitations Corpus",
     "pattern": "^[a-z][a-z]/[0-9]+$",
     "placeholder": "br/1",
+    "type": "other",
     "value": "occ"
   },
   {
@@ -3840,6 +4412,7 @@
     "label": "OCI",
     "pattern": "^0[1-9]+0[0-9]+-0[1-9]+0[0-9]+$",
     "placeholder": "01027931310-01022252312",
+    "type": "other",
     "value": "oci"
   },
   {
@@ -3847,6 +4420,7 @@
     "label": "Ontology Concept Identifiers",
     "pattern": "ocid:[0-9]{12}",
     "placeholder": "190000021540",
+    "type": "other",
     "value": "ocid"
   },
   {
@@ -3854,6 +4428,7 @@
     "label": "Online Computer Library Center (OCLC) WorldCat",
     "pattern": "^[0-9]+$",
     "placeholder": "634515043",
+    "type": "other",
     "value": "oclc"
   },
   {
@@ -3861,6 +4436,7 @@
     "label": "Open Data for Access and Mining",
     "pattern": "^[A-Za-z0-9]+$",
     "placeholder": "frim1",
+    "type": "other",
     "value": "odam"
   },
   {
@@ -3868,6 +4444,7 @@
     "label": "Open Data Commons for Spinal Cord Injury",
     "pattern": "^[0-9]*$",
     "placeholder": "602",
+    "type": "other",
     "value": "odc.sci"
   },
   {
@@ -3875,6 +4452,7 @@
     "label": "Open Data Commons for Traumatic Brain Injury",
     "pattern": "^[0-9]*$",
     "placeholder": "408",
+    "type": "other",
     "value": "odc.tbi"
   },
   {
@@ -3882,6 +4460,7 @@
     "label": "Odor Molecules DataBase",
     "pattern": "^\\d+$",
     "placeholder": "74",
+    "type": "other",
     "value": "odor"
   },
   {
@@ -3889,6 +4468,7 @@
     "label": "OID Repository",
     "pattern": "^[\\d.]+$",
     "placeholder": "2.16.840",
+    "type": "other",
     "value": "oid"
   },
   {
@@ -3896,6 +4476,7 @@
     "label": "OMA Group",
     "pattern": "^[A-Z]+$",
     "placeholder": "LCSCCPN",
+    "type": "other",
     "value": "oma.grp"
   },
   {
@@ -3903,6 +4484,7 @@
     "label": "OMA HOGs",
     "pattern": "^HOG:[0-9]{7}(\\.[0-9a-z.]+)?(_[0-9]+)?$",
     "placeholder": "0459895",
+    "type": "other",
     "value": "oma.hog"
   },
   {
@@ -3910,6 +4492,7 @@
     "label": "OMA Protein",
     "pattern": "^[A-Z0-9]{5}\\d+$",
     "placeholder": "HUMAN16963",
+    "type": "other",
     "value": "oma.protein"
   },
   {
@@ -3917,6 +4500,7 @@
     "label": "OMIA",
     "pattern": "^\\d+$",
     "placeholder": "1000",
+    "type": "other",
     "value": "omia"
   },
   {
@@ -3924,6 +4508,7 @@
     "label": "OpenCitations Meta Identifier",
     "pattern": "^[a-z][a-z]/06[1-9]*0[1-9][0-9]*$",
     "placeholder": "br/0601",
+    "type": "other",
     "value": "omid"
   },
   {
@@ -3931,6 +4516,7 @@
     "label": "OMIT",
     "pattern": "^\\d{7}$",
     "placeholder": "0005506",
+    "type": "other",
     "value": "omit"
   },
   {
@@ -3938,6 +4524,7 @@
     "label": "Ontology of Physics for Biology",
     "pattern": "^OPB_\\d+$",
     "placeholder": "OPB_00573",
+    "type": "other",
     "value": "opb"
   },
   {
@@ -3945,6 +4532,7 @@
     "label": "OPM",
     "pattern": "^[0-9][A-Za-z0-9]{3}$",
     "placeholder": "1h68",
+    "type": "other",
     "value": "opm"
   },
   {
@@ -3952,6 +4540,7 @@
     "label": "ORCID",
     "pattern": "^\\d{4}-\\d{4}-\\d{4}-\\d{3}(\\d|X)$",
     "placeholder": "0000-0002-5355-2576",
+    "type": "other",
     "value": "orcid"
   },
   {
@@ -3959,6 +4548,7 @@
     "label": "Olfactory Receptor Database",
     "pattern": "^\\d+$",
     "placeholder": "8497",
+    "type": "other",
     "value": "ordb"
   },
   {
@@ -3966,6 +4556,7 @@
     "label": "OriDB Saccharomyces",
     "pattern": "^\\d+$",
     "placeholder": "1",
+    "type": "other",
     "value": "oridb.sacch"
   },
   {
@@ -3973,6 +4564,7 @@
     "label": "OriDB Schizosaccharomyces",
     "pattern": "^\\d+$",
     "placeholder": "1",
+    "type": "other",
     "value": "oridb.schizo"
   },
   {
@@ -3980,6 +4572,7 @@
     "label": "Orphanet",
     "pattern": "^\\d+$",
     "placeholder": "85163",
+    "type": "other",
     "value": "orphanet"
   },
   {
@@ -3987,6 +4580,7 @@
     "label": "Orphanet Rare Disease Ontology",
     "pattern": "^Orphanet(_|:)C?\\d+$",
     "placeholder": "Orphanet_C023",
+    "type": "other",
     "value": "orphanet.ordo"
   },
   {
@@ -3994,6 +4588,7 @@
     "label": "OrthoDB",
     "pattern": "^\\w+$",
     "placeholder": "Q9P0K8",
+    "type": "other",
     "value": "orthodb"
   },
   {
@@ -4001,6 +4596,7 @@
     "label": "Oryzabase Gene",
     "pattern": "^\\d+$",
     "placeholder": "117",
+    "type": "other",
     "value": "oryzabase.gene"
   },
   {
@@ -4008,6 +4604,7 @@
     "label": "Oryzabase Mutant",
     "pattern": "^\\d+$",
     "placeholder": "21393",
+    "type": "other",
     "value": "oryzabase.mutant"
   },
   {
@@ -4015,6 +4612,7 @@
     "label": "Oryzabase",
     "pattern": "^\\d+$",
     "placeholder": "42840",
+    "type": "other",
     "value": "oryzabase.reference"
   },
   {
@@ -4022,6 +4620,7 @@
     "label": "Oryzabase Stage",
     "pattern": "^\\d+$",
     "placeholder": "34",
+    "type": "other",
     "value": "oryzabase.stage"
   },
   {
@@ -4029,6 +4628,7 @@
     "label": "Oryzabase Strain",
     "pattern": "^\\d+$",
     "placeholder": "1",
+    "type": "other",
     "value": "oryzabase.strain"
   },
   {
@@ -4036,6 +4636,7 @@
     "label": "Oryza Tag Line",
     "pattern": "^A[A-Z]+\\d+$",
     "placeholder": "AADB12",
+    "type": "other",
     "value": "otl"
   },
   {
@@ -4043,6 +4644,7 @@
     "label": "P3DB Protein",
     "pattern": "^\\d+$",
     "placeholder": "70",
+    "type": "other",
     "value": "p3db.protein"
   },
   {
@@ -4050,6 +4652,7 @@
     "label": "P3DB Site",
     "pattern": "^\\d+$",
     "placeholder": "65",
+    "type": "other",
     "value": "p3db.site"
   },
   {
@@ -4057,6 +4660,7 @@
     "label": "PaleoDB",
     "pattern": "^\\d+$",
     "placeholder": "83088",
+    "type": "other",
     "value": "paleodb"
   },
   {
@@ -4064,6 +4668,7 @@
     "label": "PANTHER Family",
     "pattern": "^PTHR\\d{5}(\\:SF\\d{1,3})?$",
     "placeholder": "PTHR12345",
+    "type": "other",
     "value": "panther.family"
   },
   {
@@ -4071,6 +4676,7 @@
     "label": "PANTHER Node",
     "pattern": "^PTN\\d{9}$",
     "placeholder": "PTN000000026",
+    "type": "other",
     "value": "panther.node"
   },
   {
@@ -4078,6 +4684,7 @@
     "label": "PANTHER Pathway",
     "pattern": "^P\\d{5}$",
     "placeholder": "P00024",
+    "type": "other",
     "value": "panther.pathway"
   },
   {
@@ -4085,6 +4692,7 @@
     "label": "PANTHER Pathway Component",
     "pattern": "^[GPUCS]\\d{5}$",
     "placeholder": "P00266",
+    "type": "other",
     "value": "panther.pthcmp"
   },
   {
@@ -4092,6 +4700,7 @@
     "label": "PASS2",
     "pattern": "^\\d+$",
     "placeholder": "46977",
+    "type": "other",
     "value": "pass2"
   },
   {
@@ -4099,6 +4708,7 @@
     "label": "Pathway Commons",
     "pattern": "^\\d+$",
     "placeholder": "485991",
+    "type": "other",
     "value": "pathwaycommons"
   },
   {
@@ -4106,6 +4716,7 @@
     "label": "PATO",
     "pattern": "^PATO:\\d{7}$",
     "placeholder": "0001998",
+    "type": "other",
     "value": "pato"
   },
   {
@@ -4113,6 +4724,7 @@
     "label": "PaxDb Organism",
     "pattern": "^\\d+$",
     "placeholder": "9606",
+    "type": "other",
     "value": "paxdb.organism"
   },
   {
@@ -4120,6 +4732,7 @@
     "label": "PaxDb Protein",
     "pattern": "^\\d+$",
     "placeholder": "977869",
+    "type": "other",
     "value": "paxdb.protein"
   },
   {
@@ -4127,6 +4740,7 @@
     "label": "Pazar Transcription Factor",
     "pattern": "^TF\\w+$",
     "placeholder": "TF0001053",
+    "type": "other",
     "value": "pazar"
   },
   {
@@ -4134,6 +4748,7 @@
     "label": "Protein Data Bank",
     "pattern": "^[0-9][A-Za-z0-9]{3}$",
     "placeholder": "2gc4",
+    "type": "other",
     "value": "pdb"
   },
   {
@@ -4141,6 +4756,7 @@
     "label": "Chemical Component Dictionary",
     "pattern": "^\\w{1,3}$",
     "placeholder": "AB0",
+    "type": "other",
     "value": "pdb-ccd"
   },
   {
@@ -4148,6 +4764,7 @@
     "label": "Protein Data Bank Ligand",
     "pattern": "^[A-Za-z0-9]+$",
     "placeholder": "TRQ",
+    "type": "other",
     "value": "pdb.ligand"
   },
   {
@@ -4155,6 +4772,7 @@
     "label": "Protein Ensemble Database",
     "pattern": "^PED\\d{5}$",
     "placeholder": "PED00037",
+    "type": "other",
     "value": "ped"
   },
   {
@@ -4162,6 +4780,7 @@
     "label": "Protein Ensemble Database ensemble",
     "pattern": "^PED\\d{5}e\\d{3}$",
     "placeholder": "PED00017e001",
+    "type": "other",
     "value": "ped.ensemble"
   },
   {
@@ -4169,6 +4788,7 @@
     "label": "PeptideAtlas",
     "pattern": "^PAp[0-9]{8}$",
     "placeholder": "PAp00000009",
+    "type": "other",
     "value": "peptideatlas"
   },
   {
@@ -4176,6 +4796,7 @@
     "label": "PeptideAtlas Dataset",
     "pattern": "^PASS\\d{5}$",
     "placeholder": "PASS01237",
+    "type": "other",
     "value": "peptideatlas.dataset"
   },
   {
@@ -4183,6 +4804,7 @@
     "label": "Peroxibase",
     "pattern": "^\\d+$",
     "placeholder": "5282",
+    "type": "other",
     "value": "peroxibase"
   },
   {
@@ -4190,6 +4812,7 @@
     "label": "Pfam",
     "pattern": "^PF\\d{5}$",
     "placeholder": "PF01234",
+    "type": "other",
     "value": "pfam"
   },
   {
@@ -4197,6 +4820,7 @@
     "label": "Polygenic Score Catalog",
     "pattern": "^PGS[0-9]{6}$",
     "placeholder": "PGS000018",
+    "type": "other",
     "value": "pgs"
   },
   {
@@ -4204,6 +4828,7 @@
     "label": "Progenetix",
     "pattern": "^\\w{3,15}[-_]\\w[\\w.-]{3,128}$",
     "placeholder": "pgxbs-kftva5zv",
+    "type": "other",
     "value": "pgx"
   },
   {
@@ -4211,6 +4836,7 @@
     "label": "PharmGKB Disease",
     "pattern": "^PA\\d+$",
     "placeholder": "PA447218",
+    "type": "other",
     "value": "pharmgkb.disease"
   },
   {
@@ -4218,6 +4844,7 @@
     "label": "PharmGKB Drug",
     "pattern": "^PA\\d+$",
     "placeholder": "PA448710",
+    "type": "other",
     "value": "pharmgkb.drug"
   },
   {
@@ -4225,6 +4852,7 @@
     "label": "PharmGKB Gene",
     "pattern": "^PA\\w+$",
     "placeholder": "PA131",
+    "type": "other",
     "value": "pharmgkb.gene"
   },
   {
@@ -4232,6 +4860,7 @@
     "label": "PharmGKB Pathways",
     "pattern": "^PA\\d+$",
     "placeholder": "PA146123006",
+    "type": "other",
     "value": "pharmgkb.pathways"
   },
   {
@@ -4239,6 +4868,7 @@
     "label": "Phenol-Explorer",
     "pattern": "^\\d+$",
     "placeholder": "75",
+    "type": "other",
     "value": "phenolexplorer"
   },
   {
@@ -4246,6 +4876,7 @@
     "label": "PhosphoPoint Kinase",
     "pattern": "^\\w+$",
     "placeholder": "AURKA",
+    "type": "other",
     "value": "phosphopoint.kinase"
   },
   {
@@ -4253,6 +4884,7 @@
     "label": "PhosphoPoint Phosphoprotein",
     "pattern": "^\\w+$",
     "placeholder": "AURKA",
+    "type": "other",
     "value": "phosphopoint.protein"
   },
   {
@@ -4260,6 +4892,7 @@
     "label": "PhosphoSite Protein",
     "pattern": "^\\d{5}$",
     "placeholder": "12300",
+    "type": "other",
     "value": "phosphosite.protein"
   },
   {
@@ -4267,6 +4900,7 @@
     "label": "PhosphoSite Residue",
     "pattern": "^\\d+$",
     "placeholder": "2842",
+    "type": "other",
     "value": "phosphosite.residue"
   },
   {
@@ -4274,6 +4908,7 @@
     "label": "PhylomeDB",
     "pattern": "^\\w+$",
     "placeholder": "Phy000CLXM_RAT",
+    "type": "other",
     "value": "phylomedb"
   },
   {
@@ -4281,6 +4916,7 @@
     "label": "Phytozome Locus",
     "pattern": "^[A-Za-z0-9]+$",
     "placeholder": "Glyma0021s00410",
+    "type": "other",
     "value": "phytozome.locus"
   },
   {
@@ -4288,6 +4924,7 @@
     "label": "NCI Pathway Interaction Database: Pathway",
     "pattern": "^\\w+$",
     "placeholder": "pi3kcipathway",
+    "type": "other",
     "value": "pid.pathway"
   },
   {
@@ -4295,6 +4932,7 @@
     "label": "Animal Genome Pig QTL",
     "pattern": "^\\d+$",
     "placeholder": "14",
+    "type": "other",
     "value": "pigqtldb"
   },
   {
@@ -4302,6 +4940,7 @@
     "label": "PINA",
     "pattern": "^([A-N,R-Z][0-9][A-Z][A-Z, 0-9][A-Z, 0-9][0-9])|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])$",
     "placeholder": "Q13485",
+    "type": "other",
     "value": "pina"
   },
   {
@@ -4309,6 +4948,7 @@
     "label": "PiroplasmaDB",
     "pattern": "^TA\\d+$",
     "placeholder": "TA14985",
+    "type": "other",
     "value": "piroplasma"
   },
   {
@@ -4316,6 +4956,7 @@
     "label": "PIRSF",
     "pattern": "^PIRSF\\d{6}$",
     "placeholder": "PIRSF000100",
+    "type": "other",
     "value": "pirsf"
   },
   {
@@ -4323,6 +4964,7 @@
     "label": "PK-DB",
     "pattern": "^PKDB[0-9]{5}$",
     "placeholder": "PKDB00198",
+    "type": "other",
     "value": "pkdb"
   },
   {
@@ -4330,6 +4972,7 @@
     "label": "Plant Transcription Factor Database",
     "pattern": "^[A-Z][a-z]{2}_([A-Za-z]{3}[0-9]{6})|([A-Za-z0-9\\._\\-#]*)$",
     "placeholder": "Ath_AT1G01030.1",
+    "type": "other",
     "value": "planttfdb"
   },
   {
@@ -4337,6 +4980,7 @@
     "label": "PlasmoDB",
     "pattern": "^\\w+$",
     "placeholder": "PF11_0344",
+    "type": "other",
     "value": "plasmodb"
   },
   {
@@ -4344,6 +4988,7 @@
     "label": "CutDB",
     "pattern": "^\\d+$",
     "placeholder": "25782",
+    "type": "other",
     "value": "pmap.cutdb"
   },
   {
@@ -4351,6 +4996,7 @@
     "label": "SubstrateDB",
     "pattern": "^\\d+$",
     "placeholder": "1915",
+    "type": "other",
     "value": "pmap.substratedb"
   },
   {
@@ -4358,6 +5004,7 @@
     "label": "PMC International",
     "pattern": "PMC\\d+",
     "placeholder": "PMC3084216",
+    "type": "other",
     "value": "pmc"
   },
   {
@@ -4365,6 +5012,7 @@
     "label": "Protein Model Database",
     "pattern": "^PM\\d{7}",
     "placeholder": "PM0012345",
+    "type": "other",
     "value": "pmdb"
   },
   {
@@ -4372,6 +5020,7 @@
     "label": "PMP",
     "pattern": "^([A-N,R-Z][0-9][A-Z][A-Z, 0-9][A-Z, 0-9][0-9])|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])$",
     "placeholder": "Q0VCA6",
+    "type": "other",
     "value": "pmp"
   },
   {
@@ -4379,6 +5028,7 @@
     "label": "Physiome Model Repository",
     "pattern": "^[a-z0-9]{32,32}$",
     "placeholder": "ebf69ca24298b28b2361e7d43eb52d6c",
+    "type": "other",
     "value": "pmr"
   },
   {
@@ -4386,6 +5036,7 @@
     "label": "Physiome Model Repository workspace",
     "pattern": "^[a-zA-Z0-9_\\-]+(/.*?)?$",
     "placeholder": "modularmassactionprimer",
+    "type": "other",
     "value": "pmr.workspace"
   },
   {
@@ -4393,6 +5044,7 @@
     "label": "Plant Ontology",
     "pattern": "^PO:\\d+$",
     "placeholder": "0009089",
+    "type": "other",
     "value": "po"
   },
   {
@@ -4400,6 +5052,7 @@
     "label": "Pocketome",
     "pattern": "^[A-Za-z_0-9]+",
     "placeholder": "1433C_TOBAC_1_252",
+    "type": "other",
     "value": "pocketome"
   },
   {
@@ -4407,6 +5060,7 @@
     "label": "PolBase",
     "pattern": "^[A-Za-z-0-9]+$",
     "placeholder": "19-T4",
+    "type": "other",
     "value": "polbase"
   },
   {
@@ -4414,6 +5068,7 @@
     "label": "PomBase",
     "pattern": "^S\\w+(\\.)?\\w+(\\.)?$",
     "placeholder": "SPCC13B11.01",
+    "type": "other",
     "value": "pombase"
   },
   {
@@ -4421,6 +5076,7 @@
     "label": "Protein Ontology",
     "pattern": "^PR:P?\\d+$",
     "placeholder": "000000024",
+    "type": "other",
     "value": "pr"
   },
   {
@@ -4428,6 +5084,7 @@
     "label": "PRIDE",
     "pattern": "^\\d+$",
     "placeholder": "1",
+    "type": "other",
     "value": "pride"
   },
   {
@@ -4435,6 +5092,7 @@
     "label": "PRIDE Project",
     "pattern": "^P(X|R)D\\d{6}$",
     "placeholder": "PXD000440",
+    "type": "other",
     "value": "pride.project"
   },
   {
@@ -4442,6 +5100,7 @@
     "label": "PRINTS",
     "pattern": "^PR\\d{5}$",
     "placeholder": "PR00001",
+    "type": "other",
     "value": "prints"
   },
   {
@@ -4449,6 +5108,7 @@
     "label": "ProbOnto",
     "pattern": "^PROB_c\\d+$",
     "placeholder": "PROB_c0000005",
+    "type": "other",
     "value": "probonto"
   },
   {
@@ -4456,6 +5116,7 @@
     "label": "ProDom",
     "pattern": "^PD\\d+$",
     "placeholder": "PD10000",
+    "type": "other",
     "value": "prodom"
   },
   {
@@ -4463,6 +5124,7 @@
     "label": "ProGlycProt",
     "pattern": "^[A-Z]C\\d{1,3}$",
     "placeholder": "AC119",
+    "type": "other",
     "value": "proglyc"
   },
   {
@@ -4470,6 +5132,7 @@
     "label": "PROSITE",
     "pattern": "^PS\\d{5}$",
     "placeholder": "PS00001",
+    "type": "other",
     "value": "prosite"
   },
   {
@@ -4477,6 +5140,7 @@
     "label": "ProtClustDB",
     "pattern": "^\\w+$",
     "placeholder": "O80725",
+    "type": "other",
     "value": "protclustdb"
   },
   {
@@ -4484,6 +5148,7 @@
     "label": "ProteomicsDB Peptide",
     "pattern": "^\\d+$",
     "placeholder": "53504",
+    "type": "other",
     "value": "proteomicsdb.peptide"
   },
   {
@@ -4491,6 +5156,7 @@
     "label": "ProteomicsDB Protein",
     "pattern": "^\\d+$",
     "placeholder": "53504",
+    "type": "other",
     "value": "proteomicsdb.protein"
   },
   {
@@ -4498,6 +5164,7 @@
     "label": "ProtoNet Cluster",
     "pattern": "^\\d+$",
     "placeholder": "4349895",
+    "type": "other",
     "value": "protonet.cluster"
   },
   {
@@ -4505,6 +5172,7 @@
     "label": "ProtoNet ProteinCard",
     "pattern": "^\\d+$",
     "placeholder": "16941567",
+    "type": "other",
     "value": "protonet.proteincard"
   },
   {
@@ -4512,6 +5180,7 @@
     "label": "Pennsieve",
     "pattern": "N:package:[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}",
     "placeholder": "N:package:e3243db3-7986-488e-9a10-c7a0bfdcfe8a",
+    "type": "other",
     "value": "ps"
   },
   {
@@ -4519,6 +5188,7 @@
     "label": "PSCDB",
     "pattern": "^\\d+$",
     "placeholder": "051",
+    "type": "other",
     "value": "pscdb"
   },
   {
@@ -4526,6 +5196,7 @@
     "label": "Pseudomonas Genome Database",
     "pattern": "^P\\w+$",
     "placeholder": "PSEEN0001",
+    "type": "other",
     "value": "pseudomonas"
   },
   {
@@ -4533,6 +5204,7 @@
     "label": "Protein Affinity Reagents",
     "pattern": "^PAR:\\d+$",
     "placeholder": "PAR:0116",
+    "type": "other",
     "value": "psipar"
   },
   {
@@ -4540,6 +5212,7 @@
     "label": "PubChem-bioassay",
     "pattern": "^\\d+$",
     "placeholder": "1018",
+    "type": "other",
     "value": "pubchem.bioassay"
   },
   {
@@ -4547,6 +5220,7 @@
     "label": "PubChem-compound",
     "pattern": "^\\d+$",
     "placeholder": "100101",
+    "type": "other",
     "value": "pubchem.compound"
   },
   {
@@ -4554,6 +5228,7 @@
     "label": "PubChem-substance",
     "pattern": "^\\d+$",
     "placeholder": "100101",
+    "type": "other",
     "value": "pubchem.substance"
   },
   {
@@ -4561,6 +5236,7 @@
     "label": "PubMed",
     "pattern": "^\\d+$",
     "placeholder": "16333295",
+    "type": "other",
     "value": "pubmed"
   },
   {
@@ -4568,6 +5244,7 @@
     "label": "Pathway Ontology",
     "pattern": "^PW:\\d{7}$",
     "placeholder": "0000208",
+    "type": "other",
     "value": "pw"
   },
   {
@@ -4575,6 +5252,7 @@
     "label": "ProteomeXchange",
     "pattern": "^(R)?PXD\\d{6}$",
     "placeholder": "PXD000500",
+    "type": "other",
     "value": "px"
   },
   {
@@ -4582,6 +5260,7 @@
     "label": "PyPI",
     "pattern": "^[a-zA-Z_][a-zA-Z0-9\\-_]+$",
     "placeholder": "numpy",
+    "type": "other",
     "value": "pypi"
   },
   {
@@ -4589,6 +5268,7 @@
     "label": "Animal Genome QTL",
     "pattern": "^\\d+$",
     "placeholder": "4685",
+    "type": "other",
     "value": "qtldb"
   },
   {
@@ -4596,6 +5276,7 @@
     "label": "RAP-DB Locus",
     "pattern": "^Os\\S+g\\d{7}$",
     "placeholder": "Os01g0883800",
+    "type": "other",
     "value": "rapdb.locus"
   },
   {
@@ -4603,6 +5284,7 @@
     "label": "RAP-DB Transcript",
     "pattern": "^Os\\S+t\\d{7}-\\d{2}$",
     "placeholder": "Os01t0883800-02",
+    "type": "other",
     "value": "rapdb.transcript"
   },
   {
@@ -4610,6 +5292,7 @@
     "label": "Rebuilding a Kidney",
     "pattern": "^[-0-9a-zA-Z]+(@[-0-9a-zA-Z]+)?$",
     "placeholder": "Q-2958",
+    "type": "other",
     "value": "rbk"
   },
   {
@@ -4617,6 +5300,7 @@
     "label": "re3data",
     "pattern": "^r3d\\d{9,9}$",
     "placeholder": "r3d100010772",
+    "type": "other",
     "value": "re3data"
   },
   {
@@ -4624,6 +5308,7 @@
     "label": "Reactome",
     "pattern": "(^R-[A-Z]{3}-\\d+(-\\d+)?(\\.\\d+)?$)|(^REACT_\\d+(\\.\\d+)?$)",
     "placeholder": "R-HSA-201451",
+    "type": "other",
     "value": "reactome"
   },
   {
@@ -4631,6 +5316,7 @@
     "label": "REBASE",
     "pattern": "^\\d+$",
     "placeholder": "101",
+    "type": "other",
     "value": "rebase"
   },
   {
@@ -4638,13 +5324,23 @@
     "label": "RefSeq",
     "pattern": "^(((WP|AC|AP|NC|NG|NM|NP|NR|NT|NW|XM|XP|XR|YP|ZP)_\\d+)|(NZ\\_[A-Z]{2,4}\\d+))(\\.\\d+)?$",
     "placeholder": "NP_012345",
+    "type": "other",
     "value": "refseq"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "Genome assembly database - RefSeq accessions",
+    "pattern": "^GCF_[0-9]{9}(\\.[0-9]+)?$",
+    "placeholder": "GCF_000001405",
+    "type": "other",
+    "value": "refseq.gcf"
   },
   {
     "icon": "ic:twotone-select-all",
     "label": "RepeatsDB Protein",
     "pattern": "^[OPQopq][0-9][A-Za-z0-9]{3}[0-9]|[A-Na-nR-Zr-z][0-9]([A-Za-z][A-Za-z0-9]{2}[0-9]){1,2}$",
     "placeholder": "P29894",
+    "type": "other",
     "value": "repeatsdb.protein"
   },
   {
@@ -4652,6 +5348,7 @@
     "label": "RepeatsDB Structure",
     "pattern": "^[0-9][A-Za-z0-9]{3}[A-Za-z0-9][A-Za-z0-9]?[0-9]?[0-9]?$",
     "placeholder": "2gc4E",
+    "type": "other",
     "value": "repeatsdb.structure"
   },
   {
@@ -4659,6 +5356,7 @@
     "label": "RESID",
     "pattern": "^AA\\d{4}$",
     "placeholder": "AA0001",
+    "type": "other",
     "value": "resid"
   },
   {
@@ -4666,6 +5364,7 @@
     "label": "RFAM",
     "pattern": "^RF\\d{5}$",
     "placeholder": "RF00230",
+    "type": "other",
     "value": "rfam"
   },
   {
@@ -4673,6 +5372,7 @@
     "label": "Rat Genome Database",
     "pattern": "^\\d{4,}$",
     "placeholder": "2018",
+    "type": "other",
     "value": "rgd"
   },
   {
@@ -4680,6 +5380,7 @@
     "label": "Rat Genome Database qTL",
     "pattern": "^\\d+$",
     "placeholder": "1354581",
+    "type": "other",
     "value": "rgd.qtl"
   },
   {
@@ -4687,6 +5388,7 @@
     "label": "Rat Genome Database strain",
     "pattern": "^\\d+$",
     "placeholder": "5688061",
+    "type": "other",
     "value": "rgd.strain"
   },
   {
@@ -4694,6 +5396,7 @@
     "label": "Rhea",
     "pattern": "^\\d{5}$",
     "placeholder": "12345",
+    "type": "other",
     "value": "rhea"
   },
   {
@@ -4701,6 +5404,7 @@
     "label": "Rice Genome Annotation Project",
     "pattern": "^LOC\\_Os\\d{1,2}g\\d{5}$",
     "placeholder": "LOC_Os02g13300",
+    "type": "other",
     "value": "ricegap"
   },
   {
@@ -4708,6 +5412,7 @@
     "label": "RiceNetDB Compound",
     "pattern": "^OSC\\d{4}$",
     "placeholder": "OSC1416",
+    "type": "other",
     "value": "ricenetdb.compound"
   },
   {
@@ -4715,6 +5420,7 @@
     "label": "RiceNetDB Gene",
     "pattern": "^LOC\\_Os\\d{1,2}g\\d{5}\\.\\d$",
     "placeholder": "LOC_Os01g49190.1",
+    "type": "other",
     "value": "ricenetdb.gene"
   },
   {
@@ -4722,6 +5428,7 @@
     "label": "RiceNetDB miRNA",
     "pattern": "^osa-miR\\d{3,5}[a-z]{0,1}$",
     "placeholder": "osa-miR446",
+    "type": "other",
     "value": "ricenetdb.mirna"
   },
   {
@@ -4729,6 +5436,7 @@
     "label": "RiceNetDB Protein",
     "pattern": "^LOC\\_Os\\d{1,2}g\\d{5}$",
     "placeholder": "LOC_Os01g49190",
+    "type": "other",
     "value": "ricenetdb.protein"
   },
   {
@@ -4736,6 +5444,7 @@
     "label": "RiceNetDB Reaction",
     "pattern": "^OSR\\d{4}$",
     "placeholder": "OSR0818",
+    "type": "other",
     "value": "ricenetdb.reaction"
   },
   {
@@ -4743,6 +5452,7 @@
     "label": "RISM Online",
     "pattern": "^[a-z]+/[0-9]+$",
     "placeholder": "people/11035",
+    "type": "other",
     "value": "rism"
   },
   {
@@ -4750,6 +5460,7 @@
     "label": "RNAcentral",
     "pattern": "^URS[0-9A-F]{10}(\\_\\d+)?$",
     "placeholder": "URS0000759CF4",
+    "type": "other",
     "value": "rnacentral"
   },
   {
@@ -4757,6 +5468,7 @@
     "label": "RNA Modification Database",
     "pattern": "^\\d{3}$",
     "placeholder": "101",
+    "type": "other",
     "value": "rnamods"
   },
   {
@@ -4764,6 +5476,7 @@
     "label": "Relation Ontology",
     "pattern": "^RO_\\d{7}$",
     "placeholder": "RO_0002533",
+    "type": "other",
     "value": "ro"
   },
   {
@@ -4771,6 +5484,7 @@
     "label": "ROR",
     "pattern": "^0[a-hj-km-np-tv-z|0-9]{6}[0-9]{2}$",
     "placeholder": "03yrm5c26",
+    "type": "other",
     "value": "ror"
   },
   {
@@ -4778,6 +5492,7 @@
     "label": "Rouge",
     "pattern": "^m\\w+$",
     "placeholder": "mKIAA4200",
+    "type": "other",
     "value": "rouge"
   },
   {
@@ -4785,6 +5500,7 @@
     "label": "RRID",
     "pattern": "^RRID:[a-zA-Z]+.+$",
     "placeholder": "AB_262044",
+    "type": "other",
     "value": "rrid"
   },
   {
@@ -4792,6 +5508,7 @@
     "label": "runBioSimulations",
     "pattern": "[0-9a-z]{24,24}",
     "placeholder": "5fde96bdc5f1aa9ff0cce18a",
+    "type": "other",
     "value": "runbiosimulations"
   },
   {
@@ -4799,6 +5516,7 @@
     "label": "SABIO-RK Compound",
     "pattern": "^\\d+$",
     "placeholder": "75",
+    "type": "other",
     "value": "sabiork.compound"
   },
   {
@@ -4806,6 +5524,7 @@
     "label": "SABIO-RK EC Record",
     "pattern": "^((\\d+)|(\\d+\\.\\d+)|(\\d+\\.\\d+\\.\\d+)|(\\d+\\.\\d+\\.\\d+\\.\\d+))$",
     "placeholder": "2.7.1.1",
+    "type": "other",
     "value": "sabiork.ec"
   },
   {
@@ -4813,6 +5532,7 @@
     "label": "SABIO-RK Kinetic Record",
     "pattern": "^\\d+$",
     "placeholder": "5046",
+    "type": "other",
     "value": "sabiork.kineticrecord"
   },
   {
@@ -4820,6 +5540,7 @@
     "label": "SABIO-RK Reaction",
     "pattern": "^\\d+$",
     "placeholder": "75",
+    "type": "other",
     "value": "sabiork.reaction"
   },
   {
@@ -4827,6 +5548,7 @@
     "label": "SASBDB",
     "pattern": "^[Ss][Aa][Ss][A-Za-z0-9]{3}[0-9]$",
     "placeholder": "SASDAX8",
+    "type": "other",
     "value": "sasbdb"
   },
   {
@@ -4834,6 +5556,7 @@
     "label": "Systems Biology Ontology",
     "pattern": "^SBO:\\d{7}$",
     "placeholder": "0000262",
+    "type": "other",
     "value": "sbo"
   },
   {
@@ -4841,6 +5564,7 @@
     "label": "Sciflection",
     "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
     "placeholder": "5ede4273-b26c-4ea4-adb7-3ce294ab3397",
+    "type": "other",
     "value": "sciflection"
   },
   {
@@ -4848,6 +5572,7 @@
     "label": "SCOP",
     "pattern": "^\\d+$",
     "placeholder": "47419",
+    "type": "other",
     "value": "scop"
   },
   {
@@ -4855,6 +5580,7 @@
     "label": "ScerTF",
     "pattern": "^\\w+$",
     "placeholder": "RSC3",
+    "type": "other",
     "value": "scretf"
   },
   {
@@ -4862,6 +5588,7 @@
     "label": "Spectral Database for Organic Compounds",
     "pattern": "\\d+$",
     "placeholder": "4544",
+    "type": "other",
     "value": "sdbs"
   },
   {
@@ -4869,6 +5596,7 @@
     "label": "SED-ML data format",
     "pattern": "^[a-z]+(\\..*?)?$",
     "placeholder": "csv",
+    "type": "other",
     "value": "sedml.format"
   },
   {
@@ -4876,6 +5604,7 @@
     "label": "SED-ML model format",
     "pattern": "^[a-z]+(\\..*?)?$",
     "placeholder": "sbml.level-3.version-2",
+    "type": "other",
     "value": "sedml.language"
   },
   {
@@ -4883,6 +5612,7 @@
     "label": "SEED Subsystem",
     "pattern": "^\\w+$",
     "placeholder": "Biotin_biosynthesis",
+    "type": "other",
     "value": "seed"
   },
   {
@@ -4890,6 +5620,7 @@
     "label": "SEED Compound",
     "pattern": "^cpd\\d+$",
     "placeholder": "cpd15380",
+    "type": "other",
     "value": "seed.compound"
   },
   {
@@ -4897,6 +5628,7 @@
     "label": "SEED Reactions",
     "pattern": "^rxn\\d+$",
     "placeholder": "rxn00001",
+    "type": "other",
     "value": "seed.reaction"
   },
   {
@@ -4904,6 +5636,7 @@
     "label": "SGD",
     "pattern": "^((S\\d+$)|(Y[A-Z]{2}\\d{3}[a-zA-Z](\\-[A-Z])?))$",
     "placeholder": "S000003909",
+    "type": "other",
     "value": "sgd"
   },
   {
@@ -4911,6 +5644,7 @@
     "label": "Saccharomyces genome database pathways",
     "pattern": "^PWY\\w{2}\\-\\d{3}$",
     "placeholder": "PWY3O-214",
+    "type": "other",
     "value": "sgd.pathways"
   },
   {
@@ -4918,6 +5652,7 @@
     "label": "Sol Genomics Network",
     "pattern": "^\\d+$",
     "placeholder": "0001",
+    "type": "other",
     "value": "sgn"
   },
   {
@@ -4925,6 +5660,7 @@
     "label": "Animal Genome Sheep QTL",
     "pattern": "^\\d+$",
     "placeholder": "19803",
+    "type": "other",
     "value": "sheepqtldb"
   },
   {
@@ -4932,6 +5668,7 @@
     "label": "SIDER Drug",
     "pattern": "^\\d+$",
     "placeholder": "2244",
+    "type": "other",
     "value": "sider.drug"
   },
   {
@@ -4939,6 +5676,7 @@
     "label": "SIDER Side Effect",
     "pattern": "^C\\d+$",
     "placeholder": "C0017565",
+    "type": "other",
     "value": "sider.effect"
   },
   {
@@ -4946,6 +5684,7 @@
     "label": "Signaling Gateway",
     "pattern": "A\\d{6}$",
     "placeholder": "A001094",
+    "type": "other",
     "value": "signaling-gateway"
   },
   {
@@ -4953,6 +5692,7 @@
     "label": "SIGNOR",
     "pattern": "^SIGNOR\\-[A-Z]+\\d+$",
     "placeholder": "SIGNOR-C2",
+    "type": "other",
     "value": "signor"
   },
   {
@@ -4960,6 +5700,7 @@
     "label": "Semanticscience Integrated Ontology",
     "pattern": "^SIO_\\d{6,6}$",
     "placeholder": "SIO_000276",
+    "type": "other",
     "value": "sio"
   },
   {
@@ -4967,6 +5708,7 @@
     "label": "SISu",
     "pattern": "^[0-9]+:[0-9]+$",
     "placeholder": "17:41223048",
+    "type": "other",
     "value": "sisu"
   },
   {
@@ -4974,6 +5716,7 @@
     "label": "SitEx",
     "pattern": "^\\d+$",
     "placeholder": "1000",
+    "type": "other",
     "value": "sitex"
   },
   {
@@ -4981,6 +5724,7 @@
     "label": "Stress Knowledge Map",
     "pattern": "^rx[0-9]{5}$",
     "placeholder": "rx00408",
+    "type": "other",
     "value": "skm"
   },
   {
@@ -4988,6 +5732,7 @@
     "label": "SwissLipids",
     "pattern": "^SLM:\\d+$",
     "placeholder": "000048885",
+    "type": "other",
     "value": "slm"
   },
   {
@@ -4995,6 +5740,7 @@
     "label": "SMART",
     "pattern": "^SM\\d{5}$",
     "placeholder": "SM00015",
+    "type": "other",
     "value": "smart"
   },
   {
@@ -5002,6 +5748,7 @@
     "label": "Small Molecule Pathway Database",
     "pattern": "^SMP\\d+$",
     "placeholder": "SMP00001",
+    "type": "other",
     "value": "smpdb"
   },
   {
@@ -5009,6 +5756,7 @@
     "label": "SNOMED CT",
     "pattern": "^(\\w+)?\\d+$",
     "placeholder": "284196006",
+    "type": "other",
     "value": "snomedct"
   },
   {
@@ -5016,6 +5764,7 @@
     "label": "SNP2TFBS",
     "pattern": "^rs[0-9]+$",
     "placeholder": "rs11603840",
+    "type": "other",
     "value": "snp2tfbs"
   },
   {
@@ -5023,6 +5772,7 @@
     "label": "Sequence Ontology",
     "pattern": "^SO:\\d{7}$",
     "placeholder": "0000704",
+    "type": "other",
     "value": "so"
   },
   {
@@ -5030,6 +5780,7 @@
     "label": "SoyBase",
     "pattern": "^\\w+(\\-)?\\w+(\\-)?\\w+$",
     "placeholder": "BARC-013845-01256",
+    "type": "other",
     "value": "soybase"
   },
   {
@@ -5037,6 +5788,7 @@
     "label": "SPDX License List",
     "pattern": "^[0-9A-Za-z\\-.]+$",
     "placeholder": "CC-BY-1.0",
+    "type": "other",
     "value": "spdx"
   },
   {
@@ -5044,6 +5796,7 @@
     "label": "SPIKE Map",
     "pattern": "^spike\\d{5}$",
     "placeholder": "spike00001",
+    "type": "other",
     "value": "spike.map"
   },
   {
@@ -5051,6 +5804,7 @@
     "label": "SPLASH",
     "pattern": "^splash\\d[A-Z-a-z0-9]-[A-Za-z0-9]+-[A-Za-z0-9]+$",
     "placeholder": "splash10-0zq2000000-77302b0326a418630a84",
+    "type": "other",
     "value": "splash"
   },
   {
@@ -5058,6 +5812,7 @@
     "label": "Signaling Pathways Project",
     "pattern": "^10.\\w{4}/\\w{10}$",
     "placeholder": "10.1621/vwN2g2HaX3",
+    "type": "other",
     "value": "spp"
   },
   {
@@ -5065,6 +5820,7 @@
     "label": "STAP",
     "pattern": "^[0-9][A-Za-z0-9]{3}$",
     "placeholder": "1a24",
+    "type": "other",
     "value": "stap"
   },
   {
@@ -5072,6 +5828,7 @@
     "label": "STITCH",
     "pattern": "^\\w{14}$",
     "placeholder": "BQJCRHHNABKAKU",
+    "type": "other",
     "value": "stitch"
   },
   {
@@ -5079,6 +5836,7 @@
     "label": "STOREDB",
     "pattern": "^STOREDB:(STUDY|FILE|DATASET)\\d+$",
     "placeholder": "STOREDB:STUDY1040",
+    "type": "other",
     "value": "storedb"
   },
   {
@@ -5086,6 +5844,7 @@
     "label": "STRING",
     "pattern": "^([A-N,R-Z][0-9][A-Z][A-Z, 0-9][A-Z, 0-9][0-9])|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])|([0-9][A-Za-z0-9]{3})$",
     "placeholder": "P53350",
+    "type": "other",
     "value": "string"
   },
   {
@@ -5093,6 +5852,7 @@
     "label": "SubtiList",
     "pattern": "^BG\\d+$",
     "placeholder": "BG11523",
+    "type": "other",
     "value": "subtilist"
   },
   {
@@ -5100,6 +5860,7 @@
     "label": "SubtiWiki",
     "pattern": "^BSU\\d{5}$",
     "placeholder": "BSU29180",
+    "type": "other",
     "value": "subtiwiki"
   },
   {
@@ -5107,6 +5868,7 @@
     "label": "SugarBind",
     "pattern": "^[A-Za-z]+\\/[0-9]+$",
     "placeholder": "lectins/172",
+    "type": "other",
     "value": "sugarbind"
   },
   {
@@ -5114,6 +5876,7 @@
     "label": "SUPFAM",
     "pattern": "^\\w+$",
     "placeholder": "SSF57615",
+    "type": "other",
     "value": "supfam"
   },
   {
@@ -5121,6 +5884,7 @@
     "label": "Software Heritage",
     "pattern": "^swh:[1-9]:(cnt|dir|rel|rev|snp):[0-9a-f]+(;(origin|visit|anchor|path|lines)=\\S+)*$",
     "placeholder": "1:rev:309cf2674ee7a0749978cf8265ab91a60aea0f7d",
+    "type": "other",
     "value": "swh"
   },
   {
@@ -5128,6 +5892,7 @@
     "label": "SWISS-MODEL Repository",
     "pattern": "^\\w+$",
     "placeholder": "P23298",
+    "type": "other",
     "value": "swiss-model"
   },
   {
@@ -5135,6 +5900,7 @@
     "label": "SwissRegulon",
     "pattern": "^[A-Za-z0-9]+$",
     "placeholder": "AHR",
+    "type": "other",
     "value": "swissregulon"
   },
   {
@@ -5142,6 +5908,7 @@
     "label": "T3DB",
     "pattern": "^T3D\\d+$",
     "placeholder": "T3D0001",
+    "type": "other",
     "value": "t3db"
   },
   {
@@ -5149,6 +5916,7 @@
     "label": "TAIR Gene",
     "pattern": "^Gene:\\d{7}$",
     "placeholder": "Gene:2200934",
+    "type": "other",
     "value": "tair.gene"
   },
   {
@@ -5156,6 +5924,7 @@
     "label": "TAIR Locus",
     "pattern": "^\\d{7}$",
     "placeholder": "2200950",
+    "type": "other",
     "value": "tair.locus"
   },
   {
@@ -5163,6 +5932,7 @@
     "label": "TAIR gene name",
     "pattern": "^AT.G[0-9]{5}$",
     "placeholder": "AT5G05330",
+    "type": "other",
     "value": "tair.name"
   },
   {
@@ -5170,6 +5940,7 @@
     "label": "TAIR Protein",
     "pattern": "^AASequence:\\d{10}$",
     "placeholder": "AASequence:1009107926",
+    "type": "other",
     "value": "tair.protein"
   },
   {
@@ -5177,6 +5948,7 @@
     "label": "TarBase",
     "pattern": "^[a-z]{3}\\-(mir|let|lin)\\-\\w+(\\-\\w+\\-\\w+)?",
     "placeholder": "hsa-let-7a-2-3p",
+    "type": "other",
     "value": "tarbase"
   },
   {
@@ -5184,6 +5956,7 @@
     "label": "Taxonomy",
     "pattern": "^\\d+$",
     "placeholder": "9606",
+    "type": "other",
     "value": "taxonomy"
   },
   {
@@ -5191,6 +5964,7 @@
     "label": "Transport Classification Database",
     "pattern": "^\\d+(\\.[A-Z])?(\\.\\d+)?(\\.\\d+)?(\\.\\d+)?$",
     "placeholder": "5.A.1.1.1",
+    "type": "other",
     "value": "tcdb"
   },
   {
@@ -5198,6 +5972,7 @@
     "label": "Tetrahymena Genome Database",
     "pattern": "^TTHERM\\_\\d+$",
     "placeholder": "TTHERM_00648910",
+    "type": "other",
     "value": "tgd"
   },
   {
@@ -5205,6 +5980,7 @@
     "label": "TIGRFAMS",
     "pattern": "^TIGR\\d+$",
     "placeholder": "TIGR00010",
+    "type": "other",
     "value": "tigrfam"
   },
   {
@@ -5212,6 +5988,7 @@
     "label": "Tissue List",
     "pattern": "^TS-\\d{4}$",
     "placeholder": "TS-0285",
+    "type": "other",
     "value": "tissuelist"
   },
   {
@@ -5219,6 +5996,7 @@
     "label": "TogoVar",
     "pattern": "^tgv[0-9]+$",
     "placeholder": "tgv139393198",
+    "type": "other",
     "value": "togovar"
   },
   {
@@ -5226,6 +6004,7 @@
     "label": "Tree of Life",
     "pattern": "^\\d+$",
     "placeholder": "98034",
+    "type": "other",
     "value": "tol"
   },
   {
@@ -5233,6 +6012,7 @@
     "label": "TOPDB",
     "pattern": "^[A-Z0-9]+$",
     "placeholder": "AP00378",
+    "type": "other",
     "value": "topdb"
   },
   {
@@ -5240,6 +6020,7 @@
     "label": "TopFind",
     "pattern": "^([A-N,R-Z][0-9][A-Z][A-Z, 0-9][A-Z, 0-9][0-9])|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])$",
     "placeholder": "Q9UKQ2",
+    "type": "other",
     "value": "topfind"
   },
   {
@@ -5247,6 +6028,7 @@
     "label": "ToxoDB",
     "pattern": "^\\w+$",
     "placeholder": "TGME49_053730",
+    "type": "other",
     "value": "toxoplasma"
   },
   {
@@ -5254,6 +6036,7 @@
     "label": "TranSyT",
     "pattern": "T[A-Z]\\d{7}",
     "placeholder": "TR0000001",
+    "type": "other",
     "value": "transyt"
   },
   {
@@ -5261,6 +6044,7 @@
     "label": "TreeBASE",
     "pattern": "^TB[1,2]?:[A-Z][a-z]?\\d+$",
     "placeholder": "TB2:S1000",
+    "type": "other",
     "value": "treebase"
   },
   {
@@ -5268,13 +6052,23 @@
     "label": "TreeFam",
     "pattern": "^\\w{1,2}\\d+$",
     "placeholder": "TF101014",
+    "type": "other",
     "value": "treefam"
+  },
+  {
+    "icon": "ic:twotone-select-all",
+    "label": "tricdb",
+    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+    "placeholder": "1eec8393-e598-41ed-9d8b-6d5b0db94470",
+    "type": "other",
+    "value": "tricdb"
   },
   {
     "icon": "ic:twotone-select-all",
     "label": "TrichDB",
     "pattern": "^\\w+$",
     "placeholder": "TVAG_386080",
+    "type": "other",
     "value": "trichdb"
   },
   {
@@ -5282,6 +6076,7 @@
     "label": "TriTrypDB",
     "pattern": "^\\w+(\\.)?\\w+(\\.)?\\w+",
     "placeholder": "Tb927.8.620",
+    "type": "other",
     "value": "tritrypdb"
   },
   {
@@ -5289,6 +6084,7 @@
     "label": "TTD Drug",
     "pattern": "^DAP\\d+$",
     "placeholder": "DAP000773",
+    "type": "other",
     "value": "ttd.drug"
   },
   {
@@ -5296,6 +6092,7 @@
     "label": "TTD Target",
     "pattern": "^TTDS\\d+$",
     "placeholder": "TTDS00056",
+    "type": "other",
     "value": "ttd.target"
   },
   {
@@ -5303,6 +6100,7 @@
     "label": "UBERON",
     "pattern": "^UBERON:\\d+$",
     "placeholder": "0008203",
+    "type": "other",
     "value": "uberon"
   },
   {
@@ -5310,6 +6108,7 @@
     "label": "uBio NameBank",
     "pattern": "^\\d+$",
     "placeholder": "2555646",
+    "type": "other",
     "value": "ubio.namebank"
   },
   {
@@ -5317,6 +6116,7 @@
     "label": "UM-BBD Compound",
     "pattern": "^c\\d+$",
     "placeholder": "c0001",
+    "type": "other",
     "value": "umbbd.compound"
   },
   {
@@ -5324,6 +6124,7 @@
     "label": "UM-BBD Enzyme",
     "pattern": "^e\\d+$",
     "placeholder": "e0333",
+    "type": "other",
     "value": "umbbd.enzyme"
   },
   {
@@ -5331,6 +6132,7 @@
     "label": "UM-BBD Pathway",
     "pattern": "^\\w+$",
     "placeholder": "ala",
+    "type": "other",
     "value": "umbbd.pathway"
   },
   {
@@ -5338,6 +6140,7 @@
     "label": "UM-BBD Reaction",
     "pattern": "^r\\d+$",
     "placeholder": "r0001",
+    "type": "other",
     "value": "umbbd.reaction"
   },
   {
@@ -5345,6 +6148,7 @@
     "label": "UM-BBD Biotransformation Rule",
     "pattern": "^bt\\d+$",
     "placeholder": "bt0001",
+    "type": "other",
     "value": "umbbd.rule"
   },
   {
@@ -5352,6 +6156,7 @@
     "label": "UMLS",
     "pattern": "^C\\d+$",
     "placeholder": "C0021390",
+    "type": "other",
     "value": "umls"
   },
   {
@@ -5359,6 +6164,7 @@
     "label": "UniGene",
     "pattern": "^\\d+$",
     "placeholder": "4900",
+    "type": "other",
     "value": "unigene"
   },
   {
@@ -5366,6 +6172,7 @@
     "label": "UNII",
     "pattern": "^[A-Z0-9]+$",
     "placeholder": "3G6A5W338E",
+    "type": "other",
     "value": "unii"
   },
   {
@@ -5373,6 +6180,7 @@
     "label": "Unimod",
     "pattern": "^\\d+$",
     "placeholder": "1200",
+    "type": "other",
     "value": "unimod"
   },
   {
@@ -5380,6 +6188,7 @@
     "label": "UniParc",
     "pattern": "^UPI[A-F0-9]{10}$",
     "placeholder": "UPI000000000A",
+    "type": "other",
     "value": "uniparc"
   },
   {
@@ -5387,6 +6196,7 @@
     "label": "UniPathway Compound",
     "pattern": "^UPC\\d{5}$",
     "placeholder": "UPC04349",
+    "type": "other",
     "value": "unipathway.compound"
   },
   {
@@ -5394,6 +6204,7 @@
     "label": "UniPathway Reaction",
     "pattern": "^UCR\\d{5}$",
     "placeholder": "UCR00226",
+    "type": "other",
     "value": "unipathway.reaction"
   },
   {
@@ -5401,6 +6212,7 @@
     "label": "UniProt Knowledgebase",
     "pattern": "^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\\.\\d+)?$",
     "placeholder": "P0DP23",
+    "type": "other",
     "value": "uniprot"
   },
   {
@@ -5408,6 +6220,7 @@
     "label": "UniProt Chain",
     "pattern": "^PRO_[0-9]{10}$",
     "placeholder": "PRO_0000016681",
+    "type": "other",
     "value": "uniprot.chain"
   },
   {
@@ -5415,6 +6228,7 @@
     "label": "UniProt Isoform",
     "pattern": "^([A-N,R-Z][0-9][A-Z][A-Z, 0-9][A-Z, 0-9][0-9])|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\\-\\d+)$",
     "placeholder": "Q5BJF6-3",
+    "type": "other",
     "value": "uniprot.isoform"
   },
   {
@@ -5422,6 +6236,7 @@
     "label": "UniRef",
     "pattern": "^UniRef(100|90|50)_([OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9]([A-Z][A-Z0-9]{2}[0-9]){1,2}|UPI[A-F0-9]{10})$",
     "placeholder": "UniRef90_P00750",
+    "type": "other",
     "value": "uniref"
   },
   {
@@ -5429,6 +6244,7 @@
     "label": "UniSTS",
     "pattern": "^\\d+$",
     "placeholder": "456789",
+    "type": "other",
     "value": "unists"
   },
   {
@@ -5436,6 +6252,7 @@
     "label": "Unite",
     "pattern": "^UDB\\d{6}$",
     "placeholder": "UDB000691",
+    "type": "other",
     "value": "unite"
   },
   {
@@ -5443,6 +6260,7 @@
     "label": "Unit Ontology",
     "pattern": "^UO:\\d{7}?",
     "placeholder": "0000080",
+    "type": "other",
     "value": "uo"
   },
   {
@@ -5450,6 +6268,7 @@
     "label": "URL",
     "pattern": "^https?:\\/\\/.*$",
     "placeholder": "https://example.com/123",
+    "type": "other",
     "value": "url"
   },
   {
@@ -5457,6 +6276,7 @@
     "label": "USPTO",
     "pattern": "^(D|PP|R|T|H|X|AI)?\\d+$",
     "placeholder": "4145692",
+    "type": "other",
     "value": "uspto"
   },
   {
@@ -5464,6 +6284,7 @@
     "label": "UTRdb",
     "pattern": "([3-5][A-Z])\\w+[^A-Z][0-9]",
     "placeholder": "5UTR_107_ENST00000517291.2",
+    "type": "other",
     "value": "utrdb"
   },
   {
@@ -5471,6 +6292,7 @@
     "label": "ValidatorDB",
     "pattern": "^[A-Za-z0-9\\/]+$",
     "placeholder": "ByStructure/2h6o",
+    "type": "other",
     "value": "validatordb"
   },
   {
@@ -5478,6 +6300,7 @@
     "label": "VariO",
     "pattern": "^VariO:\\d+$",
     "placeholder": "0294",
+    "type": "other",
     "value": "vario"
   },
   {
@@ -5485,6 +6308,7 @@
     "label": "Vbase2",
     "pattern": "^\\w+$",
     "placeholder": "humIGHV025",
+    "type": "other",
     "value": "vbase2"
   },
   {
@@ -5492,6 +6316,7 @@
     "label": "VBRC",
     "pattern": "^\\d+$",
     "placeholder": "35742",
+    "type": "other",
     "value": "vbrc"
   },
   {
@@ -5499,6 +6324,7 @@
     "label": "VCell Published Models",
     "pattern": "^\\d{5,}$",
     "placeholder": "201022999",
+    "type": "other",
     "value": "vcell"
   },
   {
@@ -5506,6 +6332,7 @@
     "label": "VectorBase",
     "pattern": "^\\D{4}\\d{6}(\\-\\D{2})?$",
     "placeholder": "ISCW007415",
+    "type": "other",
     "value": "vectorbase"
   },
   {
@@ -5513,6 +6340,7 @@
     "label": "VegBank",
     "pattern": "^VB\\.[A-Za-z][A-Za-z]\\..*$",
     "placeholder": "VB.Ob.3736.GRSM125",
+    "type": "other",
     "value": "vegbank"
   },
   {
@@ -5520,6 +6348,7 @@
     "label": "Virtual Fly Brain",
     "pattern": "^[0-9a-zA-Z]{8}$",
     "placeholder": "00000001",
+    "type": "other",
     "value": "vfb"
   },
   {
@@ -5527,6 +6356,7 @@
     "label": "VFDB Gene",
     "pattern": "^\\w+$",
     "placeholder": "VFG2154",
+    "type": "other",
     "value": "vfdb.gene"
   },
   {
@@ -5534,6 +6364,7 @@
     "label": "VFDB Genus",
     "pattern": "^\\w+$",
     "placeholder": "Chlamydia",
+    "type": "other",
     "value": "vfdb.genus"
   },
   {
@@ -5541,6 +6372,7 @@
     "label": "VGNC",
     "pattern": "^((VGNC|vgnc):)?\\d{1,9}$",
     "placeholder": "VGNC:3792",
+    "type": "other",
     "value": "vgnc"
   },
   {
@@ -5548,6 +6380,7 @@
     "label": "Virtual International Authority File",
     "pattern": "^\\d+$",
     "placeholder": "75121530",
+    "type": "other",
     "value": "viaf"
   },
   {
@@ -5555,6 +6388,7 @@
     "label": "ViPR Strain",
     "pattern": "^[A-Za-z 0-9]+$",
     "placeholder": "BeAn 70563",
+    "type": "other",
     "value": "vipr"
   },
   {
@@ -5562,6 +6396,7 @@
     "label": "ViralZone",
     "pattern": "^\\d+$",
     "placeholder": "992",
+    "type": "other",
     "value": "viralzone"
   },
   {
@@ -5569,6 +6404,7 @@
     "label": "VIRsiRNA",
     "pattern": "^virsi\\d+$",
     "placeholder": "virsi1909",
+    "type": "other",
     "value": "virsirna"
   },
   {
@@ -5576,6 +6412,7 @@
     "label": "VMH Gene",
     "pattern": "^[0-9]+\\.[0-9]+",
     "placeholder": "8639.1",
+    "type": "other",
     "value": "vmhgene"
   },
   {
@@ -5583,6 +6420,7 @@
     "label": "VMH metabolite",
     "pattern": "[a-zA-Z0-9_\\(\\_\\)\\[\\]]+",
     "placeholder": "h2o",
+    "type": "other",
     "value": "vmhmetabolite"
   },
   {
@@ -5590,6 +6428,7 @@
     "label": "VMH reaction",
     "pattern": "[a-zA-Z0-9_\\(\\_\\)\\[\\]]+",
     "placeholder": "HEX1",
+    "type": "other",
     "value": "vmhreaction"
   },
   {
@@ -5597,6 +6436,7 @@
     "label": "WormBase",
     "pattern": "^WB[A-Z][a-z]+\\d+$",
     "placeholder": "WBGene00000001",
+    "type": "other",
     "value": "wb"
   },
   {
@@ -5604,6 +6444,7 @@
     "label": "WormBase RNAi",
     "pattern": "^WBRNAi\\d{8}$",
     "placeholder": "WBRNAi00086878",
+    "type": "other",
     "value": "wb.rnai"
   },
   {
@@ -5611,6 +6452,7 @@
     "label": "Wikidata",
     "pattern": "^(Q|P)\\d+$",
     "placeholder": "Q2207226",
+    "type": "other",
     "value": "wikidata"
   },
   {
@@ -5618,6 +6460,7 @@
     "label": "WikiGenes",
     "pattern": "^\\d+$",
     "placeholder": "3771877",
+    "type": "other",
     "value": "wikigenes"
   },
   {
@@ -5625,6 +6468,7 @@
     "label": "WikiPathways",
     "pattern": "WP\\d{1,5}(\\_r\\d+)?$",
     "placeholder": "WP100",
+    "type": "other",
     "value": "wikipathways"
   },
   {
@@ -5632,6 +6476,7 @@
     "label": "Wikipedia (En)",
     "pattern": "^[A-Za-z-0-9_]+$",
     "placeholder": "SM_UB-81",
+    "type": "other",
     "value": "wikipedia.en"
   },
   {
@@ -5639,6 +6484,7 @@
     "label": "Worfdb",
     "pattern": "^\\w+(\\.\\d+)?",
     "placeholder": "T01B6.1",
+    "type": "other",
     "value": "worfdb"
   },
   {
@@ -5646,6 +6492,7 @@
     "label": "Wormpep",
     "pattern": "^CE\\d{5}$",
     "placeholder": "CE28239",
+    "type": "other",
     "value": "wormpep"
   },
   {
@@ -5653,6 +6500,7 @@
     "label": "World Register of Marine Species",
     "pattern": "^\\d+$",
     "placeholder": "146421",
+    "type": "other",
     "value": "worms"
   },
   {
@@ -5660,6 +6508,7 @@
     "label": "Xenbase",
     "pattern": "^XB\\-\\w+\\-\\d+$",
     "placeholder": "XB-GENE-922462",
+    "type": "other",
     "value": "xenbase"
   },
   {
@@ -5667,6 +6516,7 @@
     "label": "YDPM",
     "pattern": "^Y[A-Z]{2}\\d+[CW]$",
     "placeholder": "YAL001C",
+    "type": "other",
     "value": "ydpm"
   },
   {
@@ -5674,6 +6524,7 @@
     "label": "Yeast Intron Database v4.3",
     "pattern": "^[A-Z0-9]+$",
     "placeholder": "SNR17A",
+    "type": "other",
     "value": "yeastintron"
   },
   {
@@ -5681,6 +6532,7 @@
     "label": "YeTFasCo",
     "pattern": "^\\w+\\_\\d+(\\.\\d+)?$",
     "placeholder": "YOR172W_571.0",
+    "type": "other",
     "value": "yetfasco"
   },
   {
@@ -5688,6 +6540,7 @@
     "label": "Yeast Intron Database v3",
     "pattern": "^[A-Z0-9]+$",
     "placeholder": "SNR17A",
+    "type": "other",
     "value": "yid"
   },
   {
@@ -5695,6 +6548,7 @@
     "label": "YRC PDR",
     "pattern": "^\\d+$",
     "placeholder": "2673500",
+    "type": "other",
     "value": "yrcpdr"
   },
   {
@@ -5702,6 +6556,7 @@
     "label": "ZFIN Bioentity",
     "pattern": "^ZDB\\-\\w+\\-\\d+\\-\\d+$",
     "placeholder": "ZDB-GENE-041118-11",
+    "type": "other",
     "value": "zfin"
   },
   {
@@ -5709,6 +6564,7 @@
     "label": "ZINC",
     "pattern": "^(ZINC)?\\d+$",
     "placeholder": "ZINC1084",
+    "type": "other",
     "value": "zinc"
   }
 ]

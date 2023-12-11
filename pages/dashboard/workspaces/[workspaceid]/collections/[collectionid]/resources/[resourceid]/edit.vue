@@ -198,13 +198,9 @@ const saveResourceData = () => {
         resourceStore.fetchResources(workspaceid, collectionid);
 
         push.success({
-          title: "Resource saved",
-          message: "Your resource has been saved",
+          title: "Saved successfully",
+          message: "Your resource has been updated",
         });
-
-        navigateTo(
-          `/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}`
-        );
       }
     } else {
       console.log(errors);
