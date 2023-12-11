@@ -12,7 +12,6 @@ const route = useRoute();
 
 const resourceStore = useResourceStore();
 
-const gridView = ref(true);
 const newResourceLoading = ref(false);
 
 const { collectionid, workspaceid } = route.params as {
@@ -111,7 +110,7 @@ const addResource = async () => {
 </script>
 
 <template>
-  <main class="h-full bg-zinc-50">
+  <main class="bg-zinc-50">
     <div class="flex h-36 items-center border-b border-gray-200 bg-white">
       <div
         class="mx-auto flex w-full max-w-screen-xl items-center justify-between px-2 lg:px-20"
@@ -153,21 +152,6 @@ const addResource = async () => {
             <Icon name="iconamoon:search-duotone" size="20" class="mr-2" />
           </template>
         </n-input>
-
-        <n-radio-group
-          v-model:value="gridView"
-          name="radiobuttongroup1"
-          size="large"
-          class="bg-white"
-        >
-          <n-radio-button :value="true">
-            <Icon name="mingcute:grid-line" />
-          </n-radio-button>
-
-          <n-radio-button :value="false">
-            <Icon name="cil:list" />
-          </n-radio-button>
-        </n-radio-group>
 
         <n-button
           size="large"
@@ -226,11 +210,12 @@ const addResource = async () => {
         >
           <div class="flex w-full items-center justify-start">
             <div>
-              <n-avatar
+              <!-- <n-avatar
                 :size="40"
                 :src="`https://api.dicebear.com/6.x/notionists-neutral/svg?seed=${resource.id}`"
                 class="hover:cursor-pointer hover:opacity-80"
-              />
+              /> -->
+              <Icon :name="resource.icon" size="35" />
             </div>
 
             <n-divider vertical />
@@ -238,10 +223,15 @@ const addResource = async () => {
             <div class="flex w-full flex-col space-y-0">
               <n-space justify="space-between">
                 <span class="text-lg font-medium">
-                  {{ resource.title || resource.id || "Untitled" }}
+                  {{ resource.title || "No title provided" }}
                 </span>
 
                 <n-space align="center">
+                  <n-tag v-if="!resource.filled_in" type="error" size="medium">
+                    <Icon name="mdi:alert" size="16" class="mr-1" />
+                    Needs to be filled in
+                  </n-tag>
+
                   <n-tooltip trigger="hover" placement="bottom-end">
                     <template #trigger>
                       <n-space>
@@ -292,15 +282,6 @@ const addResource = async () => {
                     New Version
                   </n-tag>
 
-                  <n-tag
-                    v-if="!resource.filled_in"
-                    type="warning"
-                    size="medium"
-                  >
-                    <Icon name="mdi:alert" size="16" class="mr-1" />
-                    Needs to be filled in
-                  </n-tag>
-
                   <n-button
                     v-if="resource.action === 'delete'"
                     type="error"
@@ -332,11 +313,11 @@ const addResource = async () => {
               <div class="group flex w-max items-center space-x-1">
                 <n-tag
                   v-if="resource.type !== 'url'"
-                  type="info"
+                  :type="resource.type ? 'info' : 'error'"
                   size="small"
                   class=""
                 >
-                  {{ resource.type || "None provided" }}
+                  {{ resource.type || "No identifier provided" }}
                 </n-tag>
 
                 <NuxtLink
@@ -352,6 +333,7 @@ const addResource = async () => {
                   {{ resource.target }}
 
                   <Icon
+                    v-if="resource.type"
                     name="mdi:external-link"
                     size="16"
                     class="text-blue-600 transition-all group-hover:text-blue-700 group-hover:underline"

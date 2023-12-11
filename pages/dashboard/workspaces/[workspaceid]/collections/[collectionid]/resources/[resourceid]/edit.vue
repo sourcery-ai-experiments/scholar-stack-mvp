@@ -27,6 +27,7 @@ const formData = reactive<ResourceType>({
   back_link_id: "",
   created: "",
   description: "",
+  filled_in: false,
   icon: "",
   target: "",
   type: null,
@@ -219,7 +220,7 @@ const saveResourceData = () => {
       <div
         class="mx-auto flex w-full max-w-screen-xl items-center justify-between px-2.5 lg:px-20"
       >
-        <h1>Edit</h1>
+        <h1>Edit resource</h1>
 
         <div class="flex items-center space-x-2">
           <n-button
