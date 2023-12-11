@@ -77,6 +77,7 @@ export default defineEventHandler(async (event) => {
       title,
       action: resource.action || "update",
       description,
+      filled_in: true,
       icon,
       target,
       type,

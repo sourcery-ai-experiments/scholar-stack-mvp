@@ -242,7 +242,8 @@ model StagingResource {
   original_resource    Resource? @relation(fields: [original_resource_id], references: [id])
   original_resource_id String?
 
-  action String? // oldVersion | delete
+  action    String? // oldVersion | delete
+  filled_in Boolean @default(false) // all details are not filled in
 
   created DateTime @default(now())
   updated DateTime @updatedAt

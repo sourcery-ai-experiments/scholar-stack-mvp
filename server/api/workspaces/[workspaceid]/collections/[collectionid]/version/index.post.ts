@@ -92,6 +92,7 @@ export default defineEventHandler(async (event) => {
           action: "clone",
           back_link_id: originalResource.back_link_id, // todo: check if this is correct
           description: originalResource.description,
+          filled_in: true,
           icon: originalResource.icon,
           original_resource_id: originalResource.id,
           target: originalResource.target,

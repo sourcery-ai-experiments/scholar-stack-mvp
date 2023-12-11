@@ -6,6 +6,7 @@ interface ResourceType {
   icon: string;
   type: string | null;
   action?: string;
+  filled_in: boolean;
   target: string;
   created: string;
   updated: string;

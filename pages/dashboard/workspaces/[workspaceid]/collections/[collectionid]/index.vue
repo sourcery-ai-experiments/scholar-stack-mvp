@@ -130,10 +130,6 @@ const createNewDraftVersion = async () => {
     <div class="mx-auto w-full max-w-screen-xl px-2.5 py-10 lg:px-20">
       <h3>About</h3>
 
-      <h4 class="pb-2 pt-5">Title</h4>
-
-      <p class="text-lg">{{ collection?.title || "No title provided" }}</p>
-
       <h4 class="pb-2 pt-5">Description</h4>
 
       <p class="text-lg">

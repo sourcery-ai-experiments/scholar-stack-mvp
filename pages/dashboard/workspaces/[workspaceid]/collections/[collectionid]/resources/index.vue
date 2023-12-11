@@ -221,6 +221,7 @@ const addResource = async () => {
             'border-blue-300 bg-white': resource.action === 'create',
             'border-teal-400 bg-white': resource.action === 'update',
             'border-cyan-400 bg-white': resource.action === 'newVersion',
+            'border-red-600 bg-white': resource.filled_in === false,
           }"
         >
           <div class="flex w-full items-center justify-start">
@@ -291,6 +292,15 @@ const addResource = async () => {
                     New Version
                   </n-tag>
 
+                  <n-tag
+                    v-if="!resource.filled_in"
+                    type="warning"
+                    size="medium"
+                  >
+                    <Icon name="mdi:alert" size="16" class="mr-1" />
+                    Needs to be filled in
+                  </n-tag>
+
                   <n-button
                     v-if="resource.action === 'delete'"
                     type="error"
@@ -326,7 +336,7 @@ const addResource = async () => {
                   size="small"
                   class=""
                 >
-                  {{ resource.type }}
+                  {{ resource.type || "None provided" }}
                 </n-tag>
 
                 <NuxtLink
@@ -340,19 +350,19 @@ const addResource = async () => {
                   @click.stop=""
                 >
                   {{ resource.target }}
-                </NuxtLink>
 
-                <Icon
-                  name="mdi:external-link"
-                  size="16"
-                  class="text-blue-600 transition-all group-hover:text-blue-700 group-hover:underline"
-                />
+                  <Icon
+                    name="mdi:external-link"
+                    size="16"
+                    class="text-blue-600 transition-all group-hover:text-blue-700 group-hover:underline"
+                  />
+                </NuxtLink>
               </div>
             </div>
           </div>
 
           <p>
-            {{ resource.description }}
+            {{ resource.description || "No description provided" }}
           </p>
         </NuxtLink>
       </n-space>
