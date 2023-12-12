@@ -221,18 +221,27 @@ const addResource = async () => {
             <n-divider vertical />
 
             <div class="flex w-full flex-col space-y-0">
-              <n-space justify="space-between">
+              <n-space justify="space-between" align="center">
                 <span class="text-lg font-medium">
                   {{ resource.title || "No title provided" }}
                 </span>
 
                 <n-space align="center">
                   <n-tag v-if="!resource.filled_in" type="error" size="medium">
-                    <Icon name="mdi:alert" size="16" class="mr-1" />
+                    <Icon name="mdi:alert" size="16" />
                     Needs to be filled in
                   </n-tag>
 
-                  <n-tooltip trigger="hover" placement="bottom-end">
+                  <n-tooltip
+                    v-if="
+                      resource.action === 'create' ||
+                      resource.action === 'update' ||
+                      resource.action === 'delete' ||
+                      resource.action === 'oldVersion'
+                    "
+                    trigger="hover"
+                    placement="bottom-end"
+                  >
                     <template #trigger>
                       <n-space>
                         <n-tag

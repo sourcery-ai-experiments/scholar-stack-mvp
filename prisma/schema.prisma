@@ -164,9 +164,9 @@ model Resource {
 
   icon String @default("mdi:resource-description-framework")
 
-  back_link    Resource? @relation("NewVersionRelation", fields: [back_link_id], references: [id])
-  back_link_id String?
-  version      String?
+  back_link     Resource? @relation("NewVersionRelation", fields: [back_link_id], references: [id])
+  back_link_id  String?
+  version_label String?
 
   created DateTime @default(now())
   updated DateTime @updatedAt
@@ -239,8 +239,9 @@ model StagingResource {
 
   icon String @default("mdi:resource-description-framework")
 
-  back_link    StagingResource? @relation("NewVersionRelation", fields: [back_link_id], references: [id])
-  back_link_id String?
+  back_link     StagingResource? @relation("NewVersionRelation", fields: [back_link_id], references: [id])
+  back_link_id  String?
+  version_label String?
 
   original_resource    Resource? @relation(fields: [original_resource_id], references: [id])
   original_resource_id String?

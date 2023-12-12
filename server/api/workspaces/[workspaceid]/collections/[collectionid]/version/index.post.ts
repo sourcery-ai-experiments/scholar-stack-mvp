@@ -102,6 +102,7 @@ export default defineEventHandler(async (event) => {
               id: draftVersion.id,
             },
           },
+          version_label: originalResource.version_label,
         },
       });
 

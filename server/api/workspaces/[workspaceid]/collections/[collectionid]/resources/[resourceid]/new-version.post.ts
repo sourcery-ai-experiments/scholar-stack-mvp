@@ -102,10 +102,12 @@ export default defineEventHandler(async (event) => {
       action: "newVersion",
       back_link_id: parsedBody.data.back_link_id, // used for front-end
       description: resource.description,
+      filled_in: resource.filled_in,
       icon: resource.icon,
       original_resource_id: resource.original_resource_id, // todo: check if this is correct
       target: resource.target,
       type: resource.type,
+      version_label: resource.version_label,
     },
   });
 

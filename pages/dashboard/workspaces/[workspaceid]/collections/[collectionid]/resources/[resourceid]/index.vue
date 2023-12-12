@@ -286,6 +286,12 @@ const createNewVersion = async () => {
         {{ resource?.back_link_id }}
       </p>
 
+      <h4 v-if="resource?.version_label" class="pb-2 pt-5">Version</h4>
+
+      <p v-if="resource?.version_label" class="text-lg">
+        {{ resource?.version_label }}
+      </p>
+
       <h4 class="pb-2 pt-5">Created on</h4>
 
       <p class="text-lg">

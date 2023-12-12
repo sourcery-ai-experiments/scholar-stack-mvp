@@ -7,9 +7,10 @@ export default defineEventHandler(async (event) => {
     .object({
       title: z.string().min(1),
       description: z.string(),
-      icon: z.string().min(1).optional(),
+      icon: z.string().min(1),
       target: z.string().min(1),
       type: z.string().min(1),
+      versionLabel: z.string().min(1),
     })
     .strict();
 
@@ -70,7 +71,8 @@ export default defineEventHandler(async (event) => {
     resource.action = "update";
   }
 
-  const { title, description, icon, target, type } = parsedBody.data;
+  const { title, description, icon, target, type, versionLabel } =
+    parsedBody.data;
 
   const updatedResource = await prisma.stagingResource.update({
     data: {
@@ -81,6 +83,7 @@ export default defineEventHandler(async (event) => {
       icon,
       target,
       type,
+      version_label: versionLabel,
     },
     where: {
       id: resourceid,

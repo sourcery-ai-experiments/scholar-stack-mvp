@@ -32,6 +32,7 @@ const formData = reactive<ResourceType>({
   target: "",
   type: null,
   updated: "",
+  version_label: "",
 });
 
 const rules = {
@@ -132,6 +133,7 @@ if (resource.value) {
   formData.target = resource.value.target || faker.internet.url();
   formData.type = resource.value.type || "url";
   formData.icon = resource.value.icon;
+  formData.version_label = resource.value.version_label || "";
 }
 
 const renderLabel = (option: SelectOption): VNodeChild => {
@@ -168,6 +170,7 @@ const saveResourceData = () => {
         icon: formData.icon,
         target: formData.target,
         type: formData.type,
+        versionLabel: formData.version_label,
       };
 
       saveResourceLoadingIndicator.value = true;
@@ -249,7 +252,10 @@ const saveResourceData = () => {
               v-model:value="formData.type"
               filterable
               placeholder="DOI"
-              :disabled="!!resource?.original_resource_id"
+              :disabled="
+                resource?.action === 'clone' ||
+                resource?.action === 'oldVersion'
+              "
               :options="typeOptions"
               @update:value="selectIcon"
             />
@@ -266,7 +272,11 @@ const saveResourceData = () => {
               v-model:value="formData.target"
               :placeholder="selectedIdentifier?.placeholder"
               type="text"
-              :disabled="!formData.type || !!resource?.original_resource_id"
+              :disabled="
+                !formData.type ||
+                resource?.action === 'clone' ||
+                resource?.action === 'oldVersion'
+              "
               clearable
               @keydown.enter.prevent
             />
@@ -295,6 +305,21 @@ const saveResourceData = () => {
             type="textarea"
             clearable
           />
+        </n-form-item>
+
+        <n-form-item label="Version" path="version">
+          <div class="flex w-full flex-col">
+            <n-input
+              v-model:value="formData.version_label"
+              placeholder="v1.0.0"
+              clearable
+            />
+
+            <p class="mt-2 text-sm text-slate-500">
+              Adding a version label will allow you to keep track of changes to
+              your resource.
+            </p>
+          </div>
         </n-form-item>
 
         <n-form-item path="icon" label="Icon">
