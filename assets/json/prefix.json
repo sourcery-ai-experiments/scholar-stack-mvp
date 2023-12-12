@@ -2080,7 +2080,7 @@
   },
   {
     "icon": "mdi:github",
-    "label": "github",
+    "label": "GitHub",
     "pattern": "^[a-zA-Z0-9-_]+/[a-zA-Z0-9-_]+$",
     "placeholder": "identifiers-org/registry",
     "value": "github"

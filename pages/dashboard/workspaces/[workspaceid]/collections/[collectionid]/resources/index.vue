@@ -210,11 +210,6 @@ const addResource = async () => {
         >
           <div class="flex w-full items-center justify-start">
             <div>
-              <!-- <n-avatar
-                :size="40"
-                :src="`https://api.dicebear.com/6.x/notionists-neutral/svg?seed=${resource.id}`"
-                class="hover:cursor-pointer hover:opacity-80"
-              /> -->
               <Icon :name="resource.icon" size="35" />
             </div>
 
@@ -321,13 +316,14 @@ const addResource = async () => {
 
               <div class="group flex w-max items-center space-x-1">
                 <n-tag
-                  v-if="resource.type !== 'url'"
                   :type="resource.type ? 'info' : 'error'"
                   size="small"
                   class=""
                 >
                   {{ resource.type || "No identifier provided" }}
                 </n-tag>
+
+                <n-divider vertical />
 
                 <NuxtLink
                   :to="
