@@ -37,6 +37,17 @@ if (collectionError.value) {
   navigateTo(`/dashboard/workspaces/${workspaceid}`);
 }
 
+if (collection.value) {
+  const version = collection.value.version;
+
+  // if version is published or no version exists, redirect to overview
+  if (!version || version.published) {
+    navigateTo(
+      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}`
+    );
+  }
+}
+
 const { data: validationResults, pending: validationPending } = await useFetch(
   `/api/workspaces/${workspaceid}/collections/${collectionid}/validate`,
   {

@@ -2,6 +2,7 @@ interface CollectionGETAPIResponse {
   id: string;
   title: string;
   created: string;
+  updated: string;
   description: string;
   identifier: string;
   image: string;
@@ -14,10 +15,10 @@ interface Collection {
   id: string;
   title: string;
   created: string;
+  updated: string;
   description: string;
   identifier: string;
   image: string;
-  
 }
 
 interface Collections extends Array<Collection> {}

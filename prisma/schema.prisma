@@ -107,10 +107,13 @@ model Collection {
   image       String @default("https://api.dicebear.com/6.x/shapes/svg")
 
   created DateTime @default(now())
+  updated DateTime @updatedAt
 
   identifier String @unique // might use a link shortener for this (c1234)
 
   private Boolean @default(false)
+
+  random_int Int @default(0) // used to maintain order of collections              
 
   Versions Version[]
 

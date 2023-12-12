@@ -88,6 +88,8 @@ export default defineEventHandler(async (event) => {
   // Added cascade delete to the database. This should be handled by the database instead.
   // check if this works though
 
+  await touchCollection(collectionid);
+
   return {
     message: "Resource removed",
     statusCode: 200,

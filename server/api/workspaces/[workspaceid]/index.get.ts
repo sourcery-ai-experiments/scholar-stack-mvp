@@ -29,6 +29,7 @@ export default defineEventHandler(async (event) => {
       description: collection.description,
       identifier: collection.identifier,
       image: collection.image,
+      updated: collection.updated.toISOString(),
     })),
     description: workspace.description,
     personal: workspace.personal,

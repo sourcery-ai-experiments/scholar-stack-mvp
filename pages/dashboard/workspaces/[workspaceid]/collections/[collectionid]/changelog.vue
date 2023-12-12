@@ -49,8 +49,13 @@ if (error.value) {
 if (data.value) {
   const version = data.value.version;
 
-  if (version) {
+  // if version is published or no version exists, redirect to overview
+  if (version && !version.published) {
     changelog.value = version.changelog;
+  } else {
+    navigateTo(
+      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}`
+    );
   }
 }
 

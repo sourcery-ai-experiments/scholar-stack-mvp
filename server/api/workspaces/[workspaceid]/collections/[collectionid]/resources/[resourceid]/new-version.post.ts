@@ -128,6 +128,8 @@ export default defineEventHandler(async (event) => {
     where: { id: version[0].id },
   });
 
+  await touchCollection(collectionid);
+
   return {
     resourceId: newResourceVersion.id,
     statusCode: 201,

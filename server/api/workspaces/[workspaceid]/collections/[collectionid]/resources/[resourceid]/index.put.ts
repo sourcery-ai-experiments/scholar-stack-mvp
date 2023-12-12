@@ -94,6 +94,8 @@ export default defineEventHandler(async (event) => {
     });
   }
 
+  await touchCollection(collectionid);
+
   return {
     message: "Resource updated",
     statusCode: 200,

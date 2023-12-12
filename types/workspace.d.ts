@@ -6,6 +6,7 @@ interface APIResponseWorkspaceCollectionItem {
   image: string;
 
   created: string;
+  updated: string;
   identifier: string;
 }
 

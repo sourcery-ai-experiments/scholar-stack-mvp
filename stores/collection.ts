@@ -21,17 +21,9 @@ export const useCollectionStore = defineStore("Collection", () => {
       return;
     }
 
-    // Sort the collections by alphabetical order
-    collections.value.sort((a, b) => {
-      if (a.title < b.title) {
-        return -1;
-      }
-
-      if (a.title > b.title) {
-        return 1;
-      }
-
-      return 0;
+    // Sort the collections by last updated
+    collections.value.sort((a: Collection, b: Collection) => {
+      return new Date(b.updated).getTime() - new Date(a.updated).getTime();
     });
   };
 

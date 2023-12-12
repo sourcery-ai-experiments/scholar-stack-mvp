@@ -47,9 +47,8 @@ export default defineEventHandler(async (event) => {
     identifier: collection.identifier,
     image: collection.image,
     private: collection.private,
-
     resources,
-
+    updated: collection.updated,
     version:
       version.length > 0
         ? {

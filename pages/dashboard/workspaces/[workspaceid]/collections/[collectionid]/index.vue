@@ -12,6 +12,8 @@ const { collectionid, workspaceid } = route.params as {
   workspaceid: string;
 };
 
+const newVersionLoading = ref(false);
+
 const { data: collection, error } = await useFetch<CollectionGETAPIResponse>(
   `/api/workspaces/${workspaceid}/collections/${collectionid}`,
   {
@@ -31,6 +33,8 @@ if (error.value) {
 }
 
 const createNewDraftVersion = async () => {
+  newVersionLoading.value = true;
+
   const { data, error } = await useFetch(
     `/api/workspaces/${workspaceid}/collections/${collectionid}/version`,
     {
@@ -38,6 +42,8 @@ const createNewDraftVersion = async () => {
       method: "POST",
     }
   );
+
+  newVersionLoading.value = false;
 
   if (error.value) {
     console.log(error.value);
@@ -114,6 +120,7 @@ const createNewDraftVersion = async () => {
             <n-button
               v-if="collection?.version?.published || !collection?.version"
               size="large"
+              :loading="newVersionLoading"
               color="black"
               @click="createNewDraftVersion"
             >

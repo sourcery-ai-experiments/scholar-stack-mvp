@@ -234,6 +234,8 @@ export default defineEventHandler(async (event) => {
     },
   });
 
+  await touchCollection(collectionid);
+
   return {
     message: "Relations updated",
     relations: {

@@ -95,6 +95,8 @@ export default defineEventHandler(async (event) => {
     where: { id: relationid },
   });
 
+  await touchCollection(collectionid);
+
   return {
     message: "Relation removed",
     statusCode: 200,

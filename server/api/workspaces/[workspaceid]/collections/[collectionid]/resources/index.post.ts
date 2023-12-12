@@ -51,6 +51,8 @@ export default defineEventHandler(async (event) => {
     where: { id: version.id },
   });
 
+  await touchCollection(collectionid);
+
   console.log(addedToVersion);
 
   return {
