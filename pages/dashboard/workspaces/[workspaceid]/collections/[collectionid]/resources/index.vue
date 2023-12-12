@@ -110,7 +110,7 @@ const addResource = async () => {
 </script>
 
 <template>
-  <main class="bg-zinc-50">
+  <main class="h-[calc(100vh-109px)] bg-zinc-50">
     <div class="flex h-36 items-center border-b border-gray-200 bg-white">
       <div
         class="mx-auto flex w-full max-w-screen-xl items-center justify-between px-2 lg:px-20"
@@ -145,7 +145,7 @@ const addResource = async () => {
       </div>
     </div>
 
-    <div class="mx-auto w-full max-w-screen-xl px-2.5 pb-20 lg:px-20">
+    <div class="mx-auto w-full max-w-screen-xl px-2.5 lg:px-20">
       <div class="flex items-center justify-between space-x-4 py-10">
         <n-input placeholder="Search..." size="large">
           <template #prefix>

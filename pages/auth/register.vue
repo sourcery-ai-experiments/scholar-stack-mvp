@@ -227,6 +227,6 @@ watchEffect(() => {
       </div>
     </div>
 
-    <div class="h-full w-1/2 bg-slate-900"></div>
+    <div class="h-full min-h-screen w-1/2 bg-slate-900"></div>
   </main>
 </template>
