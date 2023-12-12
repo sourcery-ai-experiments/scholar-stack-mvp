@@ -61,7 +61,14 @@ export default defineEventHandler(async (event) => {
     },
   });
 
-  // start the reverse mapping process
+  /**
+   * ! Start the publish process
+   *
+   * * Create a new version
+   * * Map the staging resources to resources in the new version
+   * * Map the staging external relations to external relations in the new version
+   * * Map the staging internal relations to internal relations in the new version
+   */
 
   // create a new version
   const newVersion = await prisma.version.create({
@@ -79,12 +86,27 @@ export default defineEventHandler(async (event) => {
 
   const stagingResources = draftVersion.StagingResources;
 
+  // Adda a new_resource_id field to catch created resources
   const resources = stagingResources.map((resource) => {
     return {
       ...resource,
       new_resource_id: "",
     };
   });
+
+  /**
+   * ! Start the resource mapping process
+   *
+   * * If the resource has the original_resource_id field, it means it is an existing resource
+   * * * If the action is update, update the original resource with the new data
+   * * * If the action is newVersion, create a new resource with the new data and connect it to the new version
+   * * * If the action is clone, connect the original resource to the new version
+   *     - This also means that the original resource was unchanged, so we don't need to do anything
+   *
+   * * If the resource does not have the original_resource_id field, it means it is a new resource
+   * * * If the action is create, create a new resource with the new data and connect it to the new version
+   * * * If the action is delete or oldVersion, do nothing (effectively deleting the resource)
+   */
 
   for (const resource of resources) {
     let newResourceId = resource.id;
@@ -187,6 +209,15 @@ export default defineEventHandler(async (event) => {
         (externalRelation.action === "delete" && externalRelation.original_id)
     );
 
+    /**
+     * ! Start the external relation mapping process
+     *
+     * * If the external relation has the original_id field, it means it is an existing external relation
+     * * * If the action is update, update the original external relation with the new data
+     * * * If the action is create, create a new external relation with the new data and connect it to the new resource
+     * * * If the action is delete, delete the original external relation
+     */
+
     for (const externalRelation of externalRelations) {
       if (
         externalRelation.action === "update" &&
@@ -232,6 +263,11 @@ export default defineEventHandler(async (event) => {
     }
   }
 
+  /**
+   * * Loop through the resources again to map the internal relations
+   * * This is done in a separate loop because we need to make sure any target resources are created first
+   */
+
   for (const resource of resources) {
     const stagingInternalRelations =
       await prisma.stagingInternalRelation.findMany({
@@ -245,6 +281,15 @@ export default defineEventHandler(async (event) => {
         internalRelation.action !== "delete" ||
         (internalRelation.action === "delete" && internalRelation.original_id)
     );
+
+    /**
+     * ! Start the internal relation mapping process
+     *
+     * * If the internal relation has the original_id field, it means it is an existing internal relation
+     * * * If the action is update, update the original internal relation with the new data
+     * * * If the action is create, create a new internal relation with the new data and connect it to the new resource
+     * * * If the action is delete, delete the original internal relation
+     */
 
     for (const internalRelation of internalRelations) {
       if (
