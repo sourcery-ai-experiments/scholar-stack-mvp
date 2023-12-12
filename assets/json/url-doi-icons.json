@@ -1,14 +1,14 @@
 [
   {
-    "label": "GitHub",
+    "label": "GitHub Repository",
     "value": "mdi:github"
   },
   {
-    "label": "Repository",
+    "label": "Git Repository",
     "value": "mdi:git"
   },
   {
-    "label": "GitLab",
+    "label": "GitLab Repository",
     "value": "ri:gitlab-fill"
   },
   {

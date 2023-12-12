@@ -53,8 +53,6 @@ const rules = {
         return new Error("Please enter your identifier");
       }
 
-      console.log(value, selectedIdentifier.value?.pattern);
-
       if (selectedIdentifier.value && selectedIdentifier.value.pattern) {
         const pattern = new RegExp(selectedIdentifier.value.pattern);
 
@@ -150,6 +148,10 @@ const renderLabel = (option: SelectOption): VNodeChild => {
 };
 
 const selectIcon = (value: string) => {
+  if (value === "url") {
+    return;
+  }
+
   const curi = typeOptions.find((prefix) => prefix.value === value);
 
   if (curi) {
@@ -167,8 +169,6 @@ const saveResourceData = () => {
         target: formData.target,
         type: formData.type,
       };
-
-      console.log(body);
 
       saveResourceLoadingIndicator.value = true;
 
