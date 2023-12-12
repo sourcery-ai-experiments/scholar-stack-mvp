@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
       icon: z.string().min(1),
       target: z.string().min(1),
       type: z.string().min(1),
-      versionLabel: z.string().min(1),
+      versionLabel: z.string(),
     })
     .strict();
 
