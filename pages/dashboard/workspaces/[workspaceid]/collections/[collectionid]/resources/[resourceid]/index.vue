@@ -241,7 +241,7 @@ const createNewVersion = async () => {
     </div>
 
     <div class="mx-auto w-full max-w-screen-xl px-2.5 lg:px-20">
-      <div class="flex items-center justify-between space-x-4 pt-10">
+      <div class="flex items-center justify-between space-x-4 pb-5 pt-10">
         <h3>About</h3>
 
         <NuxtLink

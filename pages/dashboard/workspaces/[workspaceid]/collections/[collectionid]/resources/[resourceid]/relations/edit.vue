@@ -18,6 +18,11 @@ const route = useRoute();
 
 const formRef = ref<FormInst | null>(null);
 
+/**
+ * todo: create a form to handle this
+ * todo: use a card/list ui to display the relations Makes it easier to add the example text this way
+ */
+
 const moduleData = reactive<Relations>({
   external: [],
   internal: [],
@@ -308,7 +313,7 @@ const saveRelations = async () => {
             @click="saveRelations"
           >
             <template #icon>
-              <Icon name="iconoir:axes" />
+              <Icon name="humbleicons:save" />
             </template>
 
             Save changes
@@ -324,16 +329,18 @@ const saveRelations = async () => {
         :model="moduleData.internal"
         size="large"
       >
-        <div class="flex items-center justify-between">
-          <h2 class="pb-10 pt-16">Internal Relations</h2>
+        <div class="py-10">
+          <div class="flex items-center justify-between">
+            <h3>Internal Relations</h3>
 
-          <n-button color="black" @click="addNewInternalRelation">
-            <template #icon>
-              <Icon name="carbon:add-filled" />
-            </template>
+            <n-button color="black" @click="addNewInternalRelation">
+              <template #icon>
+                <Icon name="mdi:plus-network" />
+              </template>
 
-            Add a new internal relation
-          </n-button>
+              Add a new internal relation
+            </n-button>
+          </div>
         </div>
 
         <div
@@ -341,7 +348,7 @@ const saveRelations = async () => {
           :key="relation.id"
           class="flex items-center justify-between space-x-8"
         >
-          <n-form-item path="type" label="Type" class="w-full">
+          <n-form-item path="type" label="Relation Type" class="w-full">
             <n-select
               v-model:value="relation.type"
               filterable
@@ -349,7 +356,7 @@ const saveRelations = async () => {
             />
           </n-form-item>
 
-          <n-form-item path="target" label="Target" class="w-full">
+          <n-form-item path="target" label="Resource" class="w-full">
             <n-select
               v-model:value="relation.target_id"
               filterable
@@ -393,7 +400,7 @@ const saveRelations = async () => {
 
           <n-button color="black" @click="addNewExternalRelation">
             <template #icon>
-              <Icon name="carbon:add-filled" />
+              <Icon name="tabler:link-plus" />
             </template>
 
             Add a new external relation

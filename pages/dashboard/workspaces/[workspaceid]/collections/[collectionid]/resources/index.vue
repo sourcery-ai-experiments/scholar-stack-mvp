@@ -145,7 +145,7 @@ const addResource = async () => {
       </div>
     </div>
 
-    <div class="mx-auto w-full max-w-screen-xl px-2.5 lg:px-20">
+    <div class="mx-auto w-full max-w-screen-xl px-2.5 pb-10 lg:px-20">
       <div class="flex items-center justify-between space-x-4 py-10">
         <n-input placeholder="Search..." size="large">
           <template #prefix>
