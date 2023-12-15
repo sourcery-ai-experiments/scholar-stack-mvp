@@ -100,32 +100,28 @@ export default defineEventHandler(async (event) => {
    * * If the resource has the original_resource_id field, it means it is an existing resource
    * * * If the action is update, update the original resource with the new data
    * * * If the action is newVersion, create a new resource with the new data and connect it to the new version
+   * * * If the action is delete or oldVersion, do nothing (effectively deleting the resource)
    * * * If the action is clone, connect the original resource to the new version
    *     - This also means that the original resource was unchanged, so we don't need to do anything
    *
    * * If the resource does not have the original_resource_id field, it means it is a new resource
    * * * If the action is create, create a new resource with the new data and connect it to the new version
-   * * * If the action is delete or oldVersion, do nothing (effectively deleting the resource)
    */
 
   for (const resource of resources) {
-    let newResourceId = resource.id;
-
     if (resource.original_resource_id) {
       if (resource.action === "update") {
         await prisma.resource.update({
           data: {
             title: resource.title,
-            back_link_id: resource.back_link_id,
             description: resource.description,
             icon: resource.icon,
-            target: resource.target,
-            type: resource.type,
             Version: {
               connect: {
                 id: newVersion.id,
               },
             },
+            version_label: resource.version_label,
           },
           where: {
             id: resource.original_resource_id,
@@ -147,10 +143,10 @@ export default defineEventHandler(async (event) => {
                 id: newVersion.id,
               },
             },
+            version_label: resource.version_label,
           },
         });
 
-        newResourceId = newResource.id;
         resource.new_resource_id = newResource.id;
       }
 
@@ -168,7 +164,14 @@ export default defineEventHandler(async (event) => {
           },
         });
       }
+
+      if (resource.action === "delete" || resource.action === "oldVersion") {
+        // don't do anything
+        console.log("delete");
+      }
     } else {
+      console.log("create");
+
       // these are for new resources
       if (resource.action === "create") {
         const newResource = await prisma.resource.create({
@@ -183,16 +186,11 @@ export default defineEventHandler(async (event) => {
                 id: newVersion.id,
               },
             },
+            version_label: resource.version_label,
           },
         });
 
-        newResourceId = newResource.id;
         resource.new_resource_id = newResource.id;
-      }
-
-      if (resource.action === "delete" || resource.action === "oldVersion") {
-        // don't do anything
-        console.log("delete");
       }
     }
 
@@ -238,7 +236,8 @@ export default defineEventHandler(async (event) => {
         await prisma.externalRelation.create({
           data: {
             resource_type: externalRelation.resource_type,
-            source_id: resource.original_resource_id || newResourceId,
+            source_id:
+              resource.original_resource_id || resource.new_resource_id,
             target: externalRelation.target,
             target_type: externalRelation.target_type,
             type: externalRelation.type,
