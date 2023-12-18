@@ -201,6 +201,10 @@ export default defineEventHandler(async (event) => {
         },
       });
 
+    /**
+     * * Keep the external relations that have a create or update action
+     * * If the action is delete, keep it only if it has an original_id field
+     */
     const externalRelations = stagingExternalRelations.filter(
       (externalRelation) =>
         externalRelation.action !== "delete" ||
@@ -275,6 +279,10 @@ export default defineEventHandler(async (event) => {
         },
       });
 
+    /**
+     * * Keep the internal relations that have a create or update action
+     * * If the action is delete, keep it only if it has an original_id field
+     */
     const internalRelations = stagingInternalRelations.filter(
       (internalRelation) =>
         internalRelation.action !== "delete" ||
