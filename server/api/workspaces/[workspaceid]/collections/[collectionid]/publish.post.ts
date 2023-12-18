@@ -217,21 +217,36 @@ export default defineEventHandler(async (event) => {
      */
 
     for (const externalRelation of externalRelations) {
-      if (
-        externalRelation.action === "update" &&
-        externalRelation.original_id
-      ) {
-        await prisma.externalRelation.update({
-          data: {
-            resource_type: externalRelation.resource_type,
-            type: externalRelation.type,
-          },
-          where: {
-            id: externalRelation.original_id,
-          },
-        });
+      if (externalRelation.original_id) {
+        if (externalRelation.action === "update") {
+          await prisma.externalRelation.update({
+            data: {
+              resource_type: externalRelation.resource_type,
+              type: externalRelation.type,
+            },
+            where: {
+              id: externalRelation.original_id,
+            },
+          });
+        }
+
+        /**
+         * ? Are external relations versioned?
+         * ? Deleting an external relation from a resource will delete it from the resource across all versions. Creating or newversion resources will bypass this but the conversation still needs to be had.
+         */
+        if (externalRelation.action === "delete") {
+          await prisma.externalRelation.delete({
+            where: {
+              id: externalRelation.original_id,
+            },
+          });
+        }
       }
 
+      /**
+       * * original_resource_id is used for cloned resources
+       * * new_resource_id is used for new/newVersion resources
+       */
       if (externalRelation.action === "create") {
         await prisma.externalRelation.create({
           data: {
@@ -243,21 +258,6 @@ export default defineEventHandler(async (event) => {
             type: externalRelation.type,
           },
         });
-      }
-
-      if (externalRelation.action === "delete") {
-        if (externalRelation.original_id) {
-          await prisma.externalRelation.delete({
-            where: {
-              id: externalRelation.original_id,
-            },
-          });
-        } else {
-          throw createError({
-            message: "External relation not found",
-            statusCode: 404,
-          });
-        }
       }
     }
   }
