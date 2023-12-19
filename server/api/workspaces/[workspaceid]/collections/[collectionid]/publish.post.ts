@@ -315,9 +315,22 @@ export default defineEventHandler(async (event) => {
       }
 
       if (internalRelation.action === "create") {
-        const targetResource = resources.find(
+        const targetResourceInCurrentVersion = resources.find(
           (stagingResource) => stagingResource.id === internalRelation.target_id
         );
+
+        if (targetResourceInCurrentVersion?.action === "delete") {
+          /**
+           * * If the target resource is deleted, we cannot create an internal relation to it
+           * ? Should we throw an error here?
+           * ? Should we delete the internal relation?
+           * ? Should we ignore it?
+           */
+          throw createError({
+            message: "Cannot create an internal relation to a deleted resource",
+            statusCode: 400,
+          });
+        }
 
         await prisma.internalRelation.create({
           data: {
@@ -325,25 +338,23 @@ export default defineEventHandler(async (event) => {
             source_id:
               resource.original_resource_id || resource.new_resource_id,
             target_id:
-              targetResource?.new_resource_id || internalRelation.target_id,
+              targetResourceInCurrentVersion?.original_resource_id ||
+              targetResourceInCurrentVersion?.new_resource_id ||
+              internalRelation.target_id,
             type: internalRelation.type,
           },
         });
       }
 
-      if (internalRelation.action === "delete") {
-        if (internalRelation.original_id) {
-          await prisma.internalRelation.delete({
-            where: {
-              id: internalRelation.original_id,
-            },
-          });
-        } else {
-          throw createError({
-            message: "Internal relation not found",
-            statusCode: 404,
-          });
-        }
+      if (
+        internalRelation.action === "delete" &&
+        internalRelation.original_id
+      ) {
+        await prisma.internalRelation.delete({
+          where: {
+            id: internalRelation.original_id,
+          },
+        });
       }
     }
   }
