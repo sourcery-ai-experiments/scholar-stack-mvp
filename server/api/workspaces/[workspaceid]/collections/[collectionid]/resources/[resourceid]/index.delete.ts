@@ -19,6 +19,20 @@ export default defineEventHandler(async (event) => {
     });
   }
 
+  const draftVersion = await prisma.version.findFirst({
+    where: {
+      collection_id: collectionid,
+      published: false,
+    },
+  });
+
+  if (!draftVersion) {
+    throw createError({
+      message: "Draft version not found",
+      statusCode: 404,
+    });
+  }
+
   // Check if the resource exists
   const resource = await prisma.stagingResource.findUnique({
     where: { id: resourceid },
@@ -29,6 +43,85 @@ export default defineEventHandler(async (event) => {
       message: "Resource not found",
       statusCode: 404,
     });
+  }
+
+  /**
+   * If the resource is newVersion, we should restore the oldVersion
+   * and delete the newVersion
+   */
+  if (resource.action === "newVersion" && resource.back_link_id) {
+    const oldVersionOfResourceInCurrentDraft =
+      await prisma.stagingResource.findFirst({
+        where: {
+          id: resource.back_link_id,
+          Version: {
+            some: {
+              id: draftVersion.id,
+            },
+          },
+        },
+      });
+
+    if (!oldVersionOfResourceInCurrentDraft) {
+      throw createError({
+        message: "Old version of resource not found",
+        statusCode: 404,
+      });
+    }
+
+    if (oldVersionOfResourceInCurrentDraft.original_resource_id) {
+      const oldPublishedVersionOfResource = await prisma.resource.findFirst({
+        where: {
+          id: oldVersionOfResourceInCurrentDraft.original_resource_id,
+          Version: {
+            some: {
+              collection_id: collectionid,
+              published: true,
+            },
+          },
+        },
+      });
+
+      if (!oldPublishedVersionOfResource) {
+        throw createError({
+          message: "Old published version of resource not found",
+          statusCode: 404,
+        });
+      }
+
+      // compare the title, description, icon, version_label
+      // if they are the same, we can just delete the new version
+      // if they are different, we need to restore the old version
+
+      if (
+        oldPublishedVersionOfResource.title !==
+          oldVersionOfResourceInCurrentDraft.title ||
+        oldPublishedVersionOfResource.description !==
+          oldVersionOfResourceInCurrentDraft.description ||
+        oldPublishedVersionOfResource.icon !==
+          oldVersionOfResourceInCurrentDraft.icon ||
+        oldPublishedVersionOfResource.version_label !==
+          oldVersionOfResourceInCurrentDraft.version_label
+      ) {
+        // restore the old version
+        await prisma.stagingResource.update({
+          data: {
+            action: "update",
+          },
+          where: { id: resource.back_link_id },
+        });
+      }
+
+      // delete the new version
+      await prisma.stagingResource.delete({
+        where: { id: resourceid },
+      });
+    }
+
+    return {
+      message: "Resource removed",
+      statusCode: 200,
+    };
   }
 
   // Check if the resource is part of any published versions
