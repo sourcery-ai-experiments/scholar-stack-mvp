@@ -13,6 +13,7 @@ const { collectionid, workspaceid } = route.params as {
 };
 
 const newVersionLoading = ref(false);
+const discardVersionLoading = ref(false);
 
 const { data: collection, error } = await useFetch<CollectionGETAPIResponse>(
   `/api/workspaces/${workspaceid}/collections/${collectionid}`,
@@ -58,6 +59,39 @@ const createNewDraftVersion = async () => {
     push.success({
       title: "Success",
       message: "We created a new draft version",
+    });
+
+    // refresh the page
+    window.location.reload();
+  }
+};
+
+const discardDraftVersion = async () => {
+  discardVersionLoading.value = true;
+
+  const { data, error } = await useFetch(
+    `/api/workspaces/${workspaceid}/collections/${collectionid}/version`,
+    {
+      headers: useRequestHeaders(["cookie"]),
+      method: "DELETE",
+    }
+  );
+
+  discardVersionLoading.value = false;
+
+  if (error.value) {
+    console.log(error.value);
+
+    push.error({
+      title: "Something went wrong",
+      message: "We couldn't discard the draft version",
+    });
+  }
+
+  if (data.value) {
+    push.success({
+      title: "Success",
+      message: "We discarded the draft version",
     });
 
     // refresh the page
@@ -128,6 +162,24 @@ const createNewDraftVersion = async () => {
                 <Icon name="carbon:intent-request-create" />
               </template>
               Prepare a draft version
+            </n-button>
+
+            <n-button
+              v-if="
+                collection &&
+                collection.version &&
+                !collection.version.published
+              "
+              size="large"
+              type="error"
+              :loading="discardVersionLoading"
+              secondary
+              @click="discardDraftVersion"
+            >
+              <template #icon>
+                <Icon name="game-icons:card-discard" />
+              </template>
+              Discard draft version
             </n-button>
           </n-space>
         </div>

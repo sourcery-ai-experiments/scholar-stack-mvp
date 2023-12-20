@@ -273,7 +273,7 @@ model StagingInternalRelation {
   original_source    Resource? @relation("OriginalSourceRelation", fields: [original_source_id], references: [id])
   original_source_id String?
 
-  target    StagingResource @relation("TargetRelation", fields: [target_id], references: [id])
+  target    StagingResource @relation("TargetRelation", fields: [target_id], references: [id], onDelete: Cascade)
   target_id String
 
   original_target    Resource? @relation("OriginalTargetRelation", fields: [original_target_id], references: [id])

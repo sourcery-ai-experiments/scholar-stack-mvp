@@ -16,6 +16,12 @@ export default defineEventHandler(async (event) => {
   }
 
   const collections = await prisma.collection.findMany({
+    include: {
+      Versions: {
+        orderBy: { created: "desc" },
+        take: 1,
+      },
+    },
     where: { workspace_id: workspaceid },
   });
 
@@ -30,6 +36,14 @@ export default defineEventHandler(async (event) => {
       identifier: collection.identifier,
       image: collection.image,
       updated: collection.updated.toISOString(),
+      version: {
+        ...collection.Versions[0],
+        created: collection.Versions[0].created.toISOString(),
+        published_on: collection.Versions[0].published_on
+          ? collection.Versions[0].published_on.toISOString()
+          : "",
+        updated: collection.Versions[0].updated.toISOString(),
+      },
     })),
     description: workspace.description,
     personal: workspace.personal,

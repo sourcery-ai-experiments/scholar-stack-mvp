@@ -16,6 +16,21 @@ definePageMeta({
 const push = usePush();
 const route = useRoute();
 
+const collectionStore = useCollectionStore();
+
+await collectionStore.getCollection(
+  route.params.workspaceid as string,
+  route.params.collectionid as string
+);
+
+const currentCollection = collectionStore.collection;
+
+if (currentCollection?.version?.published) {
+  navigateTo(
+    `/dashboard/workspaces/${route.params.workspaceid}/collections/${route.params.collectionid}/resources/${route.params.resourceid}`
+  );
+}
+
 const formRef = ref<FormInst | null>(null);
 
 /**

@@ -222,7 +222,11 @@ const addResource = async () => {
                 </span>
 
                 <n-space align="center">
-                  <n-tag v-if="!resource.filled_in" type="error" size="medium">
+                  <n-tag
+                    v-if="resource.filled_in === false"
+                    type="error"
+                    size="medium"
+                  >
                     <Icon name="mdi:alert" size="16" />
                     Needs to be filled in
                   </n-tag>

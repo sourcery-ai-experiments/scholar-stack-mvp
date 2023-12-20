@@ -8,6 +8,8 @@ interface APIResponseWorkspaceCollectionItem {
   created: string;
   updated: string;
   identifier: string;
+
+  version: Version;
 }
 
 interface APIResponseWorkspace {

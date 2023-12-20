@@ -18,6 +18,20 @@ const push = usePush();
 const route = useRoute();
 
 const resourceStore = useResourceStore();
+const collectionStore = useCollectionStore();
+
+await collectionStore.getCollection(
+  route.params.workspaceid as string,
+  route.params.collectionid as string
+);
+
+const currentCollection = collectionStore.collection;
+
+if (currentCollection?.version?.published) {
+  navigateTo(
+    `/dashboard/workspaces/${route.params.workspaceid}/collections/${route.params.collectionid}/resources/${route.params.resourceid}`
+  );
+}
 
 const formRef = ref<FormInst | null>(null);
 
@@ -109,7 +123,7 @@ if (error.value) {
   );
 }
 
-if (resource.value) {
+if (resource.value && "action" in resource.value) {
   // If the resource is marked for deletion, redirect the user
   // to the collection page
   if (
@@ -253,8 +267,12 @@ const saveResourceData = () => {
               filterable
               placeholder="DOI"
               :disabled="
-                resource?.action === 'clone' ||
-                resource?.action === 'oldVersion'
+                !!(
+                  resource &&
+                  'action' in resource &&
+                  (resource?.action === 'clone' ||
+                    resource?.action === 'oldVersion')
+                )
               "
               :options="typeOptions"
               @update:value="selectIcon"
@@ -274,8 +292,12 @@ const saveResourceData = () => {
               type="text"
               :disabled="
                 !formData.type ||
-                resource?.action === 'clone' ||
-                resource?.action === 'oldVersion'
+                !!(
+                  resource &&
+                  'action' in resource &&
+                  (resource?.action === 'clone' ||
+                    resource?.action === 'oldVersion')
+                )
               "
               clearable
               @keydown.enter.prevent

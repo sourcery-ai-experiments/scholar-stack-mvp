@@ -13,8 +13,19 @@ const push = usePush();
 const route = useRoute();
 
 const resourceStore = useResourceStore();
+const collectionStore = useCollectionStore();
 
 const devMode = process.env.NODE_ENV === "development";
+
+const currentCollection = computed(() => {
+  return (
+    collectionStore.collection || {
+      version: {
+        published: false,
+      },
+    }
+  );
+});
 
 const removeResourceLoadingIndicator = ref(false);
 const newResourceVersionLoadingIndicator = ref(false);
@@ -45,7 +56,7 @@ if (error.value) {
   );
 }
 
-if (resource.value) {
+if (resource.value && "action" in resource.value) {
   // If the resource is marked for deletion, redirect the user
   // to the collection page
   if (
@@ -173,6 +184,7 @@ const createNewVersion = async () => {
 
             <div class="flex items-center space-x-2">
               <NuxtLink
+                v-if="!currentCollection?.version?.published"
                 :to="`/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/edit`"
               >
                 <n-button ghost size="large">
@@ -185,6 +197,7 @@ const createNewVersion = async () => {
               </NuxtLink>
 
               <NuxtLink
+                v-if="!currentCollection?.version?.published"
                 :to="`/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/relations/edit`"
               >
                 <n-button ghost size="large">
@@ -198,8 +211,12 @@ const createNewVersion = async () => {
 
               <n-button
                 v-if="
+                  resource &&
+                  'original_resource_id' in resource &&
                   resource?.original_resource_id &&
-                  resource?.action !== 'newVersion'
+                  'action' in resource &&
+                  resource?.action !== 'newVersion' &&
+                  !currentCollection?.version?.published
                 "
                 ghost
                 size="large"
@@ -214,6 +231,7 @@ const createNewVersion = async () => {
               </n-button>
 
               <n-button
+                v-if="!currentCollection?.version?.published"
                 size="large"
                 type="error"
                 secondary

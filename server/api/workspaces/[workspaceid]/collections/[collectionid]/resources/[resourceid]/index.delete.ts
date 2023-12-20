@@ -110,13 +110,23 @@ export default defineEventHandler(async (event) => {
           },
           where: { id: resource.back_link_id },
         });
+      } else {
+        // mark the old version as cloned
+        await prisma.stagingResource.update({
+          data: {
+            action: "clone",
+          },
+          where: { id: resource.back_link_id },
+        });
       }
-
-      // delete the new version
-      await prisma.stagingResource.delete({
-        where: { id: resourceid },
-      });
     }
+
+    // delete the new version
+    await prisma.stagingResource.delete({
+      where: { id: resourceid },
+    });
+
+    await touchCollection(collectionid);
 
     return {
       message: "Resource removed",

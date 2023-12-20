@@ -19,6 +19,7 @@ interface Collection {
   description: string;
   identifier: string;
   image: string;
+  version: Version | null;
 }
 
 interface Collections extends Array<Collection> {}
