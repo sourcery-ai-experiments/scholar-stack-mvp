@@ -9,7 +9,7 @@ interface APIResponseWorkspaceCollectionItem {
   updated: string;
   identifier: string;
 
-  version: Version;
+  version: Version | null;
 }
 
 interface APIResponseWorkspace {

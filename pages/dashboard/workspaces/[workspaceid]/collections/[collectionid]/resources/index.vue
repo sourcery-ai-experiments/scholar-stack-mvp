@@ -13,6 +13,7 @@ const route = useRoute();
 const resourceStore = useResourceStore();
 
 const newResourceLoading = ref(false);
+const draftVersionLoading = ref(false);
 
 const { collectionid, workspaceid } = route.params as {
   collectionid: string;
@@ -40,6 +41,8 @@ if (error.value) {
 console.log(collection.value);
 
 const createNewDraftVersion = async () => {
+  draftVersionLoading.value = true;
+
   const { data, error } = await useFetch(
     `/api/workspaces/${workspaceid}/collections/${collectionid}/version`,
     {
@@ -47,6 +50,8 @@ const createNewDraftVersion = async () => {
       method: "POST",
     }
   );
+
+  draftVersionLoading.value = false;
 
   if (error.value) {
     console.log(error.value);
@@ -133,6 +138,7 @@ const addResource = async () => {
           <n-button
             v-if="collection?.version?.published || !collection?.version"
             size="large"
+            :loading="draftVersionLoading"
             color="black"
             @click="createNewDraftVersion"
           >
@@ -173,7 +179,11 @@ const addResource = async () => {
       >
         <n-empty size="large" description="No resources found">
           <template #extra>
-            <n-button color="black" @click="createNewDraftVersion">
+            <n-button
+              color="black"
+              :loading="draftVersionLoading"
+              @click="createNewDraftVersion"
+            >
               <template #icon>
                 <Icon name="codicon:git-pull-request-draft" />
               </template>
@@ -327,7 +337,9 @@ const addResource = async () => {
                   {{ resource.type || "No identifier provided" }}
                 </n-tag>
 
-                <n-divider vertical />
+                <div>
+                  <n-divider vertical />
+                </div>
 
                 <NuxtLink
                   :to="

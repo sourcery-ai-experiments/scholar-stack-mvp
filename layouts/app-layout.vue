@@ -27,24 +27,35 @@ const currentLayout = computed(() => {
   >
     <header class="z-10">
       <nav
-        class="flex w-full flex-col-reverse border-b border-gray-200 bg-white px-4 pt-2.5 lg:px-6"
+        class="flex w-full flex-col-reverse border-b border-gray-200 bg-white pt-2.5"
       >
-        <HeaderWorkspacesSubMenu
-          v-if="currentLayout === 'workspace-layout'"
-          :key="$route.fullPath"
-        />
+        <div>
+          <HeaderWorkspacesSubMenu
+            v-if="currentLayout === 'workspace-layout'"
+            :key="$route.fullPath"
+            class="px-4 lg:px-6"
+          />
 
-        <HeaderCollectionsSubMenu
-          v-if="currentLayout === 'collections-layout'"
-          :key="$route.fullPath"
-        />
+          <HeaderCollectionsSubMenu
+            v-if="
+              currentLayout === 'collections-layout' ||
+              currentLayout === 'resource-layout'
+            "
+            :key="$route.fullPath"
+            class="px-4 lg:px-6"
+            :class="{
+              'border-b border-gray-200': currentLayout === 'resource-layout',
+            }"
+          />
 
-        <HeaderResourcesSubMenu
-          v-if="currentLayout === 'resource-layout'"
-          :key="$route.fullPath"
-        />
+          <HeaderResourcesSubMenu
+            v-if="currentLayout === 'resource-layout'"
+            :key="$route.fullPath"
+            class="px-4 lg:px-6"
+          />
+        </div>
 
-        <div class="flex w-full items-center justify-between">
+        <div class="flex w-full items-center justify-between px-4 lg:px-6">
           <HeaderLeftBar />
 
           <HeaderRightBar />

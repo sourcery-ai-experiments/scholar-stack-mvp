@@ -10,6 +10,7 @@ import FALLBACK_JSON from "@/assets/json/url-doi-icons.json";
 import PREFIX_JSON from "@/assets/json/prefix.json";
 
 definePageMeta({
+  name: "resource:edit",
   layout: "app-layout",
   middleware: ["auth"],
 });
@@ -218,6 +219,10 @@ const saveResourceData = () => {
           title: "Saved successfully",
           message: "Your resource has been updated",
         });
+
+        navigateTo(
+          `/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}`
+        );
       }
     } else {
       console.log(errors);

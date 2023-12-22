@@ -16,7 +16,7 @@
     "prisma:studio": "prisma studio",
     "prisma:db:push": "prisma db push",
     "prisma:db:pull": "prisma db pull --preview-feature",
-    "scripts:truncate:tables": "ts-node --project tsconfig.tsnode.json --esm --swc ./scripts/truncate-tables.mjs",
+    "scripts:truncate:tables": "tsx ./scripts/truncate-tables.ts",
     "scripts:fetch:save:identifiers": "tsx ./scripts/fetch-save-identifiers.ts",
     "scripts:compare:identifiers": "tsx ./scripts/compare-identifiers.ts",
     "postinstall": "nuxt prepare"
@@ -44,7 +44,7 @@
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-sort-keys-custom-order": "^1.0.5",
     "eslint-plugin-unused-imports": "^2.0.0",
-    "nuxt": "^3.5.0",
+    "nuxt": "^3.8.2",
     "nuxt-headlessui": "^1.1.4",
     "nuxt-icon": "^0.4.1",
     "prettier": "^2.8.8",

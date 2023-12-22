@@ -39,8 +39,9 @@ if (resource.value) {
   // If the resource is marked for deletion, redirect the user
   // to the collection page
   if (
-    resource.value.action === "delete" ||
-    resource.value.action === "oldVersion"
+    "action" in resource.value &&
+    (resource.value.action === "delete" ||
+      resource.value.action === "oldVersion")
   ) {
     push.error({
       title: "Resource marked for deletion",
@@ -81,9 +82,9 @@ const { data: relations, pending: relationsPending } = useLazyFetch(
           <NuxtLink
             :to="`/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/relations/edit`"
           >
-            <n-button size="large" type="warning" secondary>
+            <n-button size="large" color="black">
               <template #icon>
-                <Icon name="iconoir:axes" />
+                <Icon name="material-symbols-light:rebase-edit-rounded" />
               </template>
 
               Update relations

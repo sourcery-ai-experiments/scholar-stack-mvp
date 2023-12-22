@@ -36,14 +36,21 @@ export default defineEventHandler(async (event) => {
       identifier: collection.identifier,
       image: collection.image,
       updated: collection.updated.toISOString(),
-      version: {
-        ...collection.Versions[0],
-        created: collection.Versions[0].created.toISOString(),
-        published_on: collection.Versions[0].published_on
-          ? collection.Versions[0].published_on.toISOString()
-          : "",
-        updated: collection.Versions[0].updated.toISOString(),
-      },
+      version: collection.Versions[0]
+        ? {
+            id: collection.Versions[0].id,
+            name: collection.Versions[0].name,
+            changelog: collection.Versions[0].changelog,
+            collection_id: collection.Versions[0].collection_id,
+            created: collection.Versions[0].created.toISOString(),
+            identifier: collection.Versions[0].identifier,
+            published: collection.Versions[0].published,
+            published_on: collection.Versions[0].published_on
+              ? collection.Versions[0].published_on.toISOString()
+              : "",
+            updated: collection.Versions[0].updated.toISOString(),
+          }
+        : null,
     })),
     description: workspace.description,
     personal: workspace.personal,

@@ -60,6 +60,11 @@ const truncateTables = async () => {
   await prisma.$executeRaw`TRUNCATE TABLE "Notification" RESTART IDENTITY CASCADE`;
 };
 
-await truncateTables();
+const main = async () => {
+  await truncateTables();
+};
 
-process.exit(0);
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});

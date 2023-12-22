@@ -1,5 +1,5 @@
 <template>
-  <NaiveConfig>
+  <NaiveConfig :theme-config="themeConfig">
     <Notivue v-slot="item">
       <NotivueSwipe :item="item">
         <Notifications :item="item" :theme="pastelTheme" />
@@ -18,12 +18,7 @@
 import "md-editor-v3/lib/style.css";
 
 import { pastelTheme } from "notivue";
-import { ThemeConfig } from "@bg-dev/nuxt-naiveui";
-
-// https://realtimecolors.com/?colors=040407-f5f6fa-3c4472-c5d0fc-e7bc0d
-// https://realtimecolors.com/?colors=040407-f5f6fa-3c4472-ede9d9-e7bc0d
-// https://realtimecolors.com/?colors=040407-f5f6fa-3c4472-ede9d9-f6c709
-// https://realtimecolors.com/?colors=040407-f5f6fa-3c4472-ede9d9-995c99
+import type { ThemeConfig } from "@bg-dev/nuxt-naiveui";
 
 const themeConfig: ThemeConfig = {
   dark: {}, // Theme options applied on dark mode

@@ -48,7 +48,11 @@ if (collection.value) {
   }
 }
 
-const { data: validationResults, pending: validationPending } = await useFetch(
+const {
+  data: validationResults,
+  error: validationError,
+  pending: validationPending,
+} = await useFetch(
   `/api/workspaces/${workspaceid}/collections/${collectionid}/validate`,
   {
     headers: useRequestHeaders(["cookie"]),
@@ -79,7 +83,7 @@ const publishCollection = async () => {
   publishLoading.value = false;
 
   if (error.value) {
-    console.log(error.value);
+    console.log(error.value.message);
 
     push.error({
       title: "Something went wrong",
@@ -144,6 +148,10 @@ const publishCollection = async () => {
           <n-tag :type="validationResults?.valid ? 'success' : 'error'">{{
             validationResults?.valid ? "Valid" : "Invalid"
           }}</n-tag>
+
+          <pre>
+            {{ validationError?.data.message }}
+          </pre>
         </n-space>
       </div>
 
