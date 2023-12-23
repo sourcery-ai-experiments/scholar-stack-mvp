@@ -6,6 +6,7 @@ interface InternalRelation {
   resource_type: string | null;
   created: string;
   updated: string;
+  action?: string;
   origin: "local" | "remote";
 }
 
@@ -18,6 +19,7 @@ interface ExternalRelation {
   resource_type: string | null;
   created: string;
   updated: string;
+  action?: string;
   origin: "local" | "remote";
 }
 

@@ -93,12 +93,14 @@ if (relations.value) {
   moduleData.internal = relations.value.internal.map((relation) => {
     return {
       ...relation,
+      action: undefined,
       origin: "remote",
     };
   });
   moduleData.external = relations.value.external.map((relation) => {
     return {
       ...relation,
+      action: undefined,
       origin: "remote",
     };
   });
@@ -304,6 +306,7 @@ const saveRelations = async () => {
       (relation) => {
         return {
           ...relation,
+          action: relation.action || undefined,
           origin: "remote",
         };
       }
@@ -313,6 +316,7 @@ const saveRelations = async () => {
       (relation) => {
         return {
           ...relation,
+          action: relation.action || undefined,
           origin: "remote",
         };
       }
@@ -538,7 +542,12 @@ const saveRelations = async () => {
                   />
 
                   <n-space class="w-max">
-                    <n-tag v-if="!relation.original_id" type="info">
+                    <n-tag
+                      v-if="
+                        !relation.original_id || relation.action === 'create'
+                      "
+                      type="info"
+                    >
                       New
                     </n-tag>
 
