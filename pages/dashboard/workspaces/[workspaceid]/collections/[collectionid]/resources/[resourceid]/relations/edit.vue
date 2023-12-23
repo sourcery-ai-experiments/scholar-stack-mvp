@@ -18,6 +18,7 @@ const push = usePush();
 const route = useRoute();
 
 const collectionStore = useCollectionStore();
+const resourceStore = useResourceStore();
 
 await collectionStore.getCollection(
   route.params.workspaceid as string,
@@ -25,6 +26,18 @@ await collectionStore.getCollection(
 );
 
 const currentCollection = collectionStore.collection;
+
+const currentResource = computed(() => {
+  const resource = resourceStore.resources.find(
+    (res) => res.id === route.params.resourceid
+  );
+
+  if (resource) {
+    return resource;
+  }
+
+  return null;
+});
 
 if (currentCollection?.version?.published) {
   navigateTo(
@@ -346,7 +359,7 @@ const saveRelations = async () => {
         size="large"
         label-placement="left"
       >
-        <div class="flex items-center justify-between pt-10">
+        <div class="flex items-center justify-between py-10">
           <h3>Internal Relations</h3>
 
           <n-button color="black" @click="addNewInternalRelation">
@@ -404,9 +417,9 @@ const saveRelations = async () => {
           </n-button>
         </div>
 
-        <n-divider />
-
         <pre>{{ moduleData.internal }}</pre>
+
+        <n-divider />
 
         <div class="flex items-center justify-between py-10">
           <h2>External Relations</h2>
@@ -420,7 +433,7 @@ const saveRelations = async () => {
           </n-button>
         </div>
 
-        <n-space vertical>
+        <n-space vertical size="large">
           <div
             v-for="relation of moduleData.external"
             :key="relation.id"
@@ -439,10 +452,6 @@ const saveRelations = async () => {
                     :options="resourceTypeOptions"
                   />
                 </n-form-item>
-
-                <div>
-                  <n-divider vertical />
-                </div>
 
                 <n-form-item path="type" label="Type" class="w-full">
                   <template #label>
@@ -484,18 +493,74 @@ const saveRelations = async () => {
                 </n-form-item>
               </div>
 
-              <div class="flex justify-end">
-                <n-button
-                  type="error"
-                  secondary
-                  @click="removeExternalRelation(relation.id)"
-                >
-                  <template #icon>
-                    <Icon name="iconoir:trash" />
-                  </template>
+              <div
+                class="flex w-full items-center justify-between border-t pt-4"
+              >
+                <div>
+                  <p
+                    v-if="
+                      relation.type &&
+                      relation.resource_type &&
+                      relation.target_type &&
+                      relation.target
+                    "
+                    class="text-sm"
+                  >
+                    The
+                    <code>
+                      {{ currentResource?.title }}
+                    </code>
+                    resource
+                    <code>
+                      {{ relation.type }}
+                    </code>
+                    a
+                    <code>
+                      {{ relation.resource_type }}
+                    </code>
+                    resource identified by the
+                    <code>
+                      {{ relation.target_type }} {{ relation.target }}
+                    </code>
+                    .
+                  </p>
+                </div>
 
-                  Remove relation
-                </n-button>
+                <div class="flex w-max items-center">
+                  <n-divider
+                    v-if="
+                      relation.type &&
+                      relation.resource_type &&
+                      relation.target_type &&
+                      relation.target
+                    "
+                    vertical
+                  />
+
+                  <n-space class="w-max">
+                    <n-tag v-if="!relation.original_id" type="info">
+                      New
+                    </n-tag>
+
+                    <n-tag v-if="relation.origin" type="success">
+                      {{ relation.origin === "remote" ? "Remote" : "Local" }}
+                    </n-tag>
+                  </n-space>
+
+                  <n-divider vertical />
+
+                  <n-button
+                    type="error"
+                    secondary
+                    @click="removeExternalRelation(relation.id)"
+                  >
+                    <template #icon>
+                      <Icon name="iconoir:trash" />
+                    </template>
+
+                    Remove relation
+                  </n-button>
+                </div>
               </div>
             </div>
           </div>
