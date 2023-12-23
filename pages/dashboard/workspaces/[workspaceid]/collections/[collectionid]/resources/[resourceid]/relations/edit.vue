@@ -130,6 +130,7 @@ if (resourceListError.value) {
 const addNewInternalRelation = () => {
   moduleData.internal.push({
     id: nanoid(),
+    action: "create",
     created: new Date().toISOString(),
     origin: "local",
     original_id: null,
@@ -186,6 +187,7 @@ const removeInternalRelation = (id: string) => {
 const addNewExternalRelation = () => {
   moduleData.external.push({
     id: nanoid(),
+    action: "create",
     created: new Date().toISOString(),
     origin: "local",
     original_id: null,
@@ -544,7 +546,7 @@ const saveRelations = async () => {
                   <n-space class="w-max">
                     <n-tag
                       v-if="
-                        !relation.original_id || relation.action === 'create'
+                        'action' in relation && relation.action === 'create'
                       "
                       type="info"
                     >

@@ -66,12 +66,18 @@ export default defineEventHandler(async (event) => {
 
   // Delete the relation
 
-  await prisma.stagingExternalRelation.update({
-    data: {
-      action: "delete",
-    },
-    where: { id: relationid },
-  });
+  if (relation.action === "create") {
+    await prisma.stagingExternalRelation.delete({
+      where: { id: relationid },
+    });
+  } else {
+    await prisma.stagingExternalRelation.update({
+      data: {
+        action: "delete",
+      },
+      where: { id: relationid },
+    });
+  }
 
   await touchCollection(collectionid);
 
