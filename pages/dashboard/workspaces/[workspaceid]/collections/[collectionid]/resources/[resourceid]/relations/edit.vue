@@ -341,22 +341,21 @@ const saveRelations = async () => {
     <div class="mx-auto w-full max-w-screen-xl px-2.5 lg:px-20">
       <n-form
         ref="formRef"
-        :label-width="80"
-        :model="moduleData.internal"
+        :label-width="130"
+        :model="moduleData"
         size="large"
+        label-placement="left"
       >
-        <div class="py-10">
-          <div class="flex items-center justify-between">
-            <h3>Internal Relations</h3>
+        <div class="flex items-center justify-between pt-10">
+          <h3>Internal Relations</h3>
 
-            <n-button color="black" @click="addNewInternalRelation">
-              <template #icon>
-                <Icon name="mdi:plus-network" />
-              </template>
+          <n-button color="black" @click="addNewInternalRelation">
+            <template #icon>
+              <Icon name="mdi:plus-network" />
+            </template>
 
-              Add a new internal relation
-            </n-button>
-          </div>
+            Add a new internal relation
+          </n-button>
         </div>
 
         <div
@@ -409,10 +408,8 @@ const saveRelations = async () => {
 
         <pre>{{ moduleData.internal }}</pre>
 
-        <n-divider />
-
-        <div class="flex items-center justify-between">
-          <h2 class="pb-10 pt-16">External Relations</h2>
+        <div class="flex items-center justify-between py-10">
+          <h2>External Relations</h2>
 
           <n-button color="black" @click="addNewExternalRelation">
             <template #icon>
@@ -423,58 +420,86 @@ const saveRelations = async () => {
           </n-button>
         </div>
 
-        <div
-          v-for="relation of moduleData.external"
-          :key="relation.id"
-          class="flex items-center justify-between space-x-8"
-        >
-          <n-form-item path="type" label="Type" class="w-full">
-            <n-select
-              v-model:value="relation.type"
-              filterable
-              :options="relationTypeOptions"
-            />
-          </n-form-item>
-
-          <n-form-item path="target" label="Target Type" class="w-full">
-            <n-select
-              v-model:value="relation.target_type"
-              :disabled="!!relation.original_id"
-              filterable
-              :options="typeOptions"
-            />
-          </n-form-item>
-
-          <n-form-item path="resource_type" label="Target" class="w-full">
-            <n-input
-              v-model:value="relation.target"
-              :disabled="!!relation.original_id"
-              placeholder="https://example.com"
-            />
-          </n-form-item>
-
-          <n-form-item
-            path="resource_type"
-            label="Resource Type"
-            class="w-full"
+        <n-space vertical>
+          <div
+            v-for="relation of moduleData.external"
+            :key="relation.id"
+            class="flex items-center justify-between space-x-8 rounded-xl border bg-white px-3 py-5"
           >
-            <n-select
-              v-model:value="relation.resource_type"
-              filterable
-              :options="resourceTypeOptions"
-            />
-          </n-form-item>
+            <div class="flex w-full flex-col">
+              <div class="flex w-full items-center">
+                <n-form-item path="resource_type" class="w-full">
+                  <template #label>
+                    <span class="font-medium">Resource Type</span>
+                  </template>
 
-          <n-button
-            type="error"
-            size="large"
-            @click="removeExternalRelation(relation.id)"
-          >
-            <template #icon>
-              <Icon name="iconoir:trash" />
-            </template>
-          </n-button>
-        </div>
+                  <n-select
+                    v-model:value="relation.resource_type"
+                    filterable
+                    :options="resourceTypeOptions"
+                  />
+                </n-form-item>
+
+                <div>
+                  <n-divider vertical />
+                </div>
+
+                <n-form-item path="type" label="Type" class="w-full">
+                  <template #label>
+                    <span class="font-medium">Relation Type</span>
+                  </template>
+
+                  <n-select
+                    v-model:value="relation.type"
+                    filterable
+                    :options="relationTypeOptions"
+                  />
+                </n-form-item>
+              </div>
+
+              <div class="flex w-full flex-col">
+                <n-form-item path="target">
+                  <template #label>
+                    <span class="font-medium">Target Type</span>
+                  </template>
+
+                  <n-select
+                    v-model:value="relation.target_type"
+                    :disabled="!!relation.original_id"
+                    filterable
+                    :options="typeOptions"
+                  />
+                </n-form-item>
+
+                <n-form-item path="resource_type">
+                  <template #label>
+                    <span class="font-medium">Target</span>
+                  </template>
+
+                  <n-input
+                    v-model:value="relation.target"
+                    :disabled="!!relation.original_id"
+                    placeholder="https://example.com"
+                  />
+                </n-form-item>
+              </div>
+
+              <div class="flex justify-end">
+                <n-button
+                  type="error"
+                  secondary
+                  @click="removeExternalRelation(relation.id)"
+                >
+                  <template #icon>
+                    <Icon name="iconoir:trash" />
+                  </template>
+
+                  Remove relation
+                </n-button>
+              </div>
+            </div>
+          </div>
+        </n-space>
       </n-form>
 
       <n-divider />
