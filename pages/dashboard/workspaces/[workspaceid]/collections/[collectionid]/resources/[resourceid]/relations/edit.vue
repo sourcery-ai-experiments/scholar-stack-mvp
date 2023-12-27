@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { FormInst } from "naive-ui";
+import type { FormInst, SelectOption } from "naive-ui";
 import { faker } from "@faker-js/faker";
 import { nanoid } from "nanoid";
-import { Icon } from "#components";
+import { NTag, Icon } from "#components";
 
 import PREFIX_JSON from "@/assets/json/prefix.json";
 import RELATION_TYPE_JSON from "@/assets/json/relation-type.json";
@@ -93,14 +93,14 @@ if (relations.value) {
   moduleData.internal = relations.value.internal.map((relation) => {
     return {
       ...relation,
-      action: undefined,
+      action: relation.action || undefined,
       origin: "remote",
     };
   });
   moduleData.external = relations.value.external.map((relation) => {
     return {
       ...relation,
-      action: undefined,
+      action: relation.action || undefined,
       origin: "remote",
     };
   });
@@ -126,6 +126,24 @@ if (resourceListError.value) {
     message: "We couldn't load your resources",
   });
 }
+
+const renderLabel = (option: SelectOption): any => {
+  return [
+    option.versionLabel &&
+      h(
+        NTag,
+        {
+          class: "mr-2",
+          size: "small",
+          type: "info",
+        },
+        {
+          default: () => option.versionLabel || "",
+        }
+      ),
+    option.label as string,
+  ];
+};
 
 const addNewInternalRelation = () => {
   moduleData.internal.push({
@@ -366,7 +384,7 @@ const saveRelations = async () => {
         label-placement="left"
       >
         <div class="flex items-center justify-between py-10">
-          <h3>Internal Relations</h3>
+          <h2>Internal Relations</h2>
 
           <n-button color="black" @click="addNewInternalRelation">
             <template #icon>
@@ -377,51 +395,107 @@ const saveRelations = async () => {
           </n-button>
         </div>
 
-        <div
-          v-for="relation of moduleData.internal"
-          :key="relation.id"
-          class="flex items-center justify-between space-x-8"
-        >
-          <n-form-item path="type" label="Relation Type" class="w-full">
-            <n-select
-              v-model:value="relation.type"
-              filterable
-              :options="relationTypeOptions"
-            />
-          </n-form-item>
-
-          <n-form-item path="target" label="Resource" class="w-full">
-            <n-select
-              v-model:value="relation.target_id"
-              filterable
-              :disabled="!!relation.original_id"
-              :loading="resourceListLoadingIndicator"
-              :options="resourceList || []"
-            />
-          </n-form-item>
-
-          <n-form-item
-            path="resource_type"
-            label="Resource Type"
-            class="w-full"
+        <n-space vertical size="large">
+          <div
+            v-for="relation of moduleData.internal"
+            :key="relation.id"
+            class="flex items-center justify-between space-x-8 rounded-xl border bg-white px-3 py-5"
           >
-            <n-select
-              v-model:value="relation.resource_type"
-              filterable
-              :options="resourceTypeOptions"
-            />
-          </n-form-item>
+            <div class="flex w-full flex-col">
+              <div class="flex w-full items-center">
+                <n-form-item path="resource_type" class="w-full">
+                  <template #label>
+                    <span class="font-medium">Resource Type</span>
+                  </template>
 
-          <n-button
-            type="error"
-            size="large"
-            @click="removeInternalRelation(relation.id)"
-          >
-            <template #icon>
-              <Icon name="iconoir:trash" />
-            </template>
-          </n-button>
-        </div>
+                  <n-select
+                    v-model:value="relation.resource_type"
+                    filterable
+                    :options="resourceTypeOptions"
+                  />
+                </n-form-item>
+
+                <n-form-item path="type" class="w-full">
+                  <template #label>
+                    <span class="font-medium">Relation Type</span>
+                  </template>
+
+                  <n-select
+                    v-model:value="relation.type"
+                    filterable
+                    :options="relationTypeOptions"
+                  />
+                </n-form-item>
+              </div>
+
+              <div class="flex w-full flex-col">
+                <n-form-item path="target" class="w-full">
+                  <template #label>
+                    <span class="font-medium">Target</span>
+                  </template>
+
+                  <n-select
+                    v-model:value="relation.target_id"
+                    filterable
+                    :render-label="renderLabel"
+                    :disabled="!!relation.original_id"
+                    :loading="resourceListLoadingIndicator"
+                    :options="resourceList || []"
+                  />
+                </n-form-item>
+              </div>
+
+              <div
+                class="flex w-full items-center justify-between border-t pt-4"
+              >
+                <div>
+                  <p
+                    v-if="
+                      relation.type &&
+                      relation.resource_type &&
+                      relation.target_id
+                    "
+                    class="text-sm"
+                  >
+                    The
+                    <code>
+                      {{ currentResource?.title }}
+                    </code>
+                    resource
+                    <code>
+                      {{ relation.type }}
+                    </code>
+                    a
+                    <code>
+                      {{ relation.resource_type }}
+                    </code>
+                    resource identified by the
+                    <code>
+                      {{ relation.target_id }}
+                    </code>
+                    .
+                  </p>
+                </div>
+
+                <div class="flex w-max items-center">
+                  <n-divider vertical />
+
+                  <n-button
+                    type="error"
+                    secondary
+                    @click="removeInternalRelation(relation.id)"
+                  >
+                    <template #icon>
+                      <Icon name="iconoir:trash" />
+                    </template>
+
+                    Remove relation
+                  </n-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </n-space>
 
         <pre>{{ moduleData.internal }}</pre>
 
@@ -553,9 +627,28 @@ const saveRelations = async () => {
                       New
                     </n-tag>
 
-                    <n-tag v-if="relation.origin" type="success">
-                      {{ relation.origin === "remote" ? "Remote" : "Local" }}
+                    <n-tag
+                      v-if="
+                        'action' in relation && relation.action === 'update'
+                      "
+                      type="warning"
+                    >
+                      Updated
                     </n-tag>
+
+                    <Icon
+                      v-if="relation.origin === 'remote'"
+                      size="28"
+                      class="text-emerald-500"
+                      name="material-symbols:cloud-done"
+                    />
+
+                    <Icon
+                      v-if="relation.origin === 'local'"
+                      size="28"
+                      class="text-orange-400"
+                      name="mdi:cloud-upload"
+                    />
                   </n-space>
 
                   <n-divider vertical />
@@ -576,11 +669,11 @@ const saveRelations = async () => {
             </div>
           </div>
         </n-space>
+
+        <n-divider />
+
+        <pre>{{ moduleData.external }}</pre>
       </n-form>
-
-      <n-divider />
-
-      <pre>{{ moduleData.external }}</pre>
     </div>
 
     <ModalNewCollection />
