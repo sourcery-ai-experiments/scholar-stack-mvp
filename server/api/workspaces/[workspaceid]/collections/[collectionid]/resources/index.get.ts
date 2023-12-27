@@ -43,13 +43,18 @@ export default defineEventHandler(async (event) => {
     });
 
     for (const resource of resources) {
-      allResources.push(resource);
+      allResources.push({
+        ...resource,
+        versionName: version.name,
+      });
       allResourceIds.push(resource.id);
     }
   }
 
-  // Get a unique list of all the resources
-  const uniqueResourceIds = [...new Set(allResourceIds)];
+  // Get a unique list of all the resource ids keeping the order of the first occurrence
+  const uniqueResourceIds = allResourceIds.filter(
+    (value, index, self) => self.indexOf(value) === index
+  );
 
   // Remove the resources that are not in the collection
   const resources = allResources.filter((resource) =>
@@ -59,6 +64,7 @@ export default defineEventHandler(async (event) => {
   for (const resource of resources) {
     const item = {
       label: resource.title,
+      latestCollectionVersionName: resource.versionName,
       value: resource.id,
       versionLabel: resource.version_label,
     };

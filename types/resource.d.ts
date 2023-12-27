@@ -26,6 +26,7 @@ interface ResourcesListItem {
   label: string;
   value: string;
   versionLabel?: string | null;
+  latestCollectionVersionName: string;
 }
 
 interface ResourcesList extends Array<ResourcesListItem> {}

@@ -2,7 +2,7 @@
 import type { FormInst, SelectOption } from "naive-ui";
 import { faker } from "@faker-js/faker";
 import { nanoid } from "nanoid";
-import { NTag, Icon } from "#components";
+import { NTag, Icon, NDivider } from "#components";
 
 import PREFIX_JSON from "@/assets/json/prefix.json";
 import RELATION_TYPE_JSON from "@/assets/json/relation-type.json";
@@ -142,6 +142,15 @@ const renderLabel = (option: SelectOption): any => {
         }
       ),
     option.label as string,
+    h(
+      "span",
+      {
+        class: "text-gray-400 ml-2 text-xs",
+      },
+      {
+        default: () => "Last revision: " + option.latestCollectionVersionName,
+      }
+    ),
   ];
 };
 
