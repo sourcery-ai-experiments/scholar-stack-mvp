@@ -111,7 +111,7 @@ const {
   error: resourceListError,
   pending: resourceListLoadingIndicator,
 } = useLazyFetch(
-  `/api/workspaces/${workspaceid}/collections/${collectionid}/resources`,
+  `/api/workspaces/${workspaceid}/collections/${collectionid}/resources?resourceid=${resourceid}`,
   {
     headers: useRequestHeaders(["cookie"]),
   }
@@ -387,7 +387,7 @@ const saveRelations = async () => {
     <div class="mx-auto w-full max-w-screen-xl px-2.5 lg:px-20">
       <n-form
         ref="formRef"
-        :label-width="130"
+        :label-width="135"
         :model="moduleData"
         size="large"
         label-placement="left"
@@ -406,13 +406,21 @@ const saveRelations = async () => {
 
         <n-space vertical size="large">
           <div
-            v-for="relation of moduleData.internal"
-            :key="relation.id"
+            v-for="(relation, index) of moduleData.internal"
+            :key="index"
             class="flex items-center justify-between space-x-8 rounded-xl border bg-white px-3 py-5"
           >
             <div class="flex w-full flex-col">
               <div class="flex w-full items-center">
-                <n-form-item path="resource_type" class="w-full">
+                <n-form-item
+                  :path="`internal[${index}].resource_type`"
+                  class="w-full"
+                  :rule="{
+                    message: 'Please select a resource type',
+                    required: true,
+                    trigger: ['blur', 'change'],
+                  }"
+                >
                   <template #label>
                     <span class="font-medium">Resource Type</span>
                   </template>
@@ -424,7 +432,15 @@ const saveRelations = async () => {
                   />
                 </n-form-item>
 
-                <n-form-item path="type" class="w-full">
+                <n-form-item
+                  :path="`internal[${index}].type`"
+                  class="w-full"
+                  :rule="{
+                    message: 'Please select a relation type',
+                    required: true,
+                    trigger: ['blur', 'change'],
+                  }"
+                >
                   <template #label>
                     <span class="font-medium">Relation Type</span>
                   </template>
@@ -438,7 +454,15 @@ const saveRelations = async () => {
               </div>
 
               <div class="flex w-full flex-col">
-                <n-form-item path="target" class="w-full">
+                <n-form-item
+                  class="w-full"
+                  :path="`internal[${index}].target_id`"
+                  :rule="{
+                    message: 'Please select a target',
+                    required: true,
+                    trigger: ['blur', 'change'],
+                  }"
+                >
                   <template #label>
                     <span class="font-medium">Target</span>
                   </template>

@@ -7,6 +7,8 @@ export default defineEventHandler(async (event) => {
     workspaceid: string;
   };
 
+  const { resourceid } = getQuery(event);
+
   const collection = await prisma.collection.findUnique({
     where: { id: collectionid, workspace_id: workspaceid },
   });
@@ -45,6 +47,10 @@ export default defineEventHandler(async (event) => {
 
       for (const resource of resources) {
         if (resource.original_resource_id) {
+          continue;
+        }
+
+        if (resourceid && resource.id === resourceid) {
           continue;
         }
 
@@ -89,10 +95,36 @@ export default defineEventHandler(async (event) => {
     uniqueResourceIds.includes(resource.id)
   );
 
+  let currentResource = null;
+
+  if (resourceid) {
+    currentResource = await prisma.stagingResource.findUnique({
+      where: {
+        id: resourceid as string,
+      },
+    });
+
+    if (!currentResource) {
+      throw createError({
+        message: "Resource not found",
+        statusCode: 404,
+      });
+    }
+  }
+
   for (const resource of resources) {
     const item = {
+      disabled: !!(
+        currentResource &&
+        "original_resource_id" in currentResource &&
+        currentResource.original_resource_id === resource.id
+      ),
       label: resource.title,
       latestCollectionVersionName: resource.versionName,
+      orignalResourceId:
+        "original_resource_id" in resource
+          ? resource.original_resource_id
+          : null,
       value: resource.id,
       versionLabel: resource.version_label,
     };
