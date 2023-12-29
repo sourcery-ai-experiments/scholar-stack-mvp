@@ -32,26 +32,54 @@ export default defineEventHandler(async (event) => {
 
   // get the resources for each version
   for (const version of versions) {
-    const resources = await prisma.stagingResource.findMany({
-      where: {
-        Version: {
-          some: {
-            id: version.id,
+    if (version.published === false) {
+      const resources = await prisma.stagingResource.findMany({
+        where: {
+          Version: {
+            some: {
+              id: version.id,
+            },
           },
         },
-      },
-    });
-
-    for (const resource of resources) {
-      allResources.push({
-        ...resource,
-        versionName: version.name,
       });
-      allResourceIds.push(resource.id);
+
+      for (const resource of resources) {
+        if (resource.original_resource_id) {
+          continue;
+        }
+
+        if (resource.action === "delete" || resource.action === "oldVersion") {
+          continue;
+        }
+
+        allResources.push({
+          ...resource,
+          versionName: version.name,
+        });
+        allResourceIds.push(resource.id);
+      }
+    } else {
+      const resources = await prisma.resource.findMany({
+        where: {
+          Version: {
+            some: {
+              id: version.id,
+            },
+          },
+        },
+      });
+
+      for (const resource of resources) {
+        allResources.push({
+          ...resource,
+          versionName: version.name,
+        });
+        allResourceIds.push(resource.id);
+      }
     }
   }
 
-  // Get a unique list of all the resource ids keeping the order of the first occurrence
+  // Get a unique list of all the resource ids keeping the order of the first occurrence that is not the draft version
   const uniqueResourceIds = allResourceIds.filter(
     (value, index, self) => self.indexOf(value) === index
   );
