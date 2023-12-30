@@ -107,11 +107,11 @@ const discardDraftVersion = async () => {
         class="mx-auto flex w-full max-w-screen-xl items-center justify-between px-2.5 lg:px-20"
       >
         <div class="flex w-full items-center justify-between">
-          <div class="flex items-center justify-start space-x-2">
-            <h1>
-              {{ collection?.title || "Untitled Collection" }}
-            </h1>
+          <h1>
+            {{ collection?.title || "Untitled Collection" }}
+          </h1>
 
+          <n-space align="center">
             <n-tag
               v-if="
                 collection &&
@@ -119,7 +119,7 @@ const discardDraftVersion = async () => {
                 !collection.version.published
               "
               type="info"
-              size="medium"
+              size="large"
             >
               Draft Version
             </n-tag>
@@ -129,13 +129,16 @@ const discardDraftVersion = async () => {
                 collection && collection.version && collection.version.published
               "
               type="success"
+              size="large"
             >
               {{ collection?.version?.name || "" }}
             </n-tag>
-          </div>
 
-          <n-space align="center">
-            <NuxtLink
+            <div>
+              <n-divider vertical />
+            </div>
+
+            <!-- <NuxtLink
               :to="`/dashboard/workspaces/${workspaceid}/collections/${collectionid}/publish`"
               class="hidden"
             >
@@ -149,7 +152,7 @@ const discardDraftVersion = async () => {
                 </template>
                 Publish collection
               </n-button>
-            </NuxtLink>
+            </NuxtLink> -->
 
             <n-button
               v-if="collection?.version?.published || !collection?.version"

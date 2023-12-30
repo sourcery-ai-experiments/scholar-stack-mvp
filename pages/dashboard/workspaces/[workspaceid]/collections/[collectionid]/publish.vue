@@ -99,9 +99,10 @@ const publishCollection = async () => {
       message: "Your collection has been published",
     });
 
-    navigateTo(
-      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}`
-    );
+    // navigate to collection overview using window.location.href
+    // This will cause a full page reload, but it's the only way to
+    // ensure that the page clears the stores and fetches the new data
+    window.location.href = `/dashboard/workspaces/${workspaceid}/collections/${collectionid}`;
   }
 };
 </script>

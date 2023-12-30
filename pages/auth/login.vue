@@ -58,14 +58,14 @@ const signIn = (e: MouseEvent) => {
       setTimeout(() => {
         if (route.path === "/auth/login") {
           push.warning({
-            title: "Slow Connection",
-            message: "Please wait while we sign you in.",
+            title: "This is taking longer than expected",
+            message: "Please wait while we sign you in...",
           });
 
           // refresh the page
           window.location.reload();
         }
-      }, 5000);
+      }, 3000);
 
       const { error: loginError } = await supabase.auth.signInWithPassword({
         email: loginForm.emailAddress,

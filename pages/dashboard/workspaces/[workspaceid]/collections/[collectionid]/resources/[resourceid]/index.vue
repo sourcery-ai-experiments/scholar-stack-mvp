@@ -260,7 +260,7 @@ const createNewVersion = async () => {
 
     <div class="mx-auto w-full max-w-screen-xl px-2.5 lg:px-20">
       <div class="flex items-center justify-between space-x-4 pb-5 pt-10">
-        <h3>About</h3>
+        <h2>About</h2>
 
         <NuxtLink
           :to="
@@ -280,43 +280,43 @@ const createNewVersion = async () => {
         </NuxtLink>
       </div>
 
-      <h4 class="pb-2 pt-5">Title</h4>
+      <h3 class="pb-2 pt-5">Title</h3>
 
       <p class="text-lg">{{ resource?.title || "No title provided" }}</p>
 
-      <h4 class="pb-2 pt-5">Description</h4>
+      <h3 class="pb-2 pt-5">Description</h3>
 
       <p class="text-lg">
         {{ resource?.description || "No description available" }}
       </p>
 
-      <h4 class="pb-2 pt-5">Type</h4>
+      <h3 class="pb-2 pt-5">Type</h3>
 
       <p class="text-lg">{{ resourceType }}</p>
 
-      <h4 class="pb-2 pt-5">Identifier</h4>
+      <h3 class="pb-2 pt-5">Identifier</h3>
 
       <p class="text-lg">{{ resource?.target || "No identifier provided" }}</p>
 
-      <h4 v-if="resource?.back_link_id" class="pb-2 pt-5">Derived from</h4>
+      <h3 v-if="resource?.back_link_id" class="pb-2 pt-5">Derived from</h3>
 
       <p v-if="resource?.back_link_id" class="text-lg">
         {{ resource?.back_link_id }}
       </p>
 
-      <h4 v-if="resource?.version_label" class="pb-2 pt-5">Version</h4>
+      <h3 v-if="resource?.version_label" class="pb-2 pt-5">Version</h3>
 
       <p v-if="resource?.version_label" class="text-lg">
         {{ resource?.version_label }}
       </p>
 
-      <h4 class="pb-2 pt-5">Created on</h4>
+      <h3 class="pb-2 pt-5">Created on</h3>
 
       <p class="text-lg">
         {{ displayLongDate(resource?.created as string) }}
       </p>
 
-      <h4 class="pb-2 pt-5">Last updated on</h4>
+      <h3 class="pb-2 pt-5">Last updated on</h3>
 
       <p class="text-lg">
         {{ displayLongDate(resource?.updated as string) }}

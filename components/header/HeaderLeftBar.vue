@@ -72,6 +72,8 @@ watchEffect(() => {
 
 const navigateToWorkspace = (workspaceid: string) => {
   navigateTo(`/dashboard/workspaces/${workspaceid}`);
+
+  collectionStore.fetchCollections(workspaceid);
 };
 
 const createNewWorkspace = () => {
@@ -82,6 +84,8 @@ const navigateToCollection = (collectionid: string) => {
   navigateTo(
     `/dashboard/workspaces/${selectedWorkspace.value}/collections/${collectionid}`
   );
+
+  resourceStore.fetchResources(selectedWorkspace.value, collectionid);
 };
 
 const createNewCollection = () => {

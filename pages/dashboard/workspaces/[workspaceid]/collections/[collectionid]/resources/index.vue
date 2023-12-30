@@ -38,8 +38,6 @@ if (error.value) {
   navigateTo(`/dashboard/workspaces/${workspaceid}`);
 }
 
-console.log(collection.value);
-
 const createNewDraftVersion = async () => {
   draftVersionLoading.value = true;
 
@@ -122,19 +120,33 @@ const addResource = async () => {
       >
         <div class="flex items-center space-x-2">
           <h1>Resources</h1>
+        </div>
 
+        <div class="flex items-center space-x-2">
           <n-tag
             v-if="
               collection && collection.version && !collection.version.published
             "
             type="info"
-            size="medium"
+            size="large"
           >
             Draft Version
           </n-tag>
-        </div>
 
-        <div class="flex items-center space-x-2">
+          <n-tag
+            v-if="
+              collection && collection.version && collection.version.published
+            "
+            size="large"
+            type="success"
+          >
+            {{ collection?.version?.name || "" }}
+          </n-tag>
+
+          <div v-if="collection?.version?.published || !collection?.version">
+            <n-divider vertical />
+          </div>
+
           <n-button
             v-if="collection?.version?.published || !collection?.version"
             size="large"
@@ -210,8 +222,8 @@ const addResource = async () => {
           :class="{
             'cursor-not-allowed border-red-300 bg-red-50 !shadow-none':
               resource.action === 'delete' || resource.action === 'oldVersion',
-
-            'border-slate-300 bg-white': resource.action === 'clone',
+            'border-slate-300 bg-white':
+              !resource.action || resource.action === 'clone',
             'border-blue-300 bg-white': resource.action === 'create',
             'border-teal-400 bg-white': resource.action === 'update',
             'border-cyan-400 bg-white': resource.action === 'newVersion',
@@ -314,7 +326,8 @@ const addResource = async () => {
                   <NuxtLink
                     v-if="
                       resource.action !== 'delete' &&
-                      resource.action !== 'oldVersion'
+                      resource.action !== 'oldVersion' &&
+                      !collection?.version?.published
                     "
                     :to="`/dashboard/workspaces/${workspaceid}/collections/${collection?.id}/resources/${resource.id}/edit`"
                   >

@@ -47,11 +47,6 @@ if (currentCollection?.version?.published) {
 
 const formRef = ref<FormInst | null>(null);
 
-/**
- * todo: create a form to handle this
- * todo: use a card/list ui to display the relations Makes it easier to add the example text this way
- */
-
 const moduleData = reactive<Relations>({
   external: [],
   internal: [],
@@ -152,6 +147,20 @@ const renderLabel = (option: SelectOption): any => {
       }
     ),
   ];
+};
+
+const getResourceName = (resourceid: string) => {
+  if (resourceList.value) {
+    const resources = resourceList.value;
+
+    const resource = resources.find((res) => res.value === resourceid);
+
+    if (resource) {
+      return resource.label;
+    }
+  }
+
+  return "";
 };
 
 const addNewInternalRelation = () => {
@@ -360,7 +369,7 @@ const saveRelations = async () => {
 </script>
 
 <template>
-  <main class="h-full bg-zinc-50">
+  <main class="bg-zinc-50">
     <div class="flex h-36 items-center border-b border-gray-200 bg-white">
       <div
         class="mx-auto flex w-full max-w-screen-xl items-center justify-between px-2.5 lg:px-20"
@@ -384,7 +393,9 @@ const saveRelations = async () => {
       </div>
     </div>
 
-    <div class="mx-auto w-full max-w-screen-xl px-2.5 lg:px-20">
+    <div
+      class="mx-auto min-h-[calc(100vh-312px)] w-full max-w-screen-xl px-2.5 lg:px-20"
+    >
       <n-form
         ref="formRef"
         :label-width="135"
@@ -502,9 +513,9 @@ const saveRelations = async () => {
                     <code>
                       {{ relation.resource_type }}
                     </code>
-                    resource identified by the
+                    resource named
                     <code>
-                      {{ relation.target_id }}
+                      {{ getResourceName(relation.target_id) }}
                     </code>
                     .
                   </p>
@@ -548,13 +559,21 @@ const saveRelations = async () => {
 
         <n-space vertical size="large">
           <div
-            v-for="relation of moduleData.external"
-            :key="relation.id"
+            v-for="(relation, index) of moduleData.external"
+            :key="index"
             class="flex items-center justify-between space-x-8 rounded-xl border bg-white px-3 py-5"
           >
             <div class="flex w-full flex-col">
               <div class="flex w-full items-center">
-                <n-form-item path="resource_type" class="w-full">
+                <n-form-item
+                  :path="`external[${index}].resource_type`"
+                  class="w-full"
+                  :rule="{
+                    message: 'Please select a resource type',
+                    required: true,
+                    trigger: ['blur', 'change'],
+                  }"
+                >
                   <template #label>
                     <span class="font-medium">Resource Type</span>
                   </template>
@@ -566,7 +585,15 @@ const saveRelations = async () => {
                   />
                 </n-form-item>
 
-                <n-form-item path="type" label="Type" class="w-full">
+                <n-form-item
+                  class="w-full"
+                  :path="`external[${index}].type`"
+                  :rule="{
+                    message: 'Please select a relation type',
+                    required: true,
+                    trigger: ['blur', 'change'],
+                  }"
+                >
                   <template #label>
                     <span class="font-medium">Relation Type</span>
                   </template>
@@ -580,7 +607,14 @@ const saveRelations = async () => {
               </div>
 
               <div class="flex w-full flex-col">
-                <n-form-item path="target">
+                <n-form-item
+                  :path="`external[${index}].target_type`"
+                  :rule="{
+                    message: 'Please select a target type',
+                    required: true,
+                    trigger: ['blur', 'change'],
+                  }"
+                >
                   <template #label>
                     <span class="font-medium">Target Type</span>
                   </template>
@@ -593,7 +627,14 @@ const saveRelations = async () => {
                   />
                 </n-form-item>
 
-                <n-form-item path="resource_type">
+                <n-form-item
+                  :path="`external[${index}].target`"
+                  :rule="{
+                    message: 'Please enter a target',
+                    required: true,
+                    trigger: ['blur', 'input'],
+                  }"
+                >
                   <template #label>
                     <span class="font-medium">Target</span>
                   </template>
