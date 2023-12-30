@@ -73,7 +73,7 @@ export default defineEventHandler(async (event) => {
   // create a new version
   const newVersion = await prisma.version.create({
     data: {
-      name: `v.${calver.inc(
+      name: `v${calver.inc(
         "yyyy.ww.minor",
         lastPublishedVersion?.name || "",
         "calendar.minor"
