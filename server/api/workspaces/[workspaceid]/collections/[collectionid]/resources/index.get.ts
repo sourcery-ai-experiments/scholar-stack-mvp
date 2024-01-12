@@ -33,9 +33,10 @@ export default defineEventHandler(async (event) => {
   const allResourceIds = [];
 
   // get the resources for each version
+
   for (const version of versions) {
     if (version.published === false) {
-      const resources = await prisma.stagingResource.findMany({
+      const resources = await prisma.resource.findMany({
         where: {
           Version: {
             some: {
@@ -98,7 +99,7 @@ export default defineEventHandler(async (event) => {
   let currentResource = null;
 
   if (resourceid) {
-    currentResource = await prisma.stagingResource.findUnique({
+    currentResource = await prisma.resource.findUnique({
       where: {
         id: resourceid as string,
       },
@@ -113,12 +114,16 @@ export default defineEventHandler(async (event) => {
   }
 
   for (const resource of resources) {
+    console.log(resource.action);
+
     const item = {
-      disabled: !!(
-        currentResource &&
-        "original_resource_id" in currentResource &&
-        currentResource.original_resource_id === resource.id
-      ),
+      disabled:
+        !!(
+          currentResource &&
+          "original_resource_id" in currentResource &&
+          currentResource.original_resource_id === resource.id
+        ) ||
+        (resource.action && resource.action === "delete"),
       label: resource.title,
       latestCollectionVersionName: resource.versionName,
       orignalResourceId:
