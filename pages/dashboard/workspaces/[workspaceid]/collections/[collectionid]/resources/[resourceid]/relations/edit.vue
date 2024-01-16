@@ -374,7 +374,11 @@ const saveRelations = async () => {
       <div
         class="mx-auto flex w-full max-w-screen-xl items-center justify-between px-2.5 lg:px-20"
       >
-        <h1>Edit relations</h1>
+        <n-space align="center">
+          <h1>Edit relations</h1>
+
+          <n-tag type="warning">beta</n-tag>
+        </n-space>
 
         <div class="flex items-center space-x-2">
           <n-button

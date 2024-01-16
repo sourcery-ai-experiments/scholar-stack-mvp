@@ -83,7 +83,11 @@ const { data: relations, pending: relationsPending } = useLazyFetch(
         class="mx-auto flex w-full max-w-screen-xl items-center justify-between px-2.5 lg:px-20"
       >
         <n-space vertical>
-          <h1>Relations</h1>
+          <n-space align="center">
+            <h1>Relations</h1>
+
+            <n-tag type="warning">beta</n-tag>
+          </n-space>
 
           <n-tag v-if="resource?.back_link_id" type="info" size="large">
             {{ resource?.back_link_id }}

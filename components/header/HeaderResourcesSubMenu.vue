@@ -37,6 +37,8 @@ const route = useRoute();
         <Icon name="icon-park-twotone:connection-point-two" />
 
         <span class="text-sm"> Relations </span>
+
+        <n-tag type="warning" round size="small">beta</n-tag>
       </div>
     </NuxtLink>
   </div>
