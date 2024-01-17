@@ -35,54 +35,37 @@ export default defineEventHandler(async (event) => {
   // get the resources for each version
 
   for (const version of versions) {
-    if (version.published === false) {
-      const resources = await prisma.resource.findMany({
-        where: {
-          Version: {
-            some: {
-              id: version.id,
-            },
+    const resources = await prisma.resource.findMany({
+      where: {
+        Version: {
+          some: {
+            id: version.id,
           },
         },
-      });
+      },
+    });
 
-      for (const resource of resources) {
-        if (resource.original_resource_id) {
-          continue;
-        }
-
-        if (resourceid && resource.id === resourceid) {
-          continue;
-        }
-
-        if (resource.action === "delete" || resource.action === "oldVersion") {
-          continue;
-        }
-
-        allResources.push({
-          ...resource,
-          versionName: version.name,
-        });
-        allResourceIds.push(resource.id);
+    for (const resource of resources) {
+      if (resource.original_resource_id) {
+        continue;
       }
-    } else {
-      const resources = await prisma.resource.findMany({
-        where: {
-          Version: {
-            some: {
-              id: version.id,
-            },
-          },
-        },
-      });
 
-      for (const resource of resources) {
-        allResources.push({
-          ...resource,
-          versionName: version.name,
-        });
-        allResourceIds.push(resource.id);
+      if (resourceid && resource.id === resourceid) {
+        continue;
       }
+
+      if (
+        resource.action &&
+        (resource.action === "delete" || resource.action === "oldVersion")
+      ) {
+        continue;
+      }
+
+      allResources.push({
+        ...resource,
+        versionName: version.name,
+      });
+      allResourceIds.push(resource.id);
     }
   }
 
@@ -92,9 +75,28 @@ export default defineEventHandler(async (event) => {
   );
 
   // Remove the resources that are not in the collection
-  const resources = allResources.filter((resource) =>
+  const filteredResources = allResources.filter((resource) =>
     uniqueResourceIds.includes(resource.id)
   );
+
+  // sort the resources by the version name in descending order
+  filteredResources.sort((a, b) => {
+    if (a.versionName < b.versionName) {
+      return 1;
+    }
+    if (a.versionName > b.versionName) {
+      return -1;
+    }
+    return 0;
+  });
+
+  // remove earlier versions of the same resource
+  const seen = new Set();
+  const resources = filteredResources.filter((resource) => {
+    const duplicate = seen.has(resource.id);
+    seen.add(resource.id);
+    return !duplicate;
+  });
 
   let currentResource = null;
 
@@ -114,8 +116,6 @@ export default defineEventHandler(async (event) => {
   }
 
   for (const resource of resources) {
-    console.log(resource.action);
-
     const item = {
       disabled:
         !!(

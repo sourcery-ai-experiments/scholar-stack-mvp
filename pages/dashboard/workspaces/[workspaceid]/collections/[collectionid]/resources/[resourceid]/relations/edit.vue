@@ -493,6 +493,10 @@ const saveRelations = async () => {
                 </n-form-item>
               </div>
 
+              <pre>
+                {{ resourceList }}
+              </pre>
+
               <div
                 class="flex w-full items-center justify-between border-t pt-4"
               >
