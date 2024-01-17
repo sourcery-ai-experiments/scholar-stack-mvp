@@ -224,9 +224,9 @@ const addResource = async () => {
               resource.action === 'delete' || resource.action === 'oldVersion',
             'border-slate-300 bg-white':
               !resource.action || resource.action === 'clone',
-            'border-blue-300 bg-white': resource.action === 'create',
-            'border-teal-400 bg-white': resource.action === 'update',
-            'border-cyan-400 bg-white': resource.action === 'newVersion',
+            'border-blue-300 bg-cyan-50/70': resource.action === 'create',
+            'border-emerald-400 bg-emerald-50/90': resource.action === 'update',
+            'border-cyan-400 bg-cyan-50/70': resource.action === 'newVersion',
             'border-red-600 bg-white': resource.filled_in === false,
           }"
         >
@@ -270,6 +270,9 @@ const addResource = async () => {
                           type="info"
                           size="medium"
                         >
+                          <template #icon>
+                            <Icon name="mdi:new-box" size="16" />
+                          </template>
                           New Resource
                         </n-tag>
 
@@ -281,6 +284,9 @@ const addResource = async () => {
                           type="error"
                           size="medium"
                         >
+                          <template #icon>
+                            <Icon name="jam:delete" size="16" />
+                          </template>
                           Marked for deletion
                         </n-tag>
 
@@ -289,6 +295,10 @@ const addResource = async () => {
                           type="success"
                           size="medium"
                         >
+                          <template #icon>
+                            <Icon name="uil:edit-alt" size="16" />
+                          </template>
+
                           Updated
                         </n-tag>
                       </n-space>
@@ -301,6 +311,9 @@ const addResource = async () => {
                     type="warning"
                     size="medium"
                   >
+                    <template #icon>
+                      <Icon name="ic:round-history" size="16" />
+                    </template>
                     Newer Version Available
                   </n-tag>
 
@@ -309,8 +322,17 @@ const addResource = async () => {
                     type="info"
                     size="medium"
                   >
+                    <template #icon>
+                      <Icon name="clarity:new-solid" size="16" />
+                    </template>
+
                     New Version
                   </n-tag>
+
+                  <n-divider
+                    v-if="resource.action && resource.action !== 'oldVersion'"
+                    vertical
+                  />
 
                   <n-button
                     v-if="resource.action === 'delete'"
@@ -360,7 +382,7 @@ const addResource = async () => {
                       ? `https://identifiers.org/${resource.type}/${resource.target}`
                       : resource.target
                   "
-                  class="font-medium text-blue-600 transition-all group-hover:text-blue-700 group-hover:underline"
+                  class="flex items-center font-medium text-blue-600 transition-all group-hover:text-blue-700 group-hover:underline"
                   target="_blank"
                   @click.stop=""
                 >
@@ -370,7 +392,7 @@ const addResource = async () => {
                     v-if="resource.type"
                     name="mdi:external-link"
                     size="16"
-                    class="text-blue-600 transition-all group-hover:text-blue-700 group-hover:underline"
+                    class="ml-1 text-blue-600 transition-all group-hover:text-blue-700 group-hover:underline"
                   />
                 </NuxtLink>
               </div>
