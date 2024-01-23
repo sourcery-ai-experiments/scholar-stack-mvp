@@ -32,7 +32,7 @@ const { data, error } = await useFetch(
   `/api/workspaces/${workspaceid}/collections/${collectionid}/version`,
   {
     headers: useRequestHeaders(["cookie"]),
-  }
+  },
 );
 
 if (error.value) {
@@ -54,7 +54,7 @@ if (data.value) {
     changelog.value = version.changelog;
   } else {
     navigateTo(
-      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}`
+      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}`,
     );
   }
 }
@@ -70,7 +70,7 @@ const saveChangelog = async () => {
       }),
       headers: useRequestHeaders(["cookie"]),
       method: "PUT",
-    }
+    },
   );
 
   saveLoading.value = false;

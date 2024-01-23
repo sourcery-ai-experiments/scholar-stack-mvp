@@ -22,14 +22,14 @@ const resourceStore = useResourceStore();
 
 await collectionStore.getCollection(
   route.params.workspaceid as string,
-  route.params.collectionid as string
+  route.params.collectionid as string,
 );
 
 const currentCollection = collectionStore.collection;
 
 const currentResource = computed(() => {
   const resource = resourceStore.resources.find(
-    (res) => res.id === route.params.resourceid
+    (res) => res.id === route.params.resourceid,
   );
 
   if (resource) {
@@ -41,7 +41,7 @@ const currentResource = computed(() => {
 
 if (currentCollection?.version?.published) {
   navigateTo(
-    `/dashboard/workspaces/${route.params.workspaceid}/collections/${route.params.collectionid}/resources/${route.params.resourceid}`
+    `/dashboard/workspaces/${route.params.workspaceid}/collections/${route.params.collectionid}/resources/${route.params.resourceid}`,
   );
 }
 
@@ -68,7 +68,7 @@ const { data: relations, error: relationsError } = await useFetch(
   `/api/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/relations`,
   {
     headers: useRequestHeaders(["cookie"]),
-  }
+  },
 );
 
 if (relationsError.value) {
@@ -80,7 +80,7 @@ if (relationsError.value) {
   });
 
   navigateTo(
-    `/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}`
+    `/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}`,
   );
 }
 
@@ -109,7 +109,7 @@ const {
   `/api/workspaces/${workspaceid}/collections/${collectionid}/resources?resourceid=${resourceid}`,
   {
     headers: useRequestHeaders(["cookie"]),
-  }
+  },
 );
 
 // TODO: might need to make this into a watch statement
@@ -134,7 +134,7 @@ const renderLabel = (option: SelectOption): any => {
         },
         {
           default: () => option.versionLabel || "",
-        }
+        },
       ),
     option.label as string,
     h(
@@ -144,7 +144,7 @@ const renderLabel = (option: SelectOption): any => {
       },
       {
         default: () => "Last revision: " + option.latestCollectionVersionName,
-      }
+      },
     ),
   ];
 };
@@ -179,7 +179,7 @@ const addNewInternalRelation = () => {
 
 const removeInternalRelation = (id: string) => {
   const internalRelation = moduleData.internal.find(
-    (relation) => relation.id === id
+    (relation) => relation.id === id,
   );
 
   if (internalRelation?.origin === "remote") {
@@ -191,7 +191,7 @@ const removeInternalRelation = (id: string) => {
       {
         headers: useRequestHeaders(["cookie"]),
         method: "DELETE",
-      }
+      },
     );
 
     if (deleteInternalRelationError.value) {
@@ -216,7 +216,7 @@ const removeInternalRelation = (id: string) => {
   });
 
   moduleData.internal = moduleData.internal.filter(
-    (relation) => relation.id !== id
+    (relation) => relation.id !== id,
   );
 };
 
@@ -237,7 +237,7 @@ const addNewExternalRelation = () => {
 
 const removeExternalRelation = (id: string) => {
   const externalRelation = moduleData.external.find(
-    (relation) => relation.id === id
+    (relation) => relation.id === id,
   );
 
   if (externalRelation?.origin === "remote") {
@@ -249,7 +249,7 @@ const removeExternalRelation = (id: string) => {
       {
         headers: useRequestHeaders(["cookie"]),
         method: "DELETE",
-      }
+      },
     );
 
     if (deleteExternalRelationError.value) {
@@ -274,7 +274,7 @@ const removeExternalRelation = (id: string) => {
   });
 
   moduleData.external = moduleData.external.filter(
-    (relation) => relation.id !== id
+    (relation) => relation.id !== id,
   );
 };
 
@@ -323,7 +323,7 @@ const saveRelations = async () => {
       body: JSON.stringify(body),
       headers: useRequestHeaders(["cookie"]),
       method: "PUT",
-    }
+    },
   );
 
   saveRelationsLoadingIndicator.value = false;
@@ -347,7 +347,7 @@ const saveRelations = async () => {
           action: relation.action || undefined,
           origin: "remote",
         };
-      }
+      },
     );
 
     moduleData.external = saveRelationsData.value.relations.external.map(
@@ -357,7 +357,7 @@ const saveRelations = async () => {
           action: relation.action || undefined,
           origin: "remote",
         };
-      }
+      },
     );
 
     push.success({

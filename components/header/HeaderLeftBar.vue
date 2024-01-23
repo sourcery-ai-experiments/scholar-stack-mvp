@@ -56,7 +56,7 @@ watchEffect(() => {
     selectedCollection.value = collectionid as string;
     collectionStore.getCollection(
       workspaceid as string,
-      collectionid as string
+      collectionid as string,
     );
   }
 
@@ -65,7 +65,7 @@ watchEffect(() => {
     resourceStore.getResource(
       workspaceid as string,
       collectionid as string,
-      resourceid as string
+      resourceid as string,
     );
   }
 });
@@ -82,7 +82,7 @@ const createNewWorkspace = () => {
 
 const navigateToCollection = (collectionid: string) => {
   navigateTo(
-    `/dashboard/workspaces/${selectedWorkspace.value}/collections/${collectionid}`
+    `/dashboard/workspaces/${selectedWorkspace.value}/collections/${collectionid}`,
   );
 
   resourceStore.fetchResources(selectedWorkspace.value, collectionid);
@@ -94,7 +94,7 @@ const createNewCollection = () => {
 
 const navigateToResource = (resourceid: string) => {
   navigateTo(
-    `/dashboard/workspaces/${selectedWorkspace.value}/collections/${selectedCollection.value}/resources/${resourceid}`
+    `/dashboard/workspaces/${selectedWorkspace.value}/collections/${selectedCollection.value}/resources/${resourceid}`,
   );
 };
 </script>

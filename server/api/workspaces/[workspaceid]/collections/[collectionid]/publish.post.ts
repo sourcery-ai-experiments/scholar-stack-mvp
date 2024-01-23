@@ -101,7 +101,7 @@ export default defineEventHandler(async (event) => {
    */
 
   const clonedResources = resources.filter(
-    (resource) => resource.action === "clone"
+    (resource) => resource.action === "clone",
   );
 
   for (const clonedResource of clonedResources) {
@@ -129,7 +129,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const updatedResources = resources.filter(
-    (resource) => resource.action === "update"
+    (resource) => resource.action === "update",
   );
 
   for (const updatedResource of updatedResources) {
@@ -161,7 +161,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const deletedResources = resources.filter(
-    (resource) => resource.action === "delete"
+    (resource) => resource.action === "delete",
   );
 
   for (const deletedResource of deletedResources) {
@@ -174,7 +174,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const newVersionResources = resources.filter(
-    (resource) => resource.action === "newVersion"
+    (resource) => resource.action === "newVersion",
   );
 
   for (const newVersionResource of newVersionResources) {
@@ -200,7 +200,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const oldVersionResources = resources.filter(
-    (resource) => resource.action === "oldVersion"
+    (resource) => resource.action === "oldVersion",
   );
 
   for (const oldVersionResource of oldVersionResources) {
@@ -213,7 +213,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const newResources = resources.filter(
-    (resource) => resource.action === "create"
+    (resource) => resource.action === "create",
   );
 
   for (const newResource of newResources) {
@@ -405,7 +405,7 @@ export default defineEventHandler(async (event) => {
         lastPublishedVersion?.name
           ? semverClean(lastPublishedVersion?.name)
           : "",
-        "calendar.minor"
+        "calendar.minor",
       )}`,
       collection_id: collectionid,
       published: true,

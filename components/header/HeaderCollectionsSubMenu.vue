@@ -15,7 +15,7 @@ const {
     headers: useRequestHeaders(["cookie"]),
     lazy: true,
     server: false,
-  }
+  },
 );
 
 if (error.value) {

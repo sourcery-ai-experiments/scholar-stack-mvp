@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
           target: z.string(),
           target_type: z.string(),
           type: z.string(),
-        })
+        }),
       ),
       internal: z.array(
         z.object({
@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
           resource_type: z.string(),
           target_id: z.string(),
           type: z.string(),
-        })
+        }),
       ),
     })
     .strict();

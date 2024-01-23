@@ -7,7 +7,7 @@ import prisma from "~/server/utils/prisma";
 import { serverSupabaseUser } from "#supabase/server";
 
 const nanoid = customAlphabet(
-  "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
 );
 
 // Zod schema for the request body
@@ -30,7 +30,7 @@ const bodySchema = z.object({
           target: z.string(),
           type: z.string(),
         })
-        .strict()
+        .strict(),
     )
     .min(1),
   releaseNotes: z.string().min(1),
@@ -118,7 +118,7 @@ export default defineEventHandler(async (event) => {
   const linksToUpdateWithoutTargetChange = linksWithUpdateAction.filter(
     (link) => {
       const originalLink = originalLinks.find(
-        (originalLink) => originalLink.id === link.id
+        (originalLink) => originalLink.id === link.id,
       );
 
       if (originalLink?.target === link.target) {
@@ -126,7 +126,7 @@ export default defineEventHandler(async (event) => {
       }
 
       return false;
-    }
+    },
   );
 
   /**
@@ -136,7 +136,7 @@ export default defineEventHandler(async (event) => {
   // filter links that have an `update` action and the target HAS changed
   const linksToUpdateWithTargetChange = linksWithUpdateAction.filter((link) => {
     const originalLink = originalLinks.find(
-      (originalLink) => originalLink.id === link.id
+      (originalLink) => originalLink.id === link.id,
     );
 
     if (originalLink?.target !== link.target) {
@@ -235,7 +235,7 @@ export default defineEventHandler(async (event) => {
     const newVersionName = calver.inc(
       "yyyy.ww.minor",
       latestVersionName,
-      "calendar.minor"
+      "calendar.minor",
     );
 
     // remove the id from the links that have a target change

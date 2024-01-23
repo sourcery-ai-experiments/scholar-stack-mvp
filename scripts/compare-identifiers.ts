@@ -9,7 +9,7 @@ const main = () => {
     "assets",
     "json",
     "dev",
-    "identifiers-org.json"
+    "identifiers-org.json",
   );
 
   const prefixFilePath = path.join(
@@ -17,7 +17,7 @@ const main = () => {
     "..",
     "assets",
     "json",
-    "prefix.json"
+    "prefix.json",
   );
 
   const inputData = JSON.parse(fs.readFileSync(inputFilePath, "utf8"));
@@ -42,7 +42,7 @@ const main = () => {
 
   for (const prefix of prefixData) {
     const identifier = inputData.find(
-      (item: any) => item.value === prefix.value
+      (item: any) => item.value === prefix.value,
     );
 
     if (!identifier) {

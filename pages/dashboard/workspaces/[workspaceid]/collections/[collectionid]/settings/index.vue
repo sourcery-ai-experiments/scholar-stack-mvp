@@ -15,7 +15,7 @@ const { data: collection, error } = await useFetch(
   `/api/workspaces/${workspaceid}/collections/${collectionid}`,
   {
     headers: useRequestHeaders(["cookie"]),
-  }
+  },
 );
 
 if (error.value) {
@@ -48,7 +48,7 @@ const deleteCollection = async () => {
     {
       headers: useRequestHeaders(["cookie"]),
       method: "DELETE",
-    }
+    },
   );
 
   if (error.value) {
@@ -80,7 +80,7 @@ const updateCollectionDetails = async () => {
       }),
       headers: useRequestHeaders(["cookie"]),
       method: "PUT",
-    }
+    },
   );
 
   if (error.value) {

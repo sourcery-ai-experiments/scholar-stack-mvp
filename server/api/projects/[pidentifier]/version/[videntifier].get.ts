@@ -41,7 +41,7 @@ export default defineEventHandler(async (event) => {
   // check if the version exists in the project versions
 
   const versionExists = project.versions.find(
-    (version) => version.identifier === videntifier
+    (version) => version.identifier === videntifier,
   );
 
   if (!versionExists) {

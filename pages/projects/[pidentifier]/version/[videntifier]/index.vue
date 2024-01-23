@@ -52,7 +52,7 @@ if (versionIdentifier === "new") {
 
     if (!isEmpty(projectData.latestVersion)) {
       navigateTo(
-        `/projects/${projectIdentifier}/version/${projectData.latestVersion}`
+        `/projects/${projectIdentifier}/version/${projectData.latestVersion}`,
       );
     } else {
       // show new UI
@@ -65,7 +65,7 @@ if (versionIdentifier === "new") {
     {
       headers: useRequestHeaders(["cookie"]),
       method: "GET",
-    }
+    },
   );
 
   if (error.value) {

@@ -10,7 +10,7 @@ import axios from "axios";
 
 const main = async () => {
   const response = await axios.get(
-    `https://registry.api.identifiers.org/restApi/namespaces?size=1000&sort=name,asc`
+    `https://registry.api.identifiers.org/restApi/namespaces?size=1000&sort=name,asc`,
   );
 
   const namespaces = response.data._embedded.namespaces;
@@ -69,7 +69,7 @@ const main = async () => {
     "assets",
     "json",
     "dev",
-    "identifiers-org.json"
+    "identifiers-org.json",
   );
 
   // create directory if it doesn't exist

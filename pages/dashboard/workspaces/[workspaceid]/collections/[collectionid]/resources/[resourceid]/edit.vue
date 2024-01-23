@@ -23,14 +23,14 @@ const collectionStore = useCollectionStore();
 
 await collectionStore.getCollection(
   route.params.workspaceid as string,
-  route.params.collectionid as string
+  route.params.collectionid as string,
 );
 
 const currentCollection = collectionStore.collection;
 
 if (currentCollection?.version?.published) {
   navigateTo(
-    `/dashboard/workspaces/${route.params.workspaceid}/collections/${route.params.collectionid}/resources/${route.params.resourceid}`
+    `/dashboard/workspaces/${route.params.workspaceid}/collections/${route.params.collectionid}/resources/${route.params.resourceid}`,
   );
 }
 
@@ -74,7 +74,7 @@ const rules = {
 
         if (!pattern.test(value)) {
           return new Error(
-            `Please enter a valid ${selectedIdentifier.value.label}`
+            `Please enter a valid ${selectedIdentifier.value.label}`,
           );
         }
       }
@@ -108,7 +108,7 @@ const { data: resource, error } = await useFetch(
   `/api/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}`,
   {
     headers: useRequestHeaders(["cookie"]),
-  }
+  },
 );
 
 if (error.value) {
@@ -120,7 +120,7 @@ if (error.value) {
   });
 
   navigateTo(
-    `/dashboard/workspaces/${workspaceid}/collections/${collectionid}`
+    `/dashboard/workspaces/${workspaceid}/collections/${collectionid}`,
   );
 }
 
@@ -137,7 +137,7 @@ if (resource.value && "action" in resource.value) {
     });
 
     navigateTo(
-      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources`
+      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources`,
     );
 
     throw new Error("Resource marked for deletion");
@@ -158,7 +158,7 @@ const renderLabel = (option: SelectOption): VNodeChild => {
       { name: option.value as string, class: "mr-1", size: "20" },
       {
         default: () => null,
-      }
+      },
     ),
     option.label as string,
   ];
@@ -196,7 +196,7 @@ const saveResourceData = () => {
           body: JSON.stringify(body),
           headers: useRequestHeaders(["cookie"]),
           method: "PUT",
-        }
+        },
       );
 
       saveResourceLoadingIndicator.value = false;
@@ -221,7 +221,7 @@ const saveResourceData = () => {
         });
 
         navigateTo(
-          `/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}`
+          `/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}`,
         );
       }
     } else {

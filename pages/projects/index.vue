@@ -25,7 +25,7 @@ watch(
   },
   {
     immediate: true,
-  }
+  },
 );
 
 const viewType = ref<"grid" | "list">("list");

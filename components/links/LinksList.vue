@@ -46,7 +46,7 @@ const removeLink = (id: string) => {
 
   if (allLinks.value.length === 1) {
     message.warning(
-      "You must have at least one link for this version to be valid."
+      "You must have at least one link for this version to be valid.",
     );
   }
 };

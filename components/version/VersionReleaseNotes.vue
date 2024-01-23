@@ -15,7 +15,7 @@ const versionIdentifier = route.params.videntifier as string;
  */
 
 const { data, error } = await useFetch(
-  `/api/release-notes/${versionIdentifier}`
+  `/api/release-notes/${versionIdentifier}`,
 );
 
 showSpinner.value = false;

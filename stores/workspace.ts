@@ -32,7 +32,7 @@ export const useWorkspaceStore = defineStore("workspace", () => {
 
     // move the personal workspace to the top
     const personalWorkspace = workspaces.value.find(
-      (workspace) => workspace.personal
+      (workspace) => workspace.personal,
     );
 
     if (personalWorkspace) {
@@ -69,7 +69,7 @@ export const useWorkspaceStore = defineStore("workspace", () => {
     }
 
     workspace.value = workspaces.value.find(
-      (workspace) => workspace.id === workspaceId
+      (workspace) => workspace.id === workspaceId,
     );
   };
 

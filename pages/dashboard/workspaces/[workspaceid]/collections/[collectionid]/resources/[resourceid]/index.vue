@@ -40,7 +40,7 @@ const { data: resource, error } = await useFetch(
   `/api/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}`,
   {
     headers: useRequestHeaders(["cookie"]),
-  }
+  },
 );
 
 if (error.value) {
@@ -52,7 +52,7 @@ if (error.value) {
   });
 
   navigateTo(
-    `/dashboard/workspaces/${workspaceid}/collections/${collectionid}`
+    `/dashboard/workspaces/${workspaceid}/collections/${collectionid}`,
   );
 }
 
@@ -69,7 +69,7 @@ if (resource.value && "action" in resource.value) {
     });
 
     navigateTo(
-      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources`
+      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources`,
     );
 
     throw new Error("Resource marked for deletion");
@@ -104,7 +104,7 @@ const removeResource = async () => {
     {
       headers: useRequestHeaders(["cookie"]),
       method: "DELETE",
-    }
+    },
   );
 
   removeResourceLoadingIndicator.value = false;
@@ -125,7 +125,7 @@ const removeResource = async () => {
     });
 
     navigateTo(
-      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources`
+      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources`,
     );
   }
 };
@@ -141,7 +141,7 @@ const createNewVersion = async () => {
       body: JSON.stringify(body),
       headers: useRequestHeaders(["cookie"]),
       method: "POST",
-    }
+    },
   );
 
   newResourceVersionLoadingIndicator.value = false;
@@ -166,7 +166,7 @@ const createNewVersion = async () => {
     });
 
     navigateTo(
-      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${data.value.resourceId}`
+      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${data.value.resourceId}`,
     );
   }
 };

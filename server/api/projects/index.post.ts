@@ -7,7 +7,7 @@ import { projectTransformer } from "~/server/transformers/project";
 import { serverSupabaseUser } from "#supabase/server";
 
 const nanoid = customAlphabet(
-  "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
 );
 
 export default defineEventHandler(async (event) => {
@@ -63,7 +63,7 @@ export default defineEventHandler(async (event) => {
       image:
         parsedBody.data.image ||
         `https://api.dicebear.com/6.x/shapes/svg?seed=${encodeURIComponent(
-          parsedBody.data.name
+          parsedBody.data.name,
         )}`,
       tags: parsedBody.data.tags,
     },

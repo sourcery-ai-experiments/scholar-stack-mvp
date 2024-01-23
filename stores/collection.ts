@@ -53,7 +53,7 @@ export const useCollectionStore = defineStore("Collection", () => {
     }
 
     collection.value = collections.value.find(
-      (c: Collection) => c.id === collectionid
+      (c: Collection) => c.id === collectionid,
     );
   };
 

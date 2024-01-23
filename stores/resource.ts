@@ -15,7 +15,7 @@ export const useResourceStore = defineStore("Resource", () => {
 
     // remove any resources that have an action of "delete" or "oldVersion"
     resources.value = resources.value.filter(
-      (r) => r.action !== "delete" && r.action !== "oldVersion"
+      (r) => r.action !== "delete" && r.action !== "oldVersion",
     );
 
     // Sort the resources by alphabetical order
@@ -39,7 +39,7 @@ export const useResourceStore = defineStore("Resource", () => {
       `/api/workspaces/${workspaceid}/collections/${collectionid}`,
       {
         headers: useRequestHeaders(["cookie"]),
-      }
+      },
     );
 
     getLoading.value = false;
@@ -58,7 +58,7 @@ export const useResourceStore = defineStore("Resource", () => {
   const getResource = async (
     workspaceid: string,
     collectionid: string,
-    resourceid: string
+    resourceid: string,
   ) => {
     if (resources.value.length === 0) {
       await fetchResources(workspaceid, collectionid);

@@ -23,7 +23,7 @@ const { data: collection, error: collectionError } =
     `/api/workspaces/${workspaceid}/collections/${collectionid}`,
     {
       headers: useRequestHeaders(["cookie"]),
-    }
+    },
   );
 
 if (collectionError.value) {
@@ -43,7 +43,7 @@ if (collection.value) {
   // if version is published or no version exists, redirect to overview
   if (!version || version.published) {
     navigateTo(
-      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}`
+      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}`,
     );
   }
 }
@@ -58,14 +58,14 @@ const {
     headers: useRequestHeaders(["cookie"]),
     lazy: true,
     server: false,
-  }
+  },
 );
 
 const sanitize = (html: string) => sanitizeHtml(html);
 
 const markdownToHtml = computed(() => {
   return sanitize(
-    parse(collection.value?.version?.changelog || "No changelog")
+    parse(collection.value?.version?.changelog || "No changelog"),
   );
 });
 
@@ -77,7 +77,7 @@ const publishCollection = async () => {
     {
       headers: useRequestHeaders(["cookie"]),
       method: "POST",
-    }
+    },
   );
 
   publishLoading.value = false;

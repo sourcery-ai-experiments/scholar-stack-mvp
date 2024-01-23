@@ -61,7 +61,7 @@ const { data: project, error } = await useFetch(
   {
     lazy: true,
     server: false,
-  }
+  },
 );
 
 watch(error, (err) => {
@@ -84,7 +84,7 @@ watch(project, (project) => {
     const latestVersionIdentifier = projectData.latestVersion.identifier;
 
     navigateTo(
-      `/projects/${projectData.identifier}/version/${latestVersionIdentifier}`
+      `/projects/${projectData.identifier}/version/${latestVersionIdentifier}`,
     );
   } else {
     navigateTo(`/projects/${projectData.identifier}/version/new`);

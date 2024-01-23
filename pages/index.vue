@@ -32,8 +32,20 @@ definePageMeta({
 
     <section class="bg-white">
       <div
-        class="mx-auto max-w-screen-xl px-4 pt-8 text-center lg:px-12 lg:pt-16"
+        class="mx-auto max-w-screen-xl relative px-4 pt-8 text-center lg:px-12 lg:pt-16"
       >
+        <div
+          class="absolute top-0 -left-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70"
+        ></div>
+
+        <div
+          class="absolute top-0 -right-4 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70"
+        ></div>
+
+        <div
+          class="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70"
+        ></div>
+
         <h1
           class="mb-4 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text py-2 text-4xl font-extrabold text-transparent md:text-5xl lg:text-6xl"
         >
@@ -43,8 +55,8 @@ definePageMeta({
         <p
           class="mb-8 text-lg font-normal text-gray-500 sm:px-16 lg:text-xl xl:px-48"
         >
-          SciConnect is a platform that establishes the links between scientific
-          research outputs and the people who need them.
+          Reimagining the links between scientific research outputs and the
+          people who need them.
         </p>
 
         <div

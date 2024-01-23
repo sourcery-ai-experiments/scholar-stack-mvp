@@ -71,7 +71,7 @@ const publishChangesToProject = async (skipNotes = false) => {
         body: JSON.stringify(body),
         headers: useRequestHeaders(["cookie"]),
         method: "POST",
-      }
+      },
     );
 
     console.log("data", data.value);
@@ -85,7 +85,7 @@ const publishChangesToProject = async (skipNotes = false) => {
 
     if (response && "body" in response) {
       const responseBody: APIResponseProjectVersionAddEdit = JSON.parse(
-        response.body as string
+        response.body as string,
       );
 
       if (responseBody) {
@@ -96,13 +96,13 @@ const publishChangesToProject = async (skipNotes = false) => {
           message.success("New version created successfully");
 
           navigateTo(
-            `/projects/${route.params.pidentifier}/version/${responseBody.identifier}`
+            `/projects/${route.params.pidentifier}/version/${responseBody.identifier}`,
           );
         }
 
         if (responseBody.status === "no-new-version") {
           message.success(
-            "Your changes were saved successfully. Please wait while we sync your data."
+            "Your changes were saved successfully. Please wait while we sync your data.",
           );
 
           setTimeout(() => {
@@ -211,7 +211,7 @@ const generateReleaseNotes = () => {
     const releaseVersion = calver.inc(
       "yyyy.ww.minor",
       latestVersionName,
-      "calendar.minor"
+      "calendar.minor",
     );
 
     let header = `# Changelog \n \n`;

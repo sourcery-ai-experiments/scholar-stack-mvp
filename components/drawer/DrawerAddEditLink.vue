@@ -51,7 +51,7 @@ const placeholder = computed(() => {
   if (formValue.type) {
     // find the prefix
     const prefix = typeOptions.find(
-      (prefix) => prefix.value === formValue.type
+      (prefix) => prefix.value === formValue.type,
     );
 
     if (prefix) {
@@ -107,7 +107,7 @@ const renderLabel = (option: SelectOption): VNodeChild => {
       { name: option.value as string, class: "mr-1", size: "20" },
       {
         default: () => null,
-      }
+      },
     ),
     option.label as string,
   ];

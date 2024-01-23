@@ -24,7 +24,7 @@ const { data: collection, error } = await useFetch<CollectionGETAPIResponse>(
   `/api/workspaces/${workspaceid}/collections/${collectionid}`,
   {
     headers: useRequestHeaders(["cookie"]),
-  }
+  },
 );
 
 if (error.value) {
@@ -46,7 +46,7 @@ const createNewDraftVersion = async () => {
     {
       headers: useRequestHeaders(["cookie"]),
       method: "POST",
-    }
+    },
   );
 
   draftVersionLoading.value = false;
@@ -79,7 +79,7 @@ const addResource = async () => {
     {
       headers: useRequestHeaders(["cookie"]),
       method: "POST",
-    }
+    },
   );
 
   newResourceLoading.value = false;
@@ -106,7 +106,7 @@ const addResource = async () => {
 
     // navigate to the new resource
     navigateTo(
-      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceId}/edit`
+      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceId}/edit`,
     );
   }
 };

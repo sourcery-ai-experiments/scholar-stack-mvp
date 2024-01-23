@@ -19,7 +19,7 @@ const { data: collection, error } = await useFetch<CollectionGETAPIResponse>(
   `/api/workspaces/${workspaceid}/collections/${collectionid}`,
   {
     headers: useRequestHeaders(["cookie"]),
-  }
+  },
 );
 
 if (error.value) {
@@ -41,7 +41,7 @@ const createNewDraftVersion = async () => {
     {
       headers: useRequestHeaders(["cookie"]),
       method: "POST",
-    }
+    },
   );
 
   newVersionLoading.value = false;
@@ -74,7 +74,7 @@ const discardDraftVersion = async () => {
     {
       headers: useRequestHeaders(["cookie"]),
       method: "DELETE",
-    }
+    },
   );
 
   discardVersionLoading.value = false;

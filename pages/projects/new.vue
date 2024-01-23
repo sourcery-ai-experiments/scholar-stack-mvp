@@ -62,7 +62,7 @@ const createProject = (e: MouseEvent) => {
           image:
             formValue.image ||
             `https://api.dicebear.com/6.x/shapes/svg?seed=${encodeURIComponent(
-              formValue.title
+              formValue.title,
             )}`,
           tags: formValue.tags,
         };
@@ -84,7 +84,7 @@ const createProject = (e: MouseEvent) => {
           message.success("Project created successfully");
 
           const responseBody: APIResponseNewProject = JSON.parse(
-            response.body as string
+            response.body as string,
           );
 
           if (responseBody && "identifier" in responseBody) {

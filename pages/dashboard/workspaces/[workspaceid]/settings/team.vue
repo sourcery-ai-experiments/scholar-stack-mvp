@@ -40,7 +40,7 @@ const { data: members, error } = await useFetch(
   `/api/workspaces/${workspaceid}/members`,
   {
     headers: useRequestHeaders(["cookie"]),
-  }
+  },
 );
 
 if (error.value) {
@@ -87,7 +87,7 @@ const inviteMember = () => {
           body: JSON.stringify(body),
           headers: useRequestHeaders(["cookie"]),
           method: "POST",
-        }
+        },
       );
 
       inviteLoading.value = false;

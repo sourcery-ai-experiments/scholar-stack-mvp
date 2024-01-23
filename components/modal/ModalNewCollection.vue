@@ -41,7 +41,7 @@ const createCollection = () => {
           }),
           headers: useRequestHeaders(["cookie"]),
           method: "POST",
-        }
+        },
       );
 
       loading.value = false;
@@ -65,7 +65,7 @@ const createCollection = () => {
       collectionStore.fetchCollections(workspaceid);
 
       navigateTo(
-        `/dashboard/workspaces/${workspaceid}/collections/${collection.value?.collectionId}`
+        `/dashboard/workspaces/${workspaceid}/collections/${collection.value?.collectionId}`,
       );
 
       /**

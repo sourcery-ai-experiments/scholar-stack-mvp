@@ -71,12 +71,12 @@ export default defineEventHandler(async (event) => {
 
   // Get a unique list of all the resource ids keeping the order of the first occurrence that is not the draft version
   const uniqueResourceIds = allResourceIds.filter(
-    (value, index, self) => self.indexOf(value) === index
+    (value, index, self) => self.indexOf(value) === index,
   );
 
   // Remove the resources that are not in the collection
   const filteredResources = allResources.filter((resource) =>
-    uniqueResourceIds.includes(resource.id)
+    uniqueResourceIds.includes(resource.id),
   );
 
   // sort the resources by the version name in descending order
