@@ -34,20 +34,22 @@ definePageMeta({
       <div
         class="mx-auto max-w-screen-xl relative px-4 pt-8 text-center lg:px-12 lg:pt-16"
       >
+   
         <div
-          class="absolute top-0 -left-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70"
+          class="absolute top-0 -left-4 w-60 h-60 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70"
         ></div>
 
         <div
-          class="absolute top-0 -right-4 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70"
+          class="absolute top-0 -right-4 w-60 h-60 bg-orange-300 rounded-full mix-blend-multiply filter blur-xl opacity-70"
         ></div>
 
         <div
-          class="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70"
+          class="absolute -bottom-8 left-20 w-60 h-60 bg-cyan-300 rounded-full mix-blend-multiply filter blur-xl opacity-7 animation-delay-2000"
         ></div>
+     
 
         <h1
-          class="mb-4 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text py-2 text-4xl font-extrabold text-transparent md:text-5xl lg:text-6xl"
+          class="mb-4 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text py-2 text-4xl font-extrabold text-transparent md:text-5xl lg:text-6xl animation-delay-4000"
         >
           Creating the connections that matter
         </h1>
@@ -138,7 +140,7 @@ definePageMeta({
         <NuxtLink to="/#">
           <img
             class="mx-6 h-auto w-[130px] grayscale transition-all hover:grayscale-0"
-            src="https://cdn.worldvectorlogo.com/logos/mcgill-university-2.svg"
+            src="https://upload.wikimedia.org/wikipedia/commons/7/75/Caltech_Logo.svg"
             alt=""
           />
         </NuxtLink>
@@ -178,7 +180,7 @@ definePageMeta({
         <NuxtLink to="/#">
           <img
             class="mx-6 h-auto w-[130px] grayscale transition-all hover:grayscale-0"
-            src="https://cdn.worldvectorlogo.com/logos/the-university-of-liverpool.svg"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Missouri_State_University.svg/1024px-Missouri_State_University.svg.png"
             alt=""
           />
         </NuxtLink>
