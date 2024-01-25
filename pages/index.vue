@@ -25,41 +25,45 @@ definePageMeta({
       <span class="sr-only">Info</span>
 
       <div>
-        <span class="font-medium">Warning!</span> This website is still in
-        development. Please do not use it for anything important.
+        <span class="font-medium">Warning!</span> This website is still in alpha 
+        development.
       </div>
     </div>
 
-    <section class="bg-white">
+    <section class="">
       <div
         class="mx-auto max-w-screen-xl relative px-4 pt-8 text-center lg:px-12 lg:pt-16"
       >
-   
-        <div
-          class="absolute top-0 -left-4 w-60 h-60 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70"
-        ></div>
-
-        <div
-          class="absolute top-0 -right-4 w-60 h-60 bg-orange-300 rounded-full mix-blend-multiply filter blur-xl opacity-70"
-        ></div>
-
-        <div
-          class="absolute -bottom-8 left-20 w-60 h-60 bg-cyan-300 rounded-full mix-blend-multiply filter blur-xl opacity-7 animation-delay-2000"
-        ></div>
-     
-
         <h1
-          class="mb-4 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text py-2 text-4xl font-extrabold text-transparent md:text-5xl lg:text-6xl animation-delay-4000"
+          class="mb-4 bg-gradient-to-r from-amber-500 to-pink-500 bg-clip-text py-2 text-4xl font-extrabold text-transparent md:text-5xl lg:text-6xl"
         >
           Creating the connections that matter
         </h1>
 
         <p
-          class="mb-8 text-lg font-normal text-gray-500 sm:px-16 lg:text-xl xl:px-48"
+          class="mb-8 text-lg font-medium text-gray-700 sm:px-16 lg:text-xl xl:px-48"
         >
           Reimagining the links between scientific research outputs and the
           people who need them.
         </p>
+
+        <div class="relative blob-container max-w-lg mx-auto -z-10">
+          <div
+            class="absolute top-8 -left-4 w-60 h-60 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"
+          ></div>
+
+          <div
+            class="absolute top-12 -right-12 w-60 h-60 bg-orange-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"
+          ></div>
+
+          <div
+            class="absolute -bottom-8 left-20 w-60 h-60 bg-cyan-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"
+          ></div>
+
+          <div
+            class="absolute -bottom-8 right-0 w-60 h-60 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"
+          ></div>
+        </div>
 
         <div
           class="mb-8 flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-x-4 sm:space-y-0 lg:mb-16"
@@ -85,7 +89,7 @@ definePageMeta({
 
           <a
             href="#"
-            class="inline-flex items-center justify-center rounded-lg border border-gray-300 px-5 py-3 text-center text-base font-medium text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100"
+            class="inline-flex items-center justify-center rounded-lg border border-gray-300 px-5 py-3 text-center text-base font-medium text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 bg-white"
           >
             <svg
               class="-ml-1 mr-2 h-5 w-5"
@@ -102,9 +106,9 @@ definePageMeta({
         </div>
 
         <div
-          class="mx-auto px-4 text-center md:max-w-screen-md lg:max-w-screen-lg lg:px-36"
+          class="mx-auto px-4 text-center md:max-w-screen-md lg:max-w-screen-lg lg:px-36 pb-5"
         >
-          <span class="font-medium uppercase text-gray-400">
+          <span class="font-medium uppercase text-gray-800">
             Trusted by research teams around the world
           </span>
         </div>
@@ -112,7 +116,7 @@ definePageMeta({
     </section>
 
     <div>
-      <Vue3Marquee clone>
+      <Vue3Marquee clone gradient>
         <NuxtLink to="/#">
           <img
             class="mx-6 h-auto w-[130px] grayscale transition-all hover:grayscale-0"
@@ -188,7 +192,7 @@ definePageMeta({
         <NuxtLink to="/#">
           <img
             class="mx-6 h-auto w-[130px] grayscale transition-all hover:grayscale-0"
-            src="https://cdn.worldvectorlogo.com/logos/the-university-of-nottingham-1.svg"
+            src="https://cdn.worldvectorlogo.com/logos/northwestern-university.svg"
             alt=""
           />
         </NuxtLink>
