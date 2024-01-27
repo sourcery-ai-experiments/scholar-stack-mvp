@@ -49,19 +49,19 @@ definePageMeta({
 
         <div class="relative blob-container max-w-lg mx-auto -z-10">
           <div
-            class="absolute top-8 -left-4 w-60 h-60 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"
+            class="absolute top-0 -left-0 w-60 h-60 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"
           ></div>
 
           <div
-            class="absolute top-12 -right-12 w-60 h-60 bg-orange-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"
+            class="absolute top-0 -right-0 w-60 h-60 bg-orange-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"
           ></div>
 
           <div
-            class="absolute -bottom-8 left-20 w-60 h-60 bg-cyan-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"
+            class="absolute -bottom-4 left-0 w-60 h-60 bg-cyan-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"
           ></div>
 
           <div
-            class="absolute -bottom-8 right-0 w-60 h-60 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"
+            class="absolute -bottom-0 right-0 w-60 h-60 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"
           ></div>
         </div>
 
