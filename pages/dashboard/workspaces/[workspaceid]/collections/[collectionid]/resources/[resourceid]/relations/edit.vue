@@ -226,7 +226,7 @@ const addNewExternalRelation = () => {
     action: "create",
     created: new Date().toISOString(),
     origin: "local",
-    original_id: null,
+    original_relation_id: null,
     resource_type: "poster",
     target: faker.internet.url(),
     target_type: "URL",
@@ -235,7 +235,7 @@ const addNewExternalRelation = () => {
   });
 };
 
-const removeExternalRelation = (id: string) => {
+const removeExternalRelation = async (id: string) => {
   const externalRelation = moduleData.external.find(
     (relation) => relation.id === id,
   );
@@ -244,7 +244,7 @@ const removeExternalRelation = (id: string) => {
     const {
       data: deleteExternalRelationData,
       error: deleteExternalRelationError,
-    } = useFetch(
+    } = await useFetch(
       `/api/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/relations/${id}/external`,
       {
         headers: useRequestHeaders(["cookie"]),
@@ -273,9 +273,54 @@ const removeExternalRelation = (id: string) => {
     message: "Your relation has been deleted",
   });
 
-  moduleData.external = moduleData.external.filter(
-    (relation) => relation.id !== id,
+  if (!externalRelation?.original_relation_id) {
+    moduleData.external = moduleData.external.filter(
+      (relation) => relation.id !== id,
+    );
+  } else {
+    externalRelation.action = "delete";
+  }
+};
+
+const restoreExternalRelation = async (id: string) => {
+  const externalRelation = moduleData.external.find(
+    (relation) => relation.id === id,
   );
+
+  if (externalRelation?.original_relation_id) {
+    const {
+      data: restoreExternalRelationData,
+      error: restoreExternalRelationError,
+    } = await useFetch(
+      `/api/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/relations/${id}/external/restore`,
+      {
+        headers: useRequestHeaders(["cookie"]),
+        method: "PUT",
+      },
+    );
+
+    if (restoreExternalRelationError.value) {
+      console.log(restoreExternalRelationError.value);
+
+      push.error({
+        title: "Something went wrong",
+        message: "We couldn't restore your relation",
+      });
+
+      throw new Error("We couldn't restore your relation");
+    }
+
+    if (restoreExternalRelationData.value) {
+      const updatedAction = restoreExternalRelationData.value.updatedAction;
+
+      externalRelation.action = updatedAction;
+    }
+
+    push.success({
+      title: "Success",
+      message: "Your relation has been restored",
+    });
+  }
 };
 
 const saveRelations = async () => {
@@ -407,7 +452,7 @@ const saveRelations = async () => {
         size="large"
         label-placement="left"
       >
-        <div class="flex items-center justify-between py-10">
+        <div flex class="hidden items-center justify-between py-10">
           <h2>Internal Relations</h2>
 
           <n-button color="black" @click="addNewInternalRelation">
@@ -419,7 +464,7 @@ const saveRelations = async () => {
           </n-button>
         </div>
 
-        <n-space vertical size="large">
+        <n-space vertical size="large" class="!hidden">
           <div
             v-for="(relation, index) of moduleData.internal"
             :key="index"
@@ -549,9 +594,9 @@ const saveRelations = async () => {
           </div>
         </n-space>
 
-        <pre>{{ moduleData.internal }}</pre>
+        <pre class="hidden">{{ moduleData.internal }}</pre>
 
-        <n-divider />
+        <n-divider class="hidden" />
 
         <div class="flex items-center justify-between py-10">
           <h2>External Relations</h2>
@@ -565,11 +610,11 @@ const saveRelations = async () => {
           </n-button>
         </div>
 
-        <n-space vertical size="large">
+        <div class="flex flex-col space-y-8">
           <div
             v-for="(relation, index) of moduleData.external"
             :key="index"
-            class="flex items-center justify-between space-x-8 rounded-xl border bg-white px-3 py-5"
+            class="flex items-center justify-between space-x-8 rounded-xl border bg-white px-6 py-6 shadow-lg"
           >
             <div class="flex w-full flex-col">
               <div class="flex w-full items-center">
@@ -589,6 +634,7 @@ const saveRelations = async () => {
                   <n-select
                     v-model:value="relation.resource_type"
                     filterable
+                    :disabled="relation.action === 'delete'"
                     :options="resourceTypeOptions"
                   />
                 </n-form-item>
@@ -608,6 +654,7 @@ const saveRelations = async () => {
 
                   <n-select
                     v-model:value="relation.type"
+                    :disabled="relation.action === 'delete'"
                     filterable
                     :options="relationTypeOptions"
                   />
@@ -629,7 +676,7 @@ const saveRelations = async () => {
 
                   <n-select
                     v-model:value="relation.target_type"
-                    :disabled="!!relation.original_id"
+                    :disabled="!!relation.original_relation_id"
                     filterable
                     :options="typeOptions"
                   />
@@ -649,7 +696,7 @@ const saveRelations = async () => {
 
                   <n-input
                     v-model:value="relation.target"
-                    :disabled="!!relation.original_id"
+                    :disabled="!!relation.original_relation_id"
                     placeholder="https://example.com"
                   />
                 </n-form-item>
@@ -718,24 +765,55 @@ const saveRelations = async () => {
                       Updated
                     </n-tag>
 
-                    <Icon
-                      v-if="relation.origin === 'remote'"
-                      size="28"
-                      class="text-emerald-500"
-                      name="material-symbols:cloud-done"
-                    />
+                    <n-tag
+                      v-if="
+                        'action' in relation && relation.action === 'delete'
+                      "
+                      type="error"
+                    >
+                      Deleted
+                    </n-tag>
 
-                    <Icon
-                      v-if="relation.origin === 'local'"
-                      size="28"
-                      class="text-orange-400"
-                      name="mdi:cloud-upload"
-                    />
+                    <n-tooltip
+                      v-if="
+                        relation.origin === 'remote' &&
+                        !currentCollection?.version?.published
+                      "
+                      trigger="hover"
+                    >
+                      <template #trigger>
+                        <Icon
+                          size="28"
+                          class="text-emerald-500"
+                          name="material-symbols:cloud-done"
+                        />
+                      </template>
+                      This relation has been saved. Publishing this collection
+                      will push your relations to the public portal.
+                    </n-tooltip>
+
+                    <n-tooltip
+                      v-if="
+                        relation.origin === 'local' &&
+                        !currentCollection?.version?.published
+                      "
+                      trigger="hover"
+                    >
+                      <template #trigger>
+                        <Icon
+                          size="28"
+                          class="text-orange-400"
+                          name="mdi:cloud-upload"
+                        />
+                      </template>
+                      This relation has not been saved yet
+                    </n-tooltip>
                   </n-space>
 
                   <n-divider vertical />
 
                   <n-button
+                    v-if="relation.action !== 'delete'"
                     type="error"
                     secondary
                     @click="removeExternalRelation(relation.id)"
@@ -746,15 +824,30 @@ const saveRelations = async () => {
 
                     Remove relation
                   </n-button>
+
+                  <n-button
+                    v-if="relation.action === 'delete'"
+                    type="warning"
+                    secondary
+                    @click="restoreExternalRelation(relation.id)"
+                  >
+                    <template #icon>
+                      <Icon name="mdi:restore" />
+                    </template>
+
+                    Restore relation
+                  </n-button>
                 </div>
               </div>
             </div>
           </div>
-        </n-space>
+        </div>
 
-        <n-divider />
+        <n-divider v-if="moduleData.external.length > 0" />
 
-        <pre>{{ moduleData.external }}</pre>
+        <pre v-if="moduleData.external.length > 0">{{
+          moduleData.external
+        }}</pre>
       </n-form>
     </div>
 
