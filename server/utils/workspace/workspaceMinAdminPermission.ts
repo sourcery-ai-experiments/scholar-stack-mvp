@@ -9,14 +9,15 @@ export default defineEventHandler(async (event) => {
   const workspaceid = await workspaceExists(event);
 
   // Check access table for the workspace
-  const access = await prisma.access.findFirst({
+  const workspaceMember = await prisma.workspaceMember.findFirst({
     where: {
       user_id: userid,
       workspace_id: workspaceid,
     },
   });
 
-  if (!access) {
+  // Check if the user is a member of the workspace
+  if (!workspaceMember) {
     throw createError({
       message: "Unauthorized",
       statusCode: 401,
@@ -24,10 +25,12 @@ export default defineEventHandler(async (event) => {
   }
 
   // Check if the user has at least admin permisison
-  if (access.role !== "admin" && access.role !== "owner") {
+  if (workspaceMember.admin === false && workspaceMember.owner === false) {
     throw createError({
       message: "Unauthorized",
       statusCode: 401,
     });
   }
+
+  return true;
 });

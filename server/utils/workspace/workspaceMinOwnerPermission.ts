@@ -1,3 +1,4 @@
+import prisma from "~/server/utils/prisma";
 import { serverSupabaseUser } from "#supabase/server";
 
 export default defineEventHandler(async (event) => {
@@ -8,25 +9,28 @@ export default defineEventHandler(async (event) => {
   const workspaceid = await workspaceExists(event);
 
   // Check access table for the workspace
-  const access = await prisma.access.findFirst({
+  const workspaceMember = await prisma.workspaceMember.findFirst({
     where: {
       user_id: userid,
       workspace_id: workspaceid,
     },
   });
 
-  if (!access) {
+  // Check if the user is a member of the workspace
+  if (!workspaceMember) {
     throw createError({
       message: "Unauthorized",
       statusCode: 401,
     });
   }
 
-  // Check if the user is an owner of the workspace
-  if (access.role !== "owner") {
+  // Check if the user has at least owner permisison
+  if (workspaceMember.owner === false) {
     throw createError({
       message: "Unauthorized",
       statusCode: 401,
     });
   }
+
+  return true;
 });
