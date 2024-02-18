@@ -33,10 +33,10 @@ export default defineNuxtConfig({
 
   modules: [
     "@nuxtjs/supabase",
-    "@nuxtjs/tailwindcss",
     "@pinia/nuxt",
     "notivue/nuxt",
     "nuxt-headlessui",
+    "@nuxt/ui",
     "dayjs-nuxt",
     "nuxt-lodash",
     [
@@ -49,7 +49,6 @@ export default defineNuxtConfig({
     ],
     "@nuxt/devtools",
     "@bg-dev/nuxt-naiveui",
-    "nuxt-icon", // icons are found here: https://icones.js.org/
   ],
 
   naiveui: {
