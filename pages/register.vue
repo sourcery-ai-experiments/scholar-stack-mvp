@@ -8,21 +8,20 @@ definePageMeta({
 });
 
 const push = usePush();
-const route = useRoute();
 
 const user = useSupabaseUser();
 const supabase = useSupabaseClient();
 
 const loading = ref(false);
 
-const loginFormRef = ref<FormInst | null>(null);
+const registerFormRef = ref<FormInst | null>(null);
 
-const loginForm = reactive({
+const registerForm = reactive({
   emailAddress: "",
   password: "",
 });
 
-const loginFormRules = {
+const registerFormRules = {
   emailAddress: {
     message: "Please input your email address",
     required: true,
@@ -36,15 +35,17 @@ const loginFormRules = {
 };
 
 const invalidEmailAddress = computed(() => {
-  return loginForm.emailAddress === "" || !isEmail(loginForm.emailAddress);
+  return (
+    registerForm.emailAddress === "" || !isEmail(registerForm.emailAddress)
+  );
 });
 
 const signIn = (e: MouseEvent) => {
   e.preventDefault();
 
-  loginFormRef.value?.validate(async (errors) => {
+  registerFormRef.value?.validate(async (errors) => {
     if (!errors) {
-      if (!isEmail(loginForm.emailAddress)) {
+      if (!isEmail(registerForm.emailAddress)) {
         push.error({
           title: "Error",
           message: "Please enter a valid email address",
@@ -53,58 +54,44 @@ const signIn = (e: MouseEvent) => {
         return;
       }
 
+      /**
+       * TODO: Validate password strength
+       */
+
+      // register user
       loading.value = true;
 
-      setTimeout(() => {
-        if (route.path === "/auth/login") {
-          push.warning({
-            title: "This is taking longer than expected",
-            message: "Please wait while we sign you in...",
-          });
-
-          // refresh the page
-          window.location.reload();
-        }
-      }, 6000);
-
-      const { error: loginError } = await supabase.auth.signInWithPassword({
-        email: loginForm.emailAddress,
-        password: loginForm.password,
-      });
-
-      loading.value = false;
-
-      if (loginError) {
-        push.error({
-          title: "Login Error",
-          message: loginError.message,
+      try {
+        const { error } = await supabase.auth.signUp({
+          email: registerForm.emailAddress,
+          password: registerForm.password,
         });
 
+        if (error) {
+          push.error({
+            title: "Error",
+            message: error.message,
+          });
+
+          throw error;
+        }
+      } catch (error) {
+        loading.value = false;
+
+        console.error(error);
         return;
       }
 
-      /**
-       * TODO: This is ugly and needs to be changed.
-       */
-      // create the user profile if it doesn't exist
-      await $fetch("/api/user", {
-        headers: useRequestHeaders(["cookie"]),
-        method: "POST",
-      }).catch((error) => {
-        console.error(error);
+      loading.value = false;
 
-        push.error({
-          title: "Profile Error",
-          message: "Could not initialize profile.",
-        });
-
-        throw error;
-      });
+      // reset form
+      registerForm.emailAddress = "";
+      registerForm.password = "";
 
       console.log("success");
 
       // redirect to projects page
-      window.location.href = "/dashboard";
+      return navigateTo("/projects");
     } else {
       console.log(errors);
     }
@@ -113,14 +100,14 @@ const signIn = (e: MouseEvent) => {
 
 watchEffect(() => {
   if (user.value) {
-    return navigateTo("/dashboard");
+    return navigateTo("/projects");
   }
 });
 </script>
 
 <template>
   <main class="flex flex-row flex-wrap items-start justify-center">
-    <div class="flex w-1/2 flex-col items-center">
+    <div class="flex w-1/2 flex-col items-center pt-[5%]">
       <div
         class="mt-4 w-full max-w-lg space-y-6 rounded-lg bg-white px-4 py-6 sm:px-8 sm:py-8"
       >
@@ -132,22 +119,22 @@ watchEffect(() => {
           </div>
 
           <h1 class="mb-3 text-left text-2xl font-bold sm:text-4xl">
-            Welcome back!
+            Create your account!
           </h1>
 
-          <p>Sign in to your account to continue using our services.</p>
+          <p></p>
         </div>
 
         <n-form
-          ref="loginFormRef"
-          :model="loginForm"
-          :rules="loginFormRules"
+          ref="registerFormRef"
+          :model="registerForm"
+          :rules="registerFormRules"
           size="large"
           :show-require-mark="false"
         >
           <n-form-item path="emailAddress" label="Email Address">
             <n-input
-              v-model:value="loginForm.emailAddress"
+              v-model:value="registerForm.emailAddress"
               placeholder="hello@sciconnect.io"
               clearable
               @keydown.enter.prevent
@@ -156,7 +143,7 @@ watchEffect(() => {
 
           <n-form-item path="password" label="Password">
             <n-input
-              v-model:value="loginForm.password"
+              v-model:value="registerForm.password"
               placeholder=""
               type="password"
               show-password-on="mousedown"
@@ -178,18 +165,18 @@ watchEffect(() => {
               <template #icon>
                 <Icon name="ph:sign-in-bold" />
               </template>
-              Sign In
+              Sign Up
             </n-button>
           </n-form-item>
         </n-form>
 
         <div class="flex justify-center text-sm">
-          Don't have an account?
+          Already have an account?
           <nuxt-link
             class="ml-1 w-fit text-blue-600 transition-all hover:text-blue-400"
-            to="/auth/register"
+            to="/login"
           >
-            Sign Up
+            Sign In
           </nuxt-link>
         </div>
 
@@ -201,7 +188,7 @@ watchEffect(() => {
               <Icon name="devicon:google" />
             </template>
 
-            Sign In with Google
+            Sign up with Google
           </n-button>
 
           <n-button strong color="black" size="large" class="w-full">
@@ -209,7 +196,7 @@ watchEffect(() => {
               <Icon name="ph:github-logo-fill" />
             </template>
 
-            Sign In with GitHub
+            Sign up with GitHub
           </n-button>
 
           <n-button strong size="large" class="w-full">
@@ -217,12 +204,12 @@ watchEffect(() => {
               <Icon name="ic:baseline-apple" />
             </template>
 
-            Sign In with Apple ID
+            Sign up with Apple ID
           </n-button>
         </div>
 
         <p class="mx-auto w-9/12 text-center text-sm">
-          By signing in, you agree to our
+          By signing up, you agree to our
           <nuxt-link
             class="text-blue-600 transition-all hover:text-blue-400"
             to="/terms"

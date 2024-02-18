@@ -63,4 +63,13 @@ export default defineNuxtConfig({
   notivue: {
     // Options
   },
+
+  supabase: {
+    redirectOptions: {
+      callback: "/dashboard",
+      cookieRedirect: false,
+      exclude: ["/"],
+      login: "/login",
+    },
+  },
 });

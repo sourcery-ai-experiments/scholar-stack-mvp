@@ -14,7 +14,7 @@ const logout = async () => {
 
   console.log("Logged out");
 
-  navigateTo("/auth/login");
+  navigateTo("/login");
 };
 </script>
 
@@ -34,13 +34,13 @@ const logout = async () => {
         </NuxtLink>
 
         <div class="flex items-center space-x-3 lg:order-2">
-          <nuxt-link v-if="!loggedIn" to="/auth/login">
+          <nuxt-link v-if="!loggedIn" to="/login">
             <n-button size="large">
               <span> Log in </span>
             </n-button>
           </nuxt-link>
 
-          <nuxt-link v-if="!loggedIn" to="/auth/register">
+          <nuxt-link v-if="!loggedIn" to="/register">
             <n-button color="black" size="large"> Get started </n-button>
           </nuxt-link>
 
@@ -209,7 +209,7 @@ const logout = async () => {
 
           <div class="flex items-center justify-center space-x-2">
             <n-space v-if="!loggedIn">
-              <nuxt-link to="/auth/login">
+              <nuxt-link to="/login">
                 <n-button :color="colors.accent">
                   <template #icon>
                     <Icon name="ion:log-in-outline" />
@@ -219,7 +219,7 @@ const logout = async () => {
                 </n-button>
               </nuxt-link>
 
-              <nuxt-link to="/auth/register">
+              <nuxt-link to="/register">
                 <n-button :color="colors.secondary" class="text-black">
                   <template #icon>
                     <Icon name="ion:person-add-outline" />
