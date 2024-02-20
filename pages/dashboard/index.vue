@@ -6,7 +6,6 @@ definePageMeta({
   middleware: ["auth"],
 });
 
-const push = usePush();
 const workspaceStore = useWorkspaceStore();
 
 const gridView = ref(true);

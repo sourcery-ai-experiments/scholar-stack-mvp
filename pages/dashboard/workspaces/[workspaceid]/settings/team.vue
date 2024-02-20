@@ -2,7 +2,6 @@
 import type { FormInst } from "naive-ui";
 
 const user = useSupabaseUser();
-const push = usePush();
 
 const workspaceStore = useWorkspaceStore();
 

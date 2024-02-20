@@ -2,7 +2,6 @@
 import type { SelectRenderTag, SelectRenderLabel } from "naive-ui";
 import { NAvatar, NText } from "naive-ui";
 
-const push = usePush();
 const collectionStore = useCollectionStore();
 const user = useSupabaseUser();
 

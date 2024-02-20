@@ -7,8 +7,6 @@ definePageMeta({
   layout: "no-header",
 });
 
-const push = usePush();
-
 const user = useSupabaseUser();
 const supabase = useSupabaseClient();
 

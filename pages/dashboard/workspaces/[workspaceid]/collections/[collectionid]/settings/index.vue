@@ -1,6 +1,4 @@
 <script setup lang="ts">
-const push = usePush();
-
 const modalIsOpen = ref(false);
 
 const collectionName = ref("");

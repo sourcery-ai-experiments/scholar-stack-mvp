@@ -7,7 +7,6 @@ definePageMeta({
   middleware: ["auth"],
 });
 
-const push = usePush();
 const route = useRoute();
 
 const resourceStore = useResourceStore();

@@ -3,7 +3,6 @@ import type { FormInst } from "naive-ui";
 
 import { useWorkspaceStore } from "@/stores/workspace";
 
-const push = usePush();
 const workspaceStore = useWorkspaceStore();
 
 const formRef = ref<FormInst | null>(null);

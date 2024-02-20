@@ -5,7 +5,7 @@ import { faker } from "@faker-js/faker";
 import { useCollectionStore } from "@/stores/collection";
 
 const route = useRoute();
-const push = usePush();
+
 const collectionStore = useCollectionStore();
 
 const { workspaceid } = route.params as { workspaceid: string };
