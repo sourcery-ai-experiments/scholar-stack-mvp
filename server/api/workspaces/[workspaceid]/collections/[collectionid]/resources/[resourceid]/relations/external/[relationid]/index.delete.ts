@@ -1,6 +1,5 @@
 export default defineEventHandler(async (event) => {
   await protectRoute(event);
-
   await collectionMinEditorPermission(event);
 
   const { collectionid, relationid, resourceid, workspaceid } = event.context
@@ -33,13 +32,30 @@ export default defineEventHandler(async (event) => {
       statusCode: 404,
     });
   }
-  // check if the relation exists
 
-  const relation = await prisma.externalRelation.findUnique({
-    where: { id: relationid, source_id: resourceid },
+  // Check if the resource is part of the draft version
+  const draftResource = await prisma.resource.findFirst({
+    where: {
+      id: resourceid,
+      Version: {
+        some: {
+          published: false,
+        },
+      },
+    },
   });
 
-  // todo: check if the relation is part of the resource and the latest version
+  if (!draftResource) {
+    throw createError({
+      message: "Relations can only be removed from draft version",
+      statusCode: 404,
+    });
+  }
+
+  // Check if the relation is exists
+  const relation = await prisma.externalRelation.findUnique({
+    where: { id: relationid },
+  });
 
   if (!relation) {
     throw createError({
@@ -48,44 +64,16 @@ export default defineEventHandler(async (event) => {
     });
   }
 
+  // Delete the relation
+
   if (!relation.original_relation_id) {
-    throw createError({
-      message: "Relation is not a clone",
-      statusCode: 404,
-    });
-  }
-
-  // get the original relation
-  const originalRelation = await prisma.externalRelation.findUnique({
-    where: { id: relation.original_relation_id },
-  });
-
-  // restore the relation
-  if (!originalRelation) {
-    throw createError({
-      message: "Original relation not found",
-      statusCode: 404,
-    });
-  }
-
-  let updatedAction = "";
-
-  if (
-    originalRelation.resource_type === relation.resource_type &&
-    originalRelation.type === relation.type
-  ) {
-    updatedAction = "clone";
-    await prisma.externalRelation.update({
-      data: {
-        action: "clone",
-      },
+    await prisma.externalRelation.delete({
       where: { id: relationid },
     });
   } else {
-    updatedAction = "update";
     await prisma.externalRelation.update({
       data: {
-        action: "update",
+        action: "delete",
       },
       where: { id: relationid },
     });
@@ -94,8 +82,7 @@ export default defineEventHandler(async (event) => {
   await touchCollection(collectionid);
 
   return {
-    message: "Relation restored",
-    statusCode: 200,
-    updatedAction,
+    message: "Relation removed",
+    statusCode: 204,
   };
 });

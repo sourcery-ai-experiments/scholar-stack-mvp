@@ -39,8 +39,6 @@ export default defineEventHandler(async (event) => {
   const parsedBody = bodySchema.safeParse(body);
 
   if (!parsedBody.success) {
-    console.log(parsedBody.error);
-
     throw createError({
       message: "The provided parameters are invalid",
       statusCode: 400,
@@ -89,6 +87,20 @@ export default defineEventHandler(async (event) => {
         });
       }
     }
+  }
+
+  // get the latest draft version of the collection.
+  const version = await prisma.version.findFirst({
+    orderBy: { created: "desc" },
+    take: 1,
+    where: { collection_id: collectionid, published: false },
+  });
+
+  if (!version) {
+    throw createError({
+      message: "No draft version found",
+      statusCode: 404,
+    });
   }
 
   // Update the external relations
@@ -163,6 +175,18 @@ export default defineEventHandler(async (event) => {
             },
           });
         }
+      } else {
+        await prisma.externalRelation.update({
+          data: {
+            resource_type: relation.resource_type,
+            target: relation.target,
+            target_type: relation.target_type,
+            type: relation.type,
+          },
+          where: {
+            id: relation.id,
+          },
+        });
       }
     } else {
       await prisma.externalRelation.create({
@@ -173,6 +197,11 @@ export default defineEventHandler(async (event) => {
           target: relation.target,
           target_type: relation.target_type,
           type: relation.type,
+          Version: {
+            connect: {
+              id: version.id,
+            },
+          },
         },
       });
     }
@@ -290,6 +319,11 @@ export default defineEventHandler(async (event) => {
           source_id: resourceid,
           target_id: relation.target_id,
           type: relation.type,
+          Version: {
+            connect: {
+              id: version.id,
+            },
+          },
         },
       });
 
