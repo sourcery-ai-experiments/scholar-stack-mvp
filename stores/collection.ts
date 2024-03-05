@@ -33,21 +33,25 @@ export const useCollectionStore = defineStore("Collection", () => {
   const fetchCollections = async (workspaceid: string) => {
     getLoading.value = true;
 
-    const { data, error } = await useFetch(`/api/workspaces/${workspaceid}`, {
+    await fetch(`/api/workspaces/${workspaceid}`, {
       headers: useRequestHeaders(["cookie"]),
-    });
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        getLoading.value = false;
 
-    getLoading.value = false;
+        if (data) {
+          collections.value = data.collections;
 
-    if (error.value) {
-      console.error(error);
-    }
-
-    if (data.value) {
-      collections.value = data.value.collections;
-
-      sortCollections();
-    }
+          sortCollections();
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        getLoading.value = false;
+      });
   };
 
   const getCollection = async (workspaceid: string, collectionid: string) => {
@@ -68,12 +72,13 @@ export const useCollectionStore = defineStore("Collection", () => {
   ) => {
     collectionPermissionGetLoading.value = true;
 
-    await $fetch(
+    await fetch(
       `/api/workspaces/${workspaceid}/collections/${collectionid}/permissions`,
       {
         headers: useRequestHeaders(["cookie"]),
       },
     )
+      .then((response) => response.json())
       .then((data) => {
         collectionPermissionGetLoading.value = false;
 

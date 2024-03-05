@@ -52,21 +52,25 @@ export const useWorkspaceStore = defineStore("workspace", () => {
   const fetchWorkspaces = async () => {
     getLoading.value = true;
 
-    const { data, error } = await useFetch("/api/workspaces", {
+    await fetch("/api/workspaces", {
       headers: useRequestHeaders(["cookie"]),
-    });
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        getLoading.value = false;
 
-    getLoading.value = false;
+        if (data) {
+          workspaces.value = data;
 
-    if (error.value) {
-      console.error(error);
-    }
-
-    if (data.value) {
-      workspaces.value = data.value;
-
-      sortWorkspaces();
-    }
+          sortWorkspaces();
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        getLoading.value = false;
+      });
   };
 
   const getWorkspace = async (workspaceId: string) => {
@@ -88,9 +92,10 @@ export const useWorkspaceStore = defineStore("workspace", () => {
   const getWorkspacePermission = async (workspaceid: string) => {
     workspacePermissionGetLoading.value = true;
 
-    await $fetch(`/api/workspaces/${workspaceid}/permissions`, {
+    await fetch(`/api/workspaces/${workspaceid}/permissions`, {
       headers: useRequestHeaders(["cookie"]),
     })
+      .then((response) => response.json())
       .then((data) => {
         workspacePermissionGetLoading.value = false;
 
