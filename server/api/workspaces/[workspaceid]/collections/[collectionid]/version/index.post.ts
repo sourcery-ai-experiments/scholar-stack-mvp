@@ -35,7 +35,7 @@ export default defineEventHandler(async (event) => {
         name: "Draft",
         changelog: "xxx",
         collection_id: collectionid,
-        identifier: nanoid(),
+        identifier: `v${nanoid(8)}`,
       },
     });
 
@@ -67,7 +67,7 @@ export default defineEventHandler(async (event) => {
         name: "Draft",
         changelog: "xxx",
         collection_id: collectionid,
-        identifier: nanoid(),
+        identifier: `v${nanoid(8)}`,
       },
     });
 
