@@ -68,22 +68,25 @@ export const useCollectionStore = defineStore("Collection", () => {
   ) => {
     collectionPermissionGetLoading.value = true;
 
-    const { data, error } = await useFetch(
+    await $fetch(
       `/api/workspaces/${workspaceid}/collections/${collectionid}/permissions`,
       {
         headers: useRequestHeaders(["cookie"]),
       },
-    );
+    )
+      .then((data) => {
+        collectionPermissionGetLoading.value = false;
 
-    collectionPermissionGetLoading.value = false;
-
-    if (error.value) {
-      console.error(error);
-    }
-
-    if (data.value) {
-      collectionPermission.value = data.value.permission;
-    }
+        if (data) {
+          collectionPermission.value = data.permission;
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        collectionPermissionGetLoading.value = false;
+      });
   };
 
   return {

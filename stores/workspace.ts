@@ -88,38 +88,36 @@ export const useWorkspaceStore = defineStore("workspace", () => {
   const getWorkspacePermission = async (workspaceid: string) => {
     workspacePermissionGetLoading.value = true;
 
-    const { data, error } = await useFetch(
-      `/api/workspaces/${workspaceid}/permissions`,
-      {
-        headers: useRequestHeaders(["cookie"]),
-      },
-    );
+    await $fetch(`/api/workspaces/${workspaceid}/permissions`, {
+      headers: useRequestHeaders(["cookie"]),
+    })
+      .then((data) => {
+        workspacePermissionGetLoading.value = false;
 
-    workspacePermissionGetLoading.value = false;
+        if (data.permission === "admin") {
+          workspaceAdmin.value = true;
+          workspaceOwner.value = false;
+          workspaceViewer.value = true;
+        }
 
-    if (error.value) {
-      console.error(error);
-    }
+        if (data.permission === "owner") {
+          workspaceAdmin.value = true;
+          workspaceOwner.value = true;
+          workspaceViewer.value = true;
+        }
 
-    if (data.value) {
-      if (data.value.permission === "admin") {
-        workspaceAdmin.value = true;
-        workspaceOwner.value = false;
-        workspaceViewer.value = true;
-      }
-
-      if (data.value.permission === "owner") {
-        workspaceAdmin.value = true;
-        workspaceOwner.value = true;
-        workspaceViewer.value = true;
-      }
-
-      if (data.value.permission === "viewer") {
-        workspaceAdmin.value = false;
-        workspaceOwner.value = false;
-        workspaceViewer.value = true;
-      }
-    }
+        if (data.permission === "viewer") {
+          workspaceAdmin.value = false;
+          workspaceOwner.value = false;
+          workspaceViewer.value = true;
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        workspacePermissionGetLoading.value = false;
+      });
   };
 
   return {
