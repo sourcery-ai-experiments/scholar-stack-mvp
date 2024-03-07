@@ -8,9 +8,6 @@ export const useCollectionStore = defineStore("Collection", () => {
   const collections = ref<Collections>([]);
   const collection = ref<Collection>();
 
-  const collectionPermissionGetLoading = ref(false);
-  const collectionPermission = ref("viewer");
-
   const showNewCollectionModal = () => {
     newCollectionModalIsOpen.value = true;
   };
@@ -30,80 +27,18 @@ export const useCollectionStore = defineStore("Collection", () => {
     });
   };
 
-  const fetchCollections = async (workspaceid: string) => {
-    getLoading.value = true;
-
-    await fetch(`/api/workspaces/${workspaceid}`, {
-      headers: useRequestHeaders(["cookie"]),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        getLoading.value = false;
-
-        if (data) {
-          collections.value = data.collections;
-
-          sortCollections();
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-      .finally(() => {
-        getLoading.value = false;
-      });
-  };
-
-  const getCollection = async (workspaceid: string, collectionid: string) => {
-    if (collections.value.length === 0) {
-      await fetchCollections(workspaceid);
-    }
-
-    collection.value = collections.value.find(
-      (c: Collection) => c.id === collectionid,
-    );
-
-    getCollectionPermission(workspaceid, collectionid);
-  };
-
-  const getCollectionPermission = async (
-    workspaceid: string,
-    collectionid: string,
-  ) => {
-    collectionPermissionGetLoading.value = true;
-
-    await fetch(
-      `/api/workspaces/${workspaceid}/collections/${collectionid}/permissions`,
-      {
-        headers: useRequestHeaders(["cookie"]),
-      },
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        collectionPermissionGetLoading.value = false;
-
-        if (data) {
-          collectionPermission.value = data.permission;
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-      .finally(() => {
-        collectionPermissionGetLoading.value = false;
-      });
+  const setCollections = (data: Collections) => {
+    collections.value = data;
   };
 
   return {
     collection,
-    collectionPermission,
-    collectionPermissionGetLoading,
     collections,
-    fetchCollections,
-    getCollection,
     getLoading,
     hideNewCollectionModal,
     newCollectionModalIsOpen,
+    setCollections,
     showNewCollectionModal,
+    sortCollections,
   };
 });

@@ -2,7 +2,6 @@
 import type { SelectRenderTag, SelectRenderLabel } from "naive-ui";
 import { NAvatar, NText } from "naive-ui";
 
-const collectionStore = useCollectionStore();
 const user = useSupabaseUser();
 
 const userToInvite = ref<string | null>(null);
@@ -33,11 +32,17 @@ if (error.value) {
   });
 }
 
+const { collectionPermission, collectionPermissionGetLoading } =
+  await useCollectionPermission(workspaceid, collectionid);
+
 const parseMembers = (members: any) => {
   for (const member of members) {
     if (member.role === "collection-admin") {
       publishAccess.value.push(member);
-    } else if (member.role === "workspace-admin") {
+    } else if (
+      member.role === "workspace-admin" ||
+      member.role === "workspace-owner"
+    ) {
       publishAccess.value.push(member);
     } else {
       editAccess.value.push(member);
@@ -66,12 +71,12 @@ const generateEditorDropdownOptions = (memberid: string) => {
     {
       key: "makeAdmin",
       label: "Assign as administrator",
-      show: collectionStore.collectionPermission === "admin",
+      show: collectionPermission.value === "admin",
     },
     {
       key: "removeEditor",
       label: "Remove editor",
-      show: collectionStore.collectionPermission === "admin",
+      show: collectionPermission.value === "admin",
     },
     {
       key: "leaveCollection",
@@ -218,12 +223,10 @@ const inviteMember = async () => {
   <div class="flex flex-col">
     <h2 class="text-xl">Publish Access</h2>
 
-    <p class="pt-1 text-slate-700">
+    <p class="mb-6 pt-1 text-slate-700">
       The following members can publish this collection to the public. They can
       also edit the collection and manage its settings.
     </p>
-
-    <n-divider />
 
     <div class="flex flex-col">
       <div
@@ -283,15 +286,11 @@ const inviteMember = async () => {
       </div>
     </div>
 
-    <n-divider />
+    <h2 class="mt-12 text-xl">Edit Access</h2>
 
-    <h2 class="text-xl">Edit Access</h2>
-
-    <p class="pt-1 text-slate-700">
+    <p class="mb-6 pt-1 text-slate-700">
       The following members can only edit this collection.
     </p>
-
-    <n-divider />
 
     <div v-if="editAccess.length > 0" class="flex flex-col">
       <div
@@ -327,10 +326,7 @@ const inviteMember = async () => {
             :options="generateEditorDropdownOptions(member.id)"
             @select="manageMember"
           >
-            <n-button
-              secondary
-              :loading="collectionStore.collectionPermissionGetLoading"
-            >
+            <n-button secondary :loading="collectionPermissionGetLoading">
               <template #icon>
                 <Icon name="iconamoon:menu-kebab-vertical-bold" />
               </template>
@@ -367,7 +363,7 @@ const inviteMember = async () => {
             filterable
             :loading="viewersLoading"
             clearable
-            :disabled="collectionStore.collectionPermission !== 'admin'"
+            :disabled="collectionPermission !== 'admin'"
             placeholder="Search for a user to invite"
           />
         </n-form-item>
