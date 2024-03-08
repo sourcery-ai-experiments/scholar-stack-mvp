@@ -78,7 +78,7 @@ const resourceType = computed(() => {
     return "Unknown";
   }
 
-  const type = resource.value.type;
+  const type = resource.value.identifier_type;
 
   if (type === "url") {
     return "URL";
@@ -96,35 +96,38 @@ const resourceType = computed(() => {
 const removeResource = async () => {
   removeResourceLoadingIndicator.value = true;
 
-  const { data, error } = await useFetch(
+  await $fetch(
     `/api/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}`,
     {
       headers: useRequestHeaders(["cookie"]),
       method: "DELETE",
     },
-  );
+  )
+    .then((_response) => {
+      removeResourceLoadingIndicator.value = false;
 
-  removeResourceLoadingIndicator.value = false;
+      push.success({
+        title: "Resource deleted",
+        message: "Your resource has been deleted",
+      });
 
-  if (error.value) {
-    console.log(error.value);
+      navigateTo(
+        `/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources`,
+      );
+    })
+    .catch((error) => {
+      removeResourceLoadingIndicator.value = false;
 
-    push.error({
-      title: "Something went wrong",
-      message: "We couldn't delete your resource",
+      console.log(error);
+
+      push.error({
+        title: "Something went wrong",
+        message: "We couldn't delete your resource",
+      });
+    })
+    .finally(() => {
+      removeResourceLoadingIndicator.value = false;
     });
-  }
-
-  if (data.value) {
-    push.success({
-      title: "Resource deleted",
-      message: "Your resource has been deleted",
-    });
-
-    navigateTo(
-      `/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources`,
-    );
-  }
 };
 
 const createNewVersion = async () => {
@@ -254,9 +257,9 @@ const createNewVersion = async () => {
 
         <NuxtLink
           :to="
-            resource?.type !== 'url'
-              ? `https://identifiers.org/${resource?.type}/${resource?.target}`
-              : resource.target
+            resource?.identifier_type !== 'url'
+              ? `https://identifiers.org/${resource?.identifier_type}/${resource?.identifier}`
+              : resource.identifier
           "
           target="_blank"
         >
@@ -286,7 +289,9 @@ const createNewVersion = async () => {
 
       <h3 class="pb-2 pt-5">Identifier</h3>
 
-      <p class="text-lg">{{ resource?.target || "No identifier provided" }}</p>
+      <p class="text-lg">
+        {{ resource?.identifier || "No identifier provided" }}
+      </p>
 
       <h3 v-if="resource?.back_link_id" class="pb-2 pt-5">Derived from</h3>
 

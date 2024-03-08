@@ -5,7 +5,7 @@ import type { VNodeChild } from "vue";
 import { faker } from "@faker-js/faker";
 import { Icon } from "#components";
 
-import FALLBACK_JSON from "@/assets/json/url-doi-icons.json";
+import RESOURCE_TYPE_JSON from "@/assets/json/resource-type.json";
 import PREFIX_JSON from "@/assets/json/prefix.json";
 
 definePageMeta({
@@ -46,9 +46,9 @@ const formData = reactive<ResourceType>({
   created: "",
   description: "",
   filled_in: false,
-  icon: "",
-  target: "",
-  type: null,
+  identifier: "",
+  identifier_type: null,
+  resource_type: "",
   updated: "",
   version_label: "",
 });
@@ -64,7 +64,7 @@ const rules = {
     required: true,
     trigger: ["blur", "input"],
   },
-  target: {
+  identifier: {
     required: true,
     trigger: ["blur", "input"],
     validator(rule: FormItemRule, value: string) {
@@ -77,7 +77,7 @@ const rules = {
 
         if (!pattern.test(value)) {
           return new Error(
-            `Please enter a valid ${selectedIdentifier.value.label}`,
+            `Please enter a valid ${selectedIdentifier.value.label} identifier`,
           );
         }
       }
@@ -85,18 +85,27 @@ const rules = {
       return true;
     },
   },
-  type: {
+  identifier_type: {
     message: "Please enter a type",
     required: true,
     trigger: ["blur", "input"],
   },
+  resource_type: {
+    message: "Please enter a type",
+    required: true,
+    trigger: ["blur", "change"],
+  },
 };
 
-const iconOptions = FALLBACK_JSON;
-const typeOptions = PREFIX_JSON;
+const resourceTypeOptions = RESOURCE_TYPE_JSON;
+const identifierTypeOptions = PREFIX_JSON;
 
 const selectedIdentifier = computed(() => {
-  return typeOptions.find((prefix) => prefix.value === formData.type);
+  const identifier = identifierTypeOptions.find(
+    (prefix) => prefix.value === formData.identifier_type,
+  );
+
+  return identifier;
 });
 
 const saveResourceLoadingIndicator = ref(false);
@@ -148,17 +157,29 @@ if (resource.value && "action" in resource.value) {
 
   formData.title = resource.value.title || faker.commerce.productName();
   formData.description = resource.value.description || faker.lorem.paragraph();
-  formData.target = resource.value.target || faker.internet.url();
-  formData.type = resource.value.type || "url";
-  formData.icon = resource.value.icon;
+  formData.identifier = resource.value.identifier || faker.internet.url();
+  formData.identifier_type = resource.value.identifier_type || "url";
+  formData.resource_type = resource.value.resource_type || "other";
   formData.version_label = resource.value.version_label || "";
 }
+
+const selectIcon = (type: string) => {
+  const resourceType = resourceTypeOptions.find(
+    (resourceType) => resourceType.value === type,
+  );
+
+  if (resourceType) {
+    return resourceType.icon;
+  }
+
+  return "mdi:file-question";
+};
 
 const renderLabel = (option: SelectOption): VNodeChild => {
   return [
     h(
       Icon,
-      { name: option.value as string, class: "mr-1", size: "20" },
+      { name: selectIcon(option.value as string), class: "mr-1", size: "20" },
       {
         default: () => null,
       },
@@ -167,15 +188,15 @@ const renderLabel = (option: SelectOption): VNodeChild => {
   ];
 };
 
-const selectIcon = (value: string) => {
+const selectResourceType = (value: string) => {
   if (value === "url") {
     return;
   }
 
-  const curi = typeOptions.find((prefix) => prefix.value === value);
+  const curi = identifierTypeOptions.find((prefix) => prefix.value === value);
 
   if (curi) {
-    formData.icon = curi.icon;
+    formData.resource_type = curi.type;
   }
 };
 
@@ -185,9 +206,9 @@ const saveResourceData = () => {
       const body = {
         title: formData.title,
         description: formData.description,
-        icon: formData.icon,
-        target: formData.target,
-        type: formData.type,
+        identifier: formData.identifier,
+        identifierType: formData.identifier_type,
+        resourceType: formData.resource_type,
         versionLabel: formData.version_label,
       };
 
@@ -237,7 +258,7 @@ const saveResourceData = () => {
 </script>
 
 <template>
-  <main class="h-full bg-zinc-50">
+  <main class="h-auto flex-1 bg-zinc-50">
     <div class="flex h-36 items-center border-b border-gray-200 bg-white">
       <div
         class="mx-auto flex w-full max-w-screen-xl items-center justify-between px-2.5 lg:px-20"
@@ -269,10 +290,10 @@ const saveResourceData = () => {
         :rules="rules"
         size="large"
       >
-        <n-form-item path="type" label="Identifier Type">
+        <n-form-item path="identifier_type" label="Identifier Type">
           <div class="flex w-full flex-col">
             <n-select
-              v-model:value="formData.type"
+              v-model:value="formData.identifier_type"
               filterable
               placeholder="DOI"
               :disabled="
@@ -283,8 +304,8 @@ const saveResourceData = () => {
                     resource?.action === 'oldVersion')
                 )
               "
-              :options="typeOptions"
-              @update:value="selectIcon"
+              :options="identifierTypeOptions"
+              @update:value="selectResourceType"
             />
 
             <p class="mt-2 text-sm text-slate-500">
@@ -293,14 +314,14 @@ const saveResourceData = () => {
           </div>
         </n-form-item>
 
-        <n-form-item path="target" label="Resource Identifier">
+        <n-form-item path="identifier" label="Resource Identifier">
           <div class="flex w-full flex-col">
             <n-input
-              v-model:value="formData.target"
+              v-model:value="formData.identifier"
               :placeholder="selectedIdentifier?.placeholder"
               type="text"
               :disabled="
-                !formData.type ||
+                !formData.identifier ||
                 !!(
                   resource &&
                   'action' in resource &&
@@ -312,7 +333,7 @@ const saveResourceData = () => {
               @keydown.enter.prevent
             />
 
-            <n-collapse-transition :show="!!formData.target">
+            <n-collapse-transition :show="!!formData.identifier">
               <p class="mt-2 text-sm text-slate-500">
                 Click here to see if your linked resource is available and
                 resolves correctly.
@@ -353,11 +374,12 @@ const saveResourceData = () => {
           </div>
         </n-form-item>
 
-        <n-form-item path="icon" label="Icon">
+        <n-form-item path="resource_type" label="Resource Type">
           <n-select
-            v-model:value="formData.icon"
+            v-model:value="formData.resource_type"
             filterable
-            :options="iconOptions"
+            clearable
+            :options="resourceTypeOptions"
             :render-label="renderLabel"
           />
         </n-form-item>

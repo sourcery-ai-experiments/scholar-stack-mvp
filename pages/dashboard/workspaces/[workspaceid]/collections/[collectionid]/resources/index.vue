@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { displayLongDate } from "~/utils/displayDates";
+import RESOURCE_TYPE_JSON from "@/assets/json/resource-type.json";
 
 definePageMeta({
   layout: "app-layout",
@@ -7,6 +8,8 @@ definePageMeta({
 });
 
 const route = useRoute();
+
+const resourceTypeOptions = RESOURCE_TYPE_JSON;
 
 const newResourceLoading = ref(false);
 const draftVersionLoading = ref(false);
@@ -23,8 +26,6 @@ const { data: collection, error } = await useFetch<CollectionGETAPIResponse>(
   },
 );
 
-console.log(collection.value);
-
 if (error.value) {
   console.log(error.value);
 
@@ -36,37 +37,52 @@ if (error.value) {
   navigateTo(`/dashboard/workspaces/${workspaceid}`);
 }
 
+const selectIcon = (type: string) => {
+  const resourceType = resourceTypeOptions.find(
+    (resourceType) => resourceType.value === type,
+  );
+
+  if (resourceType) {
+    return resourceType.icon;
+  }
+
+  return "mdi:file-question";
+};
+
 const createNewDraftVersion = async () => {
   draftVersionLoading.value = true;
 
-  const { data, error } = await useFetch(
+  await $fetch(
     `/api/workspaces/${workspaceid}/collections/${collectionid}/version`,
     {
       headers: useRequestHeaders(["cookie"]),
       method: "POST",
     },
-  );
+  )
+    .then((_response) => {
+      draftVersionLoading.value = false;
 
-  draftVersionLoading.value = false;
+      push.success({
+        title: "Success",
+        message: "We created a new draft version",
+      });
 
-  if (error.value) {
-    console.log(error.value);
+      // refresh the page
+      window.location.reload();
+    })
+    .catch((error) => {
+      draftVersionLoading.value = false;
 
-    push.error({
-      title: "Something went wrong",
-      message: "We couldn't create a new draft version",
+      console.log(error);
+
+      push.error({
+        title: "Something went wrong",
+        message: "We couldn't create a new draft version",
+      });
+    })
+    .finally(() => {
+      draftVersionLoading.value = false;
     });
-  }
-
-  if (data.value) {
-    push.success({
-      title: "Success",
-      message: "We created a new draft version",
-    });
-
-    // refresh the page
-    window.location.reload();
-  }
 };
 
 const addResource = async () => {
@@ -237,7 +253,7 @@ const addResource = async () => {
         >
           <div class="flex w-full items-center justify-start pb-2">
             <div>
-              <Icon :name="resource.icon" size="35" />
+              <Icon :name="selectIcon(resource.resource_type)" size="35" />
             </div>
 
             <n-divider vertical />
@@ -376,11 +392,11 @@ const addResource = async () => {
 
           <div class="flex w-full items-center space-x-1 border-t pb-4 pt-3">
             <n-tag
-              :type="resource.type ? 'info' : 'error'"
+              :type="resource.identifier_type ? 'info' : 'error'"
               size="small"
               class=""
             >
-              {{ resource.type || "No identifier provided" }}
+              {{ resource.identifier_type || "No identifier provided" }}
             </n-tag>
 
             <div>
@@ -390,18 +406,18 @@ const addResource = async () => {
             <div class="group w-max">
               <NuxtLink
                 :to="
-                  resource.type !== 'url'
-                    ? `https://identifiers.org/${resource.type}/${resource.target}`
-                    : resource.target
+                  resource.identifier_type !== 'url'
+                    ? `https://identifiers.org/${resource.identifier_type}/${resource.identifier}`
+                    : resource.identifier
                 "
                 class="flex items-center font-medium text-blue-600 transition-all group-hover:text-blue-700 group-hover:underline"
                 target="_blank"
                 @click.stop=""
               >
-                {{ resource.target }}
+                {{ resource.identifier }}
 
                 <Icon
-                  v-if="resource.type"
+                  v-if="resource.identifier_type"
                   name="mdi:external-link"
                   size="16"
                   class="ml-1 text-blue-600 transition-all group-hover:text-blue-700 group-hover:underline"
