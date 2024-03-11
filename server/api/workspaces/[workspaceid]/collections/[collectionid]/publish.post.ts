@@ -1,5 +1,4 @@
 import calver from "calver";
-import semverClean from "semver/functions/clean";
 
 export default defineEventHandler(async (event) => {
   await protectRoute(event);
@@ -537,9 +536,7 @@ export default defineEventHandler(async (event) => {
     data: {
       name: `${calver.inc(
         "yyyy.ww.minor",
-        lastPublishedVersion?.name
-          ? semverClean(lastPublishedVersion?.name)
-          : "",
+        lastPublishedVersion?.name || "",
         "calendar.minor",
       )}`,
       collection_id: collectionid,
