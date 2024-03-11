@@ -98,18 +98,26 @@ const selectedVersionIdentifier = computed(() => {
       <div class="grid grid-cols-12">
         <n-space vertical class="col-span-9 mt-5">
           <n-space align="center">
-            <h1 class="mb-2">{{ data?.collection.title }}</h1>
+            <h1 class="mb-2">
+              {{ data?.collection.title || "Collection Title Unavailable" }}
+            </h1>
 
             <n-tag type="success" :bordered="false">
-              Version {{ data?.name }}
+              Version {{ data?.name || "N/A" }}
             </n-tag>
           </n-space>
 
-          <p class="line-clamp-5">{{ data?.collection.description }}</p>
+          <p class="line-clamp-5">
+            {{ data?.collection.description || "No description provided." }}
+          </p>
 
           <p class="text-base">
             Published on
-            {{ displayStandardDate(data?.published_on as string) }}
+            {{
+              data?.published_on
+                ? displayStandardDate(data.published_on as string)
+                : "Unknown"
+            }}
           </p>
         </n-space>
 
