@@ -76,7 +76,26 @@ const groupedResources = computed(() => {
     }
   });
 
-  return grouped;
+  // Sort the keys
+  const sortedKeys = Object.keys(grouped).sort((a, b) => {
+    if (a.toLowerCase() < b.toLowerCase()) {
+      return -1;
+    }
+
+    if (a.toLowerCase() > b.toLowerCase()) {
+      return 1;
+    }
+
+    return 0;
+  });
+
+  const sortedGrouped: { [key: string]: any[] } = {};
+
+  for (const key of sortedKeys) {
+    sortedGrouped[key] = grouped[key];
+  }
+
+  return sortedGrouped;
 });
 
 const selectedVersionIdentifier = computed(() => {
@@ -140,70 +159,76 @@ const selectedVersionIdentifier = computed(() => {
             </n-space>
           </template>
 
-          <div v-for="(group, name, index) in groupedResources" :key="index">
-            <div class="flex items-center justify-between pb-5 pt-10">
-              <n-space align="center">
-                <Icon :name="selectIcon(name as string).icon" size="35" />
+          <div class="flex flex-col divide-y">
+            <div
+              v-for="(group, name, index) in groupedResources"
+              :key="index"
+              class="py-10"
+            >
+              <div class="flex items-center justify-between pb-5">
+                <n-space align="center">
+                  <Icon :name="selectIcon(name as string).icon" size="35" />
 
-                <h2>{{ selectIcon(name as string).name }}</h2>
+                  <h2>{{ selectIcon(name as string).name }}</h2>
+                </n-space>
+              </div>
+
+              <n-space vertical size="large" class="w-full">
+                <div
+                  v-for="(resource, idx) of group || []"
+                  :key="idx"
+                  class="flex w-full flex-grow flex-col rounded-md border px-6 pt-6 shadow-sm"
+                >
+                  <div class="flex w-full items-center justify-start pb-2">
+                    <span class="text-lg font-medium leading-5">
+                      {{ resource.title || "No title provided" }}
+                    </span>
+                  </div>
+
+                  <p class="border-t border-dashed py-3">
+                    {{ resource.description || "No description provided" }}
+                  </p>
+
+                  <div
+                    class="flex w-full items-center space-x-1 border-t pb-4 pt-3"
+                  >
+                    <n-tag
+                      :type="resource.identifier_type ? 'info' : 'error'"
+                      size="small"
+                      class=""
+                    >
+                      {{ resource.identifier_type || "No identifier provided" }}
+                    </n-tag>
+
+                    <div>
+                      <n-divider vertical />
+                    </div>
+
+                    <div class="group w-max">
+                      <NuxtLink
+                        :to="
+                          resource.identifier_type !== 'url'
+                            ? `https://identifiers.org/${resource.identifier_type}/${resource.identifier}`
+                            : resource.identifier
+                        "
+                        class="flex items-center font-medium text-blue-600 transition-all group-hover:text-blue-700 group-hover:underline"
+                        target="_blank"
+                        @click.stop=""
+                      >
+                        {{ resource.identifier }}
+
+                        <Icon
+                          v-if="resource.identifier_type"
+                          name="mdi:external-link"
+                          size="16"
+                          class="ml-1 text-blue-600 transition-all group-hover:text-blue-700 group-hover:underline"
+                        />
+                      </NuxtLink>
+                    </div>
+                  </div>
+                </div>
               </n-space>
             </div>
-
-            <n-space vertical size="large" class="w-full">
-              <div
-                v-for="(resource, idx) of group || []"
-                :key="idx"
-                class="flex w-full flex-grow flex-col rounded-md border px-6 pt-6 shadow-sm"
-              >
-                <div class="flex w-full items-center justify-start pb-2">
-                  <span class="text-lg font-medium leading-5">
-                    {{ resource.title || "No title provided" }}
-                  </span>
-                </div>
-
-                <p class="border-t border-dashed py-3">
-                  {{ resource.description || "No description provided" }}
-                </p>
-
-                <div
-                  class="flex w-full items-center space-x-1 border-t pb-4 pt-3"
-                >
-                  <n-tag
-                    :type="resource.identifier_type ? 'info' : 'error'"
-                    size="small"
-                    class=""
-                  >
-                    {{ resource.identifier_type || "No identifier provided" }}
-                  </n-tag>
-
-                  <div>
-                    <n-divider vertical />
-                  </div>
-
-                  <div class="group w-max">
-                    <NuxtLink
-                      :to="
-                        resource.identifier_type !== 'url'
-                          ? `https://identifiers.org/${resource.identifier_type}/${resource.identifier}`
-                          : resource.identifier
-                      "
-                      class="flex items-center font-medium text-blue-600 transition-all group-hover:text-blue-700 group-hover:underline"
-                      target="_blank"
-                      @click.stop=""
-                    >
-                      {{ resource.identifier }}
-
-                      <Icon
-                        v-if="resource.identifier_type"
-                        name="mdi:external-link"
-                        size="16"
-                        class="ml-1 text-blue-600 transition-all group-hover:text-blue-700 group-hover:underline"
-                      />
-                    </NuxtLink>
-                  </div>
-                </div>
-              </div>
-            </n-space>
           </div>
         </n-tab-pane>
 

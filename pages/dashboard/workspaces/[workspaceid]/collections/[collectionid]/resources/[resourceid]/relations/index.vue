@@ -96,7 +96,7 @@ if (resource.value) {
   }
 }
 
-const { data: relations, error: relationsError } = await useFetch(
+const { data: relations, error: _relationsError } = await useFetch(
   `/api/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/relations`,
   {
     headers: useRequestHeaders(["cookie"]),

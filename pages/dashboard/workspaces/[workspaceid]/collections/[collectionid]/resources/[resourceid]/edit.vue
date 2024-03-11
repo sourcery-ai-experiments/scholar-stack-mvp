@@ -321,7 +321,7 @@ const saveResourceData = () => {
               :placeholder="selectedIdentifier?.placeholder"
               type="text"
               :disabled="
-                !formData.identifier ||
+                !formData.identifier_type ||
                 !!(
                   resource &&
                   'action' in resource &&
