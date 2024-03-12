@@ -23,7 +23,10 @@ export function useLayout() {
     dagreGraph.setDefaultEdgeLabel(() => ({}));
 
     const isHorizontal = direction === "LR";
-    dagreGraph.setGraph({ rankdir: direction });
+    dagreGraph.setGraph({
+      compound: true,
+      rankdir: direction,
+    });
 
     previousDirection.value = direction;
 

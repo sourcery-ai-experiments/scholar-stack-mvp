@@ -112,7 +112,7 @@ const selectedVersionIdentifier = computed(() => {
 </script>
 
 <template>
-  <main class="h-screen w-full grow overflow-auto bg-white px-3 pb-10 pt-5">
+  <main class="h-screen w-full grow overflow-auto bg-white px-6 pb-10 pt-5">
     <div class="relative mx-auto max-w-screen-xl">
       <div class="grid grid-cols-12">
         <n-space vertical class="col-span-9 mt-5">
@@ -243,8 +243,12 @@ const selectedVersionIdentifier = computed(() => {
 
           <FlowRelationsGraph
             :relations="{
-              internal: data?.InternalRelations,
-              external: data?.ExternalRelations,
+              internal:
+                (data?.InternalRelations as unknown as CatalogInternalRelation[]) ||
+                [],
+              external:
+                (data?.ExternalRelations as unknown as CatalogExternalRelation[]) ||
+                [],
             }"
           />
         </n-tab-pane>
