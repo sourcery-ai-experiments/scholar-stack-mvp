@@ -104,33 +104,6 @@ const logout = async () => {
                   href="#"
                   class="block border-b border-gray-100 py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-50 lg:border-0 lg:p-0 lg:hover:bg-transparent lg:hover:text-primary-700"
                 >
-                  Company
-                </a>
-              </li>
-
-              <li>
-                <a
-                  href="#"
-                  class="block border-b border-gray-100 py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-50 lg:border-0 lg:p-0 lg:hover:bg-transparent lg:hover:text-primary-700"
-                >
-                  Marketplace
-                </a>
-              </li>
-
-              <li>
-                <a
-                  href="#"
-                  class="block border-b border-gray-100 py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-50 lg:border-0 lg:p-0 lg:hover:bg-transparent lg:hover:text-primary-700"
-                >
-                  Features
-                </a>
-              </li>
-
-              <li>
-                <a
-                  href="#"
-                  class="block border-b border-gray-100 py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-50 lg:border-0 lg:p-0 lg:hover:bg-transparent lg:hover:text-primary-700"
-                >
                   Team
                 </a>
               </li>

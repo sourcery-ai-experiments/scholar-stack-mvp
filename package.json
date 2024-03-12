@@ -19,7 +19,7 @@
     "scripts:truncate:tables": "tsx ./scripts/truncate-tables.ts",
     "scripts:fetch:save:identifiers": "tsx ./scripts/fetch-save-identifiers.ts",
     "scripts:compare:identifiers": "tsx ./scripts/compare-identifiers.ts",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare && yarn prisma:generate"
   },
   "devDependencies": {
     "@bg-dev/nuxt-naiveui": "^1.2.3",
