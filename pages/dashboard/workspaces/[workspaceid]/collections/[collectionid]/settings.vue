@@ -32,6 +32,14 @@ const route = useRoute();
           </NuxtLink>
 
           <NuxtLink
+            :to="`/dashboard/workspaces/${route.params.workspaceid}/collections/${route.params.collectionid}/settings/creators`"
+            class="w-full justify-start rounded-md px-2 py-2 text-left text-slate-500 transition-all hover:bg-slate-100"
+            exact-active-class="text-slate-800 font-medium"
+          >
+            Creators
+          </NuxtLink>
+
+          <NuxtLink
             :to="`/dashboard/workspaces/${route.params.workspaceid}/collections/${route.params.collectionid}/settings/team`"
             class="w-full justify-start rounded-md px-2 py-2 text-left text-slate-500 transition-all hover:bg-slate-100"
             exact-active-class="text-slate-800 font-medium"

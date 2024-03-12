@@ -22,6 +22,7 @@ export default defineNuxtPlugin({
               tag: "style",
             };
           });
+        // @ts-ignore
         ctx.tags.splice(lastMetaIndex + 1, 0, ...styleTags);
       });
     }
