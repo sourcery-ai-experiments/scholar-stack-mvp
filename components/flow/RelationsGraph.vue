@@ -4,38 +4,115 @@ import { Background } from "@vue-flow/background";
 import { Controls } from "@vue-flow/controls";
 import { MiniMap } from "@vue-flow/minimap";
 import { VueFlow, useVueFlow, type Node, type Edge } from "@vue-flow/core";
-
+// import { nanoid } from "nanoid";
 const { addEdges, onConnect } = useVueFlow();
 
-const nodes = ref<Node[]>([
-  // Ensure each node has a unique, descriptive label for screen readers
-  { id: "1", label: "Start Node", position: { x: 250, y: 5 }, type: "input" },
-  {
-    id: "2",
-    label: "Intermediate Node",
-    position: { x: 100, y: 100 },
-    type: "output",
-  },
-  { id: "3", label: "End Node", position: { x: 400, y: 100 }, type: "custom" },
-]);
+const props = defineProps<{
+  relations: CatalogRelations;
+}>();
 
-const edges = ref<Edge[]>([
-  // Use descriptive labels for edges where possible
-  {
-    id: "e1-2",
-    label: "Start to Intermediate",
-    source: "1",
-    target: "2",
-    type: "custom",
-  },
-  {
-    id: "e1-3",
+const remappedRelations = [];
+
+for (const relation of props.relations.internal) {
+  remappedRelations.push({
+    id: relation.id,
+    label: relation.type,
+    source: relation.source_id,
+    target: relation.target_id,
+  });
+}
+
+for (const relation of props.relations.external) {
+  remappedRelations.push({
+    id: relation.id,
+    label: relation.type,
+    source: relation.source_id,
+    target: `${relation.target_type}:${relation.target}`,
+  });
+}
+
+const nodes = ref<Node[]>([]);
+
+let x = 0;
+let y = 0;
+const spacing = 200;
+
+for (const relation of remappedRelations) {
+  // check if relation.source is in nodes
+  const sourceNode = nodes.value.find((node) => node.id === relation.source);
+
+  if (!sourceNode) {
+    nodes.value.push({
+      id: relation.source,
+      label: relation.source,
+      position: { x: x * spacing, y: y * spacing },
+      type: "input",
+    });
+  }
+  x++;
+
+  // check if relation.target is in nodes
+  const targetNode = nodes.value.find((node) => node.id === relation.target);
+
+  if (!targetNode) {
+    nodes.value.push({
+      id: relation.target,
+      label: relation.target,
+      position: { x: x * spacing, y: y * spacing },
+      type: "output",
+    });
+  }
+
+  x++;
+
+  if (x >= 5) {
+    // adjust this value to control how many nodes are placed in a row
+    x = 0;
+    y++;
+  }
+}
+
+const edges = ref<Edge[]>([]);
+
+for (const relation of remappedRelations) {
+  edges.value.push({
+    id: relation.id,
     animated: true,
-    label: "Start to End",
-    source: "1",
-    target: "3",
-  },
-]);
+    label: relation.label,
+    source: relation.source,
+    target: relation.target,
+  });
+}
+
+// const nodes = ref<Node[]>([
+//   // Ensure each node has a unique, descriptive label for screen readers
+//   { id: "1", label: "Start Node", position: { x: 250, y: 5 }, type: "input" },
+//   {
+//     id: "2",
+//     label: "Intermediate Node",
+//     position: { x: 100, y: 100 },
+//     type: "output",
+//   },
+//   { id: "3", label: "End Node", position: { x: 400, y: 100 }, type: "custom" },
+// ]);
+
+// const edges = ref<Edge[]>([
+//   // Use descriptive labels for edges where possible
+//   {
+//     id: "e1-2",
+//     label: "Start to Intermediate",
+//     source: "1",
+//     target: "2",
+//     type: "custom",
+//   },
+//   {
+//     id: "e1-3",
+//     animated: true,
+//     label: "Start to End",
+//     source: "1",
+//     target: "3",
+//   },
+// ]);
 
 onConnect((params) => {
   addEdges([params]);
@@ -43,32 +120,31 @@ onConnect((params) => {
 </script>
 
 <template>
-  <div style="height: 50vh" role="application" aria-label="Relations Graph">
-    <VueFlow
-      v-model:nodes="nodes"
-      v-model:edges="edges"
-      fit-view-on-init
-      class="vue-flow-basic-example"
-      :default-zoom="1.5"
-      :min-zoom="0.2"
-      :max-zoom="4"
-      aria-roledescription="interactive node graph"
-    >
-      <Background pattern-color="#aaa" :gap="8" />
+  <div>
+    <div style="height: 50vh" role="application" aria-label="Relations Graph">
+      <VueFlow
+        v-model:nodes="nodes"
+        v-model:edges="edges"
+        fit-view-on-init
+        class="vue-flow-basic-example"
+        aria-roledescription="interactive node graph"
+      >
+        <Background pattern-color="#aaa" :gap="8" />
 
-      <MiniMap />
+        <MiniMap />
 
-      <Controls />
+        <Controls />
 
-      <template #node-custom="nodeProps">
-        <!-- Ensure custom nodes are accessible -->
-        <FlowCustomNode v-bind="nodeProps" />
-      </template>
+        <template #node-custom="nodeProps">
+          <!-- Ensure custom nodes are accessible -->
+          <FlowCustomNode v-bind="nodeProps" />
+        </template>
 
-      <template #edge-custom="edgeProps">
-        <!-- Ensure custom edges are accessible -->
-        <FlowCustomEdge v-bind="edgeProps" />
-      </template>
-    </VueFlow>
+        <template #edge-custom="edgeProps">
+          <!-- Ensure custom edges are accessible -->
+          <FlowCustomEdge v-bind="edgeProps" />
+        </template>
+      </VueFlow>
+    </div>
   </div>
 </template>

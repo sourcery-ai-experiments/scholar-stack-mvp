@@ -149,7 +149,7 @@ const selectedVersionIdentifier = computed(() => {
 
       <n-divider />
 
-      <n-tabs type="segment" animated default-value="resources">
+      <n-tabs type="segment" animated default-value="relations">
         <n-tab-pane name="resources" tab="Resources">
           <template #tab>
             <n-space align="center">
@@ -241,19 +241,12 @@ const selectedVersionIdentifier = computed(() => {
             </n-space>
           </template>
 
-          <FlowRelationsGraph />
-
-          Internal Relations
-          <pre>
-         {{ data?.InternalRelations }}
-        </pre
-          >
-
-          External Relations
-          <pre>
-         {{ data?.ExternalRelations }}
-        </pre
-          >
+          <FlowRelationsGraph
+            :relations="{
+              internal: data?.InternalRelations,
+              external: data?.ExternalRelations,
+            }"
+          />
         </n-tab-pane>
 
         <n-tab-pane name="versions" tab="Versions">
