@@ -4,8 +4,10 @@ import { Background } from "@vue-flow/background";
 import { Controls } from "@vue-flow/controls";
 import { MiniMap } from "@vue-flow/minimap";
 import { VueFlow, useVueFlow, type Node, type Edge } from "@vue-flow/core";
-// import { nanoid } from "nanoid";
+
 const { addEdges, onConnect } = useVueFlow();
+
+const { layout, previousDirection } = useLayout();
 
 const props = defineProps<{
   relations: CatalogRelations;
@@ -84,6 +86,9 @@ for (const relation of remappedRelations) {
   });
 }
 
+nodes.value = layout(nodes.value, edges.value, previousDirection.value);
+// edges.value = shuffle(nodes.value);
+
 // const nodes = ref<Node[]>([
 //   // Ensure each node has a unique, descriptive label for screen readers
 //   { id: "1", label: "Start Node", position: { x: 250, y: 5 }, type: "input" },
@@ -121,7 +126,12 @@ onConnect((params) => {
 
 <template>
   <div>
-    <div style="height: 50vh" role="application" aria-label="Relations Graph">
+    <div
+      v-if="nodes.length > 0"
+      style="height: 50vh"
+      role="application"
+      aria-label="Relations Graph"
+    >
       <VueFlow
         v-model:nodes="nodes"
         v-model:edges="edges"
@@ -145,6 +155,10 @@ onConnect((params) => {
           <FlowCustomEdge v-bind="edgeProps" />
         </template>
       </VueFlow>
+    </div>
+
+    <div v-else>
+      <n-empty description="No relations found"> </n-empty>
     </div>
   </div>
 </template>

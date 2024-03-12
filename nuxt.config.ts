@@ -44,7 +44,6 @@ export default defineNuxtConfig({
     "nuxt-headlessui",
     "@nuxt/ui",
     "dayjs-nuxt",
-    "nuxt-lodash",
     [
       "@nuxtjs/google-fonts",
       {
@@ -56,7 +55,6 @@ export default defineNuxtConfig({
     "@nuxt/devtools",
     "@bg-dev/nuxt-naiveui",
     "@nuxt/image",
-    "nuxt-security",
   ],
 
   naiveui: {
@@ -69,17 +67,6 @@ export default defineNuxtConfig({
 
   notivue: {
     // Options
-  },
-
-  security: {
-    csrf: true,
-    headers: {
-      contentSecurityPolicy: {
-        "img-src": ["*", "data:"], // Allow images from any source
-      },
-      crossOriginEmbedderPolicy:
-        process.env.NODE_ENV === "development" ? "unsafe-none" : "require-corp",
-    },
   },
 
   supabase: {
