@@ -54,7 +54,7 @@ for (const relation of remappedRelations) {
             ?.title
         : relation.source,
       position: { x: x * spacing, y: y * spacing },
-      type: "input",
+      type: "custom",
     });
   }
   x++;
@@ -70,7 +70,7 @@ for (const relation of remappedRelations) {
             ?.title
         : relation.target,
       position: { x: x * spacing, y: y * spacing },
-      type: "output",
+      type: "custom",
     });
   }
 
@@ -139,7 +139,7 @@ onConnect((params) => {
   <div>
     <div
       v-if="nodes.length > 0"
-      style="height: 50vh"
+      style="height: 100vh"
       role="application"
       aria-label="Relations Graph"
     >
