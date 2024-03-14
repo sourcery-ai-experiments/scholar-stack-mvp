@@ -34,3 +34,16 @@ interface CollectionAccessUser {
 }
 
 interface CollectionAccessTeam extends Array<CollectionAccessUser> {}
+
+interface CollectionCreator {
+  affiliation: string;
+  creatorIndex: number;
+  creatorName: string;
+  familyName: string;
+  givenName: string;
+  identifier: string;
+  identifierType: string | null;
+  nameType: string;
+}
+
+interface CollectionCreators extends Array<CollectionCreator> {}

@@ -1,16 +1,54 @@
 <script setup lang="ts">
-const modalIsOpen = ref(false);
-
-const collectionName = ref("");
-const collectionDescription = ref("");
+// import { nanoid } from "nanoid";
+import type { FormInst } from "naive-ui";
 
 const { collectionid, workspaceid } = useRoute().params as {
   collectionid: string;
   workspaceid: string;
 };
 
-const { data: collection, error } = await useFetch(
-  `/api/workspaces/${workspaceid}/collections/${collectionid}`,
+const loading = ref(false);
+
+const formRef = ref<FormInst | null>(null);
+const moduleData = reactive<{
+  creators: CollectionCreators;
+}>({
+  creators: [],
+});
+
+const nameTypeOptions = [
+  { label: "Personal", value: "Personal" },
+  { label: "Organizational", value: "Organizational" },
+];
+
+const generateIdentifierTypeOptions = (nameType: string = "Personal") => {
+  if (nameType === "Personal") {
+    return [{ label: "ORCID", value: "ORCID" }];
+  }
+
+  return [
+    { label: "ROR", value: "ROR" },
+    { label: "ISNI", value: "ISNI" },
+  ];
+};
+
+const normalizeCreators = (data: CollectionCreators = []) => {
+  return data.map((creator: CollectionCreator, index: number) => {
+    return {
+      affiliation: creator.affiliation || "",
+      creatorIndex: index,
+      creatorName: creator.creatorName || "",
+      familyName: creator.familyName || "",
+      givenName: creator.givenName,
+      identifier: creator.identifier || "",
+      identifierType: creator.identifierType || null,
+      nameType: creator.nameType,
+    };
+  });
+};
+
+const { data, error } = await useFetch(
+  `/api/workspaces/${workspaceid}/collections/${collectionid}/creators`,
   {
     headers: useRequestHeaders(["cookie"]),
   },
@@ -27,200 +65,249 @@ if (error.value) {
   navigateTo("/dashboard");
 }
 
-if (collection.value) {
-  collectionName.value = collection.value.title;
-  collectionDescription.value = collection.value.description;
+if (data.value) {
+  moduleData.creators = normalizeCreators(data.value);
 }
 
-const closeModal = () => {
-  modalIsOpen.value = false;
+const addCreator = () => {
+  moduleData.creators.push({
+    affiliation: "",
+    creatorIndex: moduleData.creators.length + 1,
+    creatorName: "",
+    familyName: "",
+    givenName: "",
+    identifier: "",
+    identifierType: null,
+    nameType: "Personal",
+  });
 };
 
-const openModal = () => {
-  modalIsOpen.value = true;
-};
-
-const deleteCollection = async () => {
-  await $fetch(`/api/workspaces/${workspaceid}/collections/${collectionid}`, {
-    headers: useRequestHeaders(["cookie"]),
-    method: "DELETE",
-  })
-    .then((_res) => {
-      push.success({
-        title: "Success",
-        message: "Your collection has been deleted",
+const saveCreators = (e: MouseEvent) => {
+  e.preventDefault();
+  formRef.value?.validate(async (errors) => {
+    if (!errors) {
+      const creators = moduleData.creators.map((creator, index) => {
+        return {
+          affiliation: creator.affiliation || "",
+          creatorIndex: index,
+          creatorName: creator.creatorName || "",
+          familyName: creator.familyName || "",
+          givenName: creator.givenName,
+          identifier: creator.identifier || "",
+          identifierType: creator.identifierType || "",
+          nameType: creator.nameType,
+        };
       });
 
-      navigateTo(`/dashboard/workspaces/${workspaceid}`);
-    })
-    .catch((err) => {
-      console.log(err);
+      loading.value = true;
 
-      push.error({
-        title: "Something went wrong",
-        message: "We couldn't delete your collection",
-      });
-    });
-};
+      await $fetch(
+        `/api/workspaces/${workspaceid}/collections/${collectionid}/creators`,
+        {
+          body: JSON.stringify(creators),
+          headers: useRequestHeaders(["cookie"]),
+          method: "PUT",
+        },
+      )
+        .then((response) => {
+          console.log("success");
 
-const updateCollectionDetails = async () => {
-  await $fetch(`/api/workspaces/${workspaceid}/collections/${collectionid}`, {
-    body: JSON.stringify({
-      title: collectionName.value.trim(),
-      description: collectionDescription.value.trim(),
-    }),
-    headers: useRequestHeaders(["cookie"]),
-    method: "PUT",
-  })
-    .then((_res) => {
-      push.success({
-        title: "Success",
-        message:
-          "Your collection details have been updated. Please wait for a few seconds to see the changes.",
-      });
+          push.success("Creators updated successfully.");
 
-      window.location.reload();
-    })
-    .catch((err) => {
-      console.log(err);
+          moduleData.creators = normalizeCreators(response.creators);
+        })
+        .catch((error) => {
+          console.error(error);
+          push.error("Something went wrong.");
+        })
+        .finally(() => {
+          loading.value = false;
+        });
 
-      push.error({
-        title: "Something went wrong",
-        message: "We couldn't update your collection details",
-      });
-    });
+      console.log("success");
+    } else {
+      console.error(errors);
+    }
+  });
 };
 </script>
 
 <template>
-  <div class="flex flex-col space-y-4">
-    <CardWithAction title="Collection Name">
-      <p class="my-3 text-sm">
-        This is the name of your collection. You can change it to anything you
-        want.
-      </p>
+  <div class="flex flex-col">
+    <h2 class="text-xl">Creators</h2>
 
-      <n-input
-        v-model:value="collectionName"
-        placeholder="Collection Name"
-        class="w-full"
-        size="large"
+    <p class="mb-6 pt-1 text-slate-700">
+      You can add or remove creators from this collection. The people and/or
+      organizations listed here are also shown on the public catalog page.
+    </p>
+
+    <n-form
+      ref="formRef"
+      :model="moduleData"
+      size="large"
+      label-placement="top"
+      class="pr-4"
+    >
+      <n-empty
+        v-if="moduleData.creators.length === 0"
+        description="No creators found"
       />
 
-      <template #action>
-        <div class="flex items-center justify-end">
-          <n-button
-            type="primary"
-            color="black"
-            :disabled="collectionName.trim() === ''"
-            @click="updateCollectionDetails"
+      <n-space v-else vertical size="large">
+        <div v-for="(item, index) in moduleData.creators" :key="index" bordered>
+          <!-- <template #header-extra>
+            <n-popconfirm @positive-click="removeCollaborator(item.id)">
+              <template #trigger>
+                <n-button type="error" secondary>
+                  <template #icon>
+                    <f-icon icon="ep:delete" />
+                  </template>
+
+                  Remove Collaborator
+                </n-button>
+              </template>
+
+              Are you sure you want to remove this Collaborator?
+            </n-popconfirm>
+          </template> -->
+
+          <n-form-item
+            label="Name Type"
+            :show-label="false"
+            :path="`creators[${index}].name_type`"
           >
-            Save
-          </n-button>
-        </div>
-      </template>
-    </CardWithAction>
-
-    <CardWithAction title="Description">
-      <p class="my-3 text-sm">
-        This is the description of your collection. You can change it to
-        anything you want.
-      </p>
-
-      <n-input
-        v-model:value="collectionDescription"
-        placeholder="Collection Description"
-        class="w-full"
-        type="textarea"
-        size="large"
-      />
-
-      <template #action>
-        <div class="flex items-center justify-end">
-          <n-button
-            type="primary"
-            color="black"
-            :disabled="collectionDescription.trim() === ''"
-            @click="updateCollectionDetails"
-          >
-            Save
-          </n-button>
-        </div>
-      </template>
-    </CardWithAction>
-
-    <CardWithAction title="Delete collection">
-      <p class="my-3 text-sm">
-        Permanently remove your collection and all of its contents from the
-        platform. This action is not reversible, so please continue with
-        caution.
-      </p>
-
-      <template #action>
-        <div class="flex items-center justify-end">
-          <n-button type="error" @click="deleteCollection"> Delete </n-button>
-        </div>
-      </template>
-    </CardWithAction>
-
-    <HeadlessTransitionRoot appear :show="modalIsOpen" as="template">
-      <HeadlessDialog as="div" class="relative z-10" @close="closeModal">
-        <HeadlessTransitionChild
-          as="template"
-          enter="duration-300 ease-out"
-          enter-from="opacity-0"
-          enter-to="opacity-100"
-          leave="duration-200 ease-in"
-          leave-from="opacity-100"
-          leave-to="opacity-0"
-        >
-          <div class="bg-opacity-25 fixed inset-0 bg-white/80" />
-        </HeadlessTransitionChild>
-
-        <div class="fixed inset-0 overflow-y-auto">
-          <div
-            class="flex min-h-full items-center justify-center p-4 text-center"
-          >
-            <HeadlessTransitionChild
-              as="template"
-              enter="duration-300 ease-out"
-              enter-from="opacity-0 scale-95"
-              enter-to="opacity-100 scale-100"
-              leave="duration-200 ease-in"
-              leave-from="opacity-100 scale-100"
-              leave-to="opacity-0 scale-95"
+            <n-radio-group
+              v-model:value="item.nameType"
+              name="radiobuttongroup1"
             >
-              <HeadlessDialogPanel
-                class="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+              <n-radio-button
+                v-for="nameTypeOption in nameTypeOptions"
+                :key="nameTypeOption.value"
+                :value="nameTypeOption.value"
+                :label="nameTypeOption.label"
+              />
+            </n-radio-group>
+          </n-form-item>
+
+          <div class="flex items-start space-x-4">
+            <n-form-item
+              :label="item.nameType === 'Personal' ? 'Given Name' : 'Name'"
+              :path="`creators[${index}].givenName`"
+              :rule="{
+                message: 'Please enter a name',
+                required: true,
+                trigger: ['blur', 'change'],
+              }"
+              class="w-full"
+            >
+              <n-input
+                v-model:value="item.givenName"
+                :placeholder="item.nameType === 'Personal' ? 'Ging' : 'Zodiacs'"
+                clearable
+              />
+            </n-form-item>
+
+            <n-form-item
+              v-if="item.nameType === 'Personal'"
+              label="Family Name"
+              :path="`creators[${index}].familyName`"
+              class="w-full"
+            >
+              <n-input
+                v-model:value="item.familyName"
+                placeholder="Freecss"
+                clearable
+              />
+            </n-form-item>
+          </div>
+
+          <n-form-item
+            label="Affiliation"
+            :path="`creators[${index}].affiliation`"
+          >
+            <n-input
+              v-model:value="item.affiliation"
+              placeholder="Hunter Association"
+              clearable
+            />
+          </n-form-item>
+
+          <div class="flex items-start space-x-4">
+            <n-form-item
+              label="Identifier Type"
+              :path="`creators[${index}].identifierType`"
+              :rule="{
+                message: 'Please select an identifier type',
+                required: item.identifier,
+                trigger: ['blur', 'change'],
+              }"
+              class="w-full"
+            >
+              <n-select
+                v-model:value="item.identifierType"
+                clearable
+                placeholder="Select an identifier type"
+                :options="generateIdentifierTypeOptions(item.nameType)"
               >
-                <HeadlessDialogTitle
-                  as="h3"
-                  class="text-lg font-medium leading-6 text-slate-900"
-                >
-                  Payment successful
-                </HeadlessDialogTitle>
+              </n-select>
+            </n-form-item>
 
-                <div class="mt-2">
-                  <p class="text-sm text-slate-500">
-                    Your payment has been successfully submitted. We’ve sent you
-                    an email with all of the details of your order.
-                  </p>
-                </div>
+            <n-form-item
+              label="Identifier"
+              :path="`creators[${index}].identifier`"
+              :rule="{
+                message: 'Please enter an identifier',
+                required: item.identifierType,
+                trigger: ['blur', 'change'],
+              }"
+              class="w-full"
+            >
+              <n-input
+                v-model:value="item.identifier"
+                :placeholder="
+                  item.identifierType
+                    ? item.identifierType === 'ROR'
+                      ? '0156zyn36'
+                      : '0000-0003-2829-8032'
+                    : ''
+                "
+                clearable
+              />
+            </n-form-item>
+          </div>
 
-                <div class="mt-4">
-                  <button
-                    type="button"
-                    class="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                    @click="closeModal"
-                  >
-                    Got it, thanks!
-                  </button>
-                </div>
-              </HeadlessDialogPanel>
-            </HeadlessTransitionChild>
+          <div v-if="index + 1 !== moduleData.creators.length">
+            <n-divider />
           </div>
         </div>
-      </HeadlessDialog>
-    </HeadlessTransitionRoot>
+      </n-space>
+
+      <div class="mt-5 flex items-center justify-between">
+        <n-button text type="info" @click="addCreator">
+          <template #icon>
+            <Icon name="material-symbols:add" />
+          </template>
+
+          Add a Creator
+        </n-button>
+
+        <n-button
+          color="black"
+          :loading="loading"
+          :disabled="moduleData.creators.length === 0"
+          @click="saveCreators"
+        >
+          <template #icon>
+            <Icon name="lets-icons:save-duotone" />
+          </template>
+
+          Save
+        </n-button>
+      </div>
+    </n-form>
+
+    <pre
+      >{{ moduleData.creators }} 
+    </pre>
   </div>
 </template>
