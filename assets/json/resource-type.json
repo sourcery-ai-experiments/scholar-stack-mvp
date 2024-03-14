@@ -72,23 +72,25 @@
   {
     "label": "Grant",
     "value": "grant",
-    "icon": "mdi:resource-description-framework"
+    "icon": "solar:hand-money-bold"
   },
   {
     "label": "preprint",
     "value": "Preprint",
-    "icon": "mdi:resource-description-framework"
+    "icon": "ri:article-fill"
   },
   {
     "label": "conferencePresentation",
     "value": "Conference Presentation",
-    "icon": "mdi:resource-description-framework"
+    "icon": "carbon:group-presentation"
   },
   {
     "label": "webArticle",
     "value": "Web Article",
-    "icon": "mdi:resource-description-framework"
+    "icon": "ri:article-line"
   },
+  { "label": "video", "value": "video", "icon": "mdi:video" },
+
   {
     "label": "Other",
     "value": "other",
