@@ -70,6 +70,26 @@
     "icon": "lets-icons:molecule-light"
   },
   {
+    "label": "Grant",
+    "value": "grant",
+    "icon": "mdi:resource-description-framework"
+  },
+  {
+    "label": "preprint",
+    "value": "Preprint",
+    "icon": "mdi:resource-description-framework"
+  },
+  {
+    "label": "conferencePresentation",
+    "value": "Conference Presentation",
+    "icon": "mdi:resource-description-framework"
+  },
+  {
+    "label": "webArticle",
+    "value": "Web Article",
+    "icon": "mdi:resource-description-framework"
+  },
+  {
     "label": "Other",
     "value": "other",
     "icon": "mdi:resource-description-framework"
