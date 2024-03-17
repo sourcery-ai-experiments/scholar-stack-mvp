@@ -122,7 +122,7 @@ const deleteCreator = (index: number) => {
     (creator) => creator.creatorIndex !== index,
   );
 
-  creators.value = newCreators;
+  creators.value = normalizeCreators(newCreators);
 
   saveCreators();
 };
@@ -163,7 +163,7 @@ const saveCreators = async () => {
     });
 };
 
-const saveChanges = (e: MouseEvent) => {
+const confirmEdits = (e: MouseEvent) => {
   e.preventDefault();
   formRef.value?.validate(async (errors) => {
     if (!errors) {
@@ -471,7 +471,7 @@ const saveChanges = (e: MouseEvent) => {
             type="info"
             :loading="loading"
             size="large"
-            @click="saveChanges"
+            @click="confirmEdits"
           >
             <template #icon>
               <Icon name="material-symbols:save-sharp" />
