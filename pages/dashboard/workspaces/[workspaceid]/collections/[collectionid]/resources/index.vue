@@ -13,6 +13,7 @@ const resourceTypeOptions = RESOURCE_TYPE_JSON;
 
 const newResourceLoading = ref(false);
 const draftVersionLoading = ref(false);
+const newVersionModalIsOpen = ref(false);
 
 const { collectionid, workspaceid } = route.params as {
   collectionid: string;
@@ -82,6 +83,7 @@ const createNewDraftVersion = async () => {
     })
     .finally(() => {
       draftVersionLoading.value = false;
+      newVersionModalIsOpen.value = false;
     });
 };
 
@@ -161,7 +163,7 @@ const addResource = async () => {
             size="large"
             type="success"
           >
-            {{ collection?.version?.name || "" }}
+            v.{{ collection?.version?.name || "" }}
           </n-tag>
 
           <div v-if="collection?.version?.published || !collection?.version">
@@ -173,12 +175,16 @@ const addResource = async () => {
             size="large"
             :loading="draftVersionLoading"
             color="black"
-            @click="createNewDraftVersion"
+            @click="newVersionModalIsOpen = true"
           >
             <template #icon>
               <Icon name="codicon:git-pull-request-draft" />
             </template>
-            Create a new {{ !collection?.version ? "draft" : "" }} version
+            {{
+              collection?.version === null
+                ? "Add a resource"
+                : "Update resources"
+            }}
           </n-button>
         </div>
       </div>
@@ -193,6 +199,7 @@ const addResource = async () => {
         </n-input>
 
         <n-button
+          v-if="collection?.version"
           size="large"
           color="black"
           :disabled="!collection?.version || collection?.version?.published"
@@ -210,20 +217,7 @@ const addResource = async () => {
         v-if="collection?.version === null"
         class="rounded-lg border border-dashed px-4 py-8"
       >
-        <n-empty size="large" description="No resources found">
-          <template #extra>
-            <n-button
-              color="black"
-              :loading="draftVersionLoading"
-              @click="createNewDraftVersion"
-            >
-              <template #icon>
-                <Icon name="codicon:git-pull-request-draft" />
-              </template>
-              Create a new draft version
-            </n-button>
-          </template>
-        </n-empty>
+        <n-empty size="large" description="No resources found"> </n-empty>
       </div>
 
       <n-space
@@ -430,5 +424,57 @@ const addResource = async () => {
     </div>
 
     <ModalNewCollection />
+
+    <UModal v-model="newVersionModalIsOpen">
+      <UCard
+        :ui="{
+          ring: '',
+          divide: 'divide-y divide-gray-100 dark:divide-gray-800',
+        }"
+      >
+        <ClientOnly>
+          <Vue3Lottie
+            animation-link="https://cdn.lottiel.ink/assets/0DbcfcjLA9YXCuCLaciEZ.json"
+            :height="200"
+            :width="200"
+          />
+
+          <h1 class="text-center text-lg font-medium">
+            Do you want to set this collection to an edit state?
+          </h1>
+
+          <p class="mt-2 text-center">
+            This will allow you to make changes to this collection's resources.
+          </p>
+        </ClientOnly>
+
+        <template #footer>
+          <n-flex justify="center">
+            <n-button
+              size="large"
+              type="warning"
+              @click="newVersionModalIsOpen = false"
+            >
+              <template #icon>
+                <Icon name="material-symbols:cancel-outline" />
+              </template>
+              Cancel
+            </n-button>
+
+            <n-button
+              size="large"
+              type="primary"
+              :loading="draftVersionLoading"
+              @click="createNewDraftVersion"
+            >
+              <template #icon>
+                <Icon name="healthicons:yes" />
+              </template>
+              Allow editing
+            </n-button>
+          </n-flex>
+        </template>
+      </UCard>
+    </UModal>
   </main>
 </template>
