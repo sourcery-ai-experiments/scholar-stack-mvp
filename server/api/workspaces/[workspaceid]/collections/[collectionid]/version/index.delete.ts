@@ -52,7 +52,7 @@ export default defineEventHandler(async (event) => {
   // get the latest released version of the collection to reset the creators
   const latestReleasedVersion = await prisma.version.findFirst({
     orderBy: {
-      created_at: "desc",
+      created: "desc",
     },
     where: {
       collection_id: collectionid,
