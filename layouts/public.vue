@@ -1,9 +1,5 @@
 <script setup lang="ts">
-const user = useSupabaseUser();
-
 const devMode = process.env.NODE_ENV === "development";
-
-const loggedIn = computed(() => user.value);
 </script>
 
 <template>
@@ -26,20 +22,6 @@ const loggedIn = computed(() => user.value);
           </NuxtLink>
 
           <div class="flex items-center space-x-3 lg:order-2">
-            <nuxt-link v-if="!loggedIn" to="/login">
-              <n-button size="large">
-                <span> Log in </span>
-              </n-button>
-            </nuxt-link>
-
-            <nuxt-link v-if="!loggedIn" to="/register">
-              <n-button color="black" size="large"> Get started </n-button>
-            </nuxt-link>
-
-            <nuxt-link v-if="loggedIn" to="/dashboard">
-              <n-button color="black" size="large"> Dashboard </n-button>
-            </nuxt-link>
-
             <UiProfileDropdown />
 
             <button
