@@ -425,7 +425,7 @@ const confirmEdits = (e: MouseEvent) => {
               path="identifierType"
               :rule="{
                 message: 'Please select an identifier type',
-                required: selectedCreator.identifier,
+                required: !!selectedCreator.identifier,
                 trigger: ['blur', 'change'],
               }"
               class="w-full"
@@ -446,7 +446,7 @@ const confirmEdits = (e: MouseEvent) => {
               path="identifier"
               :rule="{
                 message: 'Please enter an identifier',
-                required: selectedCreator.identifierType,
+                required: !!selectedCreator.identifierType,
                 trigger: ['blur', 'change'],
               }"
               class="w-full"
