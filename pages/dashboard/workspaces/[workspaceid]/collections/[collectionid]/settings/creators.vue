@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// import { nanoid } from "nanoid";
 import type { FormInst } from "naive-ui";
 
 const { collectionid, workspaceid } = useRoute().params as {
@@ -9,11 +8,22 @@ const { collectionid, workspaceid } = useRoute().params as {
 
 const loading = ref(false);
 
+const showCreatorDrawer = ref(false);
+
+const drawerAction = ref<"Add" | "Edit">("Add");
+
 const formRef = ref<FormInst | null>(null);
-const moduleData = reactive<{
-  creators: CollectionCreators;
-}>({
-  creators: [],
+const creators = ref<CollectionCreator[]>([]);
+
+const selectedCreator = ref<CollectionCreator>({
+  affiliation: "",
+  creatorIndex: 0,
+  creatorName: "",
+  familyName: "",
+  givenName: "",
+  identifier: "",
+  identifierType: null,
+  nameType: "Personal",
 });
 
 const nameTypeOptions = [
@@ -66,65 +76,131 @@ if (error.value) {
 }
 
 if (data.value) {
-  moduleData.creators = normalizeCreators(data.value);
+  creators.value = normalizeCreators(data.value);
 }
 
-const addCreator = () => {
-  moduleData.creators.push({
+const openAddCreatorDrawer = () => {
+  selectedCreator.value = {
     affiliation: "",
-    creatorIndex: moduleData.creators.length + 1,
+    creatorIndex: creators.value.length + 1,
     creatorName: "",
     familyName: "",
     givenName: "",
     identifier: "",
     identifierType: null,
     nameType: "Personal",
-  });
+  };
+
+  drawerAction.value = "Add";
+  showCreatorDrawer.value = true;
 };
 
-const saveCreators = (e: MouseEvent) => {
+const openEditCreatorDrawer = (index: number) => {
+  const creator = creators.value[index];
+
+  if (creator) {
+    selectedCreator.value = {
+      affiliation: creator.affiliation,
+      creatorIndex: creator.creatorIndex,
+      creatorName: creator.creatorName,
+      familyName: creator.familyName,
+      givenName: creator.givenName,
+      identifier: creator.identifier,
+      identifierType: creator.identifierType,
+      nameType: creator.nameType,
+    };
+
+    drawerAction.value = "Edit";
+    showCreatorDrawer.value = true;
+  } else {
+    push.error("Something went wrong");
+  }
+};
+
+const deleteCreator = (index: number) => {
+  const newCreators = creators.value.filter(
+    (creator) => creator.creatorIndex !== index,
+  );
+
+  creators.value = normalizeCreators(newCreators);
+
+  saveCreators();
+};
+
+const saveCreators = async () => {
+  const data = creators.value.map((creator, index) => {
+    return {
+      ...creator,
+      creatorIndex: index,
+      identifierType: creator.identifierType || "",
+    };
+  });
+
+  loading.value = true;
+
+  await $fetch(
+    `/api/workspaces/${workspaceid}/collections/${collectionid}/creators`,
+    {
+      body: JSON.stringify(data),
+      headers: useRequestHeaders(["cookie"]),
+      method: "PUT",
+    },
+  )
+    .then((_response) => {
+      console.log("success");
+
+      push.success("Creators updated successfully.");
+
+      creators.value = normalizeCreators(data); // todo: might not be needed
+      showCreatorDrawer.value = false;
+    })
+    .catch((error) => {
+      console.error(error);
+      push.error("Something went wrong.");
+    })
+    .finally(() => {
+      loading.value = false;
+    });
+};
+
+const confirmEdits = (e: MouseEvent) => {
   e.preventDefault();
   formRef.value?.validate(async (errors) => {
     if (!errors) {
-      const creators = moduleData.creators.map((creator, index) => {
-        return {
-          affiliation: creator.affiliation || "",
-          creatorIndex: index,
-          creatorName: creator.creatorName || "",
-          familyName: creator.familyName || "",
-          givenName: creator.givenName,
-          identifier: creator.identifier || "",
-          identifierType: creator.identifierType || "",
-          nameType: creator.nameType,
-        };
-      });
+      // update the creator in the list
+      if (drawerAction.value === "Edit") {
+        const index = creators.value.findIndex(
+          (creator) =>
+            creator.creatorIndex === selectedCreator.value.creatorIndex,
+        );
 
-      loading.value = true;
-
-      await $fetch(
-        `/api/workspaces/${workspaceid}/collections/${collectionid}/creators`,
-        {
-          body: JSON.stringify(creators),
-          headers: useRequestHeaders(["cookie"]),
-          method: "PUT",
-        },
-      )
-        .then((response) => {
-          console.log("success");
-
-          push.success("Creators updated successfully.");
-
-          moduleData.creators = normalizeCreators(response.creators);
-        })
-        .catch((error) => {
-          console.error(error);
-          push.error("Something went wrong.");
-        })
-        .finally(() => {
-          loading.value = false;
+        if (index !== -1) {
+          creators.value[index] = {
+            affiliation: selectedCreator.value.affiliation,
+            creatorIndex: selectedCreator.value.creatorIndex,
+            creatorName: selectedCreator.value.creatorName,
+            familyName: selectedCreator.value.familyName,
+            givenName: selectedCreator.value.givenName,
+            identifier: selectedCreator.value.identifier,
+            identifierType: selectedCreator.value.identifierType,
+            nameType: selectedCreator.value.nameType,
+          };
+        }
+      } else {
+        // add the creator to the list
+        creators.value.push({
+          affiliation: selectedCreator.value.affiliation,
+          creatorIndex: selectedCreator.value.creatorIndex,
+          creatorName: selectedCreator.value.creatorName,
+          familyName: selectedCreator.value.familyName,
+          givenName: selectedCreator.value.givenName,
+          identifier: selectedCreator.value.identifier,
+          identifierType: selectedCreator.value.identifierType,
+          nameType: selectedCreator.value.nameType,
         });
+      }
 
-      console.log("success");
+      await saveCreators();
     } else {
       console.error(errors);
     }
@@ -141,58 +217,172 @@ const saveCreators = (e: MouseEvent) => {
       organizations listed here are also shown on the public catalog page.
     </p>
 
-    <n-form
-      ref="formRef"
-      :model="moduleData"
-      size="large"
-      label-placement="top"
-      class="pr-4"
-    >
-      <n-empty
-        v-if="moduleData.creators.length === 0"
-        description="No creators found"
-      />
-
-      <n-space v-else vertical size="large">
-        <div v-for="(item, index) in moduleData.creators" :key="index" bordered>
-          <!-- <template #header-extra>
-            <n-popconfirm @positive-click="removeCollaborator(item.id)">
-              <template #trigger>
-                <n-button type="error" secondary>
-                  <template #icon>
-                    <f-icon icon="ep:delete" />
-                  </template>
-
-                  Remove Collaborator
-                </n-button>
-              </template>
-
-              Are you sure you want to remove this Collaborator?
-            </n-popconfirm>
-          </template> -->
-
-          <n-form-item
-            label="Name Type"
-            :show-label="false"
-            :path="`creators[${index}].name_type`"
-          >
-            <n-radio-group
-              v-model:value="item.nameType"
-              name="radiobuttongroup1"
+    <div v-if="creators.length > 0">
+      <ClientOnly>
+        <VueDraggable
+          v-model="creators"
+          tag="div"
+          item-key="creatorIndex"
+          :animation="200"
+          handle=".handle"
+          class="list-group"
+          @end="saveCreators"
+        >
+          <template #item="{ element }">
+            <div
+              class="my-1 flex w-full flex-row justify-start rounded-lg border bg-white"
             >
-              <n-radio-button
-                v-for="nameTypeOption in nameTypeOptions"
-                :key="nameTypeOption.value"
-                :value="nameTypeOption.value"
-                :label="nameTypeOption.label"
-              />
-            </n-radio-group>
-          </n-form-item>
+              <div
+                class="flex items-center justify-center py-3 pl-3 text-slate-700 transition-all hover:text-slate-500"
+                :class="{
+                  'handle cursor-move': !loading,
+                  'cursor-wait': loading,
+                }"
+              >
+                <n-spin :show="loading" size="small">
+                  <Icon name="icon-park-outline:drag" size="20" />
+                </n-spin>
+              </div>
 
-          <div class="flex items-start space-x-4">
+              <div class="py-3">
+                <n-divider vertical />
+              </div>
+
+              <div class="flex w-full items-center justify-between py-3 pr-3">
+                <n-space align="center">
+                  <Icon
+                    v-if="element.nameType === 'Personal'"
+                    name="material-symbols:person"
+                    size="20"
+                  />
+
+                  <Icon
+                    v-if="element.nameType === 'Organizational'"
+                    name="octicon:organization-24"
+                    size="20"
+                  />
+
+                  <span>
+                    {{
+                      element.familyName
+                        ? `${element.familyName}, ${element.givenName}`
+                        : element.givenName
+                    }}
+                  </span>
+
+                  <NuxtLink
+                    v-if="element.identifierType === 'ORCID'"
+                    :to="`https://orcid.org/${element.identifier}`"
+                    class="text-lime-400/80 transition-all hover:text-lime-500"
+                  >
+                    <Icon name="simple-icons:orcid" size="20" />
+                  </NuxtLink>
+
+                  <NuxtLink
+                    v-if="element.identifierType === 'ROR'"
+                    :to="`https://ror.org/${element.identifier}`"
+                    class="text-blue-400/80 transition-all hover:text-blue-500"
+                  >
+                    <Icon name="academicons:ror-square" size="25" />
+                  </NuxtLink>
+
+                  <NuxtLink
+                    v-if="element.identifierType === 'ISNI'"
+                    :to="`https://isni.org/${element.identifier}`"
+                    class="text-blue-400/80 transition-all hover:text-blue-500"
+                  >
+                    <Icon name="academicons:isni" size="25" />
+                  </NuxtLink>
+                </n-space>
+
+                <n-space>
+                  <n-button
+                    type="info"
+                    size="small"
+                    :disabled="loading"
+                    @click="openEditCreatorDrawer(element.creatorIndex)"
+                  >
+                    <template #icon>
+                      <Icon name="material-symbols:edit" />
+                    </template>
+                    Edit
+                  </n-button>
+
+                  <n-button
+                    type="error"
+                    size="small"
+                    :disabled="loading"
+                    @click="deleteCreator(element.creatorIndex)"
+                  >
+                    <template #icon>
+                      <Icon name="material-symbols:delete" />
+                    </template>
+
+                    Remove
+                  </n-button>
+                </n-space>
+              </div>
+            </div>
+          </template>
+        </VueDraggable>
+      </ClientOnly>
+    </div>
+
+    <n-empty v-else description="No creators added" />
+
+    <div class="mt-3 flex justify-start">
+      <n-button
+        color="black"
+        size="large"
+        class="mt-4 w-max"
+        @click="openAddCreatorDrawer"
+      >
+        <template #icon>
+          <Icon name="material-symbols:add" />
+        </template>
+
+        Add a Creator
+      </n-button>
+    </div>
+
+    <n-drawer v-model:show="showCreatorDrawer" :width="502" placement="right">
+      <n-drawer-content
+        :title="`${drawerAction} creator`"
+        :mask-closable="!loading"
+        :close-on-esc="!loading"
+        :closable="!loading"
+      >
+        <n-form
+          ref="formRef"
+          :model="selectedCreator"
+          size="large"
+          label-placement="top"
+          class="pr-4"
+        >
+          <n-space vertical size="large">
             <n-form-item
-              :label="item.nameType === 'Personal' ? 'Given Name' : 'Name'"
-              :path="`creators[${index}].givenName`"
+              label="Name Type"
+              :show-label="false"
+              :path="`name_type`"
+            >
+              <n-radio-group
+                v-model:value="selectedCreator.nameType"
+                name="radiobuttongroup1"
+              >
+                <n-radio-button
+                  v-for="nameTypeOption in nameTypeOptions"
+                  :key="nameTypeOption.value"
+                  :value="nameTypeOption.value"
+                  :label="nameTypeOption.label"
+                />
+              </n-radio-group>
+            </n-form-item>
+
+            <n-form-item
+              :label="
+                selectedCreator.nameType === 'Personal' ? 'Given Name' : 'Name'
+              "
+              path="givenName"
               :rule="{
                 message: 'Please enter a name',
                 required: true,
@@ -201,72 +391,71 @@ const saveCreators = (e: MouseEvent) => {
               class="w-full"
             >
               <n-input
-                v-model:value="item.givenName"
-                :placeholder="item.nameType === 'Personal' ? 'Ging' : 'Zodiacs'"
+                v-model:value="selectedCreator.givenName"
+                :placeholder="
+                  selectedCreator.nameType === 'Personal' ? 'Ging' : 'Zodiacs'
+                "
                 clearable
               />
             </n-form-item>
 
             <n-form-item
-              v-if="item.nameType === 'Personal'"
+              v-if="selectedCreator.nameType === 'Personal'"
               label="Family Name"
-              :path="`creators[${index}].familyName`"
+              path="familyName"
               class="w-full"
             >
               <n-input
-                v-model:value="item.familyName"
+                v-model:value="selectedCreator.familyName"
                 placeholder="Freecss"
                 clearable
               />
             </n-form-item>
-          </div>
 
-          <n-form-item
-            label="Affiliation"
-            :path="`creators[${index}].affiliation`"
-          >
-            <n-input
-              v-model:value="item.affiliation"
-              placeholder="Hunter Association"
-              clearable
-            />
-          </n-form-item>
+            <n-form-item label="Affiliation" path="affiliation">
+              <n-input
+                v-model:value="selectedCreator.affiliation"
+                placeholder="Hunter Association"
+                clearable
+              />
+            </n-form-item>
 
-          <div class="flex items-start space-x-4">
             <n-form-item
               label="Identifier Type"
-              :path="`creators[${index}].identifierType`"
+              path="identifierType"
               :rule="{
                 message: 'Please select an identifier type',
-                required: item.identifier,
+                required: selectedCreator.identifier,
                 trigger: ['blur', 'change'],
               }"
               class="w-full"
             >
               <n-select
-                v-model:value="item.identifierType"
+                v-model:value="selectedCreator.identifierType"
                 clearable
                 placeholder="Select an identifier type"
-                :options="generateIdentifierTypeOptions(item.nameType)"
+                :options="
+                  generateIdentifierTypeOptions(selectedCreator.nameType)
+                "
               >
               </n-select>
             </n-form-item>
 
             <n-form-item
               label="Identifier"
-              :path="`creators[${index}].identifier`"
+              path="identifier"
               :rule="{
                 message: 'Please enter an identifier',
-                required: item.identifierType,
+                required: selectedCreator.identifierType,
                 trigger: ['blur', 'change'],
               }"
               class="w-full"
             >
               <n-input
-                v-model:value="item.identifier"
+                v-model:value="selectedCreator.identifier"
                 :placeholder="
-                  item.identifierType
-                    ? item.identifierType === 'ROR'
+                  selectedCreator.identifierType
+                    ? selectedCreator.identifierType === 'ROR'
                       ? '0156zyn36'
                       : '0000-0003-2829-8032'
                     : ''
@@ -274,40 +463,23 @@ const saveCreators = (e: MouseEvent) => {
                 clearable
               />
             </n-form-item>
-          </div>
+          </n-space>
+        </n-form>
 
-          <div v-if="index + 1 !== moduleData.creators.length">
-            <n-divider />
-          </div>
-        </div>
-      </n-space>
-
-      <div class="mt-5 flex items-center justify-between">
-        <n-button text type="info" @click="addCreator">
-          <template #icon>
-            <Icon name="material-symbols:add" />
-          </template>
-
-          Add a Creator
-        </n-button>
-
-        <n-button
-          color="black"
-          :loading="loading"
-          :disabled="moduleData.creators.length === 0"
-          @click="saveCreators"
-        >
-          <template #icon>
-            <Icon name="lets-icons:save-duotone" />
-          </template>
-
-          Save
-        </n-button>
-      </div>
-    </n-form>
-
-    <pre
-      >{{ moduleData.creators }} 
-    </pre>
+        <template #footer>
+          <n-button
+            type="info"
+            :loading="loading"
+            size="large"
+            @click="confirmEdits"
+          >
+            <template #icon>
+              <Icon name="material-symbols:save-sharp" />
+            </template>
+            {{ drawerAction === "Add" ? "Add" : "Save" }} Creator
+          </n-button>
+        </template>
+      </n-drawer-content>
+    </n-drawer>
   </div>
 </template>

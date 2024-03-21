@@ -14,6 +14,20 @@ const logout = async () => {
 
 <template>
   <ClientOnly>
+    <nuxt-link v-if="!loggedIn" to="/login">
+      <n-button size="large">
+        <span> Log in </span>
+      </n-button>
+    </nuxt-link>
+
+    <nuxt-link v-if="!loggedIn" to="/register">
+      <n-button color="black" size="large"> Get started </n-button>
+    </nuxt-link>
+
+    <nuxt-link v-if="loggedIn" to="/dashboard">
+      <n-button color="black" size="large"> Dashboard </n-button>
+    </nuxt-link>
+
     <HeadlessMenu
       v-if="loggedIn"
       as="div"
