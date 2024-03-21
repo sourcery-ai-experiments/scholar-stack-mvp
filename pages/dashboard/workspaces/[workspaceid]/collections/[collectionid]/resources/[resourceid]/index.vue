@@ -10,21 +10,13 @@ definePageMeta({
 
 const route = useRoute();
 
-const collectionStore = useCollectionStore();
+const resourceStore = useResourceStore();
 
 const devMode = process.env.NODE_ENV === "development";
 
-const currentCollection = computed(() => {
-  return (
-    collectionStore.collection || {
-      version: {
-        published: false,
-      },
-    }
-  );
-});
-
+const removeResourceModalIsOpen = ref(false);
 const removeResourceLoadingIndicator = ref(false);
+const newResourceVersionModalIsOpen = ref(false);
 const newResourceVersionLoadingIndicator = ref(false);
 
 const { collectionid, resourceid, workspaceid } = route.params as {
@@ -93,6 +85,10 @@ const resourceType = computed(() => {
   return "Unknown";
 });
 
+const openRemoveResourceModal = () => {
+  removeResourceModalIsOpen.value = true;
+};
+
 const removeResource = async () => {
   removeResourceLoadingIndicator.value = true;
 
@@ -105,6 +101,7 @@ const removeResource = async () => {
   )
     .then((_response) => {
       removeResourceLoadingIndicator.value = false;
+      removeResourceModalIsOpen.value = false;
 
       push.success({
         title: "Resource deleted",
@@ -190,7 +187,6 @@ const createNewVersion = async () => {
 
             <div class="flex items-center space-x-2">
               <NuxtLink
-                v-if="!currentCollection?.version?.published"
                 :to="`/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/edit`"
               >
                 <n-button ghost size="large">
@@ -208,8 +204,7 @@ const createNewVersion = async () => {
                   'original_resource_id' in resource &&
                   resource?.original_resource_id &&
                   'action' in resource &&
-                  resource?.action !== 'newVersion' &&
-                  !currentCollection?.version?.published
+                  resource?.action !== 'newVersion'
                 "
                 ghost
                 size="large"
@@ -224,12 +219,11 @@ const createNewVersion = async () => {
               </n-button>
 
               <n-button
-                v-if="!currentCollection?.version?.published"
                 size="large"
                 type="error"
                 secondary
                 :loading="removeResourceLoadingIndicator"
-                @click="removeResource"
+                @click="openRemoveResourceModal"
               >
                 <template #icon>
                   <Icon name="iconoir:trash" />
@@ -316,10 +310,65 @@ const createNewVersion = async () => {
       <p class="text-lg">
         {{ displayLongDate(resource?.updated as string) }}
       </p>
-
-      <pre v-if="devMode" class="pt-10">{{ resource }}</pre>
     </div>
 
     <ModalNewCollection />
+
+    <UModal
+      v-model="removeResourceModalIsOpen"
+      :prevent-close="removeResourceLoadingIndicator"
+    >
+      <UCard>
+        <div class="sm:flex sm:items-start">
+          <div class="size-[50px]">
+            <ClientOnly>
+              <Vue3Lottie
+                animation-link="https://cdn.lottiel.ink/assets/l7OR00APs2klZnMWu8G4t.json"
+                :height="50"
+                :width="50"
+                :loop="1"
+              />
+            </ClientOnly>
+          </div>
+
+          <div class="mt-2 text-center sm:ml-4 sm:text-left">
+            <h3 class="text-base font-semibold leading-6 text-gray-900">
+              Are you sure you want to remove this resource?
+            </h3>
+
+            <div class="mt-2">
+              <p class="text-sm text-gray-500">
+                If this resouce is new, it will be removed permanently. If it's
+                a pre-existing resource, it will be marked for deletion and you
+                will need to undelete it before you can view it.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <template #footer>
+          <div class="flex items-center justify-end space-x-2">
+            <n-button @click="removeResourceModalIsOpen = false">
+              <template #icon>
+                <Icon name="material-symbols:cancel-outline" />
+              </template>
+              Cancel
+            </n-button>
+
+            <n-button
+              type="error"
+              secondary
+              :loading="removeResourceLoadingIndicator"
+              @click="removeResource"
+            >
+              <template #icon>
+                <Icon name="ph:warning-duotone" />
+              </template>
+              Remove resource
+            </n-button>
+          </div>
+        </template>
+      </UCard>
+    </UModal>
   </main>
 </template>

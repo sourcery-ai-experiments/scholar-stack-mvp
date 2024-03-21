@@ -12,8 +12,6 @@ const route = useRoute();
 const resourceTypeOptions = RESOURCE_TYPE_JSON;
 
 const newResourceLoading = ref(false);
-const draftVersionLoading = ref(false);
-const newVersionModalIsOpen = ref(false);
 
 const { collectionid, workspaceid } = route.params as {
   collectionid: string;
@@ -48,43 +46,6 @@ const selectIcon = (type: string) => {
   }
 
   return "mdi:file-question";
-};
-
-const createNewDraftVersion = async () => {
-  draftVersionLoading.value = true;
-
-  await $fetch(
-    `/api/workspaces/${workspaceid}/collections/${collectionid}/version`,
-    {
-      headers: useRequestHeaders(["cookie"]),
-      method: "POST",
-    },
-  )
-    .then((_response) => {
-      draftVersionLoading.value = false;
-
-      push.success({
-        title: "Success",
-        message: "We created a new draft version",
-      });
-
-      // refresh the page
-      window.location.reload();
-    })
-    .catch((error) => {
-      draftVersionLoading.value = false;
-
-      console.log(error);
-
-      push.error({
-        title: "Something went wrong",
-        message: "We couldn't create a new draft version",
-      });
-    })
-    .finally(() => {
-      draftVersionLoading.value = false;
-      newVersionModalIsOpen.value = false;
-    });
 };
 
 const addResource = async () => {
@@ -143,49 +104,6 @@ const addResource = async () => {
       >
         <div class="flex items-center space-x-2">
           <h1>Resources</h1>
-        </div>
-
-        <div class="flex items-center space-x-2">
-          <n-tag
-            v-if="
-              collection && collection.version && !collection.version.published
-            "
-            type="info"
-            size="large"
-          >
-            Draft Version
-          </n-tag>
-
-          <n-tag
-            v-if="
-              collection && collection.version && collection.version.published
-            "
-            size="large"
-            type="success"
-          >
-            v.{{ collection?.version?.name || "" }}
-          </n-tag>
-
-          <div v-if="collection?.version?.published || !collection?.version">
-            <n-divider vertical />
-          </div>
-
-          <n-button
-            v-if="collection?.version?.published || !collection?.version"
-            size="large"
-            :loading="draftVersionLoading"
-            color="black"
-            @click="newVersionModalIsOpen = true"
-          >
-            <template #icon>
-              <Icon name="codicon:git-pull-request-draft" />
-            </template>
-            {{
-              collection?.version === null
-                ? "Add a resource"
-                : "Update resources"
-            }}
-          </n-button>
         </div>
       </div>
     </div>
@@ -424,57 +342,5 @@ const addResource = async () => {
     </div>
 
     <ModalNewCollection />
-
-    <UModal v-model="newVersionModalIsOpen">
-      <UCard
-        :ui="{
-          ring: '',
-          divide: 'divide-y divide-gray-100 dark:divide-gray-800',
-        }"
-      >
-        <ClientOnly>
-          <Vue3Lottie
-            animation-link="https://cdn.lottiel.ink/assets/0DbcfcjLA9YXCuCLaciEZ.json"
-            :height="200"
-            :width="200"
-          />
-
-          <h1 class="text-center text-lg font-medium">
-            Do you want to set this collection to an edit state?
-          </h1>
-
-          <p class="mt-2 text-center">
-            This will allow you to make changes to this collection's resources.
-          </p>
-        </ClientOnly>
-
-        <template #footer>
-          <n-flex justify="center">
-            <n-button
-              size="large"
-              type="warning"
-              @click="newVersionModalIsOpen = false"
-            >
-              <template #icon>
-                <Icon name="material-symbols:cancel-outline" />
-              </template>
-              Cancel
-            </n-button>
-
-            <n-button
-              size="large"
-              type="primary"
-              :loading="draftVersionLoading"
-              @click="createNewDraftVersion"
-            >
-              <template #icon>
-                <Icon name="healthicons:yes" />
-              </template>
-              Allow editing
-            </n-button>
-          </n-flex>
-        </template>
-      </UCard>
-    </UModal>
   </main>
 </template>
