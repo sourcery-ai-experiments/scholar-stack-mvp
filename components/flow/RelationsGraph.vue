@@ -38,10 +38,6 @@ for (const relation of props.relations.external) {
 
 const nodes = ref<Node[]>([]);
 
-let x = 0;
-let y = 0;
-const spacing = 200;
-
 for (const relation of remappedRelations) {
   // check if relation.source is in nodes
   const sourceNode = nodes.value.find((node) => node.id === relation.source);
@@ -53,11 +49,10 @@ for (const relation of remappedRelations) {
         ? props.resources.find((resource) => resource.id === relation.source)
             ?.title
         : relation.source,
-      position: { x: x * spacing, y: y * spacing },
+      position: { x: 0, y: 0 },
       type: "custom",
     });
   }
-  x++;
 
   // check if relation.target is in nodes
   const targetNode = nodes.value.find((node) => node.id === relation.target);
@@ -69,17 +64,9 @@ for (const relation of remappedRelations) {
         ? props.resources.find((resource) => resource.id === relation.target)
             ?.title
         : relation.target,
-      position: { x: x * spacing, y: y * spacing },
+      position: { x: 0, y: 0 },
       type: "custom",
     });
-  }
-
-  x++;
-
-  if (x >= 5) {
-    // adjust this value to control how many nodes are placed in a row
-    x = 0;
-    y++;
   }
 }
 
@@ -97,6 +84,7 @@ for (const relation of remappedRelations) {
 
 if (nodes.value.length > 0) {
   nodes.value = layout(nodes.value, edges.value, previousDirection.value);
+  console.log(nodes.value);
 }
 // edges.value = shuffle(nodes.value);
 
@@ -147,7 +135,6 @@ onConnect((params) => {
         v-model:nodes="nodes"
         v-model:edges="edges"
         fit-view-on-init
-        class="vue-flow-basic-example"
         aria-roledescription="interactive node graph"
       >
         <Background pattern-color="#aaa" :gap="8" />

@@ -11,7 +11,7 @@ export function useLayout() {
 
   const graph = ref(new dagre.graphlib.Graph());
 
-  const previousDirection = ref("TB");
+  const previousDirection = ref("LR");
 
   // sourcery skip: avoid-function-declarations-in-blocks
   function layout(nodes: any, edges: any, direction: any) {
@@ -25,7 +25,10 @@ export function useLayout() {
     const isHorizontal = direction === "LR";
     dagreGraph.setGraph({
       compound: true,
+      edgesep: 50,
+      nodesep: 100,
       rankdir: direction,
+      ranksep: 150,
     });
 
     previousDirection.value = direction;
@@ -45,6 +48,10 @@ export function useLayout() {
     }
 
     dagre.layout(dagreGraph);
+
+    dagreGraph.nodes().forEach(function (v) {
+      console.log("Node " + v + ": " + JSON.stringify(dagreGraph.node(v)));
+    });
 
     // set nodes with updated positions
     return nodes.map((node: any) => {

@@ -66,9 +66,12 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  // Check if the resource exists and is part of the draft version
+  // Check if the resource exists and is part of the collection
   const resource = await prisma.resource.findFirst({
-    where: { id: resourceid, Version: { some: { id: version.id } } },
+    where: {
+      id: resourceid,
+      Version: { some: { collection_id: collectionid } },
+    },
   });
 
   if (!resource) {
