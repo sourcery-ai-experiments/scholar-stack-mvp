@@ -5,7 +5,7 @@ const loggedIn = computed(() => user.value);
 </script>
 
 <template>
-  <div>
+  <div class="bg-white">
     <header>
       <nav class="border-b border-gray-200 bg-white px-4 py-2.5 lg:px-6">
         <div
@@ -21,21 +21,7 @@ const loggedIn = computed(() => user.value);
           </NuxtLink>
 
           <div class="lg:order-2">
-            <n-space align="center">
-              <nuxt-link v-if="!loggedIn" to="/login">
-                <n-button size="large">
-                  <span> Log in </span>
-                </n-button>
-              </nuxt-link>
-
-              <nuxt-link v-if="!loggedIn" to="/register">
-                <n-button color="black" size="large"> Get started </n-button>
-              </nuxt-link>
-
-              <nuxt-link v-if="loggedIn" to="/dashboard" class="mr-4">
-                <n-button color="black" size="large"> Dashboard </n-button>
-              </nuxt-link>
-
+            <div class="flex items-center space-x-3 lg:order-2">
               <UiProfileDropdown />
 
               <button
@@ -73,7 +59,7 @@ const loggedIn = computed(() => user.value);
                   ></path>
                 </svg>
               </button>
-            </n-space>
+            </div>
           </div>
         </div>
       </nav>

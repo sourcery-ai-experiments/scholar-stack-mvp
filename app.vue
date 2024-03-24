@@ -24,7 +24,7 @@ import { pastelTheme } from "notivue";
 import type { ThemeConfig } from "@bg-dev/nuxt-naiveui";
 
 const themeConfig: ThemeConfig = {
-  dark: {}, // Theme options applied on dark mode
+  // dark: {}, // Theme options applied on dark mode
   light: {}, // Theme options applied on light mode
   mobile: {}, // Theme options applied on mobile only
   mobileOrTablet: {}, // Theme options applied on mobile and tablet

@@ -4,7 +4,7 @@ import notFoundAnimation from "@/assets/lottie/notFoundAnimation.json";
 
 <template>
   <NuxtLayout name="404">
-    <main class="flex h-full w-full flex-col items-center px-12 py-12">
+    <main class="relative w-full grow overflow-auto px-12 py-12">
       <div class="flex h-[400px] w-[400px] items-center justify-center">
         <client-only>
           <template #fallback>
