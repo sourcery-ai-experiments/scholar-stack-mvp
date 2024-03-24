@@ -5,12 +5,17 @@ definePageMeta({
 
 const page = ref(1);
 
-const { data: collections, error } = await useFetch(
-  "/api/discover/collections",
-  {
-    headers: useRequestHeaders(["cookie"]),
-  },
-);
+const queryParams = computed(() => {
+  return {
+    page: page.value - 1,
+  };
+});
+
+const { data, error, refresh } = await useFetch(`/api/discover/collections`, {
+  headers: useRequestHeaders(["cookie"]),
+  key: page.value.toString(),
+  query: queryParams,
+});
 
 if (error.value) {
   console.log(error.value);
@@ -21,6 +26,17 @@ if (error.value) {
 
   navigateTo("/");
 }
+
+const requestNewPage = (newPage: number) => {
+  page.value = newPage;
+
+  navigateTo({
+    path: "/view",
+    query: {
+      page: newPage,
+    },
+  });
+};
 </script>
 
 <template>
@@ -29,7 +45,11 @@ if (error.value) {
       <h1 class="mb-5">Recently published collections</h1>
 
       <n-space vertical size="large">
-        <div v-for="item in collections" :key="item.id" class="border-b py-4">
+        <div
+          v-for="item in data?.collections"
+          :key="item.id"
+          class="border-b py-4"
+        >
           <n-space vertical>
             <n-space align="center">
               <NuxtLink
@@ -79,7 +99,12 @@ if (error.value) {
       </n-space>
 
       <div class="flex justify-center py-5">
-        <n-pagination v-model:page="page" :page-count="100" size="large" />
+        <n-pagination
+          v-model:page="page"
+          :page-count="data?.total"
+          size="large"
+          :on-update-page="requestNewPage"
+        />
       </div>
     </div>
   </main>
