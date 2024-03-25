@@ -9,7 +9,7 @@ body {
   margin: 0px;
   padding: 0px;
   overflow: auto @apply bg-slate-50;
-  @apply text-slate-700;
+  @apply bg-slate-50 text-slate-700;
 }
 
 @layer base {
