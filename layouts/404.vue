@@ -5,7 +5,7 @@ const loggedIn = computed(() => user.value);
 </script>
 
 <template>
-  <div class="bg-white">
+  <div class="relative mx-auto flex h-screen w-full flex-col">
     <header>
       <nav class="border-b border-gray-200 bg-white px-4 py-2.5 lg:px-6">
         <div
