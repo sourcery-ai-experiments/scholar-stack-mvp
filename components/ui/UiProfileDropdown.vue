@@ -24,10 +24,6 @@ const logout = async () => {
       <n-button color="black" size="large"> Get started </n-button>
     </nuxt-link>
 
-    <nuxt-link v-if="loggedIn" to="/dashboard">
-      <n-button color="black" size="large"> Dashboard </n-button>
-    </nuxt-link>
-
     <HeadlessMenu
       v-if="loggedIn"
       as="div"

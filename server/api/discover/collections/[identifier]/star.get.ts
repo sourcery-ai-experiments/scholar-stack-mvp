@@ -32,12 +32,22 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const starred = await prisma.starred.findFirst({
+  const returnData = {
+    starCount: 0,
+    starred: false,
+    statusCode: 200,
+  };
+
+  const starredData = await prisma.starred.findFirst({
     where: {
       collection_id: collection.id,
       user_id: userId,
     },
   });
+
+  if (starredData) {
+    returnData.starred = true;
+  }
 
   const count = await prisma.starred.count({
     where: {
@@ -45,17 +55,7 @@ export default defineEventHandler(async (event) => {
     },
   });
 
-  if (!starred) {
-    return {
-      starCount: count || 0,
-      starred: false,
-      statusCode: 200,
-    };
-  }
+  returnData.starCount = count;
 
-  return {
-    starCount: count || 0,
-    starred: true,
-    statusCode: 200,
-  };
+  return returnData;
 });

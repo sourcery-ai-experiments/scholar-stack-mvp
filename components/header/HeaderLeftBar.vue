@@ -215,25 +215,6 @@ const navigateToResource = (resourceid: string) => {
 
 <template>
   <div class="flex items-center justify-start">
-    <NuxtLink to="/dashboard" class=" ">
-      <img src="/logo/logo.svg" alt="Logo" class="w-10" />
-    </NuxtLink>
-
-    <svg
-      fill="none"
-      shape-rendering="geometricPrecision"
-      stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="1"
-      viewBox="0 0 24 24"
-      width="14"
-      height="14"
-      class="h-8 w-8 text-gray-200"
-    >
-      <path d="M16.88 3.549L7.12 20.451"></path>
-    </svg>
-
     <div class="w-max">
       <HeadlessListbox v-model="selectedWorkspace">
         <div class="relative">
@@ -257,12 +238,7 @@ const navigateToResource = (resourceid: string) => {
                   v-else
                   class="flex items-center justify-start space-x-2 rounded-md p-1 transition-all hover:bg-gray-50"
                 >
-                  <n-avatar
-                    :size="20"
-                    :src="`https://api.dicebear.com/6.x/shapes/svg?seed=${currentWorkspace?.id}`"
-                    class="border"
-                    round
-                  />
+                  <img src="/logo/logo.svg" alt="Logo" class="w-7" />
 
                   <span
                     class="text-base font-medium transition-all hover:text-gray-600"

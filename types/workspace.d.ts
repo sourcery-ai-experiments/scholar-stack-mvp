@@ -3,6 +3,7 @@ interface APIResponseWorkspaceCollectionItem {
 
   title: string;
   description: string;
+  detailedDescription: string;
   image: string;
 
   created: string;
