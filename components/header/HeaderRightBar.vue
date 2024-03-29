@@ -1,9 +1,4 @@
-<script setup lang="ts">
-const user = useSupabaseUser();
-const route = useRoute();
-
-const loggedIn = computed(() => user.value);
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="flex items-center space-x-3 lg:order-2">
@@ -26,12 +21,14 @@ const loggedIn = computed(() => user.value);
       class="text-sm text-slate-600 hover:text-slate-800"
       to="/feedback"
     >
-      Fedback
+      Feedback
     </NuxtLink>
 
     <n-button tertiary round class="">
       <Icon name="mdi:bell-outline" />
     </n-button>
+
+    <UiColorModeToggle />
 
     <UiProfileDropdown />
 
