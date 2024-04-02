@@ -73,6 +73,13 @@ export default defineNuxtConfig({
     // Options
   },
 
+  runtimeConfig: {
+    // Keys within public, will be also exposed to the client-side
+    public: {},
+    // The private keys which are only available within server-side
+    UPLOAD_TOKEN_SECRET: process.env.UPLOAD_TOKEN_SECRET,
+  },
+
   supabase: {
     redirectOptions: {
       callback: "/dashboard",
