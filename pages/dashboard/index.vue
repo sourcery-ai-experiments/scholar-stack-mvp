@@ -8,8 +8,6 @@ definePageMeta({
 
 const workspaceStore = useWorkspaceStore();
 
-const gridView = ref(true);
-
 const { data: workspaces, error } = await useFetch("/api/workspaces", {
   headers: useRequestHeaders(["cookie"]),
 });
@@ -45,21 +43,6 @@ workspaceStore.setWorkspaces(workspaces.value || []);
             <Icon name="iconamoon:search-duotone" size="20" class="mr-2" />
           </template>
         </n-input>
-
-        <n-radio-group
-          v-model:value="gridView"
-          name="radiobuttongroup1"
-          size="large"
-          class="bg-white"
-        >
-          <n-radio-button :value="true">
-            <Icon name="mingcute:grid-line" />
-          </n-radio-button>
-
-          <n-radio-button :value="false">
-            <Icon name="cil:list" />
-          </n-radio-button>
-        </n-radio-group>
 
         <n-button
           size="large"

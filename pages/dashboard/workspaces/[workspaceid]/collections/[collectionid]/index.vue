@@ -45,14 +45,32 @@ if (error.value) {
     </div>
 
     <div class="mx-auto w-full max-w-screen-xl px-2.5 lg:px-20">
-      <div class="flex items-center justify-between space-x-4 pb-5 pt-10">
+      <div class="flex items-center justify-between pb-5 pt-10">
         <h2>About</h2>
+
+        <NuxtLink :to="`/view/${collection?.identifier}`" target="__blank">
+          <n-button color="black">
+            <template #icon>
+              <Icon name="mdi:open-in-new" size="20" />
+            </template>
+
+            View catalog page
+          </n-button>
+        </NuxtLink>
       </div>
+
+      <h3 class="pb-2 pt-5">Overview</h3>
+
+      <p class="text-lg">
+        {{ collection?.description || "No description provided" }}
+      </p>
 
       <h3 class="pb-2 pt-5">Description</h3>
 
       <p class="text-lg">
-        {{ collection?.description || "No description provided" }}
+        {{
+          collection?.detailedDescription || "No detailed description provided"
+        }}
       </p>
 
       <h3 class="pb-2 pt-5">Identifer</h3>
@@ -73,13 +91,18 @@ if (error.value) {
         {{ displayLongDate(collection?.created as string) }}
       </p>
 
-      <h3 class="pb-2 pt-5">Image</h3>
+      <h3 class="pb-2 pt-5">Last updated</h3>
+
+      <p class="text-lg">
+        {{ displayLongDate(collection?.updated as string) }}
+      </p>
+
+      <h3 class="pb-3 pt-5">Image</h3>
 
       <n-image
         :src="collection?.image_url"
         :alt="collection?.title"
-        width="100"
-        height="100"
+        class="h-[200px] w-auto"
       />
     </div>
 

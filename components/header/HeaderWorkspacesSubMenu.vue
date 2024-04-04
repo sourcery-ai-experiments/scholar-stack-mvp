@@ -8,11 +8,6 @@ const navItems = [
     icon: "material-symbols:home-outline",
   },
   {
-    name: "Activity",
-    href: `/dashboard/workspaces/${route.params.workspaceid}/activity`,
-    icon: "mdi:timeline-clock-outline",
-  },
-  {
     name: "Settings",
     href: `/dashboard/workspaces/${route.params.workspaceid}/settings`,
     icon: "material-symbols:settings-outline",
