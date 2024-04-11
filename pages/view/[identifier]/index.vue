@@ -229,7 +229,7 @@ const removeCollectionStar = async () => {
         />
       </div>
 
-      <div class="flex items-center justify-between pl-5 pr-10">
+      <div class="flex items-center justify-between pl-5 pr-5">
         <n-flex align="center">
           <n-tag type="success" :bordered="false">
             Version {{ data?.name || "N/A" }}
@@ -341,7 +341,7 @@ const removeCollectionStar = async () => {
 
       <n-divider />
 
-      <n-tabs type="line" animated default-value="versions">
+      <n-tabs type="line" animated default-value="versions" class="px-7">
         <n-tab-pane name="resources" tab="Resources">
           <template #tab>
             <n-space align="center" class="px-2">
