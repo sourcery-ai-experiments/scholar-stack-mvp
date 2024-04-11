@@ -40,6 +40,16 @@ if (error.value) {
           <h1>
             {{ collection?.title || "Untitled Collection" }}
           </h1>
+
+          <NuxtLink :to="`/view/${collection?.identifier}`" target="__blank">
+            <n-button size="large">
+              <template #icon>
+                <Icon name="mdi:open-in-new" size="20" />
+              </template>
+
+              View catalog page
+            </n-button>
+          </NuxtLink>
         </div>
       </div>
     </div>
@@ -65,13 +75,13 @@ if (error.value) {
         {{ collection?.description || "No description provided" }}
       </p>
 
-      <h3 class="pb-2 pt-5">Description</h3>
+      <h3 class="pb-2 pt-5">Detailed Description</h3>
 
-      <p class="text-lg">
-        {{
-          collection?.detailedDescription || "No detailed description provided"
-        }}
-      </p>
+      <MarkdownRender
+        :content="
+          collection?.detailedDescription || 'No detailed description provided'
+        "
+      />
 
       <h3 class="pb-2 pt-5">Identifer</h3>
 

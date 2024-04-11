@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import sanitizeHtml from "sanitize-html";
-import { parse } from "marked";
 import dayjs from "dayjs";
 import RESOURCE_TYPE_JSON from "@/assets/json/resource-type.json";
 
@@ -19,17 +17,6 @@ const starCount = ref(0);
 
 const resourceTypeOptions = RESOURCE_TYPE_JSON;
 
-const detailedDescription = ref("");
-const changeLog = ref("");
-
-const sanitize = (html: string) => sanitizeHtml(html);
-
-const convertMarkdownToHtml = async (
-  markdown: string = "No content provided",
-) => {
-  return sanitize(await parse(markdown));
-};
-
 const { identifier } = route.params as { identifier: string };
 
 const { data, error } = await useFetch(
@@ -45,14 +32,6 @@ if (error.value) {
   push.error({
     title: "Something went wrong",
   });
-}
-
-if (data.value) {
-  detailedDescription.value = await convertMarkdownToHtml(
-    data.value.collection.detailed_description || "",
-  );
-
-  changeLog.value = await convertMarkdownToHtml(data.value.changelog || "");
 }
 
 const selectIcon = (type: string) => {
@@ -331,13 +310,10 @@ const removeCollectionStar = async () => {
               </li>
             </ul>
 
-            <!-- eslint-disable vue/no-v-html -->
-            <div
+            <MarkdownRender
               v-if="data?.collection.detailed_description"
-              class="prose max-w-none border-t pt-2"
-              v-html="detailedDescription"
+              :content="data?.collection.detailed_description"
             />
-            <!-- eslint-enable vue/no-v-html -->
 
             <p v-else>
               {{ data?.collection.description || "No description provided." }}
@@ -488,9 +464,7 @@ const removeCollectionStar = async () => {
                 </n-space>
               </template>
 
-              <!-- eslint-disable vue/no-v-html -->
-              <div class="prose max-w-none pt-2" v-html="changeLog" />
-              <!-- eslint-enable vue/no-v-html -->
+              <MarkdownRender :content="data?.changelog" />
             </n-tab-pane>
 
             <n-tab-pane name="analytics" tab="Analytics">
