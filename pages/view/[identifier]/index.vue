@@ -198,7 +198,7 @@ const removeCollectionStar = async () => {
 </script>
 
 <template>
-  <main class="relative w-full grow overflow-auto px-6 pb-10 pt-5">
+  <main class="relative w-full grow overflow-auto px-6 py-10">
     <div class="relative mx-auto max-w-screen-2xl">
       <div
         class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
@@ -229,56 +229,56 @@ const removeCollectionStar = async () => {
         />
       </div>
 
-      <div class="grid grid-cols-12 gap-10 px-5">
-        <div class="col-span-8">
-          <n-space vertical class="mt-5">
-            <div class="flex items-center justify-between">
-              <n-flex align="center">
-                <n-tag type="success" :bordered="false">
-                  Version {{ data?.name || "N/A" }}
-                </n-tag>
+      <div class="flex items-center justify-between pl-5 pr-10">
+        <n-flex align="center">
+          <n-tag type="success" :bordered="false">
+            Version {{ data?.name || "N/A" }}
+          </n-tag>
 
-                <n-tag type="info" :bordered="false">
-                  {{
-                    dayjs(data?.published_on).format("MMMM DD, YYYY") || "N/A"
-                  }}
-                </n-tag>
-              </n-flex>
+          <n-tag type="info" :bordered="false">
+            {{ dayjs(data?.published_on).format("MMMM DD, YYYY") || "N/A" }}
+          </n-tag>
+        </n-flex>
 
-              <n-popover trigger="hover" :disabled="!!loggedIn">
-                <template #trigger>
-                  <n-button
-                    color="black"
-                    :disabled="!loggedIn"
-                    :loading="starLoading"
-                    @click="
-                      starredStatus ? removeCollectionStar() : starCollection()
-                    "
-                  >
-                    <template #icon>
-                      <Icon
-                        name="bi:star"
-                        size="18"
-                        :class="{
-                          'text-yellow-400': starredStatus,
-                        }"
-                      />
-                    </template>
+        <n-popover trigger="hover" :disabled="!!loggedIn">
+          <template #trigger>
+            <n-button
+              color="black"
+              :disabled="!loggedIn"
+              :loading="starLoading"
+              @click="starredStatus ? removeCollectionStar() : starCollection()"
+            >
+              <template #icon>
+                <Icon
+                  name="ic:round-star"
+                  size="18"
+                  :class="{
+                    'text-yellow-400': starredStatus,
+                  }"
+                />
+              </template>
 
-                    <div class="flex items-center gap-1 divide-x pl-1">
-                      <span>
-                        {{ starredStatus ? "Starred" : "Star" }}
-                      </span>
+              <div class="flex items-center">
+                <span>
+                  {{ starredStatus ? "Starred" : "Star" }}
+                </span>
 
-                      <span class="pl-1"> {{ starCount }} </span>
-                    </div>
-                  </n-button>
-                </template>
+                <div>
+                  <n-divider vertical />
+                </div>
 
-                <span> You must be logged in to star this collection. </span>
-              </n-popover>
-            </div>
+                <span class="pl-1"> {{ starCount }} </span>
+              </div>
+            </n-button>
+          </template>
 
+          <span> You must be logged in to star this collection. </span>
+        </n-popover>
+      </div>
+
+      <div class="grid grid-cols-12 gap-10 px-5 pt-5">
+        <div class="col-span-9">
+          <n-space vertical>
             <h1 class="mb-2">
               {{ data?.collection.title || "Collection Title Unavailable" }}
             </h1>
@@ -328,183 +328,184 @@ const removeCollectionStar = async () => {
               }}
             </p>
           </n-space>
-
-          <n-divider />
-
-          <n-tabs type="line" animated default-value="resources">
-            <n-tab-pane name="resources" tab="Resources">
-              <template #tab>
-                <n-space align="center" class="px-2">
-                  <Icon
-                    name="fluent:text-bullet-list-square-16-filled"
-                    size="18"
-                  />
-
-                  <span class="font-medium"> Resources</span>
-                </n-space>
-              </template>
-
-              <div class="flex flex-col">
-                <div
-                  v-for="(group, name, index) in groupedResources"
-                  :key="index"
-                  class="py-10"
-                >
-                  <div class="flex items-center justify-between pb-5">
-                    <n-space align="center">
-                      <Icon :name="selectIcon(name as string).icon" size="35" />
-
-                      <h2>
-                        {{ selectIcon(name as string).name }}
-                        <span> ({{ group.length }}) </span>
-                      </h2>
-                    </n-space>
-                  </div>
-
-                  <n-space vertical class="w-full">
-                    <div
-                      v-for="(resource, idx) of group || []"
-                      :key="idx"
-                      class="flex w-full flex-grow flex-col rounded-md border border-slate-200 bg-white px-6 pt-4"
-                    >
-                      <div class="flex w-full items-center justify-start pb-2">
-                        <span class="text-lg font-medium">
-                          {{ resource.title || "No title provided" }}
-                        </span>
-                      </div>
-
-                      <p class="border-t border-dashed py-3">
-                        {{ resource.description || "No description provided" }}
-                      </p>
-
-                      <div
-                        class="flex w-full items-center space-x-1 border-t pb-4 pt-3"
-                      >
-                        <n-tag
-                          :type="resource.identifier_type ? 'info' : 'error'"
-                          size="small"
-                          class=""
-                        >
-                          {{
-                            resource.identifier_type || "No identifier provided"
-                          }}
-                        </n-tag>
-
-                        <div>
-                          <n-divider vertical />
-                        </div>
-
-                        <div class="group w-max">
-                          <NuxtLink
-                            :to="
-                              resource.identifier_type !== 'url'
-                                ? `https://identifiers.org/${resource.identifier_type}/${resource.identifier}`
-                                : resource.identifier
-                            "
-                            class="flex items-center font-medium text-blue-600 transition-all group-hover:text-blue-700 group-hover:underline"
-                            target="_blank"
-                            @click.stop=""
-                          >
-                            {{ resource.identifier }}
-
-                            <Icon
-                              v-if="resource.identifier_type"
-                              name="mdi:external-link"
-                              size="16"
-                              class="ml-1 text-blue-600 transition-all group-hover:text-blue-700 group-hover:underline"
-                            />
-                          </NuxtLink>
-                        </div>
-                      </div>
-                    </div>
-                  </n-space>
-                </div>
-              </div>
-            </n-tab-pane>
-
-            <n-tab-pane
-              name="relations"
-              tab="Relations"
-              display-directive="show:lazy"
-            >
-              <template #tab>
-                <n-space align="center" class="px-2">
-                  <Icon name="tabler:circles-relation" size="18" />
-
-                  <span class="font-medium"> Relations</span>
-                </n-space>
-              </template>
-
-              <FlowRelationsGraph
-                class="vbackdrop-blur-xl vbackdrop-grayscale py-10"
-                :relations="{
-                  internal:
-                    (data?.InternalRelations as unknown as CatalogInternalRelation[]) ||
-                    [],
-                  external:
-                    (data?.ExternalRelations as unknown as CatalogExternalRelation[]) ||
-                    [],
-                }"
-                :resources="
-                  (data?.Resources as unknown as ResourceType[]) || []
-                "
-              />
-            </n-tab-pane>
-
-            <n-tab-pane
-              name="changelog"
-              tab="Changelog"
-              display-directive="show:lazy"
-            >
-              <template #tab>
-                <n-space align="center" class="px-2">
-                  <Icon name="fluent:history-24-filled" size="18" />
-
-                  <span class="font-medium"> Changelog</span>
-                </n-space>
-              </template>
-
-              <MarkdownRender :content="data?.changelog" />
-            </n-tab-pane>
-
-            <n-tab-pane name="analytics" tab="Analytics">
-              <template #tab>
-                <n-space align="center" class="px-2">
-                  <Icon name="bi:bar-chart-fill" size="18" />
-
-                  <span class="font-medium"> Analytics</span>
-                </n-space>
-              </template>
-
-              <DiscoverCollectionViewsChart
-                class="py-5"
-                :collection-identifier="data?.collection.identifier || ''"
-              />
-
-              <DiscoverVersionResolutionsChart
-                class="py-5"
-                :version-identifier="data?.identifier || ''"
-              />
-            </n-tab-pane>
-          </n-tabs>
         </div>
 
-        <div class="relative col-span-4">
-          <n-space vertical>
-            <NuxtImg
-              :src="data?.collection.image_url"
-              :alt="data?.collection.title"
-              class="h-auto w-full rounded-lg"
-            />
-
-            <DiscoverVersionSelector
-              :selected-version-identifier="selectedVersionIdentifier || ''"
-              :versions="(data?.Versions as Version[]) || []"
-              :collection-identifier="data?.collection.identifier || ''"
-            />
-          </n-space>
+        <div class="relative col-span-3 pt-4">
+          <NuxtImg
+            :src="data?.collection.image_url"
+            :alt="data?.collection.title"
+            class="h-auto w-full rounded-lg"
+          />
         </div>
       </div>
+
+      <n-divider />
+
+      <n-tabs type="line" animated default-value="versions">
+        <n-tab-pane name="resources" tab="Resources">
+          <template #tab>
+            <n-space align="center" class="px-2">
+              <Icon name="fluent:text-bullet-list-square-16-filled" size="18" />
+
+              <span class="font-medium"> Resources</span>
+            </n-space>
+          </template>
+
+          <div class="flex flex-col">
+            <div
+              v-for="(group, name, index) in groupedResources"
+              :key="index"
+              class="py-10"
+            >
+              <div class="flex items-center justify-between pb-5">
+                <n-space align="center">
+                  <Icon :name="selectIcon(name as string).icon" size="35" />
+
+                  <h2>
+                    {{ selectIcon(name as string).name }}
+                    <span> ({{ group.length }}) </span>
+                  </h2>
+                </n-space>
+              </div>
+
+              <n-space vertical class="w-full">
+                <div
+                  v-for="(resource, idx) of group || []"
+                  :key="idx"
+                  class="flex w-full flex-grow flex-col rounded-md border border-slate-200 bg-white px-6 pt-4"
+                >
+                  <div class="flex w-full items-center justify-start pb-2">
+                    <span class="text-lg font-medium">
+                      {{ resource.title || "No title provided" }}
+                    </span>
+                  </div>
+
+                  <p class="border-t border-dashed py-3">
+                    {{ resource.description || "No description provided" }}
+                  </p>
+
+                  <div
+                    class="flex w-full items-center space-x-1 border-t pb-4 pt-3"
+                  >
+                    <n-tag
+                      :type="resource.identifier_type ? 'info' : 'error'"
+                      size="small"
+                      class=""
+                    >
+                      {{ resource.identifier_type || "No identifier provided" }}
+                    </n-tag>
+
+                    <div>
+                      <n-divider vertical />
+                    </div>
+
+                    <div class="group w-max">
+                      <NuxtLink
+                        :to="
+                          resource.identifier_type !== 'url'
+                            ? `https://identifiers.org/${resource.identifier_type}/${resource.identifier}`
+                            : resource.identifier
+                        "
+                        class="flex items-center font-medium text-blue-600 transition-all group-hover:text-blue-700 group-hover:underline"
+                        target="_blank"
+                        @click.stop=""
+                      >
+                        {{ resource.identifier }}
+
+                        <Icon
+                          v-if="resource.identifier_type"
+                          name="mdi:external-link"
+                          size="16"
+                          class="ml-1 text-blue-600 transition-all group-hover:text-blue-700 group-hover:underline"
+                        />
+                      </NuxtLink>
+                    </div>
+                  </div>
+                </div>
+              </n-space>
+            </div>
+          </div>
+        </n-tab-pane>
+
+        <n-tab-pane
+          name="relations"
+          tab="Relations"
+          display-directive="show:lazy"
+        >
+          <template #tab>
+            <n-space align="center" class="px-2">
+              <Icon name="tabler:circles-relation" size="18" />
+
+              <span class="font-medium"> Relations</span>
+            </n-space>
+          </template>
+
+          <FlowRelationsGraph
+            class="vbackdrop-blur-xl vbackdrop-grayscale py-10"
+            :relations="{
+              internal:
+                (data?.InternalRelations as unknown as CatalogInternalRelation[]) ||
+                [],
+              external:
+                (data?.ExternalRelations as unknown as CatalogExternalRelation[]) ||
+                [],
+            }"
+            :resources="(data?.Resources as unknown as ResourceType[]) || []"
+          />
+        </n-tab-pane>
+
+        <n-tab-pane
+          name="changelog"
+          tab="Changelog"
+          display-directive="show:lazy"
+        >
+          <template #tab>
+            <n-space align="center" class="px-2">
+              <Icon name="fluent:history-24-filled" size="18" />
+
+              <span class="font-medium"> Changelog</span>
+            </n-space>
+          </template>
+
+          <MarkdownRender :content="data?.changelog" />
+        </n-tab-pane>
+
+        <n-tab-pane name="versions" tab="Versions">
+          <template #tab>
+            <n-space align="center" class="px-2">
+              <Icon name="mingcute:version-fill" size="18" />
+
+              <span class="font-medium"> Versions </span>
+            </n-space>
+          </template>
+
+          <DiscoverVersionSelector
+            :selected-version-identifier="selectedVersionIdentifier || ''"
+            :versions="(data?.Versions as Version[]) || []"
+            :collection-identifier="data?.collection.identifier || ''"
+          />
+        </n-tab-pane>
+
+        <n-tab-pane name="analytics" tab="Analytics">
+          <template #tab>
+            <n-space align="center" class="px-2">
+              <Icon name="bi:bar-chart-fill" size="18" />
+
+              <span class="font-medium"> Analytics</span>
+            </n-space>
+          </template>
+
+          <DiscoverCollectionViewsChart
+            class="py-5"
+            :collection-identifier="data?.collection.identifier || ''"
+          />
+
+          <DiscoverVersionResolutionsChart
+            class="py-5"
+            :version-identifier="data?.identifier || ''"
+          />
+        </n-tab-pane>
+      </n-tabs>
     </div>
 
     <div

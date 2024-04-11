@@ -27,7 +27,7 @@ if (props.content) {
 <template>
   <!-- eslint-disable vue/no-v-html -->
   <div
-    class="prose:text-black prose prose-lg max-w-none border-t pt-2"
+    class="prose:text-black prose prose-lg max-w-none pt-2"
     v-html="renderedMarkdown"
   />
   <!-- eslint-enable vue/no-v-html -->

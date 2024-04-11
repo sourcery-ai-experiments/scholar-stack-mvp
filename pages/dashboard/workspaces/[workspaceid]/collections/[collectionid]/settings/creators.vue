@@ -273,6 +273,7 @@ const confirmEdits = (e: MouseEvent) => {
                   <NuxtLink
                     v-if="element.identifierType === 'ORCID'"
                     :to="`https://orcid.org/${element.identifier}`"
+                    target="__blank"
                     class="text-lime-400/80 transition-all hover:text-lime-500"
                   >
                     <Icon name="simple-icons:orcid" size="20" />
@@ -281,6 +282,7 @@ const confirmEdits = (e: MouseEvent) => {
                   <NuxtLink
                     v-if="element.identifierType === 'ROR'"
                     :to="`https://ror.org/${element.identifier}`"
+                    target="__blank"
                     class="text-blue-400/80 transition-all hover:text-blue-500"
                   >
                     <Icon name="academicons:ror-square" size="25" />
@@ -289,6 +291,7 @@ const confirmEdits = (e: MouseEvent) => {
                   <NuxtLink
                     v-if="element.identifierType === 'ISNI'"
                     :to="`https://isni.org/${element.identifier}`"
+                    target="__blank"
                     class="text-blue-400/80 transition-all hover:text-blue-500"
                   >
                     <Icon name="academicons:isni" size="25" />
@@ -335,6 +338,7 @@ const confirmEdits = (e: MouseEvent) => {
         color="black"
         size="large"
         class="mt-4 w-max"
+        :disabled="loading"
         @click="openAddCreatorDrawer"
       >
         <template #icon>

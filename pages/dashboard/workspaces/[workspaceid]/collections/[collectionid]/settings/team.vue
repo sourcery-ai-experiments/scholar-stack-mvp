@@ -231,7 +231,7 @@ const inviteMember = async () => {
       <div
         v-for="member in publishAccess"
         :key="member.id"
-        class="flex items-center justify-between border border-slate-200 bg-white p-5"
+        class="flex items-center justify-between rounded-lg border border-slate-200 bg-white p-5"
       >
         <div class="flex items-center space-x-3">
           <n-avatar
@@ -337,7 +337,7 @@ const inviteMember = async () => {
 
     <div v-else class="flex flex-col">
       <div
-        class="flex items-center justify-center border border-slate-200 bg-white p-5"
+        class="flex items-center justify-center rounded-lg border border-slate-200 bg-white p-5"
       >
         <p class="text-center font-bold text-slate-600">
           No additional members have edit access to this collection

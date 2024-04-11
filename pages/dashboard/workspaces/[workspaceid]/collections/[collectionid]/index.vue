@@ -47,7 +47,7 @@ if (error.value) {
                 <Icon name="mdi:open-in-new" size="20" />
               </template>
 
-              View catalog page
+              View in Catalog
             </n-button>
           </NuxtLink>
         </div>
