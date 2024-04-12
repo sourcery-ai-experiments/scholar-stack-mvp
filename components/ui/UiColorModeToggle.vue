@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const route = useRoute();
 const colorMode = useColorMode();
 const { colorModePreference } = useNaiveColorMode();
 
@@ -19,11 +20,14 @@ const isDark = computed({
     colorModePreference.set(colorMode.value === "dark" ? "light" : "dark");
   },
 });
+
+const isHome = computed(() => route.path === "/");
 </script>
 
 <template>
   <ClientOnly>
     <UButton
+      v-if="!isHome"
       :icon="isDark ? 'i-heroicons-moon-20-solid' : 'i-heroicons-sun-20-solid'"
       color="gray"
       aria-label="Theme"

@@ -27,6 +27,12 @@ export default defineEventHandler(async (event) => {
 
   const workspaceId = nanoid();
 
+  /**
+   * todo: potential race condition here. If two requests come in at the same time, they could both create a personal workspace.
+   * to fix this we could use a transaction to check if the user has a personal workspace before creating one.
+   * or native sql https://stackoverflow.com/questions/11467925/execute-insert-statement-only-if-a-certain-condition-is-met
+   */
+
   // Create a personal workspace if the user doesn't have any
   if (!workspaces || workspaces.length === 0) {
     const personalWorkspace = await prisma.workspace.create({

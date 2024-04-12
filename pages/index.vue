@@ -1,5 +1,6 @@
 <script setup lang="ts">
 definePageMeta({
+  colorMode: "light",
   layout: "public",
 });
 </script>
@@ -41,7 +42,7 @@ definePageMeta({
         </h1>
 
         <p
-          class="mb-8 text-lg font-medium text-gray-700 sm:px-16 lg:text-xl xl:px-48"
+          class="mb-8 text-lg font-medium text-stone-700 sm:px-16 lg:text-xl xl:px-48 dark:text-stone-50"
         >
           Reimagining the links between scientific research outputs and the
           people who need them.

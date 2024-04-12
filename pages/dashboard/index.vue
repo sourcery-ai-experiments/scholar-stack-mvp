@@ -66,11 +66,11 @@ workspaceStore.setWorkspaces(workspaces.value || []);
           <div class="flex w-full items-center justify-start space-x-2">
             <n-avatar
               :size="40"
-              :src="`https://api.dicebear.com/6.x/shapes/svg?seed=${workspace.id}`"
-              class="hover:cursor-pointer hover:opacity-80"
+              :src="`https://api.dicebear.com/7.x/shapes/svg?seed=${workspace.id}`"
+              class="h-[40px] w-[40px] hover:cursor-pointer hover:opacity-80"
             />
 
-            <div class="flex w-full flex-col space-y-0">
+            <div class="flex grow flex-col space-y-0">
               <ContainerFlex justify="space-between">
                 <span class="text-lg font-medium">
                   {{ workspace.title }}
