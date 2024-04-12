@@ -40,7 +40,7 @@ const requestNewPage = (newPage: number) => {
 </script>
 
 <template>
-  <main class="grow bg-white px-4">
+  <main class="grow bg-white px-4 dark:bg-stone-900">
     <div class="mx-auto w-full max-w-screen-xl px-2.5 py-10 lg:px-20">
       <h1 class="mb-5">Recently published collections</h1>
 

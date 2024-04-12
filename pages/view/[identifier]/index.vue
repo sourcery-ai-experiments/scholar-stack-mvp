@@ -351,7 +351,7 @@ const removeCollectionStar = async () => {
             </n-space>
           </template>
 
-          <div class="flex flex-col">
+          <n-flex vertical>
             <div
               v-for="(group, name, index) in groupedResources"
               :key="index"
@@ -372,7 +372,7 @@ const removeCollectionStar = async () => {
                 <div
                   v-for="(resource, idx) of group || []"
                   :key="idx"
-                  class="flex w-full flex-grow flex-col rounded-md border border-slate-200 bg-white px-6 pt-4"
+                  class="flex w-full flex-grow flex-col rounded-md border border-stone-200 bg-white px-6 pt-4 dark:bg-stone-800"
                 >
                   <div class="flex w-full items-center justify-start pb-2">
                     <span class="text-lg font-medium">
@@ -424,7 +424,7 @@ const removeCollectionStar = async () => {
                 </div>
               </n-space>
             </div>
-          </div>
+          </n-flex>
         </n-tab-pane>
 
         <n-tab-pane

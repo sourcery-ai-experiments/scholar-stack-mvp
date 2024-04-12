@@ -1,12 +1,22 @@
 <script setup lang="ts">
 const colorMode = useColorMode();
+const { colorModePreference } = useNaiveColorMode();
 
 const isDark = computed({
   get() {
     return colorMode.value === "dark";
   },
   set() {
+    /**
+     * At some point we might need to select a single component
+     * but for now using both is fine
+     */
+
+    // Toggle the color mode for nuxt ui
     colorMode.preference = colorMode.value === "dark" ? "light" : "dark";
+
+    // Toggle the color mode for naive ui
+    colorModePreference.set(colorMode.value === "dark" ? "light" : "dark");
   },
 });
 </script>

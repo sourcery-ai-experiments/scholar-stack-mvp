@@ -36,7 +36,7 @@ const handleDownloadQRCode = () => {
 const copyToClipboard = (input: string) => {
   const source = input;
 
-  const { copied, copy, isSupported, text } = useClipboard({ source });
+  const { copied, copy, isSupported } = useClipboard({ source });
 
   if (!isSupported) {
     push.error("The Clipboard API is not supported by your browser");
