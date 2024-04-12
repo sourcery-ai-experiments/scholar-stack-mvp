@@ -6,13 +6,6 @@
       <n-button size="small"> Catalog </n-button>
     </nuxt-link>
 
-    <NuxtLink
-      class="text-sm text-slate-600 hover:text-slate-800"
-      to="/dashboard"
-    >
-      Dashboard
-    </NuxtLink>
-
     <NuxtLink class="text-sm text-slate-600 hover:text-slate-800" to="/docs">
       Docs
     </NuxtLink>

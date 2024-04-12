@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import sanitizeHtml from "sanitize-html";
-import { parse } from "marked";
 import calver from "calver";
 
 definePageMeta({
@@ -10,14 +8,8 @@ definePageMeta({
 
 const route = useRoute();
 
-const publishLoading = ref(false);
-const markdownToHtml = ref("");
-
-const sanitize = (html: string) => sanitizeHtml(html);
-
-const convertMarkdownToHtml = async (markdown: string = "No changelog") => {
-  return sanitize(await parse(markdown));
-};
+const publishCollectionModalIsOpen = ref(false);
+const publishCollectionLoading = ref(false);
 
 const { collectionid, workspaceid } = route.params as {
   collectionid: string;
@@ -52,13 +44,11 @@ if (collection.value) {
       `/dashboard/workspaces/${workspaceid}/collections/${collectionid}`,
     );
   }
-
-  markdownToHtml.value = await convertMarkdownToHtml(version?.changelog);
 }
 
 const {
   data: validationResults,
-  error: validationError,
+  error: _validationError,
   pending: validationPending,
 } = await useFetch(
   `/api/workspaces/${workspaceid}/collections/${collectionid}/validate`,
@@ -69,8 +59,12 @@ const {
   },
 );
 
+const openPublishCollectionModal = () => {
+  publishCollectionModalIsOpen.value = true;
+};
+
 const publishCollection = async () => {
-  publishLoading.value = true;
+  publishCollectionLoading.value = true;
 
   await $fetch(
     `/api/workspaces/${workspaceid}/collections/${collectionid}/publish`,
@@ -80,7 +74,7 @@ const publishCollection = async () => {
     },
   )
     .then((_res) => {
-      publishLoading.value = false;
+      publishCollectionLoading.value = false;
 
       push.success({
         title: "Collection published",
@@ -93,7 +87,7 @@ const publishCollection = async () => {
       window.location.href = `/dashboard/workspaces/${workspaceid}/collections/${collectionid}`;
     })
     .catch((error) => {
-      publishLoading.value = false;
+      publishCollectionLoading.value = false;
 
       console.log(error);
 
@@ -103,7 +97,7 @@ const publishCollection = async () => {
       });
     })
     .finally(() => {
-      publishLoading.value = false;
+      publishCollectionLoading.value = false;
     });
 };
 </script>
@@ -122,12 +116,12 @@ const publishCollection = async () => {
               v-if="!collection?.version?.published"
               size="large"
               color="black"
-              :loading="validationPending || publishLoading"
+              :loading="validationPending || publishCollectionLoading"
               :disabled="validationPending || !validationResults?.valid"
-              @click="publishCollection"
+              @click="openPublishCollectionModal"
             >
               <template #icon>
-                <Icon name="solar:star-bold" />
+                <Icon name="entypo:publish" />
               </template>
               Publish collection
             </n-button>
@@ -137,9 +131,10 @@ const publishCollection = async () => {
     </div>
 
     <div class="mx-auto w-full max-w-screen-xl px-2.5 pt-10 lg:px-20">
-      <n-alert type="warning">
+      <n-alert type="warning" title="Warning!">
         You are about to publish the collection
-        <strong>{{ collection?.title }}</strong>
+        <strong>{{ collection?.title }}</strong
+        >.
 
         <br />
 
@@ -153,15 +148,7 @@ const publishCollection = async () => {
     <div class="mx-auto w-full max-w-screen-xl px-2.5 lg:px-20">
       <div class="flex items-center justify-between space-x-4 pb-5 pt-10">
         <n-space align="center">
-          <h3>Validation</h3>
-
-          <n-tag :type="validationResults?.valid ? 'success' : 'error'">{{
-            validationResults?.valid ? "Valid" : "Invalid"
-          }}</n-tag>
-
-          <pre>
-            {{ validationError?.data.message }}
-          </pre>
+          <h3>Let's see if all details are provided</h3>
         </n-space>
       </div>
 
@@ -177,48 +164,65 @@ const publishCollection = async () => {
         </div>
 
         <n-space v-else vertical>
-          <n-list v-if="validationResults?.errors">
-            <n-list-item
-              v-for="error of validationResults.errors"
-              :key="error.id"
+          <n-flex
+            v-if="
+              validationResults?.errors && validationResults.errors.length > 0
+            "
+            vertical
+          >
+            <n-alert
+              type="error"
+              title="This collection has some issues that need to be resolved before
+                publishing."
             >
-              <n-space vertical>
-                <NuxtLink
-                  :to="`/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${error.id}`"
-                >
-                  {{ error.title || error.id }}
-                </NuxtLink>
+              Please fix the following issues before publishing the collection.
+            </n-alert>
 
-                <n-collapse>
-                  <n-collapse-item
-                    v-for="(issue, index) of error.issues"
-                    :key="index"
-                    :title="issue.path[0].toString()"
-                    :name="index"
+            <n-list>
+              <n-list-item
+                v-for="error of validationResults.errors"
+                :key="error.id"
+              >
+                <div>
+                  <NuxtLink
+                    :to="`/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${error.id}`"
+                    class="mb-1 text-lg font-semibold transition-all hover:text-slate-500"
                   >
-                    {{ issue.message }}
-                  </n-collapse-item>
-                </n-collapse>
-              </n-space>
-            </n-list-item>
-          </n-list>
+                    {{ error.title || error.id }}
+                  </NuxtLink>
 
-          <n-tag :type="validationResults?.valid ? 'success' : 'error'">
-            {{ validationResults?.valid ? "Valid" : "Invalid" }}
-          </n-tag>
+                  <ul>
+                    <li
+                      v-for="(issue, index) of error.issues"
+                      :key="index"
+                      class="py-1 pl-2 text-base"
+                    >
+                      <Icon name="codicon:error" size="16" color="red" />
+
+                      <span class="pl-1 font-medium">
+                        {{ issue.path[0].toString() }}
+                      </span>
+                      -
+                      {{ issue.message }}
+                    </li>
+                  </ul>
+                </div>
+              </n-list-item>
+            </n-list>
+          </n-flex>
+
+          <n-flex v-else>
+            <Icon name="mdi:check-circle" size="24" color="green" />
+
+            <p>All details are provided. You can now publish the collection.</p>
+          </n-flex>
         </n-space>
       </TransitionFade>
 
       <n-divider />
 
-      <div class="flex items-center justify-between space-x-4 pb-5 pt-10">
-        <n-space align="center">
-          <h3>Changelog</h3>
-
-          <n-tag v-if="collection?.version?.published === false" type="warning">
-            draft
-          </n-tag>
-        </n-space>
+      <div class="flex items-center justify-between space-x-4 py-5">
+        <h3>Changelog</h3>
 
         <NuxtLink
           :to="`/dashboard/workspaces/${workspaceid}/collections/${collectionid}/changelog`"
@@ -233,14 +237,72 @@ const publishCollection = async () => {
         </NuxtLink>
       </div>
 
-      <!-- eslint-disable vue/no-v-html -->
-      <div
-        class="prose mt-10 min-h-[300px] max-w-none"
-        v-html="markdownToHtml"
+      <MarkdownRender
+        :content="collection?.version?.changelog || 'No changelog provided'"
+        class="pb-10"
       />
-      <!-- eslint-enable vue/no-v-html -->
     </div>
 
     <ModalNewCollection />
+
+    <UModal
+      v-model="publishCollectionModalIsOpen"
+      :prevent-close="publishCollectionLoading"
+    >
+      <UCard>
+        <div class="sm:flex sm:items-start">
+          <div class="size-[50px]">
+            <ClientOnly>
+              <Vue3Lottie
+                animation-link="https://cdn.lottiel.ink/assets/l7OR00APs2klZnMWu8G4t.json"
+                :height="50"
+                :width="50"
+                :loop="1"
+              />
+            </ClientOnly>
+          </div>
+
+          <div class="mt-2 text-center sm:ml-4 sm:text-left">
+            <h3 class="text-base font-semibold leading-6 text-gray-900">
+              Are you sure you want to publish this collection?
+            </h3>
+
+            <div class="mt-2">
+              <p class="text-sm text-gray-500">
+                This action is not reversible and will make the collection
+                public. If needed, you can always publish a newer version but
+                this version will always still be available to the public.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <template #footer>
+          <div class="flex items-center justify-end space-x-2">
+            <n-button
+              type="error"
+              secondary
+              @click="publishCollectionModalIsOpen = false"
+            >
+              <template #icon>
+                <Icon name="material-symbols:cancel-outline" />
+              </template>
+              Cancel
+            </n-button>
+
+            <n-button
+              color="black"
+              :loading="publishCollectionLoading"
+              @click="publishCollection"
+            >
+              <template #icon>
+                <Icon name="entypo:publish" />
+              </template>
+              Publish collection
+            </n-button>
+          </div>
+        </template>
+      </UCard>
+    </UModal>
   </main>
 </template>

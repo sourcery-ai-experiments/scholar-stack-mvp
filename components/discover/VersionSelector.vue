@@ -90,7 +90,7 @@ const copyToClipboard = (input: string) => {
               </n-button>
             </template>
 
-            <span> Copy this URl to your clipboard </span>
+            <span> Copy this URL to your clipboard </span>
           </n-popover>
 
           <n-modal
@@ -128,7 +128,7 @@ const copyToClipboard = (input: string) => {
         :key="version.id"
         class="rounded-md px-3 py-3"
         :class="{
-          'border border-sky-300 bg-sky-100':
+          'border border-stone-200 bg-stone-50':
             version.identifier === selectedVersionIdentifier,
         }"
       >
@@ -159,7 +159,7 @@ const copyToClipboard = (input: string) => {
                   </n-button>
                 </template>
 
-                <span> Copy this URl to your clipboard </span>
+                <span> Copy this URL to your clipboard </span>
               </n-popover>
             </n-flex>
 

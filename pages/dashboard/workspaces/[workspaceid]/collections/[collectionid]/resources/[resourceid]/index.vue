@@ -10,10 +10,6 @@ definePageMeta({
 
 const route = useRoute();
 
-const resourceStore = useResourceStore();
-
-const devMode = process.env.NODE_ENV === "development";
-
 const removeResourceModalIsOpen = ref(false);
 const removeResourceLoadingIndicator = ref(false);
 const newResourceVersionModalIsOpen = ref(false);
@@ -87,6 +83,10 @@ const resourceType = computed(() => {
 
 const openRemoveResourceModal = () => {
   removeResourceModalIsOpen.value = true;
+};
+
+const openNewResourceVersionModal = () => {
+  newResourceVersionModalIsOpen.value = true;
 };
 
 const removeResource = async () => {
@@ -186,38 +186,6 @@ const createNewVersion = async () => {
             <h1>Overview</h1>
 
             <div class="flex items-center space-x-2">
-              <NuxtLink
-                :to="`/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/edit`"
-              >
-                <n-button ghost size="large">
-                  <template #icon>
-                    <Icon name="tabler:edit" />
-                  </template>
-
-                  Edit resource
-                </n-button>
-              </NuxtLink>
-
-              <n-button
-                v-if="
-                  resource &&
-                  'original_resource_id' in resource &&
-                  resource?.original_resource_id &&
-                  'action' in resource &&
-                  resource?.action !== 'newVersion'
-                "
-                ghost
-                size="large"
-                :loading="newResourceVersionLoadingIndicator"
-                @click="createNewVersion"
-              >
-                <template #icon>
-                  <Icon name="material-symbols:conversion-path" />
-                </template>
-
-                Create new version
-              </n-button>
-
               <n-button
                 size="large"
                 type="error"
@@ -231,6 +199,38 @@ const createNewVersion = async () => {
 
                 Delete resource
               </n-button>
+
+              <n-button
+                v-if="
+                  resource &&
+                  'original_resource_id' in resource &&
+                  resource?.original_resource_id &&
+                  'action' in resource &&
+                  resource?.action !== 'newVersion'
+                "
+                ghost
+                size="large"
+                :loading="newResourceVersionLoadingIndicator"
+                @click="openNewResourceVersionModal"
+              >
+                <template #icon>
+                  <Icon name="material-symbols:conversion-path" />
+                </template>
+
+                Create new version
+              </n-button>
+
+              <NuxtLink
+                :to="`/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/edit`"
+              >
+                <n-button color="black" size="large">
+                  <template #icon>
+                    <Icon name="tabler:edit" />
+                  </template>
+
+                  Edit resource
+                </n-button>
+              </NuxtLink>
             </div>
           </n-space>
 
@@ -245,7 +245,7 @@ const createNewVersion = async () => {
       </div>
     </div>
 
-    <div class="mx-auto w-full max-w-screen-xl px-2.5 lg:px-20">
+    <div class="mx-auto w-full max-w-screen-xl px-2.5 pb-10 lg:px-20">
       <div class="flex items-center justify-between space-x-4 pb-5 pt-10">
         <h2>About</h2>
 
@@ -365,6 +365,62 @@ const createNewVersion = async () => {
                 <Icon name="ph:warning-duotone" />
               </template>
               Remove resource
+            </n-button>
+          </div>
+        </template>
+      </UCard>
+    </UModal>
+
+    <UModal
+      v-model="newResourceVersionModalIsOpen"
+      :prevent-close="newResourceVersionLoadingIndicator"
+    >
+      <UCard>
+        <div class="sm:flex sm:items-start">
+          <div class="size-[50px]">
+            <ClientOnly>
+              <Vue3Lottie
+                animation-link="https://cdn.lottiel.ink/assets/l7OR00APs2klZnMWu8G4t.json"
+                :height="50"
+                :width="50"
+                :loop="1"
+              />
+            </ClientOnly>
+          </div>
+
+          <div class="mt-2 text-center sm:ml-4 sm:text-left">
+            <h3 class="text-base font-semibold leading-6 text-gray-900">
+              Are you sure you want to create a new version of this resource?
+            </h3>
+
+            <div class="mt-2">
+              <p class="text-sm text-gray-500">
+                This action will create a new version of this resource. This
+                action is reversible until you publish this collection.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <template #footer>
+          <div class="flex items-center justify-end space-x-2">
+            <n-button @click="newResourceVersionModalIsOpen = false">
+              <template #icon>
+                <Icon name="material-symbols:cancel-outline" />
+              </template>
+              Cancel
+            </n-button>
+
+            <n-button
+              type="error"
+              secondary
+              :loading="newResourceVersionLoadingIndicator"
+              @click="createNewVersion"
+            >
+              <template #icon>
+                <Icon name="material-symbols:conversion-path" />
+              </template>
+              Create new version
             </n-button>
           </div>
         </template>
