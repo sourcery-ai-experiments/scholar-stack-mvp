@@ -75,39 +75,40 @@ if (error.value) {
         {{ collection?.description || "No description provided" }}
       </p>
 
-      <h3 class="pb-2 pt-5">Detailed Description</h3>
+      <h3 class="pb-2 pt-7">Detailed Description</h3>
 
       <MarkdownRender
-        :content="
-          collection?.detailedDescription || 'No detailed description provided'
-        "
+        v-if="collection?.detailedDescription"
+        :content="collection?.detailedDescription || ''"
       />
 
-      <h3 class="pb-2 pt-5">Identifer</h3>
+      <p v-else class="text-lg">No detailed description provided</p>
+
+      <h3 class="pb-2 pt-7">Identifer</h3>
 
       <p class="text-lg">
         {{ collection?.identifier }}
       </p>
 
-      <h3 class="pb-2 pt-5">Visibility</h3>
+      <h3 class="pb-2 pt-7">Visibility</h3>
 
-      <p class="text-lg">
-        {{ collection?.private ? "Private" : "Public" }}
-      </p>
+      <n-tag v-if="collection?.private" type="warning"> Private </n-tag>
 
-      <h3 class="pb-2 pt-5">Created on</h3>
+      <n-tag v-else type="success"> Public </n-tag>
+
+      <h3 class="pb-2 pt-7">Created on</h3>
 
       <p class="text-lg">
         {{ displayLongDate(collection?.created as string) }}
       </p>
 
-      <h3 class="pb-2 pt-5">Last updated</h3>
+      <h3 class="pb-2 pt-7">Last updated</h3>
 
       <p class="text-lg">
         {{ displayLongDate(collection?.updated as string) }}
       </p>
 
-      <h3 class="pb-3 pt-5">Image</h3>
+      <h3 class="pb-3 pt-7">Image</h3>
 
       <n-image
         :src="collection?.image_url"
