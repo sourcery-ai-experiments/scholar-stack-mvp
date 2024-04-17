@@ -82,9 +82,6 @@ const signIn = (e: MouseEvent) => {
         return;
       }
 
-      /**
-       * TODO: This is ugly and needs to be changed.
-       */
       // create the user profile if it doesn't exist
       await $fetch("/api/user", {
         headers: useRequestHeaders(["cookie"]),

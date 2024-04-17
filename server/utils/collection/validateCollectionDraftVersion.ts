@@ -54,9 +54,6 @@ export default defineEventHandler(async (event) => {
         title: resource.title,
       });
     }
-
-    // todo: might also need to validate the relations
-    // Although this might be handled at relation post so might not be needed
   }
 
   if (resourcesWithErrors.length > 0) {

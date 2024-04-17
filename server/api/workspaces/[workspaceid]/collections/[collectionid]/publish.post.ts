@@ -200,8 +200,6 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  // todo: resources done for the version. 01/15/24
-
   const updatedDraftVersion = await prisma.version.findFirst({
     include: {
       Resources: true,

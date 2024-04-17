@@ -186,10 +186,6 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  // todo: remove relations upon deletion
-  // Added cascade delete to the database. This should be handled by the database instead.
-  // check if this works though
-
   await touchCollection(collectionid);
 
   return {

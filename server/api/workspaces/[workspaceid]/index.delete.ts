@@ -18,7 +18,6 @@ export default defineEventHandler(async (event) => {
   }
 
   // Check if workspace is personal
-
   if (workspace.personal) {
     throw createError({
       message: "Cannot delete personal workspace",
@@ -26,17 +25,19 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  // todo: if we need to block this process, we can do it here
-
   // Get all the collections in the workspace and set the workspace_id to null
-  await prisma.collection.updateMany({
+  const orphanCollections = prisma.collection.updateMany({
     data: { workspace_id: null },
     where: { workspace_id: workspaceid },
   });
 
-  await prisma.workspace.delete({
+  // Delete the workspace
+  const deleteWorkspace = prisma.workspace.delete({
     where: { id: workspaceid },
   });
+
+  // Running both queries in a transaction to ensure atomicity
+  await prisma.$transaction([orphanCollections, deleteWorkspace]);
 
   return {
     message: "Workspace deleted",

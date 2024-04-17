@@ -7,6 +7,8 @@ export default defineEventHandler(async (event) => {
   const user = await serverSupabaseUser(event);
   const userid = user?.id as string;
 
+  const workspaceId = nanoid();
+
   const workspaces = await prisma.workspaceMember.findMany({
     select: {
       workspace: {
@@ -24,8 +26,6 @@ export default defineEventHandler(async (event) => {
       user_id: user?.id,
     },
   });
-
-  const workspaceId = nanoid();
 
   /**
    * todo: potential race condition here. If two requests come in at the same time, they could both create a personal workspace.

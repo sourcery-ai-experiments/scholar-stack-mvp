@@ -151,7 +151,7 @@ const saveCreators = async () => {
 
       push.success("Creators updated successfully.");
 
-      creators.value = normalizeCreators(data); // todo: might not be needed
+      creators.value = normalizeCreators(data);
       showCreatorDrawer.value = false;
     })
     .catch((error) => {

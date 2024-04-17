@@ -78,30 +78,6 @@ const deleteWorkspace = () => {
   });
 
   deleteWorkspaceModalIsOpen.value = false;
-  // todo: add a confirmation modal
-
-  // const { data, error } = await useFetch(`/api/workspaces/${workspaceid}`, {
-  //   headers: useRequestHeaders(["cookie"]),
-  //   method: "DELETE",
-  // });
-
-  // if (error.value) {
-  //   console.log(error.value);
-
-  //   push.error({
-  //     title: "Something went wrong",
-  //     message: "We couldn't delete your workspace",
-  //   });
-  // }
-
-  // if (data.value) {
-  //   push.success({
-  //     title: "Success",
-  //     message: "Your workspace has been deleted",
-  //   });
-
-  //   navigateTo("/dashboard");
-  // }
 };
 </script>
 

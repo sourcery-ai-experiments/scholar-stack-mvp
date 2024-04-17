@@ -151,15 +151,17 @@ const {
   },
 );
 
-// TODO: might need to make this into a watch statement
-if (resourceListError.value) {
-  console.log(resourceListError.value);
+// Show an error message if the resource list fails to load
+watchEffect(() => {
+  if (resourceListError.value) {
+    console.log(resourceListError.value);
 
-  push.error({
-    title: "Something went wrong",
-    message: "We couldn't load your resources",
-  });
-}
+    push.error({
+      title: "Something went wrong",
+      message: "We couldn't load your resources",
+    });
+  }
+});
 
 const renderLabel = (option: SelectOption): any => {
   return [
