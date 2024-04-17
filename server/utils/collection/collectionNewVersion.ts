@@ -1,4 +1,5 @@
 import { nanoid } from "nanoid";
+import { createId } from "@paralleldrive/cuid2";
 
 /**
  * Create a new unpublished draft version of a collection
@@ -7,6 +8,11 @@ import { nanoid } from "nanoid";
 const createNewVersion = async (collectionid: string) => {
   // get the latest version of the collection
   const latestVersion = await prisma.version.findFirst({
+    include: {
+      ExternalRelations: true,
+      InternalRelations: true,
+      Resources: true,
+    },
     orderBy: { created: "desc" },
     where: { collection_id: collectionid },
   });
@@ -44,6 +50,76 @@ const createNewVersion = async (collectionid: string) => {
       });
     }
 
+    // Get all the resources in the latest version
+    const originalResources = latestVersion.Resources;
+    const originalExternalRelations = latestVersion.ExternalRelations;
+    const originalInternalRelations = latestVersion.InternalRelations;
+
+    // clone each resource;
+    const clonedResources = originalResources.map((resource) => {
+      return {
+        id: createId(),
+        title: resource.title,
+        action: "clone",
+        back_link_id: resource.back_link_id, // todo: check if this is correct
+        description: resource.description,
+        filled_in: true,
+        identifier: resource.identifier,
+        identifier_type: resource.identifier_type,
+        original_resource_id: resource.id,
+        resource_type: resource.resource_type,
+        version_label: resource.version_label,
+      };
+    });
+
+    const clonedExternalRelations = originalExternalRelations.map(
+      (externalRelation) => {
+        const externalRelationClonedSourceResource = clonedResources.find(
+          (resource) =>
+            resource.original_resource_id === externalRelation.source_id,
+        );
+
+        // todo: what to do if this is not found?
+        // This should never happen but we probably need some thing here regardless
+        const externalRelationClonedSourceResourceId =
+          externalRelationClonedSourceResource?.id as string;
+
+        return {
+          id: createId(),
+          action: "clone",
+          original_relation_id: externalRelation.id,
+          resource_type: externalRelation.resource_type || null,
+          source_id: externalRelationClonedSourceResourceId,
+          target: externalRelation.target,
+          target_type: externalRelation.target_type,
+          type: externalRelation.type,
+        };
+      },
+    );
+
+    const clonedInternalRelations = originalInternalRelations.map(
+      (internalRelation) => {
+        const internalRelationClonedSourceResource = clonedResources.find(
+          (resource) =>
+            resource.original_resource_id === internalRelation.source_id,
+        );
+
+        const internalRelationClonedSourceResourceId =
+          internalRelationClonedSourceResource?.id as string;
+
+        return {
+          id: createId(),
+          action: "clone",
+          mirror: internalRelation.mirror,
+          original_relation_id: internalRelation.id,
+          resource_type: internalRelation.resource_type,
+          source_id: internalRelationClonedSourceResourceId,
+          target_id: internalRelation.target_id,
+          type: internalRelation.type,
+        };
+      },
+    );
+
     const draftVersion = await prisma.version.create({
       data: {
         name: "Draft",
@@ -53,105 +129,47 @@ const createNewVersion = async (collectionid: string) => {
       },
     });
 
-    // Get all the resources in the latest version
-
-    const originalResources = await prisma.resource.findMany({
-      where: {
-        Version: {
-          some: {
-            id: latestVersion.id,
-          },
+    const clonedResourcesTransaction = prisma.version.update({
+      data: {
+        Resources: {
+          create: clonedResources.map((resource) => {
+            return {
+              ...resource,
+            };
+          }),
         },
+      },
+      where: {
+        id: draftVersion.id,
       },
     });
 
-    // clone each resource into the staging table
-    for (const originalResource of originalResources) {
-      // clone the resource itself
-      const newStagingResource = await prisma.resource.create({
-        data: {
-          title: originalResource.title,
-          action: "clone",
-          back_link_id: originalResource.back_link_id, // todo: check if this is correct
-          description: originalResource.description,
-          filled_in: true,
-          identifier: originalResource.identifier,
-          identifier_type: originalResource.identifier_type,
-          original_resource_id: originalResource.id,
-          resource_type: originalResource.resource_type,
-          Version: {
-            connect: {
-              id: draftVersion.id,
-            },
-          },
-          version_label: originalResource.version_label,
+    const clonedRelationsTransaction = prisma.version.update({
+      data: {
+        ExternalRelations: {
+          create: clonedExternalRelations.map((externalRelation) => {
+            return {
+              ...externalRelation,
+            };
+          }),
         },
-      });
-
-      // clone the relations to the resource
-
-      // clone the external relations
-      const originalExternalRelations = await prisma.externalRelation.findMany({
-        where: {
-          source_id: originalResource.id,
-          Version: {
-            some: {
-              id: latestVersion.id,
-            },
-          },
+        InternalRelations: {
+          create: clonedInternalRelations.map((internalRelation) => {
+            return {
+              ...internalRelation,
+            };
+          }),
         },
-      });
+      },
+      where: {
+        id: draftVersion.id,
+      },
+    });
 
-      for (const originalExternalRelation of originalExternalRelations) {
-        await prisma.externalRelation.create({
-          data: {
-            action: "clone",
-            original_relation_id: originalExternalRelation.id,
-            resource_type: originalExternalRelation.resource_type || null,
-            source_id: newStagingResource.id,
-            target: originalExternalRelation.target,
-            target_type: originalExternalRelation.target_type,
-            type: originalExternalRelation.type,
-            Version: {
-              connect: {
-                id: draftVersion.id,
-              },
-            },
-          },
-        });
-      }
-
-      // clone the internal relations
-      const originalInternalRelations = await prisma.internalRelation.findMany({
-        where: {
-          source_id: originalResource.id,
-          Version: {
-            some: {
-              id: latestVersion.id,
-            },
-          },
-        },
-      });
-
-      for (const originalInternalRelation of originalInternalRelations) {
-        await prisma.internalRelation.create({
-          data: {
-            action: "clone",
-            mirror: originalInternalRelation.mirror,
-            original_relation_id: originalInternalRelation.id,
-            resource_type: originalInternalRelation.resource_type,
-            source_id: newStagingResource.id,
-            target_id: originalInternalRelation.target_id,
-            type: originalInternalRelation.type,
-            Version: {
-              connect: {
-                id: draftVersion.id,
-              },
-            },
-          },
-        });
-      }
-    }
+    await prisma.$transaction([
+      clonedResourcesTransaction,
+      clonedRelationsTransaction,
+    ]);
 
     return {
       statusCode: 201,
