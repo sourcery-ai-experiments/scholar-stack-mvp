@@ -86,8 +86,48 @@ const generateEditorDropdownOptions = (memberid: string) => {
   ];
 };
 
-const manageMember = (key: string | number) => {
-  console.log(key);
+const manageMember = async (userid: string | number) => {
+  const body = {
+    userid,
+  };
+
+  await $fetch(
+    `/api/workspaces/${workspaceid}/collections/${collectionid}/members/admin`,
+    {
+      body: JSON.stringify(body),
+      headers: useRequestHeaders(["cookie"]),
+      method: "PUT",
+    },
+  )
+    .then((response) => {
+      push.success({
+        title: "Success",
+        message: "This editor has been assigned as an administrator",
+      });
+
+      // Add the member to the publish access list
+      publishAccess.value.push({
+        id: response.admin.id || "",
+        username: response.admin.username || "",
+        name: response.admin.name || "",
+        created: new Date().toDateString(),
+        emailAddress: response.admin.email_address || "",
+        role: "collection-admin",
+      });
+
+      // Remove the member from the edit access list
+      editAccess.value = editAccess.value.filter(
+        (member) => member.id !== userid,
+      );
+    })
+    .catch((error) => {
+      console.log(error);
+
+      push.error({
+        title: "Something went wrong",
+        message: "We couldn't assign this editor as an administrator",
+      });
+    });
 };
 
 const {
@@ -323,7 +363,7 @@ const inviteMember = async () => {
             trigger="click"
             placement="bottom-end"
             :options="generateEditorDropdownOptions(member.id)"
-            @select="manageMember"
+            @select="manageMember(member.id)"
           >
             <n-button secondary :loading="collectionPermissionGetLoading">
               <template #icon>
