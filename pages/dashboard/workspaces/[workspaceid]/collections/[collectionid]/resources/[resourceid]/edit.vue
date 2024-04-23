@@ -155,7 +155,7 @@ const { collectionPermissionAbility, collectionPermissionGetLoading } =
 const disableEditing = computed(() => {
   return (
     collectionPermissionGetLoading.value ||
-    collectionPermissionAbility.value.includes("edit")
+    !collectionPermissionAbility.value.includes("edit")
   );
 });
 

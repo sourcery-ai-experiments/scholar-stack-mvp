@@ -126,7 +126,7 @@ const addResource = async () => {
           :disabled="
             !collection?.version ||
             collection?.version?.published ||
-            collectionPermissionAbility.includes('edit') ||
+            !collectionPermissionAbility.includes('edit') ||
             collectionPermissionGetLoading
           "
           :loading="newResourceLoading"

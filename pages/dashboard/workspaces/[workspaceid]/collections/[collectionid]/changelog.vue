@@ -64,7 +64,7 @@ const { collectionPermissionAbility, collectionPermissionGetLoading } =
 const disableChangelogFeature = computed(() => {
   return (
     collectionPermissionGetLoading.value ||
-    collectionPermissionAbility.value.includes("edit")
+    !collectionPermissionAbility.value.includes("edit")
   );
 });
 
