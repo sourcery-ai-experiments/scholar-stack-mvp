@@ -33,6 +33,10 @@ export default defineNuxtConfig({
     enabled: true,
   },
 
+  experimental: {
+    typedPages: true,
+  },
+
   image: {
     domains: ["api.dicebear.com"],
   },

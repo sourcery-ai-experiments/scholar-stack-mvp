@@ -16,12 +16,18 @@ definePageMeta({
 
 const route = useRoute();
 
+const { collectionid, resourceid, workspaceid } = route.params as {
+  collectionid: string;
+  resourceid: string;
+  workspaceid: string;
+};
+
 const resourceStore = useResourceStore();
 
 const formRef = ref<FormInst | null>(null);
 
 const formData = reactive<ResourceType>({
-  id: route.params.resourceid as string,
+  id: resourceid,
   title: faker.commerce.productName(),
   back_link_id: "",
   created: "",
@@ -91,12 +97,6 @@ const selectedIdentifier = computed(() => {
 
 const saveResourceLoadingIndicator = ref(false);
 
-const { collectionid, resourceid, workspaceid } = route.params as {
-  collectionid: string;
-  resourceid: string;
-  workspaceid: string;
-};
-
 const { data: resource, error } = await useFetch(
   `/api/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}`,
   {
@@ -148,6 +148,16 @@ if (resource.value && "action" in resource.value) {
   formData.filled_in = resource.value.filled_in || false;
   formData.back_link_id = resource.value.back_link_id || null;
 }
+
+const { collectionPermissionAbility, collectionPermissionGetLoading } =
+  await useCollectionPermission(workspaceid, collectionid);
+
+const disableEditing = computed(() => {
+  return (
+    collectionPermissionGetLoading.value ||
+    !collectionPermissionAbility.value.includes("edit")
+  );
+});
 
 const selectIcon = (type: string) => {
   const resourceType = resourceTypeOptions.find(
@@ -272,6 +282,7 @@ const saveResourceData = () => {
             size="large"
             color="black"
             :loading="saveResourceLoadingIndicator"
+            :disabled="disableEditing"
             @click="saveResourceData"
           >
             <template #icon>
