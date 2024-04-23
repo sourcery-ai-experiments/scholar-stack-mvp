@@ -61,6 +61,17 @@ if (resource.value && "action" in resource.value) {
   }
 }
 
+const { collectionPermission, collectionPermissionGetLoading } =
+  await useCollectionPermission(workspaceid, collectionid);
+
+const disableEditing = computed(() => {
+  return (
+    collectionPermissionGetLoading.value ||
+    (collectionPermission.value !== "editor" &&
+      collectionPermission.value !== "admin")
+  );
+});
+
 const resourceType = computed(() => {
   if (!resource.value) {
     return "Unknown";
@@ -191,6 +202,7 @@ const createNewVersion = async () => {
                 type="error"
                 secondary
                 :loading="removeResourceLoadingIndicator"
+                :disabled="disableEditing"
                 @click="openRemoveResourceModal"
               >
                 <template #icon>
@@ -210,6 +222,7 @@ const createNewVersion = async () => {
                 "
                 ghost
                 size="large"
+                :disabled="disableEditing"
                 :loading="newResourceVersionLoadingIndicator"
                 @click="openNewResourceVersionModal"
               >
@@ -223,7 +236,7 @@ const createNewVersion = async () => {
               <NuxtLink
                 :to="`/dashboard/workspaces/${workspaceid}/collections/${collectionid}/resources/${resourceid}/edit`"
               >
-                <n-button color="black" size="large">
+                <n-button color="black" size="large" :disabled="disableEditing">
                   <template #icon>
                     <Icon name="tabler:edit" />
                   </template>

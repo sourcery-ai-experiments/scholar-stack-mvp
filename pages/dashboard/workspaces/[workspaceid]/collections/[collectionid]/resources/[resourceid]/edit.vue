@@ -149,6 +149,17 @@ if (resource.value && "action" in resource.value) {
   formData.back_link_id = resource.value.back_link_id || null;
 }
 
+const { collectionPermission, collectionPermissionGetLoading } =
+  await useCollectionPermission(workspaceid, collectionid);
+
+const disableEditing = computed(() => {
+  return (
+    collectionPermissionGetLoading.value ||
+    (collectionPermission.value !== "editor" &&
+      collectionPermission.value !== "admin")
+  );
+});
+
 const selectIcon = (type: string) => {
   const resourceType = resourceTypeOptions.find(
     (resourceType) => resourceType.value === type,
@@ -272,6 +283,7 @@ const saveResourceData = () => {
             size="large"
             color="black"
             :loading="saveResourceLoadingIndicator"
+            :disabled="disableEditing"
             @click="saveResourceData"
           >
             <template #icon>
