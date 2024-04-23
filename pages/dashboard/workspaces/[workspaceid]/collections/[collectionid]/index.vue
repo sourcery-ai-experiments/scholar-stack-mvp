@@ -111,7 +111,7 @@ if (error.value) {
       <h3 class="pb-3 pt-7">Image</h3>
 
       <n-image
-        :src="collection?.image_url"
+        :src="`${collection?.image_url}?t=${collection?.updated}`"
         :alt="collection?.title"
         class="h-[200px] w-auto"
       />
