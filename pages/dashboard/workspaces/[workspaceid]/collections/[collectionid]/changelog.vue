@@ -58,6 +58,17 @@ if (data.value) {
   }
 }
 
+const { collectionPermission, collectionPermissionGetLoading } =
+  await useCollectionPermission(workspaceid, collectionid);
+
+const disableChangelogFeature = computed(() => {
+  return (
+    collectionPermissionGetLoading.value ||
+    (collectionPermission.value !== "editor" &&
+      collectionPermission.value !== "admin")
+  );
+});
+
 const saveChangelog = async () => {
   saveLoading.value = true;
 
@@ -111,6 +122,7 @@ const saveChangelog = async () => {
             size="large"
             color="black"
             :loading="saveLoading"
+            :disabled="disableChangelogFeature"
             @click="saveChangelog"
           >
             <template #icon>
@@ -130,6 +142,7 @@ const saveChangelog = async () => {
           language="en-US"
           preview-theme="github"
           :show-code-row-number="true"
+          :disabled="disableChangelogFeature"
           :sanitize="sanitize"
         />
       </div>

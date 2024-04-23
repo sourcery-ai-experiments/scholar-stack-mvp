@@ -36,6 +36,9 @@ if (error.value) {
   navigateTo(`/dashboard/workspaces/${workspaceid}`);
 }
 
+const { collectionPermission, collectionPermissionGetLoading } =
+  await useCollectionPermission(workspaceid, collectionid);
+
 const selectIcon = (type: string) => {
   const resourceType = resourceTypeOptions.find(
     (resourceType) => resourceType.value === type,
@@ -120,7 +123,13 @@ const addResource = async () => {
           v-if="collection?.version"
           size="large"
           color="black"
-          :disabled="!collection?.version || collection?.version?.published"
+          :disabled="
+            !collection?.version ||
+            collection?.version?.published ||
+            (collectionPermission !== 'admin' &&
+              collectionPermission !== 'editor') ||
+            collectionPermissionGetLoading
+          "
           :loading="newResourceLoading"
           @click="addResource"
         >
