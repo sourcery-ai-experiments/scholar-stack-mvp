@@ -58,14 +58,13 @@ if (data.value) {
   }
 }
 
-const { collectionPermission, collectionPermissionGetLoading } =
+const { collectionPermissionAbility, collectionPermissionGetLoading } =
   await useCollectionPermission(workspaceid, collectionid);
 
 const disableChangelogFeature = computed(() => {
   return (
     collectionPermissionGetLoading.value ||
-    (collectionPermission.value !== "editor" &&
-      collectionPermission.value !== "admin")
+    collectionPermissionAbility.value.includes("edit")
   );
 });
 

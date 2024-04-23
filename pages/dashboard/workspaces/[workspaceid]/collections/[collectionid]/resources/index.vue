@@ -36,7 +36,7 @@ if (error.value) {
   navigateTo(`/dashboard/workspaces/${workspaceid}`);
 }
 
-const { collectionPermission, collectionPermissionGetLoading } =
+const { collectionPermissionAbility, collectionPermissionGetLoading } =
   await useCollectionPermission(workspaceid, collectionid);
 
 const selectIcon = (type: string) => {
@@ -126,8 +126,7 @@ const addResource = async () => {
           :disabled="
             !collection?.version ||
             collection?.version?.published ||
-            (collectionPermission !== 'admin' &&
-              collectionPermission !== 'editor') ||
+            collectionPermissionAbility.includes('edit') ||
             collectionPermissionGetLoading
           "
           :loading="newResourceLoading"

@@ -46,7 +46,7 @@ if (collection.value) {
   }
 }
 
-const { collectionPermission, collectionPermissionGetLoading } =
+const { collectionPermissionAbility, collectionPermissionGetLoading } =
   await useCollectionPermission(workspaceid, collectionid);
 
 const {
@@ -124,7 +124,7 @@ const publishCollection = async () => {
                 validationPending ||
                 !validationResults?.valid ||
                 collectionPermissionGetLoading ||
-                collectionPermission !== 'admin'
+                collectionPermissionAbility.includes('publish')
               "
               @click="openPublishCollectionModal"
             >
