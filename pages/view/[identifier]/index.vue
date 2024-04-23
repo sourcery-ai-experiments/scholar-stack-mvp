@@ -333,7 +333,7 @@ const removeCollectionStar = async () => {
 
         <div class="relative col-span-3 pt-4">
           <NuxtImg
-            :src="data?.collection.image_url"
+            :src="`${data?.collection.image_url}?t=${data?.collection.updated}`"
             :alt="data?.collection.title"
             class="h-auto w-full rounded-lg"
           />
